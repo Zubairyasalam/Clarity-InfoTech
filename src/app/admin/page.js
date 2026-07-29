@@ -490,6 +490,51 @@ export default function AdminDashboard() {
   const [pageProjectsData, setPageProjectsData] = useState(DEFAULT_PAGE_PROJECTS);
   const [pageProjectsSaveSuccess, setPageProjectsSaveSuccess] = useState(false);
 
+  // Our Service Page State
+  const DEFAULT_PAGE_SERVICE = {
+    heroTitle: "Our Service",
+    heroSubtitle: "We believe great products are built by happy, collaborative teams.",
+    sec1Title: "Building Future-Ready Teams Through Innovation",
+    sec1Description: "At Clarity InfoTech, we foster an environment where creativity, learning, and team coordination are valued. We support every team member in reaching their potential, encouraging open collaboration, and building high-performance digital products together.",
+    coreValues: [
+      { title: "Innovation First", icon: "Lightbulb", desc: "We encourage creativity, experimentation, and continuous learning." },
+      { title: "Collaborative Environment", icon: "Users", desc: "Every project is built through teamwork, communication, and shared success." },
+      { title: "Growth & Learning", icon: "TrendingUp", desc: "Employees receive mentorship, training, and opportunities to grow." }
+    ],
+    serviceCards: [
+      { title: "Web Development", icon: "Code2", desc: "Modern, responsive web apps tailored to your brand and business goals." },
+      { title: "Mobile Apps", icon: "Smartphone", desc: "Native-feel iOS & Android apps built for performance and scale." },
+      { title: "Cloud Services", icon: "Cloud", desc: "Reliable, scalable cloud infrastructure with 99.9% uptime SLAs." },
+      { title: "AI Solutions", icon: "Cpu", desc: "Intelligent automation and ML models to supercharge your operations." },
+      { title: "Cybersecurity", icon: "Shield", desc: "End-to-end security audits, VAPT, and compliance frameworks." },
+      { title: "Data Analytics", icon: "BarChart3", desc: "Real-time dashboards and BI that turn data into decisions." }
+    ],
+    sec2Badge: "02 / OUR CULTURE & TEAM IMPACT",
+    sec2Title: "Building Great Teams, Creating Greater Impact!",
+    sec2Subtitle: "At Clarity InfoTech, we foster a culture of innovation, collaboration, and continuous learning where every individual grows and makes a real-world difference.",
+    circleNodes: [
+      { label: "Innovation", icon: "Zap", desc: "Cutting-edge technology solutions that push boundaries." },
+      { label: "Excellence", icon: "Star", desc: "Delivering nothing short of the highest quality in every project." },
+      { label: "Wellness", icon: "Heart", desc: "We care deeply about the wellbeing of our team and clients." },
+      { label: "Learning", icon: "BookOpen", desc: "Continuous upskilling keeps our team at the forefront." },
+      { label: "Collaboration", icon: "Handshake", desc: "Open communication and shared ownership drive our results." },
+      { label: "Growth", icon: "TrendingUp", desc: "We believe in nurturing talent and providing clear paths for personal and professional advancement through continuous mentorship." }
+    ],
+    sec3Title: "Connecting Businesses and Innovation Worldwide",
+    sec3Description: "Clarity InfoTech proudly partners with businesses across multiple countries, delivering innovative digital solutions that drive growth and transformation. We write custom software development and enterprise platforms, AI-powered solutions, cloud technologies, and enterprise platforms. We help organisations achieve their goals with scalable, secure, and high-performance products.",
+    stats: [
+      { value: "15+", label: "Countries Served", icon: "Globe" },
+      { value: "500+", label: "Products & Projects", icon: "Award" },
+      { value: "50+", label: "Global Partners", icon: "Handshake" },
+      { value: "100%", label: "Client Satisfaction", icon: "Star" }
+    ],
+    ctaTitle: "Ready to Start Your Journey With Us?",
+    ctaSubtitle: "Let's discuss how we can help your business grow with the right technology and the right team.",
+    ctaButtonText: "Get In Touch"
+  };
+  const [pageServiceData, setPageServiceData] = useState(DEFAULT_PAGE_SERVICE);
+  const [pageServiceSaveSuccess, setPageServiceSaveSuccess] = useState(false);
+
   const DEFAULT_HEADER = {
     logo: "/logo.png",
     links: [
@@ -608,6 +653,14 @@ export default function AdminDashboard() {
         try { setPageProjectsData({ ...DEFAULT_PAGE_PROJECTS, ...JSON.parse(storedPageProjects) }); } catch { }
       } else {
         localStorage.setItem("clarity_page_projects", JSON.stringify(DEFAULT_PAGE_PROJECTS));
+      }
+
+      // Load Our Service Page data
+      const storedPageService = localStorage.getItem("clarity_page_service");
+      if (storedPageService) {
+        try { setPageServiceData({ ...DEFAULT_PAGE_SERVICE, ...JSON.parse(storedPageService) }); } catch { }
+      } else {
+        localStorage.setItem("clarity_page_service", JSON.stringify(DEFAULT_PAGE_SERVICE));
       }
     }
   }, []);
@@ -938,6 +991,30 @@ export default function AdminDashboard() {
     setTimeout(() => setPageProjectsSaveSuccess(false), 2500);
   };
   const resetPageProjects = () => { if (confirm("Reset Our Projects page to defaults?")) { setPageProjectsData(DEFAULT_PAGE_PROJECTS); localStorage.setItem("clarity_page_projects", JSON.stringify(DEFAULT_PAGE_PROJECTS)); } };
+
+  // Our Service Page CRUD
+  const updatePageServiceField = (key, val) => setPageServiceData(d => ({ ...d, [key]: val }));
+  
+  const updateCoreValue = (i, key, val) => setPageServiceData(d => { const c = [...(d.coreValues || [])]; c[i] = { ...c[i], [key]: val }; return { ...d, coreValues: c }; });
+  const addCoreValue = () => setPageServiceData(d => ({ ...d, coreValues: [...(d.coreValues || []), { title: "New Value", icon: "Star", desc: "Core principle description." }] }));
+  const deleteCoreValue = (i) => setPageServiceData(d => ({ ...d, coreValues: (d.coreValues || []).filter((_, idx) => idx !== i) }));
+
+  const updateServiceCardItem = (i, key, val) => setPageServiceData(d => { const c = [...(d.serviceCards || [])]; c[i] = { ...c[i], [key]: val }; return { ...d, serviceCards: c }; });
+  const addServiceCardItem = () => setPageServiceData(d => ({ ...d, serviceCards: [...(d.serviceCards || []), { title: "New Service", icon: "Code2", desc: "Description of service." }] }));
+  const deleteServiceCardItem = (i) => setPageServiceData(d => ({ ...d, serviceCards: (d.serviceCards || []).filter((_, idx) => idx !== i) }));
+
+  const updateCircleNodeItem = (i, key, val) => setPageServiceData(d => { const n = [...(d.circleNodes || [])]; n[i] = { ...n[i], [key]: val }; return { ...d, circleNodes: n }; });
+  
+  const updateStatItem = (i, key, val) => setPageServiceData(d => { const s = [...(d.stats || [])]; s[i] = { ...s[i], [key]: val }; return { ...d, stats: s }; });
+  const addStatItem = () => setPageServiceData(d => ({ ...d, stats: [...(d.stats || []), { value: "100+", label: "New Metric", icon: "Globe" }] }));
+  const deleteStatItem = (i) => setPageServiceData(d => ({ ...d, stats: (d.stats || []).filter((_, idx) => idx !== i) }));
+
+  const savePageService = () => {
+    localStorage.setItem("clarity_page_service", JSON.stringify(pageServiceData));
+    setPageServiceSaveSuccess(true);
+    setTimeout(() => setPageServiceSaveSuccess(false), 2500);
+  };
+  const resetPageService = () => { if (confirm("Reset Our Service page to defaults?")) { setPageServiceData(DEFAULT_PAGE_SERVICE); localStorage.setItem("clarity_page_service", JSON.stringify(DEFAULT_PAGE_SERVICE)); } };
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-800 font-sans antialiased flex">
@@ -1624,6 +1701,249 @@ export default function AdminDashboard() {
                       <div>
                         <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Button Label</label>
                         <input type="text" value={pageProjectsData.ctaButtonText || ""} onChange={e => updatePageProjectsField("ctaButtonText", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* OUR SERVICE PAGE EDITOR */}
+              {activeTab === "page-service" && (
+                <div className="space-y-6">
+                  {/* Top header card */}
+                  <div className="bg-white rounded-3xl shadow-sm border border-slate-100 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                      <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                        <Layers className="text-[#1E67E2]" size={24} />
+                        Our Service Page Content
+                      </h2>
+                      <p className="text-sm text-slate-500 mt-1">
+                        Manage all hero titles, core values, service cards, culture pillars, global stats, and CTA banner for Our Service page.
+                      </p>
+                    </div>
+                    <div className="flex gap-3">
+                      <button onClick={resetPageService} className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-red-500 border border-slate-200 hover:border-red-200 rounded-xl transition cursor-pointer">Reset</button>
+                      <button onClick={savePageService} className="px-5 py-2 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition-all flex items-center gap-2 cursor-pointer">
+                        {pageServiceSaveSuccess ? <Check size={16} /> : <Save size={16} />}
+                        {pageServiceSaveSuccess ? "Saved!" : "Save All Changes"}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* HERO HEADER SECTION */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Hero Header Section</h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Title</label>
+                        <input type="text" value={pageServiceData.heroTitle || ""} onChange={e => updatePageServiceField("heroTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Subtitle</label>
+                        <input type="text" value={pageServiceData.heroSubtitle || ""} onChange={e => updatePageServiceField("heroSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* SECTION 1: BUILDING FUTURE-READY TEAMS */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Section 1: Future-Ready Teams Overview</h3>
+                    <div>
+                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Section Title</label>
+                      <input type="text" value={pageServiceData.sec1Title || ""} onChange={e => updatePageServiceField("sec1Title", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Section Paragraph / Description</label>
+                      <textarea value={pageServiceData.sec1Description || ""} onChange={e => updatePageServiceField("sec1Description", e.target.value)} rows={3} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl p-3.5 outline-none focus:border-[#1E67E2] transition resize-none"></textarea>
+                    </div>
+
+                    {/* Core Values List */}
+                    <div className="space-y-3 pt-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs font-bold text-slate-700">Left Column: Core Value Items</span>
+                        <button onClick={addCoreValue} className="text-xs font-bold text-[#1E67E2] hover:underline flex items-center gap-1 cursor-pointer"><Plus size={12} /> Add Value Item</button>
+                      </div>
+                      <div className="space-y-3">
+                        {(pageServiceData.coreValues || []).map((val, i) => (
+                          <div key={i} className="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col gap-2 relative">
+                            <button onClick={() => deleteCoreValue(i)} className="absolute top-3 right-3 p-1.5 bg-white text-red-400 hover:text-red-500 rounded-lg border border-slate-200 shadow-sm transition cursor-pointer"><Trash2 size={14} /></button>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pr-8">
+                              <div>
+                                <label className="text-xs text-slate-500 font-semibold block mb-1">Title</label>
+                                <input type="text" value={val.title} onChange={e => updateCoreValue(i, "title", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-1.5 outline-none focus:border-[#1E67E2] transition" />
+                              </div>
+                              <div>
+                                <label className="text-xs text-slate-500 font-semibold block mb-1">Icon</label>
+                                <select value={val.icon} onChange={e => updateCoreValue(i, "icon", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-1.5 outline-none focus:border-[#1E67E2] transition">
+                                  <option value="Lightbulb">Lightbulb</option>
+                                  <option value="Users">Users / Team</option>
+                                  <option value="TrendingUp">TrendingUp / Growth</option>
+                                  <option value="Star">Star</option>
+                                  <option value="Globe">Globe</option>
+                                </select>
+                              </div>
+                              <div className="md:col-span-3">
+                                <label className="text-xs text-slate-500 font-semibold block mb-1">Description</label>
+                                <input type="text" value={val.desc} onChange={e => updateCoreValue(i, "desc", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-1.5 outline-none focus:border-[#1E67E2] transition" />
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Right Column Service Cards Grid */}
+                    <div className="space-y-3 pt-4 border-t border-slate-100">
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs font-bold text-slate-700">Right Column: Services Grid Pills</span>
+                        <button onClick={addServiceCardItem} className="text-xs font-bold text-[#1E67E2] hover:underline flex items-center gap-1 cursor-pointer"><Plus size={12} /> Add Service Card</button>
+                      </div>
+                      <div className="grid md:grid-cols-2 gap-3">
+                        {(pageServiceData.serviceCards || []).map((card, i) => (
+                          <div key={i} className="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col gap-2 relative">
+                            <button onClick={() => deleteServiceCardItem(i)} className="absolute top-3 right-3 p-1.5 bg-white text-red-400 hover:text-red-500 rounded-lg border border-slate-200 shadow-sm transition cursor-pointer"><Trash2 size={14} /></button>
+                            <div className="pr-8 space-y-2">
+                              <div className="grid grid-cols-2 gap-2">
+                                <div>
+                                  <label className="text-xs text-slate-500 font-semibold block mb-1">Title</label>
+                                  <input type="text" value={card.title} onChange={e => updateServiceCardItem(i, "title", e.target.value)} className="w-full bg-white border border-slate-200 text-xs text-slate-800 rounded-lg px-2.5 py-1.5 outline-none focus:border-[#1E67E2] transition" />
+                                </div>
+                                <div>
+                                  <label className="text-xs text-slate-500 font-semibold block mb-1">Icon</label>
+                                  <select value={card.icon} onChange={e => updateServiceCardItem(i, "icon", e.target.value)} className="w-full bg-white border border-slate-200 text-xs text-slate-800 rounded-lg px-2.5 py-1.5 outline-none focus:border-[#1E67E2] transition">
+                                    <option value="Code2">Code2 (Web)</option>
+                                    <option value="Smartphone">Smartphone (Mobile)</option>
+                                    <option value="Cloud">Cloud (Services)</option>
+                                    <option value="Cpu">Cpu (AI)</option>
+                                    <option value="Shield">Shield (Security)</option>
+                                    <option value="BarChart3">BarChart3 (Data)</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div>
+                                <label className="text-xs text-slate-500 font-semibold block mb-1">Description</label>
+                                <input type="text" value={card.desc} onChange={e => updateServiceCardItem(i, "desc", e.target.value)} className="w-full bg-white border border-slate-200 text-xs text-slate-800 rounded-lg px-2.5 py-1.5 outline-none focus:border-[#1E67E2] transition" />
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* SECTION 2: CULTURE & TEAM IMPACT */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Section 2: Culture & Team Impact Radar</h3>
+                    <div className="grid md:grid-cols-3 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Badge Text</label>
+                        <input type="text" value={pageServiceData.sec2Badge || ""} onChange={e => updatePageServiceField("sec2Badge", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Section Title</label>
+                        <input type="text" value={pageServiceData.sec2Title || ""} onChange={e => updatePageServiceField("sec2Title", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Section Subtitle</label>
+                        <input type="text" value={pageServiceData.sec2Subtitle || ""} onChange={e => updatePageServiceField("sec2Subtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                    </div>
+
+                    {/* Circle Nodes 6 Pillars */}
+                    <div className="space-y-3 pt-2">
+                      <span className="text-xs font-bold text-slate-700 block">Radar 6 Pillar Nodes</span>
+                      <div className="grid md:grid-cols-2 gap-3">
+                        {(pageServiceData.circleNodes || []).map((node, i) => (
+                          <div key={i} className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-2">
+                            <div className="grid grid-cols-2 gap-2">
+                              <div>
+                                <label className="text-xs text-slate-500 font-semibold block mb-1">Pillar Label</label>
+                                <input type="text" value={node.label} onChange={e => updateCircleNodeItem(i, "label", e.target.value)} className="w-full bg-white border border-slate-200 text-xs text-slate-800 rounded-lg px-2.5 py-1.5 outline-none focus:border-[#1E67E2] transition" />
+                              </div>
+                              <div>
+                                <label className="text-xs text-slate-500 font-semibold block mb-1">Icon</label>
+                                <select value={node.icon} onChange={e => updateCircleNodeItem(i, "icon", e.target.value)} className="w-full bg-white border border-slate-200 text-xs text-slate-800 rounded-lg px-2.5 py-1.5 outline-none focus:border-[#1E67E2] transition">
+                                  <option value="Zap">Zap (Innovation)</option>
+                                  <option value="Star">Star (Excellence)</option>
+                                  <option value="Heart">Heart (Wellness)</option>
+                                  <option value="BookOpen">BookOpen (Learning)</option>
+                                  <option value="Handshake">Handshake (Collaboration)</option>
+                                  <option value="TrendingUp">TrendingUp (Growth)</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold block mb-1">Description</label>
+                              <input type="text" value={node.desc} onChange={e => updateCircleNodeItem(i, "desc", e.target.value)} className="w-full bg-white border border-slate-200 text-xs text-slate-800 rounded-lg px-2.5 py-1.5 outline-none focus:border-[#1E67E2] transition" />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* SECTION 3: GLOBAL IMPACT & STATS */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Section 3: Global Impact & Stats</h3>
+                    <div>
+                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Section Title</label>
+                      <input type="text" value={pageServiceData.sec3Title || ""} onChange={e => updatePageServiceField("sec3Title", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Section Description</label>
+                      <textarea value={pageServiceData.sec3Description || ""} onChange={e => updatePageServiceField("sec3Description", e.target.value)} rows={3} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl p-3.5 outline-none focus:border-[#1E67E2] transition resize-none"></textarea>
+                    </div>
+
+                    {/* Stats counters */}
+                    <div className="space-y-3 pt-2">
+                      <div className="flex justify-between items-center">
+                        <span className="text-xs font-bold text-slate-700">Global Stats Counters</span>
+                        <button onClick={addStatItem} className="text-xs font-bold text-[#1E67E2] hover:underline flex items-center gap-1 cursor-pointer"><Plus size={12} /> Add Metric</button>
+                      </div>
+                      <div className="grid md:grid-cols-4 gap-3">
+                        {(pageServiceData.stats || []).map((stat, i) => (
+                          <div key={i} className="bg-slate-50 border border-slate-200 rounded-2xl p-3.5 space-y-2 relative">
+                            <button onClick={() => deleteStatItem(i)} className="absolute top-2.5 right-2.5 p-1 text-red-400 hover:text-red-500 rounded transition cursor-pointer"><Trash2 size={13} /></button>
+                            <div className="pr-6 space-y-2">
+                              <div>
+                                <label className="text-[11px] text-slate-500 font-semibold block mb-0.5">Value (e.g. 15+)</label>
+                                <input type="text" value={stat.value} onChange={e => updateStatItem(i, "value", e.target.value)} className="w-full bg-white border border-slate-200 text-xs text-slate-800 font-extrabold rounded-lg px-2 py-1 outline-none focus:border-[#1E67E2] transition" />
+                              </div>
+                              <div>
+                                <label className="text-[11px] text-slate-500 font-semibold block mb-0.5">Label</label>
+                                <input type="text" value={stat.label} onChange={e => updateStatItem(i, "label", e.target.value)} className="w-full bg-white border border-slate-200 text-xs text-slate-800 rounded-lg px-2 py-1 outline-none focus:border-[#1E67E2] transition" />
+                              </div>
+                              <div>
+                                <label className="text-[11px] text-slate-500 font-semibold block mb-0.5">Icon</label>
+                                <select value={stat.icon} onChange={e => updateStatItem(i, "icon", e.target.value)} className="w-full bg-white border border-slate-200 text-xs text-slate-800 rounded-lg px-2 py-1 outline-none focus:border-[#1E67E2] transition">
+                                  <option value="Globe">Globe</option>
+                                  <option value="Award">Award</option>
+                                  <option value="Handshake">Handshake</option>
+                                  <option value="Star">Star</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* SECTION 4: CALL TO ACTION BANNER */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Section 4: Call-to-Action Banner</h3>
+                    <div className="grid md:grid-cols-3 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Banner Title</label>
+                        <input type="text" value={pageServiceData.ctaTitle || ""} onChange={e => updatePageServiceField("ctaTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Banner Subtitle</label>
+                        <input type="text" value={pageServiceData.ctaSubtitle || ""} onChange={e => updatePageServiceField("ctaSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Button Label</label>
+                        <input type="text" value={pageServiceData.ctaButtonText || ""} onChange={e => updatePageServiceField("ctaButtonText", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
                       </div>
                     </div>
                   </div>

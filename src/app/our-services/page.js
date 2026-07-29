@@ -43,50 +43,100 @@ export default function OurServicesPage() {
     if (stored) {
       try { setHeaderData(JSON.parse(stored)); } catch { }
     }
+
+    const storedService = localStorage.getItem("clarity_page_service");
+    if (storedService) {
+      try { setPageServiceData({ ...DEFAULT_PAGE_SERVICE, ...JSON.parse(storedService) }); } catch { }
+    }
   }, []);
 
-  const coreValues = [
-    {
-      icon: Lightbulb,
-      title: "Innovation First",
-      desc: "We encourage creativity, experimentation, and continuous learning.",
-      color: "#1E67E2",
-    },
-    {
-      icon: Users2,
-      title: "Collaborative Environment",
-      desc: "Every project is built through teamwork, communication, and shared success.",
-      color: "#1E67E2",
-    },
-    {
-      icon: TrendingUp,
-      title: "Growth & Learning",
-      desc: "Employees receive mentorship, training, and opportunities to grow.",
-      color: "#1E67E2",
-    },
-  ];
+  const getIcon = (name) => {
+    if (name === "Lightbulb") return Lightbulb;
+    if (name === "Users") return Users2;
+    if (name === "TrendingUp") return TrendingUp;
+    if (name === "Star") return Star;
+    if (name === "Globe") return Globe;
+    if (name === "Code2") return Code2;
+    if (name === "Smartphone") return Smartphone;
+    if (name === "Cloud") return Cloud;
+    if (name === "Cpu") return Cpu;
+    if (name === "Shield") return Shield;
+    if (name === "BarChart3") return BarChart3;
+    if (name === "Zap") return Zap;
+    if (name === "Heart") return Heart;
+    if (name === "BookOpen") return BookOpen;
+    if (name === "Handshake") return Handshake;
+    if (name === "Award") return Award;
+    return Star;
+  };
 
-  const circleNodes = [
-    { label: "Innovation", icon: Zap, angle: -60, desc: "Cutting-edge technology solutions that push boundaries.", color: "#1E67E2" },
-    { label: "Excellence", icon: Star, angle: 0, desc: "Delivering nothing short of the highest quality in every project.", color: "#1E67E2" },
-    { label: "Wellness", icon: Heart, angle: 60, desc: "We care deeply about the wellbeing of our team and clients.", color: "#1E67E2" },
-    { label: "Learning", icon: BookOpen, angle: 120, desc: "Continuous upskilling keeps our team at the forefront.", color: "#1E67E2" },
-    { label: "Collaboration", icon: Handshake, angle: 180, desc: "Open communication and shared ownership drive our results.", color: "#1E67E2" },
-    { label: "Growth", icon: TrendingUp, angle: 240, desc: "We believe in nurturing talent and providing clear paths for personal and professional advancement through continuous mentorship.", color: "#1E67E2" },
-  ];
+  const DEFAULT_PAGE_SERVICE = {
+    heroTitle: "Our Service",
+    heroSubtitle: "We believe great products are built by happy, collaborative teams.",
+    sec1Title: "Building Future-Ready Teams Through Innovation",
+    sec1Description: "At Clarity InfoTech, we foster an environment where creativity, learning, and team coordination are valued. We support every team member in reaching their potential, encouraging open collaboration, and building high-performance digital products together.",
+    coreValues: [
+      { title: "Innovation First", icon: "Lightbulb", desc: "We encourage creativity, experimentation, and continuous learning." },
+      { title: "Collaborative Environment", icon: "Users", desc: "Every project is built through teamwork, communication, and shared success." },
+      { title: "Growth & Learning", icon: "TrendingUp", desc: "Employees receive mentorship, training, and opportunities to grow." }
+    ],
+    serviceCards: [
+      { title: "Web Development", icon: "Code2", desc: "Modern, responsive web apps tailored to your brand and business goals." },
+      { title: "Mobile Apps", icon: "Smartphone", desc: "Native-feel iOS & Android apps built for performance and scale." },
+      { title: "Cloud Services", icon: "Cloud", desc: "Reliable, scalable cloud infrastructure with 99.9% uptime SLAs." },
+      { title: "AI Solutions", icon: "Cpu", desc: "Intelligent automation and ML models to supercharge your operations." },
+      { title: "Cybersecurity", icon: "Shield", desc: "End-to-end security audits, VAPT, and compliance frameworks." },
+      { title: "Data Analytics", icon: "BarChart3", desc: "Real-time dashboards and BI that turn data into decisions." }
+    ],
+    sec2Badge: "02 / OUR CULTURE & TEAM IMPACT",
+    sec2Title: "Building Great Teams, Creating Greater Impact!",
+    sec2Subtitle: "At Clarity InfoTech, we foster a culture of innovation, collaboration, and continuous learning where every individual grows and makes a real-world difference.",
+    circleNodes: [
+      { label: "Innovation", icon: "Zap", desc: "Cutting-edge technology solutions that push boundaries." },
+      { label: "Excellence", icon: "Star", desc: "Delivering nothing short of the highest quality in every project." },
+      { label: "Wellness", icon: "Heart", desc: "We care deeply about the wellbeing of our team and clients." },
+      { label: "Learning", icon: "BookOpen", desc: "Continuous upskilling keeps our team at the forefront." },
+      { label: "Collaboration", icon: "Handshake", desc: "Open communication and shared ownership drive our results." },
+      { label: "Growth", icon: "TrendingUp", desc: "We believe in nurturing talent and providing clear paths for personal and professional advancement through continuous mentorship." }
+    ],
+    sec3Title: "Connecting Businesses and Innovation Worldwide",
+    sec3Description: "Clarity InfoTech proudly partners with businesses across multiple countries, delivering innovative digital solutions that drive growth and transformation. We write custom software development and enterprise platforms, AI-powered solutions, cloud technologies, and enterprise platforms. We help organisations achieve their goals with scalable, secure, and high-performance products.",
+    stats: [
+      { value: "15+", label: "Countries Served", icon: "Globe" },
+      { value: "500+", label: "Products & Projects", icon: "Award" },
+      { value: "50+", label: "Global Partners", icon: "Handshake" },
+      { value: "100%", label: "Client Satisfaction", icon: "Star" }
+    ],
+    ctaTitle: "Ready to Start Your Journey With Us?",
+    ctaSubtitle: "Let's discuss how we can help your business grow with the right technology and the right team.",
+    ctaButtonText: "Get In Touch"
+  };
 
-  const stats = [
-    { icon: Globe, value: "15+", label: "Countries Served" },
-    { icon: Award, value: "500+", label: "Products & Projects" },
-    { icon: Handshake, value: "50+", label: "Global Partners" },
-    { icon: Star, value: "100%", label: "Client Satisfaction" },
-  ];
+  const [pageServiceData, setPageServiceData] = useState(DEFAULT_PAGE_SERVICE);
 
-  const footerServices = ["Web Development", "Mobile Apps", "Cloud Services", "AI Solutions", "Cybersecurity", "Data Analytics"];
-  const footerCompany = ["About Us", "Our Team", "News & Blog", "Case Studies", "Contact"];
-  const footerResources = ["Documentation", "API Reference", "Support Center", "Community", "Partners", "Downloads"];
+  const coreValues = (pageServiceData.coreValues || DEFAULT_PAGE_SERVICE.coreValues).map(v => ({
+    ...v,
+    icon: getIcon(v.icon)
+  }));
 
-  const activeNode = circleNodes.find(n => n.label === activeCircle) || circleNodes[5];
+  const serviceCardsList = (pageServiceData.serviceCards || DEFAULT_PAGE_SERVICE.serviceCards).map(c => ({
+    ...c,
+    icon: getIcon(c.icon)
+  }));
+
+  const circleAngles = [-60, 0, 60, 120, 180, 240];
+  const circleNodes = (pageServiceData.circleNodes || DEFAULT_PAGE_SERVICE.circleNodes).map((node, idx) => ({
+    ...node,
+    angle: circleAngles[idx % 6],
+    icon: getIcon(node.icon)
+  }));
+
+  const stats = (pageServiceData.stats || DEFAULT_PAGE_SERVICE.stats).map(s => ({
+    ...s,
+    icon: getIcon(s.icon)
+  }));
+
+  const activeNode = circleNodes.find(n => n.label === activeCircle) || circleNodes[5] || circleNodes[0];
 
   return (
     <div className="min-h-screen bg-white text-[#1a1a2e] font-sans antialiased overflow-x-hidden">
@@ -185,11 +235,11 @@ export default function OurServicesPage() {
           <div className="relative z-10 max-w-3xl mx-auto px-6">
             <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
               className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-white">
-              Our Service
+              {pageServiceData.heroTitle || "Our Service"}
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
               className="text-white/60 text-base sm:text-lg">
-              We believe great products are built by happy, collaborative teams.
+              {pageServiceData.heroSubtitle || "We believe great products are built by happy, collaborative teams."}
             </motion.p>
           </div>
         </section>
@@ -201,10 +251,10 @@ export default function OurServicesPage() {
               {/* Left Content */}
               <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight mb-5 gradient-text">
-                  Building Future-Ready Teams Through Innovation
+                  {pageServiceData.sec1Title || "Building Future-Ready Teams Through Innovation"}
                 </h2>
                 <p className="text-gray-500 text-sm sm:text-base leading-relaxed mb-8">
-                  At Clarity InfoTech, we foster an environment where creativity, learning, and team coordination are valued. We support every team member in reaching their potential, encouraging open collaboration, and building high-performance digital products together.
+                  {pageServiceData.sec1Description || "At Clarity InfoTech, we foster an environment where creativity, learning, and team coordination are valued. We support every team member in reaching their potential, encouraging open collaboration, and building high-performance digital products together."}
                 </p>
                 <div className="flex flex-col gap-6">
                   {coreValues.map((val, idx) => {
@@ -229,14 +279,7 @@ export default function OurServicesPage() {
               {/* Right: Service Cards Grid */}
               <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.1 }}
                 className="grid grid-cols-2 gap-4">
-                {[
-                  { icon: Code2, title: "Web Development", desc: "Modern, responsive web apps tailored to your brand and business goals." },
-                  { icon: Smartphone, title: "Mobile Apps", desc: "Native-feel iOS & Android apps built for performance and scale." },
-                  { icon: Cloud, title: "Cloud Services", desc: "Reliable, scalable cloud infrastructure with 99.9% uptime SLAs." },
-                  { icon: Cpu, title: "AI Solutions", desc: "Intelligent automation and ML models to supercharge your operations." },
-                  { icon: Shield, title: "Cybersecurity", desc: "End-to-end security audits, VAPT, and compliance frameworks." },
-                  { icon: BarChart3, title: "Data Analytics", desc: "Real-time dashboards and BI that turn data into decisions." },
-                ].map((card, idx) => {
+                {serviceCardsList.map((card, idx) => {
                   const Ico = card.icon;
                   return (
                     <motion.div key={idx} whileHover={{ y: -4, boxShadow: "0 12px 32px rgba(30,103,226,0.12)" }}
@@ -275,16 +318,13 @@ export default function OurServicesPage() {
             {/* Section Header */}
             <div className="text-center mb-12">
               <span className="inline-block text-xs font-bold font-mono tracking-widest uppercase text-sky-400 bg-sky-400/10 border border-sky-400/25 px-4 py-1.5 rounded-full mb-3 shadow-sm">
-                02 / OUR CULTURE & TEAM IMPACT
+                {pageServiceData.sec2Badge || "02 / OUR CULTURE & TEAM IMPACT"}
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-white font-sans">
-                Building Great Teams,{" "}
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-indigo-300 to-violet-400">
-                  Creating Greater Impact!
-                </span>
+                {pageServiceData.sec2Title || "Building Great Teams, Creating Greater Impact!"}
               </h2>
               <p className="text-white/70 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-light">
-                At Clarity InfoTech, we foster a culture of innovation, collaboration, and continuous learning where every individual grows and makes a real-world difference.
+                {pageServiceData.sec2Subtitle || "At Clarity InfoTech, we foster a culture of innovation, collaboration, and continuous learning where every individual grows and makes a real-world difference."}
               </p>
             </div>
 
@@ -474,10 +514,10 @@ export default function OurServicesPage() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-6">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight mb-4 gradient-text">
-                Connecting Businesses and Innovation Worldwide
+                {pageServiceData.sec3Title || "Connecting Businesses and Innovation Worldwide"}
               </h2>
               <p className="text-gray-500 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-                Clarity InfoTech proudly partners with businesses across multiple countries, delivering innovative digital solutions that drive growth and transformation. We write custom software development and enterprise platforms, AI-powered solutions, cloud technologies, and enterprise platforms. We help organisations achieve their goals with scalable, secure, and high-performance products.
+                {pageServiceData.sec3Description || "Clarity InfoTech proudly partners with businesses across multiple countries, delivering innovative digital solutions that drive growth and transformation. We write custom software development and enterprise platforms, AI-powered solutions, cloud technologies, and enterprise platforms. We help organisations achieve their goals with scalable, secure, and high-performance products."}
               </p>
             </div>
 
@@ -508,11 +548,11 @@ export default function OurServicesPage() {
         {/* ── CTA STRIP ── */}
         <section className="py-8 px-6 bg-gradient-to-r from-[#1E67E2] to-[#0ea5e9] text-white text-center">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-extrabold mb-3">Ready to Start Your Journey With Us?</h2>
-            <p className="text-white/80 text-sm mb-7 max-w-lg mx-auto">Let's discuss how we can help your business grow with the right technology and the right team.</p>
+            <h2 className="text-2xl sm:text-3xl font-extrabold mb-3">{pageServiceData.ctaTitle || "Ready to Start Your Journey With Us?"}</h2>
+            <p className="text-white/80 text-sm mb-7 max-w-lg mx-auto">{pageServiceData.ctaSubtitle || "Let's discuss how we can help your business grow with the right technology and the right team."}</p>
             <a href="/contact"
               className="inline-flex items-center gap-2 bg-white text-[#1E67E2] font-extrabold px-8 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition-all text-sm hover:scale-105">
-              Get In Touch <ArrowUp size={14} className="rotate-45" />
+              {pageServiceData.ctaButtonText || "Get In Touch"} <ArrowUp size={14} className="rotate-45" />
             </a>
           </div>
         </section>
