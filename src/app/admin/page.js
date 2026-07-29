@@ -1172,7 +1172,7 @@ export default function AdminDashboard() {
       {/* Left Sidebar */}
       <aside className="w-64 bg-white border-r border-slate-100 flex flex-col shrink-0 min-h-screen sticky top-0">
         {/* Brand/Logo */}
-        <div className="px-6 py-5 border-b border-slate-50 flex items-center justify-between">
+        <div className="px-6 border-b border-slate-100 flex items-center justify-between h-[76px]">
           <a href="/" className="flex items-center">
             <img
               src="/logo.png"
@@ -1340,7 +1340,7 @@ export default function AdminDashboard() {
       <div className="flex-1 min-w-0 flex flex-col min-h-screen">
 
         {/* Top Header Panel */}
-        <header className="bg-white border-b border-slate-100 sticky top-0 z-40 px-6 py-4 flex items-center justify-between shadow-sm shadow-slate-100/10">
+        <header className="bg-white border-b border-slate-100 sticky top-0 z-40 px-6 flex items-center justify-between shadow-sm shadow-slate-100/10 h-[76px]">
           <div className="flex items-center gap-3">
             <a href="/" className="flex items-center justify-center p-2 rounded-xl bg-slate-50 border border-slate-100 hover:bg-slate-100 text-slate-500 transition duration-150">
               <ArrowLeft size={16} />
