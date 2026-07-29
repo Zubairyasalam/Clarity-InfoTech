@@ -1016,6 +1016,27 @@ export default function AdminDashboard() {
   };
   const resetPageService = () => { if (confirm("Reset Our Service page to defaults?")) { setPageServiceData(DEFAULT_PAGE_SERVICE); localStorage.setItem("clarity_page_service", JSON.stringify(DEFAULT_PAGE_SERVICE)); } };
 
+  const getTabTitle = (tab) => {
+    const titles = {
+      "overview": "Dashboard Overview",
+      "inquiries": "Inquiries Inbox",
+      "hero-slides": "Hero Section",
+      "about-us": "About Section",
+      "services": "Projects",
+      "platforms": "Work Culture",
+      "faq": "Contact Us Page",
+      "header-links": "Header Logo & Links",
+      "footer": "Website Footer",
+      "legal-pages": "Legal Pages",
+      "page-about": "About Page",
+      "page-projects": "Our Projects",
+      "page-service": "Our Service",
+      "page-legal": "Legal Pages",
+      "system-config": "System Configuration"
+    };
+    return titles[tab] || tab.replace("-", " ");
+  };
+
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-800 font-sans antialiased flex">
 
@@ -1201,7 +1222,7 @@ export default function AdminDashboard() {
                 <Settings size={12} />
                 <span>Admin Console</span>
                 <span className="text-blue-300">/</span>
-                <span className="capitalize">{activeTab === "overview" ? "Dashboard Overview" : activeTab.replace("-", " ")}</span>
+                <span>{getTabTitle(activeTab)}</span>
               </div>
             </div>
           </div>
@@ -1228,8 +1249,8 @@ export default function AdminDashboard() {
               <span className="text-xs font-bold text-slate-400 uppercase tracking-widest block leading-none mb-1">
                 {activeTab === "overview" ? "Home" : "Edit Section"}
               </span>
-              <h1 className="text-2xl font-black text-[#0A0E39] tracking-tight capitalize">
-                {activeTab === "overview" ? "Dashboard Overview" : activeTab === "services" ? "Projects" : activeTab.replace("-", " ")}
+              <h1 className="text-2xl font-black text-[#0A0E39] tracking-tight">
+                {getTabTitle(activeTab)}
               </h1>
             </div>
             {activeTab === "overview" && (
