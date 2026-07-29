@@ -2213,11 +2213,18 @@ export default function Home() {
                     { label: "AWS & GCP Partner", url: "#services" },
                     { label: "ISO 27001 Security", url: "#about" },
                     { label: "DevOps Association", url: "#services" },
-                    { label: "Privacy Policy", url: "#" },
-                    { label: "Terms of Condition", url: "#" }
-                  ]).map((item, idx) => (
-                    <a key={idx} href={item.url || "#"}>{item.label}</a>
-                  ))}
+                    { label: "Privacy Policy", url: "/privacy-policy" },
+                    { label: "Terms of Service", url: "/terms-of-service" },
+                    { label: "Refund Policy", url: "/refund-policy" }
+                  ]).map((item, idx) => {
+                    let href = item.url || "#";
+                    if (item.label.toLowerCase().includes("privacy")) href = "/privacy-policy";
+                    if (item.label.toLowerCase().includes("terms")) href = "/terms-of-service";
+                    if (item.label.toLowerCase().includes("refund")) href = "/refund-policy";
+                    return (
+                      <a key={idx} href={href}>{item.label}</a>
+                    );
+                  })}
                 </div>
               </div>
             </div>

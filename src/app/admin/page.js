@@ -551,6 +551,21 @@ export default function AdminDashboard() {
   const [pageContactData, setPageContactData] = useState(DEFAULT_PAGE_CONTACT);
   const [pageContactSaveSuccess, setPageContactSaveSuccess] = useState(false);
 
+  // Legal Pages State
+  const DEFAULT_LEGAL_PAGES = {
+    privacyTitle: "Privacy Policy",
+    privacySubtitle: "Last updated: July 29, 2026",
+    privacyContent: "### 1. Information We Collect\nWe collect information you provide directly to us when submitting an inquiry form, including your name, email address, phone number, company name, and project description.\n\n### 2. How We Use Your Information\nWe use the collected information to respond to your inquiries, provide technical support, and maintain site security.\n\n### 3. Data Storage & Security\nWe employ industry-standard encryption, SSL protocols, and access controls to secure your data. We do not sell or lease your personal information to third parties.",
+    termsTitle: "Terms of Service",
+    termsSubtitle: "Last updated: July 29, 2026",
+    termsContent: "### 1. Terms of Engagement\nBy accessing and engaging Clarity InfoTech, you agree to comply with and be bound by these Terms of Service.\n\n### 2. Intellectual Property\nUpon final project completion and full payment receipt, 100% intellectual property ownership of the custom codebase is transferred to your organization.\n\n### 3. Limitation of Liability\nIn no event shall we be liable for any indirect, incidental, or consequential damages resulting from platform downtime or telemetry outages.",
+    refundTitle: "Refund Policy",
+    refundSubtitle: "Last updated: July 29, 2026",
+    refundContent: "### 1. Refund Scope\nWe provide high-quality custom software engineering and cloud consulting. Refunds are processed based on milestone deliverables.\n\n### 2. Milestone Payments\nPayment for successfully completed and accepted milestones is non-refundable.\n\n### 3. Project Cancellation\nIf a project is cancelled by the client during development, we reserve the right to bill for all hours worked up to the cancellation notice date."
+  };
+  const [legalPagesData, setLegalPagesData] = useState(DEFAULT_LEGAL_PAGES);
+  const [legalPagesSaveSuccess, setLegalPagesSaveSuccess] = useState(false);
+
   const DEFAULT_HEADER = {
     logo: "/logo.png",
     links: [
@@ -685,6 +700,14 @@ export default function AdminDashboard() {
         try { setPageContactData({ ...DEFAULT_PAGE_CONTACT, ...JSON.parse(storedPageContact) }); } catch { }
       } else {
         localStorage.setItem("clarity_page_contact", JSON.stringify(DEFAULT_PAGE_CONTACT));
+      }
+
+      // Load Legal Pages data
+      const storedLegalPages = localStorage.getItem("clarity_legal_pages");
+      if (storedLegalPages) {
+        try { setLegalPagesData({ ...DEFAULT_LEGAL_PAGES, ...JSON.parse(storedLegalPages) }); } catch { }
+      } else {
+        localStorage.setItem("clarity_legal_pages", JSON.stringify(DEFAULT_LEGAL_PAGES));
       }
     }
   }, []);
@@ -1048,6 +1071,15 @@ export default function AdminDashboard() {
     setTimeout(() => setPageContactSaveSuccess(false), 2500);
   };
   const resetPageContact = () => { if (confirm("Reset Contact Us page to defaults?")) { setPageContactData(DEFAULT_PAGE_CONTACT); localStorage.setItem("clarity_page_contact", JSON.stringify(DEFAULT_PAGE_CONTACT)); } };
+
+  // Legal Pages CRUD
+  const updateLegalPagesField = (key, val) => setLegalPagesData(d => ({ ...d, [key]: val }));
+  const saveLegalPages = () => {
+    localStorage.setItem("clarity_legal_pages", JSON.stringify(legalPagesData));
+    setLegalPagesSaveSuccess(true);
+    setTimeout(() => setLegalPagesSaveSuccess(false), 2500);
+  };
+  const resetLegalPages = () => { if (confirm("Reset all Legal pages to defaults?")) { setLegalPagesData(DEFAULT_LEGAL_PAGES); localStorage.setItem("clarity_legal_pages", JSON.stringify(DEFAULT_LEGAL_PAGES)); } };
 
   const getTabTitle = (tab) => {
     const titles = {
@@ -2089,6 +2121,88 @@ export default function AdminDashboard() {
                     <div>
                       <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Google Maps Embed iframe URL</label>
                       <input type="text" value={pageContactData.mapEmbedUrl || ""} onChange={e => updatePageContactField("mapEmbedUrl", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* LEGAL PAGES EDITOR */}
+              {(activeTab === "legal-pages" || activeTab === "page-legal") && (
+                <div className="space-y-6">
+                  {/* Top header card */}
+                  <div className="bg-white rounded-3xl shadow-sm border border-slate-100 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                      <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                        <Shield className="text-[#1E67E2]" size={24} />
+                        Legal & Compliance Pages Content
+                      </h2>
+                      <p className="text-sm text-slate-500 mt-1">
+                        Manage titles, subtitles, and content for Privacy Policy, Terms of Service, and Refund Policy.
+                      </p>
+                    </div>
+                    <div className="flex gap-3">
+                      <button onClick={resetLegalPages} className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-red-500 border border-slate-200 hover:border-red-200 rounded-xl transition cursor-pointer">Reset</button>
+                      <button onClick={saveLegalPages} className="px-5 py-2 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition-all flex items-center gap-2 cursor-pointer">
+                        {legalPagesSaveSuccess ? <Check size={16} /> : <Save size={16} />}
+                        {legalPagesSaveSuccess ? "Saved!" : "Save All Changes"}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* 1. PRIVACY POLICY */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> 1. Privacy Policy Page</h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Title</label>
+                        <input type="text" value={legalPagesData.privacyTitle || ""} onChange={e => updateLegalPagesField("privacyTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Last Updated Subtitle</label>
+                        <input type="text" value={legalPagesData.privacySubtitle || ""} onChange={e => updateLegalPagesField("privacySubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Page Content</label>
+                      <textarea rows={8} value={legalPagesData.privacyContent || ""} onChange={e => updateLegalPagesField("privacyContent", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition font-sans whitespace-pre-wrap" />
+                    </div>
+                  </div>
+
+                  {/* 2. TERMS OF SERVICE */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> 2. Terms of Service Page</h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Title</label>
+                        <input type="text" value={legalPagesData.termsTitle || ""} onChange={e => updateLegalPagesField("termsTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Last Updated Subtitle</label>
+                        <input type="text" value={legalPagesData.termsSubtitle || ""} onChange={e => updateLegalPagesField("termsSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Page Content</label>
+                      <textarea rows={8} value={legalPagesData.termsContent || ""} onChange={e => updateLegalPagesField("termsContent", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition font-sans whitespace-pre-wrap" />
+                    </div>
+                  </div>
+
+                  {/* 3. REFUND POLICY */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> 3. Refund Policy Page</h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Title</label>
+                        <input type="text" value={legalPagesData.refundTitle || ""} onChange={e => updateLegalPagesField("refundTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Last Updated Subtitle</label>
+                        <input type="text" value={legalPagesData.refundSubtitle || ""} onChange={e => updateLegalPagesField("refundSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Page Content</label>
+                      <textarea rows={8} value={legalPagesData.refundContent || ""} onChange={e => updateLegalPagesField("refundContent", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition font-sans whitespace-pre-wrap" />
                     </div>
                   </div>
                 </div>
