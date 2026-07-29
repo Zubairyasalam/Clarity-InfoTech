@@ -7,7 +7,74 @@ export default function PrivacyPolicyPage() {
   const DEFAULT_LEGAL_PAGES = {
     privacyTitle: "Privacy Policy",
     privacySubtitle: "Last updated: July 29, 2026",
-    privacyContent: "### 1. Information We Collect\nWe collect information you provide directly to us when submitting an inquiry form, including your name, email address, phone number, company name, and project description.\n\n### 2. How We Use Your Information\nWe use the collected information to respond to your inquiries, provide technical support, and maintain site security.\n\n### 3. Data Storage & Security\nWe employ industry-standard encryption, SSL protocols, and access controls to secure your data. We do not sell or lease your personal information to third parties."
+    privacyContent: `### 1. Introduction
+At Clarity InfoTech ("CIT"), we are committed to protecting your privacy and personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
+
+### 2. Information We Collect
+We may collect the following types of information:
+
+**Personal Information**
+* Name, email address, and phone number
+* Company name and job title
+* Billing and payment information
+* Project type and request details
+* Communication preferences
+
+**Technical Information**
+* IP address and browser type
+* Device information and operating system
+* Cookies and usage data
+* Pages visited and time spent on our website
+
+### 3. How We Use Your Information
+We use the collected information for:
+* Providing, maintaining, and improving our services
+* Processing transactions and sending confirmations
+* Communicating with you about projects, telemetry logs, and updates
+* Responding to support requests and inquiries
+* Sending tech insights and updates (with your consent)
+* Analyzing website usage and optimizing user experience
+* Complying with legal obligations
+
+### 4. Information Sharing and Disclosure
+We do not sell your personal information. We may share your information with:
+* Service providers who assist in our infrastructure operations
+* Payment processors for secure transaction handling
+* Legal authorities when required by law
+* Business partners with your explicit consent
+
+### 5. Cookies and Tracking Technologies
+We use cookies and similar tracking technologies to enhance your browsing experience, analyze site traffic, and personalize content. You can control cookie settings through your browser preferences. Disabling cookies may limit certain website functionalities.
+
+### 6. Data Security
+We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the internet is 100% secure.
+
+### 7. Data Retention
+We retain your personal information only for as long as necessary to fulfill the purposes outlined in this policy, comply with legal obligations, resolve disputes, and enforce our agreements.
+
+### 8. Your Rights
+You have the right to:
+* Access and receive a copy of your personal information
+* Correct inaccurate or incomplete information
+* Request deletion of your personal information
+* Object to or restrict certain processing activities
+* Withdraw consent for marketing communications
+
+### 9. Third-Party Links
+Our website may contain links to third-party websites. We are not responsible for the privacy practices or content of these external sites.
+
+### 10. Children's Privacy
+Our services are not directed to individuals under the age of 18. We do not knowingly collect personal information from children.
+
+### 11. Changes to This Privacy Policy
+We may update this Privacy Policy periodically to reflect changes in our practices or legal requirements. We will notify you of changes by posting the updated policy on our website.
+
+### 12. Contact Us
+If you have questions or concerns about this Privacy Policy or our data practices, please contact us:
+
+**Clarity InfoTech**
+* **Chennai Office**: Prince Infocity 1, 8th Floor, 286/1, OMR, Kandhanchavadi, Chennai, Tamil Nadu-600096, India.
+* **Coimbatore Office**: Mikro Grafeio, 1st Floor, 766, 767, Puliakulam Road, Coimbatore, Tamil Nadu-641037, India.`
   };
 
   const [legalData, setLegalData] = useState(DEFAULT_LEGAL_PAGES);
@@ -15,7 +82,16 @@ export default function PrivacyPolicyPage() {
   useEffect(() => {
     const stored = localStorage.getItem("clarity_legal_pages");
     if (stored) {
-      try { setLegalData({ ...DEFAULT_LEGAL_PAGES, ...JSON.parse(stored) }); } catch { }
+      try {
+        const parsed = JSON.parse(stored);
+        if (parsed.privacyContent && parsed.privacyContent.length >= 500) {
+          setLegalData({ ...DEFAULT_LEGAL_PAGES, ...parsed });
+        } else {
+          setLegalData(DEFAULT_LEGAL_PAGES);
+        }
+      } catch {
+        setLegalData(DEFAULT_LEGAL_PAGES);
+      }
     }
   }, []);
 

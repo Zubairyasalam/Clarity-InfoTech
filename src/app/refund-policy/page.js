@@ -15,7 +15,16 @@ export default function RefundPolicyPage() {
   useEffect(() => {
     const stored = localStorage.getItem("clarity_legal_pages");
     if (stored) {
-      try { setLegalData({ ...DEFAULT_LEGAL_PAGES, ...JSON.parse(stored) }); } catch { }
+      try {
+        const parsed = JSON.parse(stored);
+        if (parsed.refundContent) {
+          setLegalData({ ...DEFAULT_LEGAL_PAGES, ...parsed });
+        } else {
+          setLegalData(DEFAULT_LEGAL_PAGES);
+        }
+      } catch {
+        setLegalData(DEFAULT_LEGAL_PAGES);
+      }
     }
   }, []);
 

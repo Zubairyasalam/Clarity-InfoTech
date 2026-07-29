@@ -5,9 +5,56 @@ import { Shield, FileText, ArrowLeft, Sparkles, Globe } from "lucide-react";
 
 export default function TermsOfServicePage() {
   const DEFAULT_LEGAL_PAGES = {
-    termsTitle: "Terms of Service",
+    termsTitle: "Terms and Conditions",
     termsSubtitle: "Last updated: July 29, 2026",
-    termsContent: "### 1. Terms of Engagement\nBy accessing and engaging Clarity InfoTech, you agree to comply with and be bound by these Terms of Service.\n\n### 2. Intellectual Property\nUpon final project completion and full payment receipt, 100% intellectual property ownership of the custom codebase is transferred to your organization.\n\n### 3. Limitation of Liability\nIn no event shall we be liable for any indirect, incidental, or consequential damages resulting from platform downtime or telemetry outages."
+    termsContent: `### 1. Introduction
+Welcome to Clarity InfoTech ("CIT", "we", "our", or "us"). These Terms and Conditions govern your use of our website and services. By accessing or using our services, you agree to be bound by these terms.
+
+### 2. Services
+Clarity InfoTech provides enterprise software engineering, DevOps automation, cloud architecture, and security audit systems. Our services include but are not limited to:
+* Custom software design and development
+* Enterprise web and mobile application engineering
+* Cloud infrastructure planning and deployment
+* Automation, DevOps and pipeline auditing
+* Advanced AI solutions and RAG architecture consulting
+* Support and telemetry monitoring systems
+
+### 3. User Obligations
+By using our services, you agree to:
+* Provide accurate, current, and complete information
+* Maintain the confidentiality of your account credentials
+* Use our services only for lawful, authorized purposes
+* Not infringe on intellectual property or source ownership rights
+* Not transmit malicious code, malware, or harmful content
+
+### 4. Intellectual Property
+All code, custom designs, architecture models, and project materials created by Clarity InfoTech remain our intellectual property until full payment is received. Upon completion of payment, 100% ownership rights and code source transfer are delivered to the client as per the agreed SLA.
+
+### 5. Payment Terms
+Payment terms are established in individual project proposals or milestone agreements. Generally:
+* Payment schedules are outlined in project proposals
+* Late payments may incur additional transaction charges
+* Work may be suspended for non-payment
+* Refunds are subject to the terms of individual milestone agreements
+
+### 6. Limitation of Liability
+Clarity InfoTech shall not be liable for any indirect, incidental, special, or consequential damages arising from the use of our services. Our total liability shall not exceed the amount paid by the client for the specific service in question.
+
+### 7. Termination
+Either party may terminate services with written notice as specified in the project agreement. Upon termination, the client is responsible for payment of all work completed up to the termination date.
+
+### 8. Changes to Terms
+We reserve the right to modify these terms at any time. Changes will be effective immediately upon posting to our website. Your continued use of our services constitutes acceptance of the updated terms.
+
+### 9. Governing Law
+These terms shall be governed by and construed in accordance with the laws of India. Any disputes shall be subject to the exclusive jurisdiction of the courts in Chennai, Tamil Nadu.
+
+### 10. Contact Information
+For questions about these Terms and Conditions, please contact us at salamzubi8@gmail.com or visit:
+
+**Clarity InfoTech**
+* **Chennai Office**: Prince Infocity 1, 8th Floor, 286/1, OMR, Kandhanchavadi, Chennai, Tamil Nadu-600096, India.
+* **Coimbatore Office**: Mikro Grafeio, 1st Floor, 766, 767, Puliakulam Road, Coimbatore, Tamil Nadu-641037, India.`
   };
 
   const [legalData, setLegalData] = useState(DEFAULT_LEGAL_PAGES);
@@ -15,7 +62,16 @@ export default function TermsOfServicePage() {
   useEffect(() => {
     const stored = localStorage.getItem("clarity_legal_pages");
     if (stored) {
-      try { setLegalData({ ...DEFAULT_LEGAL_PAGES, ...JSON.parse(stored) }); } catch { }
+      try {
+        const parsed = JSON.parse(stored);
+        if (parsed.termsContent && parsed.termsContent.length >= 500) {
+          setLegalData({ ...DEFAULT_LEGAL_PAGES, ...parsed });
+        } else {
+          setLegalData(DEFAULT_LEGAL_PAGES);
+        }
+      } catch {
+        setLegalData(DEFAULT_LEGAL_PAGES);
+      }
     }
   }, []);
 
