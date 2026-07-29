@@ -2151,56 +2151,67 @@ export default function AdminDashboard() {
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-slate-100 text-sm">
-                            {filteredInquiries.map((item) => (
-                              <tr key={item.id} className="hover:bg-slate-50/40 transition duration-150">
-                                <td className="px-6 py-4">
-                                  <div className="font-bold text-slate-800">{item.firstName} {item.lastName}</div>
-                                  <div className="text-xs text-slate-400">{item.email}</div>
-                                  <div className="text-xs text-slate-400">{item.phone} • {item.country}</div>
-                                </td>
-                                <td className="px-6 py-4">
-                                  <span className="px-2.5 py-1 bg-blue-50 border border-blue-100 rounded-full text-xs font-semibold text-[#1E67E2] whitespace-nowrap">
-                                    {item.inquiryType}
-                                  </span>
-                                </td>
-                                <td className="px-6 py-4 max-w-xs truncate text-slate-600" title={item.message}>
-                                  {item.message}
-                                </td>
-                                <td className="px-6 py-4 text-xs text-slate-400">
-                                  {new Date(item.date).toLocaleDateString()}
-                                </td>
-                                <td className="px-6 py-4">
-                                  <span className={`whitespace-nowrap px-2.5 py-0.5 rounded text-[11px] font-bold border ${item.status === "Pending"
-                                      ? "bg-amber-500/10 text-amber-600 border-amber-500/20"
-                                      : item.status === "In Progress"
-                                        ? "bg-blue-500/10 text-blue-600 border-blue-500/20"
-                                        : "bg-emerald-500/10 text-emerald-600 border-emerald-500/20"
+                            {filteredInquiries.map((item) => {
+                              const clientName = item.name || (item.firstName || item.lastName ? `${item.firstName || ''} ${item.lastName || ''}`.trim() : item.email ? item.email.split('@')[0] : "Valued Client");
+                              const email = item.email || "";
+                              const inquiryType = item.service || item.inquiryType || "General Inquiry";
+                              const contactDetails = [item.company, item.phone, item.country].filter(Boolean).join(" • ");
+                              const displayDate = item.date ? (String(item.date).includes("/") || String(item.date).includes("-") ? String(item.date) : new Date(item.date).toLocaleDateString()) : "Recent";
+                              
+                              return (
+                                <tr key={item.id} className="hover:bg-slate-50/70 transition duration-150 border-b border-slate-100/60">
+                                  <td className="px-6 py-4">
+                                    <div className="font-extrabold text-slate-900 text-sm">{clientName}</div>
+                                    <div className="text-xs font-semibold text-[#1E67E2] mt-0.5">{email}</div>
+                                    {contactDetails ? <div className="text-xs font-medium text-slate-500 mt-0.5">{contactDetails}</div> : null}
+                                  </td>
+                                  <td className="px-6 py-4">
+                                    <span className="px-3 py-1 bg-blue-50 border border-blue-200/80 rounded-full text-xs font-bold text-[#1E67E2] whitespace-nowrap inline-block">
+                                      {inquiryType}
+                                    </span>
+                                  </td>
+                                  <td className="px-6 py-4 max-w-xs text-xs font-medium text-slate-700 leading-relaxed truncate" title={item.message}>
+                                    {item.message}
+                                  </td>
+                                  <td className="px-6 py-4 text-xs font-bold text-slate-500 whitespace-nowrap">
+                                    {displayDate}
+                                  </td>
+                                  <td className="px-6 py-4">
+                                    <span className={`whitespace-nowrap px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider ${
+                                      item.status === "unread" || item.status === "New"
+                                        ? "bg-[#1E67E2] text-white shadow-md shadow-blue-500/20"
+                                        : item.status === "Pending"
+                                          ? "bg-amber-100 text-amber-800 border border-amber-200"
+                                          : item.status === "In Progress"
+                                            ? "bg-indigo-100 text-indigo-800 border border-indigo-200"
+                                            : "bg-emerald-100 text-emerald-800 border border-emerald-200"
                                     }`}>
-                                    {item.status}
-                                  </span>
-                                </td>
-                                <td className="px-6 py-4 text-right">
-                                  <div className="flex items-center justify-end gap-2">
-                                    <select
-                                      value={item.status}
-                                      onChange={(e) => updateInquiryStatus(item.id, e.target.value)}
-                                      className="bg-white border border-slate-200 text-xs rounded-lg px-2 py-1 outline-none text-slate-700 focus:border-[#1E67E2] cursor-pointer"
-                                    >
-                                      <option value="Pending">Pending</option>
-                                      <option value="In Progress">In Progress</option>
-                                      <option value="Resolved">Resolved</option>
-                                    </select>
-                                    <button
-                                      onClick={() => deleteInquiry(item.id)}
-                                      className="p-1.5 bg-red-50 text-red-500 hover:bg-red-100 rounded-lg border border-red-100 transition cursor-pointer"
-                                      title="Delete Submission"
-                                    >
-                                      <Trash2 size={14} />
-                                    </button>
-                                  </div>
-                                </td>
-                              </tr>
-                            ))}
+                                      {item.status || "New"}
+                                    </span>
+                                  </td>
+                                  <td className="px-6 py-4 text-right">
+                                    <div className="flex items-center justify-end gap-2">
+                                      <select
+                                        value={item.status}
+                                        onChange={(e) => updateInquiryStatus(item.id, e.target.value)}
+                                        className="bg-white border border-slate-200 text-xs font-semibold rounded-lg px-2.5 py-1.5 outline-none text-slate-700 focus:border-[#1E67E2] cursor-pointer"
+                                      >
+                                        <option value="Pending">Pending</option>
+                                        <option value="In Progress">In Progress</option>
+                                        <option value="Resolved">Resolved</option>
+                                      </select>
+                                      <button
+                                        onClick={() => deleteInquiry(item.id)}
+                                        className="p-1.5 bg-red-50 text-red-500 hover:bg-red-100 rounded-lg border border-red-100 transition cursor-pointer"
+                                        title="Delete Submission"
+                                      >
+                                        <Trash2 size={14} />
+                                      </button>
+                                    </div>
+                                  </td>
+                                </tr>
+                              );
+                            })}
                           </tbody>
                         </table>
                       </div>
