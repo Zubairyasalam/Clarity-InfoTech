@@ -944,149 +944,6 @@ export default function AdminDashboard() {
                 <span>Admin Console</span>
                 <span className="text-blue-300">/</span>
                 <span className="capitalize">{activeTab === "overview" ? "Dashboard Overview" : activeTab.replace("-", " ")}</span>
-                {activeTab === "page-about" && (
-                <div className="max-w-5xl mx-auto space-y-6">
-                  {/* Top header */}
-                  <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div>
-                      <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-                        <FileText className="text-indigo-600" size={24} />
-                        About Page Content
-                      </h2>
-                      <p className="text-sm text-slate-500 mt-1">
-                        Manage all the text content, sections, and values for the main About Us page.
-                      </p>
-                    </div>
-                    <div className="flex gap-3">
-                      <button onClick={resetPageAbout} className="px-3 py-2 text-xs text-slate-500 hover:text-red-400 border border-slate-200 hover:border-red-400/30 rounded-lg transition cursor-pointer">Reset</button>
-                      <button onClick={savePageAbout} className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-lg shadow-md shadow-indigo-200 transition-all flex items-center gap-2 cursor-pointer">
-                        {pageAboutSaveSuccess ? <Check size={16} /> : <Save size={16} />}
-                        {pageAboutSaveSuccess ? "Saved!" : "Save All Changes"}
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* HERO SECTION */}
-                  <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4">
-                    <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><Edit3 size={12} /> Hero Section</h3>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Title</label>
-                        <input type="text" value={pageAboutData.heroTitle || ""} onChange={e => updatePageAboutField("heroTitle", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2.5 outline-none focus:border-indigo-500 transition" />
-                      </div>
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Subtitle</label>
-                        <input type="text" value={pageAboutData.heroSubtitle || ""} onChange={e => updatePageAboutField("heroSubtitle", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2.5 outline-none focus:border-indigo-500 transition" />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* NARRATIVE SECTION */}
-                  <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4">
-                    <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><Edit3 size={12} /> Narrative Section</h3>
-                    <div>
-                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">About Title</label>
-                      <input type="text" value={pageAboutData.aboutTitle || ""} onChange={e => updatePageAboutField("aboutTitle", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2.5 outline-none focus:border-indigo-500 transition" />
-                    </div>
-                    <div>
-                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Paragraph 1</label>
-                      <textarea value={pageAboutData.aboutParagraph1 || ""} onChange={e => updatePageAboutField("aboutParagraph1", e.target.value)} rows={3} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg p-3 outline-none focus:border-indigo-500 transition resize-none"></textarea>
-                    </div>
-                    <div>
-                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Paragraph 2</label>
-                      <textarea value={pageAboutData.aboutParagraph2 || ""} onChange={e => updatePageAboutField("aboutParagraph2", e.target.value)} rows={3} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg p-3 outline-none focus:border-indigo-500 transition resize-none"></textarea>
-                    </div>
-                  </div>
-
-                  {/* VALUES SECTION */}
-                  <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4">
-                    <div className="flex justify-between items-center">
-                      <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><Edit3 size={12} /> Our Values</h3>
-                      <button onClick={addPageAboutCard} className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-600 rounded-lg text-xs font-semibold transition cursor-pointer">
-                        <Plus size={13} /> Add Value Card
-                      </button>
-                    </div>
-                    <div className="grid md:grid-cols-3 gap-4">
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Pill Text</label>
-                        <input type="text" value={pageAboutData.valuesPill || ""} onChange={e => updatePageAboutField("valuesPill", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2.5 outline-none focus:border-indigo-500 transition" />
-                      </div>
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Values Title</label>
-                        <input type="text" value={pageAboutData.valuesTitle || ""} onChange={e => updatePageAboutField("valuesTitle", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2.5 outline-none focus:border-indigo-500 transition" />
-                      </div>
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Values Subtitle</label>
-                        <input type="text" value={pageAboutData.valuesSubtitle || ""} onChange={e => updatePageAboutField("valuesSubtitle", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2.5 outline-none focus:border-indigo-500 transition" />
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-4 mt-4">
-                      {pageAboutData.valuesCards.map((card, i) => (
-                        <div key={i} className="bg-slate-50 border border-slate-200 rounded-xl p-4 flex flex-col gap-3 relative">
-                          <button onClick={() => deletePageAboutCard(i)} className="absolute top-3 right-3 p-1.5 bg-white text-red-400 hover:text-red-500 rounded border border-slate-200 shadow-sm transition cursor-pointer"><Trash2 size={14} /></button>
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pr-8">
-                            <div><label className="text-xs text-slate-500 font-semibold block mb-1">Step (e.g. 01)</label><input type="text" value={card.step} onChange={e => updatePageAboutCard(i, "step", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-2 py-1.5 outline-none focus:border-indigo-500 transition" /></div>
-                            <div><label className="text-xs text-slate-500 font-semibold block mb-1">Title</label><input type="text" value={card.title} onChange={e => updatePageAboutCard(i, "title", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-2 py-1.5 outline-none focus:border-indigo-500 transition" /></div>
-                            <div><label className="text-xs text-slate-500 font-semibold block mb-1">Tag</label><input type="text" value={card.tag} onChange={e => updatePageAboutCard(i, "tag", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-2 py-1.5 outline-none focus:border-indigo-500 transition" /></div>
-                            <div>
-                              <label className="text-xs text-slate-500 font-semibold block mb-1">Icon</label>
-                              <select value={card.icon} onChange={e => updatePageAboutCard(i, "icon", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-2 py-1.5 outline-none focus:border-indigo-500 transition">
-                                <option value="Lightbulb">Lightbulb</option>
-                                <option value="Star">Star</option>
-                                <option value="Users">Users</option>
-                                <option value="Target">Target</option>
-                                <option value="Check">Check</option>
-                                <option value="Globe">Globe</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div><label className="text-xs text-slate-500 font-semibold block mb-1">Description</label><input type="text" value={card.desc} onChange={e => updatePageAboutCard(i, "desc", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-2 py-1.5 outline-none focus:border-indigo-500 transition" /></div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* APPROACH SECTION */}
-                  <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4">
-                    <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><Edit3 size={12} /> Approach Section</h3>
-                    <div>
-                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Approach Title</label>
-                      <input type="text" value={pageAboutData.approachTitle || ""} onChange={e => updatePageAboutField("approachTitle", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2.5 outline-none focus:border-indigo-500 transition" />
-                    </div>
-                    <div>
-                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Paragraph 1</label>
-                      <textarea value={pageAboutData.approachParagraph1 || ""} onChange={e => updatePageAboutField("approachParagraph1", e.target.value)} rows={3} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg p-3 outline-none focus:border-indigo-500 transition resize-none"></textarea>
-                    </div>
-                    <div>
-                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Paragraph 2</label>
-                      <textarea value={pageAboutData.approachParagraph2 || ""} onChange={e => updatePageAboutField("approachParagraph2", e.target.value)} rows={3} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg p-3 outline-none focus:border-indigo-500 transition resize-none"></textarea>
-                    </div>
-                  </div>
-
-                  {/* WHY CHOOSE US SECTION */}
-                  <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4">
-                    <div className="flex justify-between items-center">
-                      <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><Edit3 size={12} /> Why Choose Us List</h3>
-                      <button onClick={addPageAboutWhyList} className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-600 rounded-lg text-xs font-semibold transition cursor-pointer">
-                        <Plus size={13} /> Add Item
-                      </button>
-                    </div>
-                    <div>
-                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Section Title</label>
-                      <input type="text" value={pageAboutData.whyChooseTitle || ""} onChange={e => updatePageAboutField("whyChooseTitle", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2.5 outline-none focus:border-indigo-500 transition" />
-                    </div>
-                    <div className="space-y-2 mt-4">
-                      {pageAboutData.whyChooseList.map((item, i) => (
-                        <div key={i} className="flex items-center gap-2">
-                          <input type="text" value={item} onChange={e => updatePageAboutWhyList(i, e.target.value)} className="flex-1 bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-indigo-500 transition" />
-                          <button onClick={() => deletePageAboutWhyList(i)} className="p-2 bg-red-50 text-red-500 hover:bg-red-100 rounded border border-red-100 transition cursor-pointer"><Trash2 size={14} /></button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
               </div>
             </div>
           </div>
@@ -1261,6 +1118,151 @@ export default function AdminDashboard() {
                           </div>
                         ))}
                       </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* PAGE ABOUT EDITOR */}
+              {activeTab === "page-about" && (
+                <div className="space-y-6">
+                  {/* Top header card */}
+                  <div className="bg-white rounded-3xl shadow-sm border border-slate-100 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                      <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                        <FileText className="text-[#1E67E2]" size={24} />
+                        About Page Content
+                      </h2>
+                      <p className="text-sm text-slate-500 mt-1">
+                        Manage all the text content, sections, and values for the main About Us page.
+                      </p>
+                    </div>
+                    <div className="flex gap-3">
+                      <button onClick={resetPageAbout} className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-red-500 border border-slate-200 hover:border-red-200 rounded-xl transition cursor-pointer">Reset</button>
+                      <button onClick={savePageAbout} className="px-5 py-2 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition-all flex items-center gap-2 cursor-pointer">
+                        {pageAboutSaveSuccess ? <Check size={16} /> : <Save size={16} />}
+                        {pageAboutSaveSuccess ? "Saved!" : "Save All Changes"}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* HERO SECTION */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Hero Section</h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Title</label>
+                        <input type="text" value={pageAboutData.heroTitle || ""} onChange={e => updatePageAboutField("heroTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Subtitle</label>
+                        <input type="text" value={pageAboutData.heroSubtitle || ""} onChange={e => updatePageAboutField("heroSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* NARRATIVE SECTION */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Narrative Section</h3>
+                    <div>
+                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">About Title</label>
+                      <input type="text" value={pageAboutData.aboutTitle || ""} onChange={e => updatePageAboutField("aboutTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Paragraph 1</label>
+                      <textarea value={pageAboutData.aboutParagraph1 || ""} onChange={e => updatePageAboutField("aboutParagraph1", e.target.value)} rows={3} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl p-3.5 outline-none focus:border-[#1E67E2] transition resize-none"></textarea>
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Paragraph 2</label>
+                      <textarea value={pageAboutData.aboutParagraph2 || ""} onChange={e => updatePageAboutField("aboutParagraph2", e.target.value)} rows={3} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl p-3.5 outline-none focus:border-[#1E67E2] transition resize-none"></textarea>
+                    </div>
+                  </div>
+
+                  {/* VALUES SECTION */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <div className="flex justify-between items-center">
+                      <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Our Values</h3>
+                      <button onClick={addPageAboutCard} className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#1E67E2] rounded-xl text-xs font-bold transition cursor-pointer">
+                        <Plus size={13} /> Add Value Card
+                      </button>
+                    </div>
+                    <div className="grid md:grid-cols-3 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Pill Text</label>
+                        <input type="text" value={pageAboutData.valuesPill || ""} onChange={e => updatePageAboutField("valuesPill", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Values Title</label>
+                        <input type="text" value={pageAboutData.valuesTitle || ""} onChange={e => updatePageAboutField("valuesTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Values Subtitle</label>
+                        <input type="text" value={pageAboutData.valuesSubtitle || ""} onChange={e => updatePageAboutField("valuesSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-4 mt-4">
+                      {pageAboutData.valuesCards.map((card, i) => (
+                        <div key={i} className="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col gap-3 relative">
+                          <button onClick={() => deletePageAboutCard(i)} className="absolute top-3 right-3 p-1.5 bg-white text-red-400 hover:text-red-500 rounded-lg border border-slate-200 shadow-sm transition cursor-pointer"><Trash2 size={14} /></button>
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pr-8">
+                            <div><label className="text-xs text-slate-500 font-semibold block mb-1">Step (e.g. 01)</label><input type="text" value={card.step} onChange={e => updatePageAboutCard(i, "step", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" /></div>
+                            <div><label className="text-xs text-slate-500 font-semibold block mb-1">Title</label><input type="text" value={card.title} onChange={e => updatePageAboutCard(i, "title", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" /></div>
+                            <div><label className="text-xs text-slate-500 font-semibold block mb-1">Tag</label><input type="text" value={card.tag} onChange={e => updatePageAboutCard(i, "tag", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" /></div>
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold block mb-1">Icon</label>
+                              <select value={card.icon} onChange={e => updatePageAboutCard(i, "icon", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition">
+                                <option value="Lightbulb">Lightbulb</option>
+                                <option value="Star">Star</option>
+                                <option value="Users">Users</option>
+                                <option value="Target">Target</option>
+                                <option value="Check">Check</option>
+                                <option value="Globe">Globe</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div><label className="text-xs text-slate-500 font-semibold block mb-1">Description</label><input type="text" value={card.desc} onChange={e => updatePageAboutCard(i, "desc", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" /></div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* APPROACH SECTION */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Approach Section</h3>
+                    <div>
+                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Approach Title</label>
+                      <input type="text" value={pageAboutData.approachTitle || ""} onChange={e => updatePageAboutField("approachTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Paragraph 1</label>
+                      <textarea value={pageAboutData.approachParagraph1 || ""} onChange={e => updatePageAboutField("approachParagraph1", e.target.value)} rows={3} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl p-3.5 outline-none focus:border-[#1E67E2] transition resize-none"></textarea>
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Paragraph 2</label>
+                      <textarea value={pageAboutData.approachParagraph2 || ""} onChange={e => updatePageAboutField("approachParagraph2", e.target.value)} rows={3} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl p-3.5 outline-none focus:border-[#1E67E2] transition resize-none"></textarea>
+                    </div>
+                  </div>
+
+                  {/* WHY CHOOSE US SECTION */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <div className="flex justify-between items-center">
+                      <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Why Choose Us List</h3>
+                      <button onClick={addPageAboutWhyList} className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#1E67E2] rounded-xl text-xs font-bold transition cursor-pointer">
+                        <Plus size={13} /> Add Item
+                      </button>
+                    </div>
+                    <div>
+                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Section Title</label>
+                      <input type="text" value={pageAboutData.whyChooseTitle || ""} onChange={e => updatePageAboutField("whyChooseTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                    </div>
+                    <div className="space-y-2.5 mt-4">
+                      {pageAboutData.whyChooseList.map((item, i) => (
+                        <div key={i} className="flex items-center gap-2">
+                          <input type="text" value={item} onChange={e => updatePageAboutWhyList(i, e.target.value)} className="flex-1 bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2 outline-none focus:border-[#1E67E2] transition" />
+                          <button onClick={() => deletePageAboutWhyList(i)} className="p-2.5 bg-red-50 text-red-500 hover:bg-red-100 rounded-xl border border-red-100 transition cursor-pointer"><Trash2 size={14} /></button>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
