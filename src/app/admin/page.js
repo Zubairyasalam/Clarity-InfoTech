@@ -535,6 +535,22 @@ export default function AdminDashboard() {
   const [pageServiceData, setPageServiceData] = useState(DEFAULT_PAGE_SERVICE);
   const [pageServiceSaveSuccess, setPageServiceSaveSuccess] = useState(false);
 
+  // Contact Us Page State
+  const DEFAULT_PAGE_CONTACT = {
+    heroBadge: "CONTACT US",
+    heroTitle: "Get In Touch",
+    heroSubtitle: "Ready to transform your business with cutting-edge technology? Let's discuss your project and bring your vision to life.",
+    formTitlePrefix: "Send Us a",
+    formTitleHighlight: "Message",
+    officeTitle: "Head Office",
+    officeAddress: "Chennai, Tamil Nadu, India",
+    officePhone: "+91 7373306677",
+    officeEmail: "salamzubi8@gmail.com",
+    mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.886539092!2d80.06892495893262!3d13.047525480749068!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265ea4f7d3361%3A0x6e61a7034b09e6d5!2sChennai%2C%20Tamil%20Nadu%2C%20India!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+  };
+  const [pageContactData, setPageContactData] = useState(DEFAULT_PAGE_CONTACT);
+  const [pageContactSaveSuccess, setPageContactSaveSuccess] = useState(false);
+
   const DEFAULT_HEADER = {
     logo: "/logo.png",
     links: [
@@ -661,6 +677,14 @@ export default function AdminDashboard() {
         try { setPageServiceData({ ...DEFAULT_PAGE_SERVICE, ...JSON.parse(storedPageService) }); } catch { }
       } else {
         localStorage.setItem("clarity_page_service", JSON.stringify(DEFAULT_PAGE_SERVICE));
+      }
+
+      // Load Contact Us Page data
+      const storedPageContact = localStorage.getItem("clarity_page_contact");
+      if (storedPageContact) {
+        try { setPageContactData({ ...DEFAULT_PAGE_CONTACT, ...JSON.parse(storedPageContact) }); } catch { }
+      } else {
+        localStorage.setItem("clarity_page_contact", JSON.stringify(DEFAULT_PAGE_CONTACT));
       }
     }
   }, []);
@@ -1015,6 +1039,15 @@ export default function AdminDashboard() {
     setTimeout(() => setPageServiceSaveSuccess(false), 2500);
   };
   const resetPageService = () => { if (confirm("Reset Our Service page to defaults?")) { setPageServiceData(DEFAULT_PAGE_SERVICE); localStorage.setItem("clarity_page_service", JSON.stringify(DEFAULT_PAGE_SERVICE)); } };
+
+  // Contact Us Page CRUD
+  const updatePageContactField = (key, val) => setPageContactData(d => ({ ...d, [key]: val }));
+  const savePageContact = () => {
+    localStorage.setItem("clarity_page_contact", JSON.stringify(pageContactData));
+    setPageContactSaveSuccess(true);
+    setTimeout(() => setPageContactSaveSuccess(false), 2500);
+  };
+  const resetPageContact = () => { if (confirm("Reset Contact Us page to defaults?")) { setPageContactData(DEFAULT_PAGE_CONTACT); localStorage.setItem("clarity_page_contact", JSON.stringify(DEFAULT_PAGE_CONTACT)); } };
 
   const getTabTitle = (tab) => {
     const titles = {
@@ -1966,6 +1999,96 @@ export default function AdminDashboard() {
                         <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Button Label</label>
                         <input type="text" value={pageServiceData.ctaButtonText || ""} onChange={e => updatePageServiceField("ctaButtonText", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
                       </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* CONTACT US PAGE EDITOR */}
+              {(activeTab === "faq" || activeTab === "contact") && (
+                <div className="space-y-6">
+                  {/* Top header card */}
+                  <div className="bg-white rounded-3xl shadow-sm border border-slate-100 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                      <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                        <MessageSquare className="text-[#1E67E2]" size={24} />
+                        Contact Us Page Content
+                      </h2>
+                      <p className="text-sm text-slate-500 mt-1">
+                        Manage hero header, contact form title, head office address, phone, email, and Google Maps embed URL for the Contact page.
+                      </p>
+                    </div>
+                    <div className="flex gap-3">
+                      <button onClick={resetPageContact} className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-red-500 border border-slate-200 hover:border-red-200 rounded-xl transition cursor-pointer">Reset</button>
+                      <button onClick={savePageContact} className="px-5 py-2 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition-all flex items-center gap-2 cursor-pointer">
+                        {pageContactSaveSuccess ? <Check size={16} /> : <Save size={16} />}
+                        {pageContactSaveSuccess ? "Saved!" : "Save All Changes"}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* HERO HEADER SECTION */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Hero Header Section</h3>
+                    <div className="grid md:grid-cols-3 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Small Badge</label>
+                        <input type="text" value={pageContactData.heroBadge || ""} onChange={e => updatePageContactField("heroBadge", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Title</label>
+                        <input type="text" value={pageContactData.heroTitle || ""} onChange={e => updatePageContactField("heroTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Subtitle</label>
+                        <input type="text" value={pageContactData.heroSubtitle || ""} onChange={e => updatePageContactField("heroSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* FORM HEADER SECTION */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Contact Form Heading</h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Title Prefix (e.g. Send Us a)</label>
+                        <input type="text" value={pageContactData.formTitlePrefix || ""} onChange={e => updatePageContactField("formTitlePrefix", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Title Highlight Word (e.g. Message)</label>
+                        <input type="text" value={pageContactData.formTitleHighlight || ""} onChange={e => updatePageContactField("formTitleHighlight", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* HEAD OFFICE & MAP DETAILS */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Head Office & Google Map Location</h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Office Section Title</label>
+                        <input type="text" value={pageContactData.officeTitle || ""} onChange={e => updatePageContactField("officeTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Address</label>
+                        <input type="text" value={pageContactData.officeAddress || ""} onChange={e => updatePageContactField("officeAddress", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Phone Number</label>
+                        <input type="text" value={pageContactData.officePhone || ""} onChange={e => updatePageContactField("officePhone", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Email Address</label>
+                        <input type="text" value={pageContactData.officeEmail || ""} onChange={e => updatePageContactField("officeEmail", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Google Maps Embed iframe URL</label>
+                      <input type="text" value={pageContactData.mapEmbedUrl || ""} onChange={e => updatePageContactField("mapEmbedUrl", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
                     </div>
                   </div>
                 </div>

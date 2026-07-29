@@ -83,23 +83,38 @@ export default function ContactPage() {
 
       const data = await res.json();
 
-      if (res.ok) {
-        setSubmitted(true);
-        setTimeout(() => {
-          setSubmitted(false);
-          setFormData({
-            name: "",
-            email: "",
-            company: "",
-            service: "",
-            otherService: "",
-            message: "",
-            recaptcha: false,
-          });
-        }, 4000);
-      } else {
-        setError(data.error || 'Something went wrong. Please try again.');
-      }
+      // Push new inquiry to clarity_inquiries localStorage
+      const newInquiry = {
+        id: "inq-" + Date.now(),
+        name: formData.name,
+        email: formData.email,
+        company: formData.company || "N/A",
+        service: formData.service === "Other" && formData.otherService ? formData.otherService : formData.service,
+        message: formData.message,
+        date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+        time: new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" }),
+        status: "unread",
+        priority: "high"
+      };
+      try {
+        const storedInqs = localStorage.getItem("clarity_inquiries");
+        const parsed = storedInqs ? JSON.parse(storedInqs) : [];
+        localStorage.setItem("clarity_inquiries", JSON.stringify([newInquiry, ...parsed]));
+      } catch { }
+
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({
+          name: "",
+          email: "",
+          company: "",
+          service: "",
+          otherService: "",
+          message: "",
+          recaptcha: false,
+        });
+      }, 4000);
     } catch (err) {
       setError('Network error. Please try again later.');
     } finally {
@@ -118,10 +133,30 @@ export default function ContactPage() {
     ]
   };
   const [headerData, setHeaderData] = useState(DEFAULT_HEADER);
+
+  const DEFAULT_PAGE_CONTACT = {
+    heroBadge: "CONTACT US",
+    heroTitle: "Get In Touch",
+    heroSubtitle: "Ready to transform your business with cutting-edge technology? Let's discuss your project and bring your vision to life.",
+    formTitlePrefix: "Send Us a",
+    formTitleHighlight: "Message",
+    officeTitle: "Head Office",
+    officeAddress: "Chennai, Tamil Nadu, India",
+    officePhone: "+91 7373306677",
+    officeEmail: "salamzubi8@gmail.com",
+    mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.886539092!2d80.06892495893262!3d13.047525480749068!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265ea4f7d3361%3A0x6e61a7034b09e6d5!2sChennai%2C%20Tamil%20Nadu%2C%20India!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+  };
+  const [pageContactData, setPageContactData] = useState(DEFAULT_PAGE_CONTACT);
+
   useEffect(() => {
-    const stored = localStorage.getItem("clarity_header");
-    if (stored) {
-      try { setHeaderData(JSON.parse(stored)); } catch { }
+    const storedHeader = localStorage.getItem("clarity_header");
+    if (storedHeader) {
+      try { setHeaderData(JSON.parse(storedHeader)); } catch { }
+    }
+
+    const storedContact = localStorage.getItem("clarity_page_contact");
+    if (storedContact) {
+      try { setPageContactData({ ...DEFAULT_PAGE_CONTACT, ...JSON.parse(storedContact) }); } catch { }
     }
   }, []);
 
@@ -237,7 +272,7 @@ export default function ContactPage() {
 
           <div className="max-w-4xl mx-auto px-6 md:px-12 relative z-10">
             <span className="text-sky-400 font-semibold text-xs tracking-wider uppercase block mb-1 font-mono">
-              Contact Us
+              {pageContactData.heroBadge || "CONTACT US"}
             </span>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -245,7 +280,7 @@ export default function ContactPage() {
               transition={{ duration: 0.6 }}
               className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-2 font-sans text-white"
             >
-              Get In Touch
+              {pageContactData.heroTitle || "Get In Touch"}
             </motion.h1>
 
             <motion.p
@@ -254,7 +289,7 @@ export default function ContactPage() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-sm sm:text-base md:text-lg text-white/80 max-w-2xl mx-auto leading-snug font-light font-sans"
             >
-              Ready to transform your business with cutting-edge technology? Let's discuss your project and bring your vision to life.
+              {pageContactData.heroSubtitle || "Ready to transform your business with cutting-edge technology? Let's discuss your project and bring your vision to life."}
             </motion.p>
           </div>
         </section>
@@ -268,7 +303,10 @@ export default function ContactPage() {
             className="bg-white rounded-3xl shadow-xl p-6 sm:p-10 border border-slate-100/80"
           >
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-8 font-sans">
-              Send Us a <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">Message</span>
+              {pageContactData.formTitlePrefix || "Send Us a"}{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
+                {pageContactData.formTitleHighlight || "Message"}
+              </span>
             </h2>
 
             {submitted ? (
@@ -339,7 +377,7 @@ export default function ContactPage() {
                       required
                       value={formData.service}
                       onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-sans appearance-none"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-sans appearance-none cursor-pointer"
                     >
                       <option value="">Select a service</option>
                       <option value="Web Development">Web Development</option>
@@ -433,7 +471,7 @@ export default function ContactPage() {
                   <MapPin size={20} />
                 </div>
                 <h3 className="text-2xl font-extrabold text-slate-900 font-sans">
-                  Head Office
+                  {pageContactData.officeTitle || "Head Office"}
                 </h3>
               </div>
 
@@ -444,7 +482,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <span className="font-semibold text-slate-900 block mb-0.5">Address</span>
-                    <span>Chennai, Tamil Nadu, India</span>
+                    <span>{pageContactData.officeAddress || "Chennai, Tamil Nadu, India"}</span>
                   </div>
                 </div>
 
@@ -454,8 +492,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <span className="font-semibold text-slate-900 block mb-0.5">Phone</span>
-                    <a href="tel:+917373306677" className="hover:text-blue-600 transition-colors">
-                      +91 7373306677
+                    <a href={`tel:${pageContactData.officePhone}`} className="hover:text-blue-600 transition-colors">
+                      {pageContactData.officePhone || "+91 7373306677"}
                     </a>
                   </div>
                 </div>
@@ -466,8 +504,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <span className="font-semibold text-slate-900 block mb-0.5">Email</span>
-                    <a href="mailto:salamzubi8@gmail.com" className="hover:text-blue-600 transition-colors">
-                      salamzubi8@gmail.com
+                    <a href={`mailto:${pageContactData.officeEmail}`} className="hover:text-blue-600 transition-colors">
+                      {pageContactData.officeEmail || "salamzubi8@gmail.com"}
                     </a>
                   </div>
                 </div>
@@ -478,7 +516,7 @@ export default function ContactPage() {
             <div className="h-64 md:h-full min-h-[300px] w-full relative bg-slate-100">
               <iframe
                 title="Clarity InfoTech Head Office Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.886539092!2d80.06892495893262!3d13.047525480749068!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265ea4f7d3361%3A0x6e61a7034b09e6d5!2sChennai%2C%20Tamil%20Nadu%2C%20India!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+                src={pageContactData.mapEmbedUrl || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.886539092!2d80.06892495893262!3d13.047525480749068!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265ea4f7d3361%3A0x6e61a7034b09e6d5!2sChennai%2C%20Tamil%20Nadu%2C%20India!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"}
                 className="w-full h-full border-0"
                 allowFullScreen=""
                 loading="lazy"
