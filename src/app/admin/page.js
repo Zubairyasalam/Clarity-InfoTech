@@ -366,6 +366,130 @@ export default function AdminDashboard() {
   const [pageAboutData, setPageAboutData] = useState(DEFAULT_PAGE_ABOUT);
   const [pageAboutSaveSuccess, setPageAboutSaveSuccess] = useState(false);
 
+  // Our Projects Page State
+  const DEFAULT_PAGE_PROJECTS = {
+    heroTitle: "Our Projects",
+    heroSubtitle: "Exploring cutting-edge software solutions, cloud architecture, and digital transformations.",
+    projectsList: [
+      {
+        id: "cloud-devops",
+        category: "cloud",
+        title: "Cloud & DevOps Architecture",
+        badge: "Infrastructure & Security",
+        description: "Enterprise-grade multi-cloud orchestration, automated CI/CD pipelines, Kubernetes clustering, and 24/7 SLA infrastructure monitoring.",
+        icon: "Cloud",
+        gradient: "from-sky-400 to-indigo-600",
+        media: "/service.mp4",
+        isVideo: true,
+        features: [
+          "AWS, GCP & Azure Multi-Cloud Architecture",
+          "Automated CI/CD Release Pipelines",
+          "Kubernetes & Docker Containerization",
+          "Zero-Downtime Infrastructure Scaling"
+        ]
+      },
+      {
+        id: "software-engineering",
+        category: "development",
+        title: "Custom Software Engineering",
+        badge: "Web & Mobile Platforms",
+        description: "High-performance full-stack web applications, REST/GraphQL microservices, and modern database architectures engineered for extreme concurrency.",
+        icon: "Code2",
+        gradient: "from-indigo-500 to-purple-600",
+        media: "/service1.mp4",
+        isVideo: true,
+        features: [
+          "Next.js, React & Node.js Architecture",
+          "Microservices & Serverless Functions",
+          "High-Concurrency Relational & NoSQL DBs",
+          "100% IP Codebase Ownership Transfer"
+        ]
+      },
+      {
+        id: "cyber-security",
+        category: "security",
+        title: "Cyber Security & Auditing",
+        badge: "Threat Defense & Uptime",
+        description: "Continuous vulnerability assessments, ISO 27001 compliance auditing, encrypted data pipelines, and real-time DevSecOps threat defense.",
+        icon: "Shield",
+        gradient: "from-purple-600 to-pink-600",
+        media: "/service2.mp4",
+        isVideo: true,
+        features: [
+          "ISO 27001 Compliance Audit Reports",
+          "Penetration Testing & Vulnerability Fixes",
+          "Encrypted End-to-End API Pipelines",
+          "24/7 Threat Detection & Incident Response"
+        ]
+      },
+      {
+        id: "ai-consulting",
+        category: "ai",
+        title: "AI Integration & IT Consulting",
+        badge: "Automation & Strategy",
+        description: "Empower legacy platforms with custom LLM integrations, automated workflow engines, predictive analytics, and enterprise AI roadmaps.",
+        icon: "Zap",
+        gradient: "from-cyan-400 to-blue-600",
+        media: "/service3.mp4",
+        isVideo: true,
+        features: [
+          "Custom Enterprise LLM & RAG Integration",
+          "Automated AI Workflow Engines",
+          "Predictive Business Intelligence Models",
+          "Executive Tech Strategy & Architecture"
+        ]
+      },
+      {
+        id: "mobile-dev",
+        category: "development",
+        title: "Mobile App Development",
+        badge: "iOS & Android Solutions",
+        description: "Native and cross-platform mobile apps with buttery smooth UI, offline synchronization, and secure biometric authentication.",
+        icon: "Smartphone",
+        gradient: "from-emerald-400 to-teal-600",
+        media: "/carousel-3.png",
+        isVideo: false,
+        features: [
+          "React Native & iOS/Android Native Code",
+          "Offline Data Sync & Caching",
+          "Biometric & Zero-Trust Authentication",
+          "App Store & Play Store Deployment"
+        ]
+      },
+      {
+        id: "data-analytics",
+        category: "ai",
+        title: "Data Analytics & Big Data",
+        badge: "Intelligence & Dashboards",
+        description: "Transform raw data streams into real-time visual dashboards, automated data pipelines, and executive forecasting analytics.",
+        icon: "BarChart3",
+        gradient: "from-orange-400 to-red-600",
+        media: "/carousel-2.png",
+        isVideo: false,
+        features: [
+          "Real-Time ETL & Streaming Data Pipelines",
+          "Executive Interactive Analytics Dashboards",
+          "Machine Learning Forecasting Models",
+          "Data Warehouse Architecture (Snowflake, BigQuery)"
+        ]
+      }
+    ],
+    workflowBadge: "AGILE WORKFLOW",
+    workflowTitle: "How We Deliver Value",
+    workflowSubtitle: "A transparent, high-velocity engineering workflow designed for rapid enterprise execution.",
+    workflowSteps: [
+      { step: "01", title: "Discovery & Architecture Audit", desc: "We evaluate your system architecture, codebase, and infrastructure goals to draft a zero-friction engineering roadmap." },
+      { step: "02", title: "Dedicated Squad Allocation", desc: "We assemble a specialized team of senior developers, cloud engineers, and security leads dedicated to your sprint goals." },
+      { step: "03", title: "CI/CD & DevSecOps Deployment", desc: "Automated pipelines, unit testing, and containerized deployments ensure code is pushed safely and continuously to production." },
+      { step: "04", title: "SLA Monitoring & Optimization", desc: "Post-launch 24/7 telemetry monitoring, infrastructure scaling, and performance optimizations keep your applications highly available." }
+    ],
+    ctaTitle: "Need a Custom Enterprise Solution?",
+    ctaSubtitle: "Talk to our senior architects to get a tailored engineering proposal, timeline estimate, and SLA scope.",
+    ctaButtonText: "Schedule Technical Consultation"
+  };
+  const [pageProjectsData, setPageProjectsData] = useState(DEFAULT_PAGE_PROJECTS);
+  const [pageProjectsSaveSuccess, setPageProjectsSaveSuccess] = useState(false);
+
   const DEFAULT_HEADER = {
     logo: "/logo.png",
     links: [
@@ -476,6 +600,14 @@ export default function AdminDashboard() {
         try { setPageAboutData({ ...DEFAULT_PAGE_ABOUT, ...JSON.parse(storedPageAbout) }); } catch { }
       } else {
         localStorage.setItem("clarity_page_about", JSON.stringify(DEFAULT_PAGE_ABOUT));
+      }
+
+      // Load Our Projects Page data
+      const storedPageProjects = localStorage.getItem("clarity_page_projects");
+      if (storedPageProjects) {
+        try { setPageProjectsData({ ...DEFAULT_PAGE_PROJECTS, ...JSON.parse(storedPageProjects) }); } catch { }
+      } else {
+        localStorage.setItem("clarity_page_projects", JSON.stringify(DEFAULT_PAGE_PROJECTS));
       }
     }
   }, []);
@@ -758,6 +890,55 @@ export default function AdminDashboard() {
   };
   const resetPageAbout = () => { if (confirm("Reset About Page to defaults?")) { setPageAboutData(DEFAULT_PAGE_ABOUT); localStorage.setItem("clarity_page_about", JSON.stringify(DEFAULT_PAGE_ABOUT)); } };
 
+  // Our Projects Page CRUD
+  const updatePageProjectsField = (key, val) => setPageProjectsData(d => ({ ...d, [key]: val }));
+  const updateProjectCard = (i, key, val) => setPageProjectsData(d => { const c = [...(d.projectsList || [])]; c[i] = { ...c[i], [key]: val }; return { ...d, projectsList: c }; });
+  const addProjectCard = () => setPageProjectsData(d => ({
+    ...d,
+    projectsList: [...(d.projectsList || []), {
+      id: "project-" + Date.now(),
+      category: "development",
+      title: "New Software Engineering Project",
+      badge: "Full-Stack & Cloud",
+      description: "Description of the innovative digital project and tech stack.",
+      icon: "Code2",
+      gradient: "from-indigo-500 to-purple-600",
+      media: "/service.mp4",
+      isVideo: true,
+      features: ["Feature 1 detail", "Feature 2 detail"]
+    }]
+  }));
+  const deleteProjectCard = (i) => setPageProjectsData(d => ({ ...d, projectsList: (d.projectsList || []).filter((_, idx) => idx !== i) }));
+  
+  const updateProjectFeature = (cardIdx, featIdx, val) => setPageProjectsData(d => {
+    const cards = [...(d.projectsList || [])];
+    const feats = [...(cards[cardIdx].features || [])];
+    feats[featIdx] = val;
+    cards[cardIdx] = { ...cards[cardIdx], features: feats };
+    return { ...d, projectsList: cards };
+  });
+  const addProjectFeature = (cardIdx) => setPageProjectsData(d => {
+    const cards = [...(d.projectsList || [])];
+    cards[cardIdx] = { ...cards[cardIdx], features: [...(cards[cardIdx].features || []), "New feature point"] };
+    return { ...d, projectsList: cards };
+  });
+  const deleteProjectFeature = (cardIdx, featIdx) => setPageProjectsData(d => {
+    const cards = [...(d.projectsList || [])];
+    cards[cardIdx] = { ...cards[cardIdx], features: (cards[cardIdx].features || []).filter((_, fIdx) => fIdx !== featIdx) };
+    return { ...d, projectsList: cards };
+  });
+
+  const updateWorkflowStep = (i, key, val) => setPageProjectsData(d => { const s = [...(d.workflowSteps || [])]; s[i] = { ...s[i], [key]: val }; return { ...d, workflowSteps: s }; });
+  const addWorkflowStep = () => setPageProjectsData(d => ({ ...d, workflowSteps: [...(d.workflowSteps || []), { step: "0X", title: "New Workflow Step", desc: "Description of workflow step." }] }));
+  const deleteWorkflowStep = (i) => setPageProjectsData(d => ({ ...d, workflowSteps: (d.workflowSteps || []).filter((_, idx) => idx !== i) }));
+
+  const savePageProjects = () => {
+    localStorage.setItem("clarity_page_projects", JSON.stringify(pageProjectsData));
+    setPageProjectsSaveSuccess(true);
+    setTimeout(() => setPageProjectsSaveSuccess(false), 2500);
+  };
+  const resetPageProjects = () => { if (confirm("Reset Our Projects page to defaults?")) { setPageProjectsData(DEFAULT_PAGE_PROJECTS); localStorage.setItem("clarity_page_projects", JSON.stringify(DEFAULT_PAGE_PROJECTS)); } };
+
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-800 font-sans antialiased flex">
 
@@ -870,8 +1051,8 @@ export default function AdminDashboard() {
                 <div className="pl-9 pr-3 py-1 space-y-1">
                   {[
                     { id: "page-about", label: "About Page", icon: FileText },
-                    { id: "page-team", label: "Meet Our Team", icon: FileText },
-                    { id: "page-service", label: "Our Service", icon: Briefcase },
+                    { id: "page-projects", label: "Our Projects", icon: Briefcase },
+                    { id: "page-service", label: "Our Service", icon: Layers },
                     { id: "page-legal", label: "Legal Pages", icon: Shield },
                   ].map((item) => {
                     const Icon = item.icon;
@@ -1263,6 +1444,187 @@ export default function AdminDashboard() {
                           <button onClick={() => deletePageAboutWhyList(i)} className="p-2.5 bg-red-50 text-red-500 hover:bg-red-100 rounded-xl border border-red-100 transition cursor-pointer"><Trash2 size={14} /></button>
                         </div>
                       ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* OUR PROJECTS PAGE EDITOR */}
+              {activeTab === "page-projects" && (
+                <div className="space-y-6">
+                  {/* Top header card */}
+                  <div className="bg-white rounded-3xl shadow-sm border border-slate-100 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                      <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                        <Briefcase className="text-[#1E67E2]" size={24} />
+                        Our Projects Page Content
+                      </h2>
+                      <p className="text-sm text-slate-500 mt-1">
+                        Manage all projects, showcase cards, categories, agile workflow steps, and CTA banner for the Our Projects page.
+                      </p>
+                    </div>
+                    <div className="flex gap-3">
+                      <button onClick={resetPageProjects} className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-red-500 border border-slate-200 hover:border-red-200 rounded-xl transition cursor-pointer">Reset</button>
+                      <button onClick={savePageProjects} className="px-5 py-2 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition-all flex items-center gap-2 cursor-pointer">
+                        {pageProjectsSaveSuccess ? <Check size={16} /> : <Save size={16} />}
+                        {pageProjectsSaveSuccess ? "Saved!" : "Save All Changes"}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* HERO HEADER SECTION */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Hero Header Section</h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Page Title</label>
+                        <input type="text" value={pageProjectsData.heroTitle || ""} onChange={e => updatePageProjectsField("heroTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Page Subtitle</label>
+                        <input type="text" value={pageProjectsData.heroSubtitle || ""} onChange={e => updatePageProjectsField("heroSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* PROJECTS SHOWCASE CARDS */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Projects Showcase Cards</h3>
+                        <p className="text-xs text-slate-400 mt-1">Manage project cards shown on the Our Projects grid showcase.</p>
+                      </div>
+                      <button onClick={addProjectCard} className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#1E67E2] rounded-xl text-xs font-bold transition cursor-pointer">
+                        <Plus size={13} /> Add Project Card
+                      </button>
+                    </div>
+
+                    <div className="space-y-6 mt-4">
+                      {(pageProjectsData.projectsList || []).map((card, i) => (
+                        <div key={i} className="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-4 relative">
+                          <button onClick={() => deleteProjectCard(i)} className="absolute top-4 right-4 p-2 bg-white text-red-400 hover:text-red-500 rounded-xl border border-slate-200 shadow-sm transition cursor-pointer"><Trash2 size={14} /></button>
+                          
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pr-10">
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold block mb-1">Project Title</label>
+                              <input type="text" value={card.title} onChange={e => updateProjectCard(i, "title", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2 outline-none focus:border-[#1E67E2] transition" />
+                            </div>
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold block mb-1">Category Filter</label>
+                              <select value={card.category} onChange={e => updateProjectCard(i, "category", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2 outline-none focus:border-[#1E67E2] transition">
+                                <option value="cloud">Cloud & DevOps (cloud)</option>
+                                <option value="development">Software & Mobile (development)</option>
+                                <option value="security">Cyber Security (security)</option>
+                                <option value="ai">AI & Analytics (ai)</option>
+                              </select>
+                            </div>
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold block mb-1">Badge Text</label>
+                              <input type="text" value={card.badge} onChange={e => updateProjectCard(i, "badge", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2 outline-none focus:border-[#1E67E2] transition" />
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div className="md:col-span-2">
+                              <label className="text-xs text-slate-500 font-semibold block mb-1">Description</label>
+                              <input type="text" value={card.description} onChange={e => updateProjectCard(i, "description", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2 outline-none focus:border-[#1E67E2] transition" />
+                            </div>
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold block mb-1">Media Path (Image or Video)</label>
+                              <input type="text" value={card.media} onChange={e => updateProjectCard(i, "media", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2 outline-none focus:border-[#1E67E2] transition" />
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-3">
+                            <label className="flex items-center gap-2 text-xs font-semibold text-slate-700 cursor-pointer">
+                              <input type="checkbox" checked={card.isVideo || false} onChange={e => updateProjectCard(i, "isVideo", e.target.checked)} className="rounded border-slate-300 text-[#1E67E2] focus:ring-[#1E67E2]" />
+                              <span>Is Video File</span>
+                            </label>
+                          </div>
+
+                          {/* Features list for this card */}
+                          <div className="bg-white border border-slate-200 rounded-xl p-3.5 space-y-2">
+                            <div className="flex justify-between items-center">
+                              <span className="text-xs font-bold text-slate-600">Feature Bullet Points</span>
+                              <button onClick={() => addProjectFeature(i)} className="text-[11px] font-bold text-[#1E67E2] hover:underline flex items-center gap-1 cursor-pointer"><Plus size={12} /> Add Feature</button>
+                            </div>
+                            <div className="space-y-2">
+                              {(card.features || []).map((feat, fIdx) => (
+                                <div key={fIdx} className="flex items-center gap-2">
+                                  <input type="text" value={feat} onChange={e => updateProjectFeature(i, fIdx, e.target.value)} className="flex-1 bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-1.5 outline-none focus:border-[#1E67E2] transition" />
+                                  <button onClick={() => deleteProjectFeature(i, fIdx)} className="p-1.5 text-red-400 hover:text-red-500 rounded transition cursor-pointer"><Trash2 size={13} /></button>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* AGILE WORKFLOW SECTION */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <div className="flex justify-between items-center">
+                      <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Agile Workflow Section</h3>
+                      <button onClick={addWorkflowStep} className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#1E67E2] rounded-xl text-xs font-bold transition cursor-pointer">
+                        <Plus size={13} /> Add Workflow Step
+                      </button>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Badge Text</label>
+                        <input type="text" value={pageProjectsData.workflowBadge || ""} onChange={e => updatePageProjectsField("workflowBadge", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Section Title</label>
+                        <input type="text" value={pageProjectsData.workflowTitle || ""} onChange={e => updatePageProjectsField("workflowTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Section Subtitle</label>
+                        <input type="text" value={pageProjectsData.workflowSubtitle || ""} onChange={e => updatePageProjectsField("workflowSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                    </div>
+
+                    <div className="space-y-4 mt-4">
+                      {(pageProjectsData.workflowSteps || []).map((step, i) => (
+                        <div key={i} className="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col gap-3 relative">
+                          <button onClick={() => deleteWorkflowStep(i)} className="absolute top-3 right-3 p-1.5 bg-white text-red-400 hover:text-red-500 rounded-lg border border-slate-200 shadow-sm transition cursor-pointer"><Trash2 size={14} /></button>
+                          <div className="grid grid-cols-1 md:grid-cols-4 gap-3 pr-8">
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold block mb-1">Step Number (e.g. 01)</label>
+                              <input type="text" value={step.step} onChange={e => updateWorkflowStep(i, "step", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" />
+                            </div>
+                            <div className="md:col-span-3">
+                              <label className="text-xs text-slate-500 font-semibold block mb-1">Step Title</label>
+                              <input type="text" value={step.title} onChange={e => updateWorkflowStep(i, "title", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" />
+                            </div>
+                          </div>
+                          <div>
+                            <label className="text-xs text-slate-500 font-semibold block mb-1">Step Description</label>
+                            <input type="text" value={step.desc} onChange={e => updateWorkflowStep(i, "desc", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* BOTTOM CALL-TO-ACTION SECTION */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Bottom Call-to-Action Banner</h3>
+                    <div className="grid md:grid-cols-3 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Banner Title</label>
+                        <input type="text" value={pageProjectsData.ctaTitle || ""} onChange={e => updatePageProjectsField("ctaTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Banner Subtitle</label>
+                        <input type="text" value={pageProjectsData.ctaSubtitle || ""} onChange={e => updatePageProjectsField("ctaSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Button Label</label>
+                        <input type="text" value={pageProjectsData.ctaButtonText || ""} onChange={e => updatePageProjectsField("ctaButtonText", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
                     </div>
                   </div>
                 </div>

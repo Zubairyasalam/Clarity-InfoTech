@@ -82,112 +82,147 @@ export default function ServicesPage() {
     if (stored) {
       try { setHeaderData(JSON.parse(stored)); } catch { }
     }
+
+    const storedProjects = localStorage.getItem("clarity_page_projects");
+    if (storedProjects) {
+      try { setPageProjectsData({ ...DEFAULT_PAGE_PROJECTS, ...JSON.parse(storedProjects) }); } catch { }
+    }
   }, []);
 
-  const servicesList = [
-    {
-      id: "cloud-devops",
-      category: "cloud",
-      title: "Cloud & DevOps Architecture",
-      badge: "Infrastructure & Security",
-      description: "Enterprise-grade multi-cloud orchestration, automated CI/CD pipelines, Kubernetes clustering, and 24/7 SLA infrastructure monitoring.",
-      icon: Cloud,
-      gradient: "from-sky-400 to-indigo-600",
-      media: "/service.mp4",
-      isVideo: true,
-      features: [
-        "AWS, GCP & Azure Multi-Cloud Architecture",
-        "Automated CI/CD Release Pipelines",
-        "Kubernetes & Docker Containerization",
-        "Zero-Downtime Infrastructure Scaling"
-      ]
-    },
-    {
-      id: "software-engineering",
-      category: "development",
-      title: "Custom Software Engineering",
-      badge: "Web & Mobile Platforms",
-      description: "High-performance full-stack web applications, REST/GraphQL microservices, and modern database architectures engineered for extreme concurrency.",
-      icon: Code2,
-      gradient: "from-indigo-500 to-purple-600",
-      media: "/service1.mp4",
-      isVideo: true,
-      features: [
-        "Next.js, React & Node.js Architecture",
-        "Microservices & Serverless Functions",
-        "High-Concurrency Relational & NoSQL DBs",
-        "100% IP Codebase Ownership Transfer"
-      ]
-    },
-    {
-      id: "cyber-security",
-      category: "security",
-      title: "Cyber Security & Auditing",
-      badge: "Threat Defense & Uptime",
-      description: "Continuous vulnerability assessments, ISO 27001 compliance auditing, encrypted data pipelines, and real-time DevSecOps threat defense.",
-      icon: Shield,
-      gradient: "from-purple-600 to-pink-600",
-      media: "/service2.mp4",
-      isVideo: true,
-      features: [
-        "ISO 27001 Compliance Audit Reports",
-        "Penetration Testing & Vulnerability Fixes",
-        "Encrypted End-to-End API Pipelines",
-        "24/7 Threat Detection & Incident Response"
-      ]
-    },
-    {
-      id: "ai-consulting",
-      category: "ai",
-      title: "AI Integration & IT Consulting",
-      badge: "Automation & Strategy",
-      description: "Empower legacy platforms with custom LLM integrations, automated workflow engines, predictive analytics, and enterprise AI roadmaps.",
-      icon: Zap,
-      gradient: "from-cyan-400 to-blue-600",
-      media: "/service3.mp4",
-      isVideo: true,
-      features: [
-        "Custom Enterprise LLM & RAG Integration",
-        "Automated AI Workflow Engines",
-        "Predictive Business Intelligence Models",
-        "Executive Tech Strategy & Architecture"
-      ]
-    },
-    {
-      id: "mobile-dev",
-      category: "development",
-      title: "Mobile App Development",
-      badge: "iOS & Android Solutions",
-      description: "Native and cross-platform mobile apps with buttery smooth UI, offline synchronization, and secure biometric authentication.",
-      icon: Smartphone,
-      gradient: "from-emerald-400 to-teal-600",
-      media: "/carousel-3.png",
-      isVideo: false,
-      features: [
-        "React Native & iOS/Android Native Code",
-        "Offline Data Sync & Caching",
-        "Biometric & Zero-Trust Authentication",
-        "App Store & Play Store Deployment"
-      ]
-    },
-    {
-      id: "data-analytics",
-      category: "ai",
-      title: "Data Analytics & Big Data",
-      badge: "Intelligence & Dashboards",
-      description: "Transform raw data streams into real-time visual dashboards, automated data pipelines, and executive forecasting analytics.",
-      icon: BarChart3,
-      gradient: "from-orange-400 to-red-600",
-      media: "/carousel-4.png",
-      isVideo: false,
-      features: [
-        "Real-Time ETL & Streaming Data Pipelines",
-        "Executive Interactive Analytics Dashboards",
-        "Machine Learning Forecasting Models",
-        "Data Warehouse Architecture (Snowflake, BigQuery)"
-      ]
-    }
-  ];
+  const DEFAULT_PAGE_PROJECTS = {
+    heroTitle: "Our Projects",
+    heroSubtitle: "Exploring cutting-edge software solutions, cloud architecture, and digital transformations.",
+    projectsList: [
+      {
+        id: "cloud-devops",
+        category: "cloud",
+        title: "Cloud & DevOps Architecture",
+        badge: "Infrastructure & Security",
+        description: "Enterprise-grade multi-cloud orchestration, automated CI/CD pipelines, Kubernetes clustering, and 24/7 SLA infrastructure monitoring.",
+        icon: "Cloud",
+        gradient: "from-sky-400 to-indigo-600",
+        media: "/service.mp4",
+        isVideo: true,
+        features: [
+          "AWS, GCP & Azure Multi-Cloud Architecture",
+          "Automated CI/CD Release Pipelines",
+          "Kubernetes & Docker Containerization",
+          "Zero-Downtime Infrastructure Scaling"
+        ]
+      },
+      {
+        id: "software-engineering",
+        category: "development",
+        title: "Custom Software Engineering",
+        badge: "Web & Mobile Platforms",
+        description: "High-performance full-stack web applications, REST/GraphQL microservices, and modern database architectures engineered for extreme concurrency.",
+        icon: "Code2",
+        gradient: "from-indigo-500 to-purple-600",
+        media: "/service1.mp4",
+        isVideo: true,
+        features: [
+          "Next.js, React & Node.js Architecture",
+          "Microservices & Serverless Functions",
+          "High-Concurrency Relational & NoSQL DBs",
+          "100% IP Codebase Ownership Transfer"
+        ]
+      },
+      {
+        id: "cyber-security",
+        category: "security",
+        title: "Cyber Security & Auditing",
+        badge: "Threat Defense & Uptime",
+        description: "Continuous vulnerability assessments, ISO 27001 compliance auditing, encrypted data pipelines, and real-time DevSecOps threat defense.",
+        icon: "Shield",
+        gradient: "from-purple-600 to-pink-600",
+        media: "/service2.mp4",
+        isVideo: true,
+        features: [
+          "ISO 27001 Compliance Audit Reports",
+          "Penetration Testing & Vulnerability Fixes",
+          "Encrypted End-to-End API Pipelines",
+          "24/7 Threat Detection & Incident Response"
+        ]
+      },
+      {
+        id: "ai-consulting",
+        category: "ai",
+        title: "AI Integration & IT Consulting",
+        badge: "Automation & Strategy",
+        description: "Empower legacy platforms with custom LLM integrations, automated workflow engines, predictive analytics, and enterprise AI roadmaps.",
+        icon: "Zap",
+        gradient: "from-cyan-400 to-blue-600",
+        media: "/service3.mp4",
+        isVideo: true,
+        features: [
+          "Custom Enterprise LLM & RAG Integration",
+          "Automated AI Workflow Engines",
+          "Predictive Business Intelligence Models",
+          "Executive Tech Strategy & Architecture"
+        ]
+      },
+      {
+        id: "mobile-dev",
+        category: "development",
+        title: "Mobile App Development",
+        badge: "iOS & Android Solutions",
+        description: "Native and cross-platform mobile apps with buttery smooth UI, offline synchronization, and secure biometric authentication.",
+        icon: "Smartphone",
+        gradient: "from-emerald-400 to-teal-600",
+        media: "/carousel-3.png",
+        isVideo: false,
+        features: [
+          "React Native & iOS/Android Native Code",
+          "Offline Data Sync & Caching",
+          "Biometric & Zero-Trust Authentication",
+          "App Store & Play Store Deployment"
+        ]
+      },
+      {
+        id: "data-analytics",
+        category: "ai",
+        title: "Data Analytics & Big Data",
+        badge: "Intelligence & Dashboards",
+        description: "Transform raw data streams into real-time visual dashboards, automated data pipelines, and executive forecasting analytics.",
+        icon: "BarChart3",
+        gradient: "from-orange-400 to-red-600",
+        media: "/carousel-4.png",
+        isVideo: false,
+        features: [
+          "Real-Time ETL & Streaming Data Pipelines",
+          "Executive Interactive Analytics Dashboards",
+          "Machine Learning Forecasting Models",
+          "Data Warehouse Architecture (Snowflake, BigQuery)"
+        ]
+      }
+    ],
+    workflowBadge: "AGILE WORKFLOW",
+    workflowTitle: "How We Deliver Value",
+    workflowSubtitle: "A transparent, high-velocity engineering workflow designed for rapid enterprise execution.",
+    workflowSteps: [
+      { step: "01", title: "Discovery & Architecture Audit", desc: "We evaluate your system architecture, codebase, and infrastructure goals to draft a zero-friction engineering roadmap." },
+      { step: "02", title: "Dedicated Squad Allocation", desc: "We assemble a specialized team of senior developers, cloud engineers, and security leads dedicated to your sprint goals." },
+      { step: "03", title: "CI/CD & DevSecOps Deployment", desc: "Automated pipelines, unit testing, and containerized deployments ensure code is pushed safely and continuously to production." },
+      { step: "04", title: "SLA Monitoring & Optimization", desc: "Post-launch 24/7 telemetry monitoring, infrastructure scaling, and performance optimizations keep your applications highly available." }
+    ],
+    ctaTitle: "Need a Custom Enterprise Solution?",
+    ctaSubtitle: "Talk to our senior architects to get a tailored engineering proposal, timeline estimate, and SLA scope.",
+    ctaButtonText: "Schedule Technical Consultation"
+  };
+
+  const [pageProjectsData, setPageProjectsData] = useState(DEFAULT_PAGE_PROJECTS);
+
+  const getIconComponent = (iconName) => {
+    if (iconName === "Cloud") return Cloud;
+    if (iconName === "Code2") return Code2;
+    if (iconName === "Shield") return Shield;
+    if (iconName === "Zap") return Zap;
+    if (iconName === "Smartphone") return Smartphone;
+    if (iconName === "BarChart3") return BarChart3;
+    return Code2;
+  };
+
+  const servicesList = pageProjectsData.projectsList || DEFAULT_PAGE_PROJECTS.projectsList;
 
   const filteredServices = activeCategory === "all"
     ? servicesList
@@ -336,7 +371,7 @@ export default function ServicesPage() {
               transition={{ duration: 0.6 }}
               className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-2 font-sans text-white"
             >
-              Our Projects
+              {pageProjectsData.heroTitle || "Our Projects"}
             </motion.h1>
 
             <motion.p
@@ -345,7 +380,7 @@ export default function ServicesPage() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-sm sm:text-base md:text-lg text-white/80 max-w-2xl mx-auto leading-snug font-light font-sans"
             >
-              Exploring cutting-edge software solutions, cloud architecture, and digital transformations.
+              {pageProjectsData.heroSubtitle || "Exploring cutting-edge software solutions, cloud architecture, and digital transformations."}
             </motion.p>
           </div>
         </section>
@@ -378,10 +413,10 @@ export default function ServicesPage() {
           {/* Services Cards Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredServices.map((service, idx) => {
-              const IconComp = service.icon;
+              const IconComp = typeof service.icon === 'string' ? getIconComponent(service.icon) : (service.icon || Code2);
               return (
                 <motion.div
-                  key={service.id}
+                  key={service.id || idx}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -423,7 +458,7 @@ export default function ServicesPage() {
 
                       {/* Feature Bullet Points */}
                       <ul className="space-y-2.5 pt-4 border-t border-slate-100">
-                        {service.features.map((feat, fIdx) => (
+                        {(service.features || []).map((feat, fIdx) => (
                           <li key={fIdx} className="flex items-start gap-2.5 text-xs font-semibold text-slate-700">
                             <CheckCircle2 size={15} className="text-indigo-600 flex-shrink-0 mt-0.5" />
                             <span>{feat}</span>
@@ -445,18 +480,18 @@ export default function ServicesPage() {
 
             <div className="text-center max-w-3xl mx-auto mb-8">
               <span className="inline-block bg-indigo-50 text-indigo-600 border border-indigo-200/80 px-4 py-1.5 rounded-full text-xs font-bold font-mono tracking-wider uppercase mb-4 shadow-sm">
-                AGILE WORKFLOW
+                {pageProjectsData.workflowBadge || "AGILE WORKFLOW"}
               </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-sans bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-indigo-600 to-indigo-800 mb-4">
-                How We Deliver Value
+                {pageProjectsData.workflowTitle || "How We Deliver Value"}
               </h2>
               <p className="text-slate-600 text-base sm:text-lg font-light max-w-xl mx-auto">
-                A transparent, high-velocity engineering workflow designed for rapid enterprise execution.
+                {pageProjectsData.workflowSubtitle || "A transparent, high-velocity engineering workflow designed for rapid enterprise execution."}
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {processSteps.map((step, idx) => (
+              {(pageProjectsData.workflowSteps || processSteps).map((step, idx) => (
                 <motion.div
                   key={idx}
                   initial={{ opacity: 0, y: 30 }}
@@ -472,7 +507,7 @@ export default function ServicesPage() {
                     {step.title}
                   </h3>
                   <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-normal">
-                    {step.description}
+                    {step.desc || step.description}
                   </p>
                 </motion.div>
               ))}
@@ -487,10 +522,10 @@ export default function ServicesPage() {
 
           <div className="max-w-4xl mx-auto px-6 relative z-10">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-6">
-              Need a Custom Enterprise Solution?
+              {pageProjectsData.ctaTitle || "Need a Custom Enterprise Solution?"}
             </h2>
             <p className="text-white/80 text-base sm:text-lg leading-relaxed mb-10 max-w-2xl mx-auto font-light">
-              Talk to our senior architects to get a tailored engineering proposal, timeline estimate, and SLA scope.
+              {pageProjectsData.ctaSubtitle || "Talk to our senior architects to get a tailored engineering proposal, timeline estimate, and SLA scope."}
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4">
@@ -498,7 +533,7 @@ export default function ServicesPage() {
                 href="/contact"
                 className="px-8 py-4 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-base shadow-xl shadow-indigo-600/40 transition-all hover:scale-105 active:scale-95 flex items-center gap-2 cursor-pointer"
               >
-                Schedule Technical Consultation
+                {pageProjectsData.ctaButtonText || "Schedule Technical Consultation"}
                 <ArrowRight size={20} />
               </a>
             </div>
