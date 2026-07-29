@@ -1081,7 +1081,7 @@ export default function AdminDashboard() {
             <img
               src="/logo.png"
               alt="Clarity InfoTech Logo"
-              className="h-8 w-auto object-contain"
+              className="h-11 w-auto object-contain scale-105"
             />
           </a>
         </div>
