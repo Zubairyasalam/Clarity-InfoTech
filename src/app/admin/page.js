@@ -1279,6 +1279,8 @@ export default function AdminDashboard() {
                   {[
                     { id: "page-about", label: "About Page", icon: FileText },
                     { id: "page-projects", label: "Our Projects", icon: Briefcase },
+                    { id: "page-service", label: "Our Service", icon: Layers },
+                    { id: "page-legal", label: "Legal Pages", icon: Shield },
                   ].map((item) => {
                     const Icon = item.icon;
                     const isActive = activeTab === item.id;

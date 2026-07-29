@@ -2185,8 +2185,12 @@ export default function Home() {
           <div className="footer-right">
             {/* Floating Lucky Graphic */}
             <div className="footer-lucky-graphic">
-              <div className="lucky-cube">
-                <span className="lucky-cube-mark">C</span>
+              <div className="lucky-cube" style={{ background: 'transparent', boxShadow: 'none' }}>
+                <img
+                  src="/logo.png"
+                  alt="Clarity Logo"
+                  className="w-full h-full object-contain filter brightness-110 contrast-125 drop-shadow-[0_4px_12px_rgba(30,103,226,0.35)]"
+                />
               </div>
               <div className="lucky-text-row">
                 <svg className="lucky-arrow" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
