@@ -410,14 +410,6 @@ export default function ServicesPage() {
                       )}
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E39]/80 via-transparent to-transparent" />
 
-                      <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between z-10">
-                        <span className="text-[10px] font-bold text-white bg-white/20 backdrop-blur-md border border-white/30 px-3 py-1 rounded-full uppercase tracking-wider font-mono">
-                          {service.badge}
-                        </span>
-                        <div className={`w-10 h-10 rounded-xl bg-gradient-to-tr ${service.gradient} text-white flex items-center justify-center shadow-lg`}>
-                          <IconComp size={20} />
-                        </div>
-                      </div>
                     </div>
 
                     {/* Card Content */}
