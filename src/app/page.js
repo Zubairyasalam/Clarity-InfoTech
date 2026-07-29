@@ -2137,10 +2137,11 @@ export default function Home() {
             </video>
 
             <div className="footer-logo">
-              <div className="footer-logo-mark">
-                C
-              </div>
-              <span className="footer-logo-name">Clarity InfoTech</span>
+              <img
+                src="/logo.png"
+                alt="Clarity InfoTech Logo"
+                className="h-12 w-auto object-contain brightness-200 contrast-125 filter"
+              />
             </div>
 
             <div className="footer-tagline-container">
