@@ -440,17 +440,6 @@ export default function ServicesPage() {
                       </ul>
                     </div>
                   </div>
-
-                  {/* Card Bottom CTA Link */}
-                  <div className="px-7 pb-7 pt-2">
-                    <a
-                      href="/#contact"
-                      className="w-full py-3 rounded-2xl bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white font-bold text-xs flex items-center justify-center gap-2 transition-all duration-300 group/btn"
-                    >
-                      Consult Squad Architects
-                      <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
-                    </a>
-                  </div>
                 </motion.div>
               );
             })}
