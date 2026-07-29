@@ -319,8 +319,9 @@ export default function AdminDashboard() {
       { label: "AWS & GCP Partner", url: "#services" },
       { label: "ISO 27001 Security", url: "#about" },
       { label: "DevOps Association", url: "#services" },
-      { label: "Privacy Policy", url: "#" },
-      { label: "Terms of Condition", url: "#" }
+      { label: "Privacy Policy", url: "/privacy-policy" },
+      { label: "Terms of Service", url: "/terms-of-service" },
+      { label: "Refund Policy", url: "/refund-policy" }
     ],
     navLinks: [
       { label: "Home", url: "#home" },
@@ -665,7 +666,15 @@ export default function AdminDashboard() {
       // Load footer data
       const storedFooter = localStorage.getItem("clarity_footer");
       if (storedFooter) {
-        try { setFooterData({ ...DEFAULT_FOOTER, ...JSON.parse(storedFooter) }); } catch { }
+        try {
+          const parsed = JSON.parse(storedFooter);
+          const hasRefund = (parsed.companyLinks || []).some(l => l.label.toLowerCase().includes("refund"));
+          if (!hasRefund) {
+            parsed.companyLinks = DEFAULT_FOOTER.companyLinks;
+            localStorage.setItem("clarity_footer", JSON.stringify(parsed));
+          }
+          setFooterData({ ...DEFAULT_FOOTER, ...parsed });
+        } catch { }
       } else {
         localStorage.setItem("clarity_footer", JSON.stringify(DEFAULT_FOOTER));
       }
