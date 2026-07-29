@@ -93,6 +93,57 @@ For questions about these Terms and Conditions, please contact us at salamzubi8@
     }
   }, []);
 
+  const renderFormattedContent = (text) => {
+    if (!text) return null;
+    const lines = text.split("\n");
+    return lines.map((line, idx) => {
+      let content = line;
+      let isBoldLine = false;
+      if (content.startsWith("**") && content.endsWith("**")) {
+        content = content.replace(/\*\*/g, "");
+        isBoldLine = true;
+      }
+
+      const renderLineContent = (str) => {
+        const parts = str.split(/\*\*([^*]+)\*\*/g);
+        if (parts.length === 1) return str;
+        return parts.map((part, i) => (i % 2 === 1 ? <strong key={i} className="font-bold text-slate-800">{part}</strong> : part));
+      };
+
+      if (line.startsWith("### ")) {
+        const title = line.replace("### ", "");
+        return <h3 key={idx} className="text-base font-bold text-slate-800 mt-6 mb-2.5 font-sans">{renderLineContent(title)}</h3>;
+      }
+      if (line.startsWith("## ")) {
+        const title = line.replace("## ", "");
+        return <h2 key={idx} className="text-lg font-extrabold text-slate-800 mt-8 mb-3 font-sans">{renderLineContent(title)}</h2>;
+      }
+      if (line.startsWith("# ")) {
+        const title = line.replace("# ", "");
+        return <h1 key={idx} className="text-xl font-black text-slate-850 mt-10 mb-4 font-sans">{renderLineContent(title)}</h1>;
+      }
+      if (line.startsWith("* ") || line.startsWith("- ")) {
+        const clean = line.substring(2);
+        return (
+          <li key={idx} className="ml-4 list-disc pl-1 mb-1.5 text-slate-650 text-sm font-sans">
+            {renderLineContent(clean)}
+          </li>
+        );
+      }
+      if (line.trim() === "") {
+        return <div key={idx} className="h-2" />;
+      }
+      if (isBoldLine) {
+        return <p key={idx} className="text-sm font-bold text-slate-800 mt-4 mb-2 font-sans">{content}</p>;
+      }
+      return (
+        <p key={idx} className="text-sm text-slate-600 leading-relaxed mb-3.5 font-sans">
+          {renderLineContent(content)}
+        </p>
+      );
+    });
+  };
+
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-800 font-sans flex flex-col">
       {/* Navbar */}
@@ -151,8 +202,8 @@ For questions about these Terms and Conditions, please contact us at salamzubi8@
             <p className="text-xs text-slate-400 mt-2 font-medium">{legalData.termsSubtitle}</p>
           </div>
 
-          <div className="prose prose-slate max-w-none text-slate-600 text-sm leading-relaxed whitespace-pre-wrap font-sans">
-            {legalData.termsContent}
+          <div className="prose prose-slate max-w-none text-slate-650 text-sm leading-relaxed font-sans">
+            {renderFormattedContent(legalData.termsContent)}
           </div>
         </section>
       </main>
