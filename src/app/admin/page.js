@@ -1076,14 +1076,14 @@ export default function AdminDashboard() {
       {/* Left Sidebar */}
       <aside className="w-64 bg-white border-r border-slate-100 flex flex-col shrink-0 min-h-screen sticky top-0">
         {/* Brand/Logo */}
-        <div className="p-6 border-b border-slate-50 flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-[#1E67E2] flex items-center justify-center text-white font-black text-lg shadow-md shadow-blue-500/20">
-            C
-          </div>
-          <div>
-            <h2 className="font-extrabold text-slate-800 text-sm tracking-tight leading-none">Clarity</h2>
-            <span className="text-[10px] font-bold text-slate-400 tracking-wider">INFOTECH</span>
-          </div>
+        <div className="px-6 py-5 border-b border-slate-50 flex items-center justify-between">
+          <a href="/" className="flex items-center">
+            <img
+              src="/logo.png"
+              alt="Clarity InfoTech Logo"
+              className="h-8 w-auto object-contain"
+            />
+          </a>
         </div>
 
                 {/* Sidebar Nav links */}
