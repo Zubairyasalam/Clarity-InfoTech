@@ -1098,6 +1098,57 @@ export default function AdminDashboard() {
   };
   const resetLegalPages = () => { if (confirm("Reset all Legal pages to defaults?")) { setLegalPagesData(DEFAULT_LEGAL_PAGES); localStorage.setItem("clarity_legal_pages", JSON.stringify(DEFAULT_LEGAL_PAGES)); } };
 
+  const renderFormattedContent = (text) => {
+    if (!text) return null;
+    const lines = text.split("\n");
+    return lines.map((line, idx) => {
+      let content = line;
+      let isBoldLine = false;
+      if (content.startsWith("**") && content.endsWith("**")) {
+        content = content.replace(/\*\*/g, "");
+        isBoldLine = true;
+      }
+
+      const renderLineContent = (str) => {
+        const parts = str.split(/\*\*([^*]+)\*\*/g);
+        if (parts.length === 1) return str;
+        return parts.map((part, i) => (i % 2 === 1 ? <strong key={i} className="font-bold text-slate-800">{part}</strong> : part));
+      };
+
+      if (line.startsWith("### ")) {
+        const title = line.replace("### ", "");
+        return <h3 key={idx} className="text-sm font-bold text-slate-800 mt-4 mb-1.5 font-sans">{renderLineContent(title)}</h3>;
+      }
+      if (line.startsWith("## ")) {
+        const title = line.replace("## ", "");
+        return <h2 key={idx} className="text-base font-extrabold text-slate-800 mt-5 mb-2 font-sans">{renderLineContent(title)}</h2>;
+      }
+      if (line.startsWith("# ")) {
+        const title = line.replace("# ", "");
+        return <h1 key={idx} className="text-lg font-black text-slate-900 mt-6 mb-2.5 font-sans">{renderLineContent(title)}</h1>;
+      }
+      if (line.startsWith("* ") || line.startsWith("- ")) {
+        const clean = line.substring(2);
+        return (
+          <li key={idx} className="ml-4 list-disc pl-1 mb-1 text-slate-650 text-xs font-sans">
+            {renderLineContent(clean)}
+          </li>
+        );
+      }
+      if (line.trim() === "") {
+        return <div key={idx} className="h-1.5" />;
+      }
+      if (isBoldLine) {
+        return <p key={idx} className="text-xs font-bold text-slate-800 mt-3 mb-1.5 font-sans">{content}</p>;
+      }
+      return (
+        <p key={idx} className="text-xs text-slate-600 leading-relaxed mb-2 font-sans">
+          {renderLineContent(content)}
+        </p>
+      );
+    });
+  };
+
   const getTabTitle = (tab) => {
     const titles = {
       "overview": "Dashboard Overview",
@@ -2179,15 +2230,23 @@ export default function AdminDashboard() {
                         <input type="text" value={legalPagesData.privacySubtitle || ""} onChange={e => updateLegalPagesField("privacySubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
                       </div>
                     </div>
-                    <div>
-                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Page Content</label>
-                      <textarea rows={8} value={legalPagesData.privacyContent || ""} onChange={e => updateLegalPagesField("privacyContent", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition font-sans whitespace-pre-wrap" />
+                    <div className="grid lg:grid-cols-2 gap-6">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Page Content</label>
+                        <textarea rows={10} value={legalPagesData.privacyContent || ""} onChange={e => updateLegalPagesField("privacyContent", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition font-sans whitespace-pre-wrap" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Live Formatted Preview</label>
+                        <div className="w-full bg-slate-50 border border-slate-100 rounded-xl p-4 h-[240px] overflow-y-auto prose prose-slate max-w-none text-slate-650 text-xs leading-relaxed font-sans shadow-inner">
+                          {renderFormattedContent(legalPagesData.privacyContent)}
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  {/* 2. TERMS OF SERVICE */}
+                  {/* 2. TERMS AND CONDITIONS */}
                   <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
-                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> 2. Terms of Service Page</h3>
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> 2. Terms and Conditions Page</h3>
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
                         <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Title</label>
@@ -2198,9 +2257,17 @@ export default function AdminDashboard() {
                         <input type="text" value={legalPagesData.termsSubtitle || ""} onChange={e => updateLegalPagesField("termsSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
                       </div>
                     </div>
-                    <div>
-                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Page Content</label>
-                      <textarea rows={8} value={legalPagesData.termsContent || ""} onChange={e => updateLegalPagesField("termsContent", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition font-sans whitespace-pre-wrap" />
+                    <div className="grid lg:grid-cols-2 gap-6">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Page Content</label>
+                        <textarea rows={10} value={legalPagesData.termsContent || ""} onChange={e => updateLegalPagesField("termsContent", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition font-sans whitespace-pre-wrap" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Live Formatted Preview</label>
+                        <div className="w-full bg-slate-50 border border-slate-100 rounded-xl p-4 h-[240px] overflow-y-auto prose prose-slate max-w-none text-slate-650 text-xs leading-relaxed font-sans shadow-inner">
+                          {renderFormattedContent(legalPagesData.termsContent)}
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -2217,9 +2284,17 @@ export default function AdminDashboard() {
                         <input type="text" value={legalPagesData.refundSubtitle || ""} onChange={e => updateLegalPagesField("refundSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
                       </div>
                     </div>
-                    <div>
-                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Page Content</label>
-                      <textarea rows={8} value={legalPagesData.refundContent || ""} onChange={e => updateLegalPagesField("refundContent", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition font-sans whitespace-pre-wrap" />
+                    <div className="grid lg:grid-cols-2 gap-6">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Page Content</label>
+                        <textarea rows={10} value={legalPagesData.refundContent || ""} onChange={e => updateLegalPagesField("refundContent", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition font-sans whitespace-pre-wrap" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Live Formatted Preview</label>
+                        <div className="w-full bg-slate-50 border border-slate-100 rounded-xl p-4 h-[240px] overflow-y-auto prose prose-slate max-w-none text-slate-650 text-xs leading-relaxed font-sans shadow-inner">
+                          {renderFormattedContent(legalPagesData.refundContent)}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
