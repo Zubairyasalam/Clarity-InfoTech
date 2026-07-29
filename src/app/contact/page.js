@@ -30,10 +30,13 @@ export default function ContactPage() {
     email: "",
     company: "",
     service: "",
+    otherService: "",
     message: "",
     recaptcha: false,
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -59,45 +62,80 @@ export default function ContactPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.recaptcha) {
       alert("Please verify the reCAPTCHA checkbox before submitting.");
       return;
     }
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({
-        name: "",
-        email: "",
-        company: "",
-        service: "",
-        message: "",
-        recaptcha: false,
+    
+    setIsSubmitting(true);
+    setError("");
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-    }, 4000);
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setSubmitted(true);
+        setTimeout(() => {
+          setSubmitted(false);
+          setFormData({
+            name: "",
+            email: "",
+            company: "",
+            service: "",
+            otherService: "",
+            message: "",
+            recaptcha: false,
+          });
+        }, 4000);
+      } else {
+        setError(data.error || 'Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      setError('Network error. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const navItems = [
-    { label: "Home", href: "/" },
-    { label: "About Us", href: "/about" },
-    { label: "Our Projects", href: "/services" },
-    { label: "Our Services", href: "/our-services" },
-    { label: "Contact", href: "/contact" },
-  ];
+  const DEFAULT_HEADER = {
+    logo: "/logo.png",
+    links: [
+      { id: 1, label: "Home", url: "/" },
+      { id: 2, label: "About Us", url: "/about" },
+      { id: 3, label: "Our Projects", url: "/services" },
+      { id: 4, label: "Our Services", url: "/our-services" },
+      { id: 5, label: "Contact", url: "/contact" }
+    ]
+  };
+  const [headerData, setHeaderData] = useState(DEFAULT_HEADER);
+  useEffect(() => {
+    const stored = localStorage.getItem("clarity_header");
+    if (stored) {
+      try { setHeaderData(JSON.parse(stored)); } catch { }
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#F4F6FB] text-navy font-sans flex flex-col relative overflow-x-hidden selection:bg-sky-400 selection:text-white">
       {/* 1. STICKY NAVBAR - ALWAYS 100% TRANSPARENT WITH DYNAMIC CONTRAST TEXT */}
-      <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-20 md:h-26 flex items-center bg-transparent">
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-16 md:h-20 flex items-center ${isScrolled ? "bg-white shadow-md border-b border-gray-100" : "bg-transparent"}`}>
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 w-full flex items-center justify-between h-full overflow-visible">
           {/* Prominently Enlarged & Ultra-Visible Home Logo */}
           <a href="/" className="flex items-center group h-full overflow-visible relative">
             <img
-              src="/logo.png"
+              src={headerData.logo}
               alt="Clarity InfoTech Logo"
-              className={`w-auto h-20 sm:h-24 md:h-28 lg:h-32 object-contain transition-all duration-300 group-hover:scale-105 filter ${
+              className={`w-auto h-8 sm:h-10 md:h-10 lg:h-12 object-contain transition-all duration-300 group-hover:scale-105 filter ${
                 isScrolled
                   ? "brightness-90 contrast-200 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
                   : "brightness-150 contrast-125 drop-shadow-[0_4px_12px_rgba(0,0,0,0.7)]"
@@ -107,12 +145,12 @@ export default function ContactPage() {
 
           {/* Desktop Nav Links */}
           <nav className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => {
-              const isActive = item.label === "Contact";
+            {headerData.links.map((link) => {
+              const isActive = link.label === "Contact";
               return (
                 <a
-                  key={item.label}
-                  href={item.href}
+                  key={link.label}
+                  href={link.url}
                   className={`px-5 py-2 font-bold text-sm transition-colors duration-200 ${
                     isScrolled
                       ? isActive
@@ -123,7 +161,7 @@ export default function ContactPage() {
                         : "text-white/90 hover:text-white"
                   }`}
                 >
-                  {item.label}
+                  {link.label}
                 </a>
               );
             })}
@@ -150,18 +188,21 @@ export default function ContactPage() {
               className="md:hidden border-t border-navy/5 bg-[#0A0E39] text-white w-full overflow-hidden"
             >
               <div className="px-6 py-8 flex flex-col gap-5">
-                {navItems.map((item) => (
+                {headerData.links.map((link) => {
+                  const isActive = link.label === "Contact";
+                  return (
                   <a
-                    key={item.label}
-                    href={item.href}
+                    key={link.label}
+                    href={link.url}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`font-semibold text-lg transition-colors ${
-                      item.label === "Contact" ? "text-sky-400 font-bold" : "text-white/80 hover:text-white"
+                      link.label === "Contact" ? "text-sky-400 font-bold" : "text-white/80 hover:text-white"
                     }`}
                   >
-                    {item.label}
+                    {link.label}
                   </a>
-                ))}
+                  );
+                })}
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
@@ -307,7 +348,20 @@ export default function ContactPage() {
                       <option value="AI Solutions">Enterprise AI & RAG</option>
                       <option value="Cybersecurity">Cybersecurity Audit</option>
                       <option value="Data Analytics">Data Analytics</option>
+                      <option value="Other">Other</option>
                     </select>
+                    {formData.service === "Other" && (
+                      <div className="mt-3">
+                        <input
+                          type="text"
+                          required
+                          placeholder="Please specify"
+                          value={formData.otherService}
+                          onChange={(e) => setFormData({ ...formData, otherService: e.target.value })}
+                          className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-sans"
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -351,12 +405,14 @@ export default function ContactPage() {
                   {/* Send Message Button */}
                   <button
                     type="submit"
-                    className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#0066FF] hover:bg-[#0052CC] text-white font-bold text-sm shadow-lg shadow-blue-500/30 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+                    disabled={isSubmitting}
+                    className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#0066FF] hover:bg-[#0052CC] text-white font-bold text-sm shadow-lg shadow-blue-500/30 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
                   >
-                    Send Message
-                    <Send size={16} />
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                    {!isSubmitting && <Send size={16} />}
                   </button>
                 </div>
+                {error && <p className="text-red-500 text-sm mt-4 text-center font-medium">{error}</p>}
               </form>
             )}
           </motion.div>
@@ -410,8 +466,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <span className="font-semibold text-slate-900 block mb-0.5">Email</span>
-                    <a href="mailto:clarityinfotech.office@gmail.com" className="hover:text-blue-600 transition-colors">
-                      clarityinfotech.office@gmail.com
+                    <a href="mailto:salamzubi8@gmail.com" className="hover:text-blue-600 transition-colors">
+                      salamzubi8@gmail.com
                     </a>
                   </div>
                 </div>
@@ -433,87 +489,7 @@ export default function ContactPage() {
         </section>
       </main>
 
-      {/* 5. FOOTER */}
-      <footer className="bg-[#050827] text-white/70 pt-16 pb-12 border-t border-white/10 select-none">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-white/10">
-            {/* Column 1: Brand Info */}
-            <div className="lg:col-span-2 space-y-4">
-              <a href="/" className="inline-block">
-                <img
-                  src="/logo.png"
-                  alt="Clarity InfoTech Logo"
-                  className="w-auto h-20 object-contain filter brightness-150 contrast-125"
-                />
-              </a>
-              <p className="text-sm text-white/60 leading-relaxed max-w-sm font-sans">
-                Pioneering the future of technology with innovative solutions that transform businesses and empower digital growth across industries worldwide.
-              </p>
-              <div className="pt-2 space-y-2 text-xs text-white/80 font-sans">
-                <div className="flex items-center gap-2">
-                  <Mail size={14} className="text-sky-400" />
-                  <span>clarityinfotech.office@gmail.com</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Phone size={14} className="text-sky-400" />
-                  <span>+91 7373306677</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <MapPin size={14} className="text-sky-400" />
-                  <span>Chennai, Tamil Nadu, India</span>
-                </div>
-              </div>
-            </div>
 
-            {/* Column 2: Services */}
-            <div>
-              <h4 className="text-white font-semibold text-sm mb-4 font-sans uppercase tracking-wider">
-                Services
-              </h4>
-              <ul className="space-y-2.5 text-xs">
-                <li><a href="/services" className="hover:text-white transition-colors">Web Development</a></li>
-                <li><a href="/services" className="hover:text-white transition-colors">Mobile Apps</a></li>
-                <li><a href="/services" className="hover:text-white transition-colors">Cloud Services</a></li>
-                <li><a href="/services" className="hover:text-white transition-colors">AI Solutions</a></li>
-                <li><a href="/services" className="hover:text-white transition-colors">Cybersecurity</a></li>
-                <li><a href="/services" className="hover:text-white transition-colors">Data Analytics</a></li>
-              </ul>
-            </div>
-
-            {/* Column 3: Company */}
-            <div>
-              <h4 className="text-white font-semibold text-sm mb-4 font-sans uppercase tracking-wider">
-                Company
-              </h4>
-              <ul className="space-y-2.5 text-xs">
-                <li><a href="/about" className="hover:text-white transition-colors">About Us</a></li>
-                <li><a href="/services" className="hover:text-white transition-colors">Our Projects</a></li>
-                <li><a href="/contact" className="hover:text-white transition-colors">Contact</a></li>
-              </ul>
-            </div>
-
-            {/* Column 4: Resources */}
-            <div>
-              <h4 className="text-white font-semibold text-sm mb-4 font-sans uppercase tracking-wider">
-                Resources
-              </h4>
-              <ul className="space-y-2.5 text-xs">
-                <li><a href="#" className="hover:text-white transition-colors">Documentation</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">API Reference</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Support Center</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-white/50 gap-4">
-            <p>© {new Date().getFullYear()} Clarity InfoTech Consultant. All rights reserved.</p>
-            <div className="flex items-center gap-6">
-              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            </div>
-          </div>
-        </div>
-      </footer>
 
       {/* SCROLL TO TOP BUTTON */}
       <AnimatePresence>

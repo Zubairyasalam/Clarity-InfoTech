@@ -66,13 +66,23 @@ export default function ServicesPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const navItems = [
-    { label: "Home", href: "/" },
-    { label: "About Us", href: "/about" },
-    { label: "Our Projects", href: "/services" },
-    { label: "Our Services", href: "/our-services" },
-    { label: "Contact", href: "/contact" }
-  ];
+  const DEFAULT_HEADER = {
+    logo: "/logo.png",
+    links: [
+      { id: 1, label: "Home", url: "/" },
+      { id: 2, label: "About Us", url: "/about" },
+      { id: 3, label: "Our Projects", url: "/services" },
+      { id: 4, label: "Our Services", url: "/our-services" },
+      { id: 5, label: "Contact", url: "/contact" }
+    ]
+  };
+  const [headerData, setHeaderData] = useState(DEFAULT_HEADER);
+  useEffect(() => {
+    const stored = localStorage.getItem("clarity_header");
+    if (stored) {
+      try { setHeaderData(JSON.parse(stored)); } catch { }
+    }
+  }, []);
 
   const servicesList = [
     {
@@ -215,15 +225,15 @@ export default function ServicesPage() {
     <div className="relative min-h-screen bg-[#F7F8FC] text-[#0F1631] font-sans antialiased selection:bg-indigo-600/20 selection:text-indigo-600">
 
       {/* 1. NAVBAR - ALWAYS 100% TRANSPARENT WITH DYNAMIC CONTRAST TEXT */}
-      <header className="fixed top-0 left-0 w-full z-50 transition-all duration-300 flex items-center h-20 md:h-26 bg-transparent">
+      <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 flex items-center h-16 md:h-20 ${isScrolled ? "bg-white shadow-md border-b border-gray-100" : "bg-transparent"}`}>
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 w-full flex items-center justify-between h-full overflow-visible">
 
           {/* Prominent High-Res Brand Logo */}
           <a href="/" className="flex items-center group h-full overflow-visible relative">
             <img
-              src="/logo.png"
+              src={headerData.logo}
               alt="Clarity InfoTech Logo"
-              className={`w-auto h-20 sm:h-24 md:h-28 lg:h-32 object-contain transition-all duration-300 group-hover:scale-105 filter ${
+              className={`w-auto h-8 sm:h-10 md:h-10 lg:h-12 object-contain transition-all duration-300 group-hover:scale-105 filter ${
                 isScrolled
                   ? "brightness-90 contrast-200 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
                   : "brightness-150 contrast-125 drop-shadow-[0_4px_12px_rgba(0,0,0,0.7)]"
@@ -233,12 +243,12 @@ export default function ServicesPage() {
 
           {/* Desktop Nav Links */}
           <nav className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => {
-              const isActive = item.label === "Our Projects";
+            {headerData.links.map((link) => {
+              const isActive = link.label === "Our Projects";
               return (
                 <a
-                  key={item.label}
-                  href={item.href}
+                  key={link.label}
+                  href={link.url}
                   className={`px-5 py-2 font-bold text-sm transition-colors duration-200 ${
                     isScrolled
                       ? isActive
@@ -249,7 +259,7 @@ export default function ServicesPage() {
                         : "text-white/90 hover:text-white"
                   }`}
                 >
-                  {item.label}
+                  {link.label}
                 </a>
               );
             })}
@@ -276,17 +286,20 @@ export default function ServicesPage() {
               className="md:hidden border-t border-navy/5 bg-[#0A0E39] text-white w-full overflow-hidden"
             >
               <div className="px-6 py-8 flex flex-col gap-5">
-                {navItems.map((item) => (
+                {headerData.links.map((link) => {
+                  const isActive = link.label === "Our Projects";
+                  return (
                   <a
-                    key={item.label}
-                    href={item.href}
+                    key={link.label}
+                    href={link.url}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`font-semibold text-lg transition-colors ${item.label === "Our Projects" ? "text-sky-400 font-bold" : "text-white/80 hover:text-white"
+                    className={`font-semibold text-lg transition-colors ${link.label === "Our Projects" ? "text-sky-400 font-bold" : "text-white/80 hover:text-white"
                       }`}
                   >
-                    {item.label}
+                    {link.label}
                   </a>
-                ))}
+                  );
+                })}
                 <button
                   onClick={() => { setMobileMenuOpen(false); setAuthMode("login"); setAuthModalOpen(true); }}
                   className="w-full py-3 rounded-xl bg-indigo-600 text-white font-semibold text-center mt-2 shadow-md"
@@ -501,17 +514,11 @@ export default function ServicesPage() {
 
             <div className="flex flex-wrap items-center justify-center gap-4">
               <a
-                href="/#contact"
+                href="/contact"
                 className="px-8 py-4 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-base shadow-xl shadow-indigo-600/40 transition-all hover:scale-105 active:scale-95 flex items-center gap-2 cursor-pointer"
               >
                 Schedule Technical Consultation
                 <ArrowRight size={20} />
-              </a>
-              <a
-                href="/"
-                className="px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-base backdrop-blur-md border border-white/20 transition-all hover:scale-105 active:scale-95"
-              >
-                Back to Home Page
               </a>
             </div>
           </div>
@@ -519,134 +526,7 @@ export default function ServicesPage() {
 
       </main>
 
-      {/* 6. KRESNA SAAS FOOTER */}
-      <section className="footer-section bg-white py-12 px-6 overflow-hidden text-left relative">
-        <style>{`
-          .footer-wrapper {
-            max-width: 1150px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 350px 1fr;
-            gap: 16px;
-            align-items: stretch;
-            position: relative;
-            z-index: 10;
-          }
-          .footer-left {
-            position: relative;
-            min-height: 340px;
-            border-radius: 28px;
-            padding: 32px;
-            overflow: hidden;
-            box-shadow: 0 12px 40px rgba(21, 76, 189, 0.25);
-            background: #1e4fc0;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-          }
-          .footer-left-video {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-            pointer-events: none;
-          }
-          @media (max-width: 860px) {
-            .footer-wrapper {
-              grid-template-columns: 1fr;
-            }
-          }
-        `}</style>
-
-        <div className="footer-wrapper">
-          {/* Left Video Card with Official Brand Logo */}
-          <div className="footer-left">
-            <video className="footer-left-video" autoPlay muted loop playsInline>
-              <source src="/service.mp4" type="video/mp4" />
-            </video>
-
-            <div className="relative z-10 flex items-center gap-3">
-              <img
-                src="/logo.png"
-                alt="Clarity InfoTech Logo"
-                className="w-auto h-16 object-contain filter brightness-150 contrast-125 drop-shadow-md"
-              />
-            </div>
-
-            <div className="relative z-10 my-auto pt-6">
-              <h3 className="text-xl font-bold text-white leading-tight mb-2">
-                Smarter IT solutions,<br />
-                <span className="text-white/80 font-normal">powered by enterprise AI.</span>
-              </h3>
-            </div>
-
-            <div className="relative z-10 flex items-center justify-between pt-4 border-t border-white/20">
-              <span className="text-xs font-semibold text-white/90">Stay in touch!</span>
-              <div className="flex gap-2">
-                <a href="#" className="w-8 h-8 rounded-lg bg-black/40 text-white flex items-center justify-center hover:bg-black/70 transition-colors">
-                  <Mail size={15} />
-                </a>
-                <a href="#" className="w-8 h-8 rounded-lg bg-black/40 text-white flex items-center justify-center hover:bg-black/70 transition-colors">
-                  <Globe size={15} />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Card with Navigation & Newsletter */}
-          <div className="bg-[#F7F8FC] rounded-[28px] p-8 md:p-10 border border-navy/5 flex flex-col justify-between">
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 mb-10">
-              <div>
-                <h4 className="font-extrabold text-navy text-sm uppercase tracking-wider mb-4 font-sans">Navigation</h4>
-                <ul className="space-y-2.5 text-xs text-navy/70 font-semibold">
-                  <li><a href="/" className="hover:text-indigo-600 transition-colors">Home</a></li>
-                  <li><a href="/about" className="hover:text-indigo-600 transition-colors">About Us</a></li>
-                  <li><a href="/services" className="hover:text-indigo-600 transition-colors font-bold text-indigo-600">Our Services</a></li>
-                  <li><a href="/#services" className="hover:text-indigo-600 transition-colors">Our Projects</a></li>
-                  <li><a href="/#contact" className="hover:text-indigo-600 transition-colors">Contact</a></li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="font-extrabold text-navy text-sm uppercase tracking-wider mb-4 font-sans">Certifications</h4>
-                <ul className="space-y-2.5 text-xs text-navy/70 font-semibold">
-                  <li>AWS & GCP Partner</li>
-                  <li>ISO 27001 Security</li>
-                  <li>DevOps Association</li>
-                  <li>Kubernetes Certified</li>
-                </ul>
-              </div>
-
-              <div>
-                <h4 className="font-extrabold text-navy text-sm uppercase tracking-wider mb-4 font-sans">Newsletter</h4>
-                <p className="text-xs text-navy/60 mb-3">Enterprise tech moves fast. Stay ahead with Clarity.</p>
-                <form onSubmit={(e) => { e.preventDefault(); alert("Subscribed to Clarity Newsletter!"); e.currentTarget.reset(); }} className="flex gap-2">
-                  <input
-                    type="email"
-                    placeholder="Enter email"
-                    required
-                    className="w-full bg-white border border-navy/15 px-3 py-2 rounded-xl text-xs text-navy focus:outline-none focus:border-indigo-600 shadow-sm"
-                  />
-                  <button type="submit" className="bg-[#0F1631] hover:bg-indigo-600 text-white text-xs px-4 py-2 rounded-xl font-bold transition-colors shadow-md">
-                    Join
-                  </button>
-                </form>
-              </div>
-            </div>
-
-            <div className="pt-6 border-t border-navy/10 flex flex-col sm:flex-row items-center justify-between text-xs text-navy/60 gap-4">
-              <p>© 2026 Clarity InfoTech / Rain Corraya. All rights reserved.</p>
-              <div className="flex gap-4">
-                <a href="#" className="hover:text-indigo-600">Privacy Policy</a>
-                <a href="#" className="hover:text-indigo-600">Terms of Service</a>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
+      
 
       {/* Floating Scroll-to-Top Blue Button */}
       <AnimatePresence>

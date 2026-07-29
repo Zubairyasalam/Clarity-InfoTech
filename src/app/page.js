@@ -26,7 +26,12 @@ import {
   Lock,
   ChevronLeft,
   ChevronRight,
-  ArrowUp
+  ArrowUp,
+  Code2,
+  Layers,
+  Globe,
+  Zap,
+  Cpu
 } from "lucide-react";
 import AuthModal from "@/components/AuthModal";
 
@@ -317,7 +322,23 @@ export default function Home() {
   }, []);
 
   // Navbar Items
-  const navItems = ["Home", "About Us", "Our Projects", "Our Services", "Contact"];
+  const DEFAULT_HEADER = {
+    logo: "/logo.png",
+    links: [
+      { id: 1, label: "Home", url: "/" },
+      { id: 2, label: "About Us", url: "/about" },
+      { id: 3, label: "Our Projects", url: "/services" },
+      { id: 4, label: "Our Services", url: "/our-services" },
+      { id: 5, label: "Contact", url: "/contact" }
+    ]
+  };
+  const [headerData, setHeaderData] = useState(DEFAULT_HEADER);
+  useEffect(() => {
+    const stored = localStorage.getItem("clarity_header");
+    if (stored) {
+      try { setHeaderData(JSON.parse(stored)); } catch { }
+    }
+  }, []);
 
   const servicesRef = useRef(null);
 
@@ -341,6 +362,15 @@ export default function Home() {
     heading3: "Projects",
     description: "Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, cloud-native security, and dedicated IT consulting for modern digital transformations.",
     partnerText: "We partner with ambitious brands that are ready to move beyond fragmented visuals and shallow quick fixes -- turning their identity, website, and messaging into one focused engine for growth.",
+    buttonText: "Let's work together",
+    marqueeLogos: [
+      { name: "Codecraft_", icon: "Code2" },
+      { name: "ennLabs", icon: "Layers" },
+      { name: "GlobalBank", icon: "Globe" },
+      { name: "45 Degrees°", icon: "Zap" },
+      { name: "AlphaWave", icon: "Activity" },
+      { name: "Biosynthesis", icon: "Cpu" }
+    ],
     cards: [
       {
         id: "cloud-devops",
@@ -397,6 +427,15 @@ export default function Home() {
     subtitle: "Discover clear answers to common enterprise software, cloud infrastructure, and security availability questions.",
     formTitle: "Tell Us What You Need",
     formSubtitle: "Our team is ready to assist you with every detail, big or small.",
+    formFirstName: "First Name",
+    formLastName: "Last Name",
+    formCountry: "Country",
+    formPhone: "Phone Number",
+    formEmail: "Email Address",
+    formInquiryLabel: "Type of Inquiry",
+    formMessage: "Message",
+    formCheckboxText: "I'd like to receive exclusive tech updates and insights",
+    formSubmitText: "Submit",
     inquiryTypes: ["Cloud & DevOps", "Software Dev", "Cyber Security", "AI Consulting", "Others"],
     questions: [
       {
@@ -427,6 +466,8 @@ export default function Home() {
     githubUrl: "#",
     subscribeHeader: "Enterprise tech moves fast.",
     subscribeSubheader: "Stay ahead with Clarity.",
+    subscribePlaceholder: "Enter email address",
+    subscribeButtonText: "Subscribe",
     copyright: "© 2026 Clarity InfoTech / Rain Corraya. All rights reserved.",
     companyLinks: [
       { label: "AWS & GCP Partner", url: "#services" },
@@ -434,6 +475,14 @@ export default function Home() {
       { label: "DevOps Association", url: "#services" },
       { label: "Privacy Policy", url: "#" },
       { label: "Terms of Condition", url: "#" }
+    ],
+    navLinks: [
+      { label: "Home", url: "#home" },
+      { label: "About Us", url: "#about" },
+      { label: "Our Projects", url: "#projects" },
+      { label: "Our Services", url: "#services" },
+      { label: "Contact", url: "#contact" },
+      { label: "Admin Portal", url: "/admin" }
     ]
   };
 
@@ -467,7 +516,7 @@ export default function Home() {
   }));
 
   // Marquee Client Logos
-  const marqueeLogos = [
+  const originalMarqueeLogos = [
     {
       name: "Codecraft_",
       icon: (
@@ -853,14 +902,14 @@ export default function Home() {
     <div className="relative min-h-screen bg-offwhite text-navy font-sans antialiased selection:bg-primary/20 selection:text-primary">
 
       {/* 1. NAVBAR - ALWAYS 100% TRANSPARENT WITH DYNAMIC CONTRAST TEXT */}
-      <header className="fixed top-0 left-0 w-full z-50 transition-all duration-300 flex items-center h-20 md:h-26 bg-transparent">
+      <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 flex items-center h-16 md:h-20 ${isScrolled ? "bg-white shadow-md border-b border-gray-100" : "bg-transparent"}`}>
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 w-full flex items-center justify-between h-full overflow-visible">
           {/* Prominently Enlarged & Ultra-Visible Logo */}
           <a href="#" className="flex items-center group h-full overflow-visible relative">
             <img
-              src="/logo.png"
+              src={headerData.logo}
               alt="Clarity InfoTech Logo"
-              className={`w-auto h-20 sm:h-24 md:h-28 lg:h-32 object-contain transition-all duration-300 group-hover:scale-105 filter ${
+              className={`w-auto h-8 sm:h-10 md:h-10 lg:h-12 object-contain transition-all duration-300 group-hover:scale-105 filter ${
                 isScrolled
                   ? "brightness-90 contrast-200 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
                   : "brightness-150 contrast-125 drop-shadow-[0_4px_12px_rgba(0,0,0,0.7)]"
@@ -870,13 +919,12 @@ export default function Home() {
 
           {/* Desktop Nav Links */}
           <nav className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => {
-              const href = item === "About Us" ? "/about" : item === "Our Projects" ? "/services" : item === "Our Services" ? "/our-services" : item === "Contact" ? "/contact" : `#${item.toLowerCase().replace(/\s+/g, "")}`;
-              const isActive = item === "Home";
+            {headerData.links.map((link) => {
+              const isActive = link.label === "Home";
               return (
                 <a
-                  key={item}
-                  href={href}
+                  key={link.id}
+                  href={link.url}
                   className={`px-5 py-2 font-bold text-sm transition-colors duration-200 ${
                     isScrolled
                       ? isActive
@@ -886,9 +934,7 @@ export default function Home() {
                         ? "text-sky-400 font-extrabold"
                         : "text-white/90 hover:text-white"
                   }`}
-                >
-                  {item}
-                </a>
+                >{link.label}</a>
               );
             })}
           </nav>
@@ -916,17 +962,14 @@ export default function Home() {
               className="md:hidden border-t border-navy/5 bg-white w-full overflow-hidden"
             >
               <div className="px-6 py-8 flex flex-col gap-5">
-                {navItems.map((item) => {
-                  const href = item === "About Us" ? "/about" : item === "Our Projects" ? "/services" : item === "Our Services" ? "/our-services" : item === "Contact" ? "/contact" : `#${item.toLowerCase().replace(/\s+/g, "")}`;
+                {headerData.links.map((link) => {
                   return (
                     <a
-                      key={item}
-                      href={href}
+                      key={link.id}
+                      href={link.url}
                       onClick={() => setMobileMenuOpen(false)}
                       className="font-semibold text-lg text-navy/80 hover:text-primary transition-colors duration-150"
-                    >
-                      {item}
-                    </a>
+                    >{link.label}</a>
                   );
                 })}
               </div>
@@ -1515,7 +1558,7 @@ export default function Home() {
                 <div className="mt-6">
                   <button type="button" className="group flex items-end cursor-pointer border-none bg-transparent p-0">
                     <span className="inline-flex items-center gap-[10px] border border-black/20 bg-black px-3 py-2 text-base font-medium text-white group-hover:bg-black/85 transition-colors font-sans">
-                      Let's work together
+                      {servicesData.buttonText || "Let's work together"}
                     </span>
                     <span className="mb-6 group-hover:mb-9 flex h-6 w-6 items-center justify-center bg-black transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]">
                       <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none">
@@ -1530,12 +1573,26 @@ export default function Home() {
               <div className="flex-1 overflow-hidden md:ml-12 border-t border-black/10 md:border-t-0 pt-6 md:pt-0">
                 <div className="overflow-hidden py-5">
                   <div className="marquee-projects flex w-max">
-                    {[...marqueeLogos, ...marqueeLogos].map((logo, idx) => (
-                      <div key={idx} className="flex shrink-0 items-center gap-2.5 px-8">
-                        <span className="text-black">{logo.icon}</span>
-                        <span className="whitespace-nowrap text-sm font-medium tracking-wide text-black/80 font-sans">{logo.name}</span>
-                      </div>
-                    ))}
+                    {[...(servicesData.marqueeLogos || DEFAULT_SERVICES.marqueeLogos), ...(servicesData.marqueeLogos || DEFAULT_SERVICES.marqueeLogos)].map((logo, idx) => {
+                      const name = typeof logo === 'string' ? logo : logo.name;
+                      const iconName = typeof logo === 'string' ? 'Code2' : (logo.icon || 'Code2');
+                      
+                      let IconComponent;
+                      if (iconName === 'Code2') IconComponent = Code2;
+                      else if (iconName === 'Layers') IconComponent = Layers;
+                      else if (iconName === 'Globe') IconComponent = Globe;
+                      else if (iconName === 'Zap') IconComponent = Zap;
+                      else if (iconName === 'Activity') IconComponent = Activity;
+                      else if (iconName === 'Cpu') IconComponent = Cpu;
+                      else IconComponent = Code2;
+
+                      return (
+                        <div key={idx} className="flex shrink-0 items-center gap-2.5 px-8">
+                          <span className="text-black"><IconComponent size={20} strokeWidth={2.5} /></span>
+                          <span className="whitespace-nowrap text-sm font-medium tracking-wide text-black/80 font-sans">{name}</span>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -1640,14 +1697,14 @@ export default function Home() {
                   <input
                     type="text"
                     name="firstName"
-                    placeholder="First Name"
+                    placeholder={faqData.formFirstName || "First Name"}
                     required
                     className="w-full bg-[#f8fafc] border border-navy/15 px-3.5 py-2 rounded-full text-xs text-navy placeholder-navy/40 focus:outline-none focus:border-primary transition-colors font-sans"
                   />
                   <input
                     type="text"
                     name="lastName"
-                    placeholder="Last Name"
+                    placeholder={faqData.formLastName || "Last Name"}
                     required
                     className="w-full bg-[#f8fafc] border border-navy/15 px-3.5 py-2 rounded-full text-xs text-navy placeholder-navy/40 focus:outline-none focus:border-primary transition-colors font-sans"
                   />
@@ -1658,13 +1715,13 @@ export default function Home() {
                   <input
                     type="text"
                     name="country"
-                    placeholder="Country"
+                    placeholder={faqData.formCountry || "Country"}
                     className="w-full bg-[#f8fafc] border border-navy/15 px-3.5 py-2 rounded-full text-xs text-navy placeholder-navy/40 focus:outline-none focus:border-primary transition-colors font-sans"
                   />
                   <input
                     type="tel"
                     name="phone"
-                    placeholder="Phone Number"
+                    placeholder={faqData.formPhone || "Phone Number"}
                     className="w-full bg-[#f8fafc] border border-navy/15 px-3.5 py-2 rounded-full text-xs text-navy placeholder-navy/40 focus:outline-none focus:border-primary transition-colors font-sans"
                   />
                 </div>
@@ -1673,14 +1730,14 @@ export default function Home() {
                 <input
                   type="email"
                   name="email"
-                  placeholder="Email Address"
+                  placeholder={faqData.formEmail || "Email Address"}
                   required
                   className="w-full bg-[#f8fafc] border border-navy/15 px-3.5 py-2 rounded-full text-xs text-navy placeholder-navy/40 focus:outline-none focus:border-primary transition-colors font-sans"
                 />
 
                 {/* Type of Inquiry Selectable Pills */}
                 <div className="mt-0.5">
-                  <label className="block text-[11px] font-semibold text-navy/60 mb-1.5 font-sans">Type of Inquiry</label>
+                  <label className="block text-[11px] font-semibold text-navy/60 mb-1.5 font-sans">{faqData.formInquiryLabel || "Type of Inquiry"}</label>
                   <div className="flex flex-wrap gap-1.5">
                     {(faqData.inquiryTypes || ["Cloud & DevOps", "Software Dev", "Cyber Security", "AI Consulting", "Others"]).map((item) => (
                       <button
@@ -1702,7 +1759,7 @@ export default function Home() {
                 <textarea
                   name="message"
                   rows={2.5}
-                  placeholder="Message"
+                  placeholder={faqData.formMessage || "Message"}
                   required
                   className="w-full bg-[#f8fafc] border border-navy/15 p-3 rounded-xl text-xs text-navy placeholder-navy/40 focus:outline-none focus:border-primary transition-colors font-sans resize-none mt-0.5"
                 ></textarea>
@@ -1715,7 +1772,7 @@ export default function Home() {
                     className="w-3.5 h-3.5 rounded accent-primary cursor-pointer"
                   />
                   <label htmlFor="techUpdatesCheck" className="text-[10.5px] sm:text-[11px] text-navy/60 cursor-pointer font-sans">
-                    I'd like to receive exclusive tech updates and insights
+                    {faqData.formCheckboxText || "I'd like to receive exclusive tech updates and insights"}
                   </label>
                 </div>
 
@@ -1724,7 +1781,7 @@ export default function Home() {
                   type="submit"
                   className="w-full bg-navy hover:bg-primary text-white font-semibold py-2.5 rounded-full transition-all duration-300 shadow-md shadow-navy/10 text-xs sm:text-sm font-sans cursor-pointer mt-0.5"
                 >
-                  Submit
+                  {faqData.formSubmitText || "Submit"}
                 </button>
               </form>
             </motion.div>
@@ -2137,12 +2194,18 @@ export default function Home() {
               <div className="footer-nav-cols flex gap-16 md:gap-24">
                 <div className="footer-col">
                   <div className="footer-col-title">Navigation</div>
-                  <a href="#home">Home</a>
-                  <a href="#about">About Us</a>
-                  <a href="#projects">Our Projects</a>
-                  <a href="#services">Our Services</a>
-                  <a href="#contact">Contact</a>
-                  <a href="/admin" className="text-primary hover:underline font-semibold mt-2 block">Admin Portal</a>
+                  {(footerData.navLinks || [
+                    { label: "Home", url: "#home" },
+                    { label: "About Us", url: "#about" },
+                    { label: "Our Projects", url: "#projects" },
+                    { label: "Our Services", url: "#services" },
+                    { label: "Contact", url: "#contact" },
+                    { label: "Admin Portal", url: "/admin" }
+                  ]).map((item, idx) => (
+                    <a key={idx} href={item.url || "#"} className={item.label === "Admin Portal" ? "text-primary hover:underline font-semibold mt-2 block" : ""}>
+                      {item.label}
+                    </a>
+                  ))}
                 </div>
                 <div className="footer-col">
                   <div className="footer-col-title">Company</div>
@@ -2172,8 +2235,8 @@ export default function Home() {
                 </h4>
 
                 <form onSubmit={(e) => { e.preventDefault(); alert("Subscribed successfully!"); }} className="footer-subscribe-row">
-                  <input type="email" placeholder="Enter email address" required />
-                  <button type="submit">Subscribe</button>
+                  <input type="email" placeholder={footerData.subscribePlaceholder || "Enter email address"} required />
+                  <button type="submit">{footerData.subscribeButtonText || "Subscribe"}</button>
                 </form>
               </div>
             </div>

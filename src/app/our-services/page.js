@@ -27,13 +27,23 @@ export default function OurServicesPage() {
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
-  const navItems = [
-    { label: "Home", href: "/" },
-    { label: "About Us", href: "/about" },
-    { label: "Our Projects", href: "/services" },
-    { label: "Our Services", href: "/our-services" },
-    { label: "Contact", href: "/contact" },
-  ];
+  const DEFAULT_HEADER = {
+    logo: "/logo.png",
+    links: [
+      { id: 1, label: "Home", url: "/" },
+      { id: 2, label: "About Us", url: "/about" },
+      { id: 3, label: "Our Projects", url: "/services" },
+      { id: 4, label: "Our Services", url: "/our-services" },
+      { id: 5, label: "Contact", url: "/contact" }
+    ]
+  };
+  const [headerData, setHeaderData] = useState(DEFAULT_HEADER);
+  useEffect(() => {
+    const stored = localStorage.getItem("clarity_header");
+    if (stored) {
+      try { setHeaderData(JSON.parse(stored)); } catch { }
+    }
+  }, []);
 
   const coreValues = [
     {
@@ -125,19 +135,19 @@ export default function OurServicesPage() {
       `}</style>
 
       {/* ── NAVBAR ── */}
-      <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 flex items-center h-20 md:h-26 ${isScrolled ? "bg-white shadow-md border-b border-gray-100" : "bg-transparent"}`}>
+      <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 flex items-center h-16 md:h-20 ${isScrolled ? "bg-white shadow-md border-b border-gray-100" : "bg-transparent"}`}>
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 w-full flex items-center justify-between h-full overflow-visible">
           <a href="/" className="flex items-center group h-full overflow-visible">
-            <img src="/logo.png" alt="Clarity InfoTech"
-              className={`w-auto h-20 sm:h-24 md:h-28 lg:h-32 object-contain transition-all duration-300 group-hover:scale-105 filter ${isScrolled ? "brightness-90 contrast-200" : "brightness-150 contrast-125"}`} />
+            <img src={headerData.logo} alt="Clarity InfoTech"
+              className={`w-auto h-8 sm:h-10 md:h-10 lg:h-12 object-contain transition-all duration-300 group-hover:scale-105 filter ${isScrolled ? "brightness-90 contrast-200" : "brightness-150 contrast-125"}`} />
           </a>
           <nav className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => {
-              const isActive = item.label === "Our Services";
+            {headerData.links.map((link) => {
+              const isActive = link.label === "Our Services";
               return (
-                <a key={item.label} href={item.href}
+                <a key={link.label} href={link.url}
                   className={`px-4 py-2 font-semibold text-sm transition-all duration-200 rounded-md ${isActive ? "bg-[#1E67E2] text-white" : isScrolled ? "text-gray-700 hover:text-[#1E67E2]" : "text-white/90 hover:text-white"}`}>
-                  {item.label}
+                  {link.label}
                 </a>
               );
             })}
@@ -151,12 +161,15 @@ export default function OurServicesPage() {
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }}
               className="md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-100 shadow-xl overflow-hidden">
               <div className="px-6 py-6 flex flex-col gap-4">
-                {navItems.map((item) => (
-                  <a key={item.label} href={item.href} onClick={() => setMobileMenuOpen(false)}
-                    className={`font-semibold text-base transition-colors py-1 ${item.label === "Our Services" ? "text-[#1E67E2]" : "text-gray-700 hover:text-[#1E67E2]"}`}>
-                    {item.label}
+                {headerData.links.map((link) => {
+                  const isActive = link.label === "Our Services";
+                  return (
+                  <a key={link.label} href={link.url} onClick={() => setMobileMenuOpen(false)}
+                    className={`font-semibold text-base transition-colors py-1 ${link.label === "Our Services" ? "text-[#1E67E2]" : "text-gray-700 hover:text-[#1E67E2]"}`}>
+                    {link.label}
                   </a>
-                ))}
+                  );
+                })}
               </div>
             </motion.div>
           )}
@@ -505,71 +518,7 @@ export default function OurServicesPage() {
         </section>
       </main>
 
-      {/* ── FOOTER ── */}
-      <footer className="bg-[#06080F] text-white py-14 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
-            {/* Brand */}
-            <div>
-              <a href="/"><img src="/logo.png" alt="Clarity InfoTech" className="h-14 object-contain filter brightness-150 contrast-125 mb-4" /></a>
-              <p className="text-white/40 text-xs leading-relaxed mb-5">
-                Pioneering the future of technology with innovative solutions that transform businesses and empower digital growth across industries worldwide.
-              </p>
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-2 text-white/40 text-xs"><Mail size={12}/> contact@clarityinfotech.com</div>
-                <div className="flex items-center gap-2 text-white/40 text-xs"><Phone size={12}/> +91 98765 43210</div>
-                <div className="flex items-center gap-2 text-white/40 text-xs"><MapPin size={12}/> Chennai, Tamil Nadu, India</div>
-              </div>
-              <div className="flex items-center gap-3 mt-5">
-                {[Share2, Link2, AtSign, Rss, Globe].map((Ico, i) => (
-                  <a key={i} href="#" className="w-8 h-8 rounded-lg bg-white/[0.06] hover:bg-[#1E67E2] flex items-center justify-center transition-colors">
-                    <Ico size={13} className="text-white/60 hover:text-white transition-colors" />
-                  </a>
-                ))}
-              </div>
-            </div>
 
-            {/* Services */}
-            <div>
-              <h4 className="font-bold text-white text-sm mb-4">Services</h4>
-              <ul className="flex flex-col gap-2.5">
-                {footerServices.map((s) => (
-                  <li key={s}><a href="#" className="text-white/40 hover:text-white text-xs transition-colors">{s}</a></li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Company */}
-            <div>
-              <h4 className="font-bold text-white text-sm mb-4">Company</h4>
-              <ul className="flex flex-col gap-2.5">
-                {footerCompany.map((s) => (
-                  <li key={s}><a href="#" className="text-white/40 hover:text-white text-xs transition-colors">{s}</a></li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Resources */}
-            <div>
-              <h4 className="font-bold text-white text-sm mb-4">Resources</h4>
-              <ul className="flex flex-col gap-2.5">
-                {footerResources.map((s) => (
-                  <li key={s}><a href="#" className="text-white/40 hover:text-white text-xs transition-colors">{s}</a></li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-white/[0.06] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-white/25 text-xs">© {new Date().getFullYear()} Clarity InfoTech. All rights reserved. Crafted with innovation and precision.</p>
-            <div className="flex items-center gap-5">
-              {["Privacy Policy", "Terms of Service", "Refund Policy"].map((t) => (
-                <a key={t} href="#" className="text-white/25 hover:text-white/60 text-xs transition-colors">{t}</a>
-              ))}
-            </div>
-          </div>
-        </div>
-      </footer>
 
       {/* Scroll to Top */}
       <AnimatePresence>
