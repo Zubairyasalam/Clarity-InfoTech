@@ -1928,7 +1928,7 @@ export default function Home() {
           }
           .footer-lucky-graphic {
             position: absolute;
-            top: -36px;
+            top: -80px;
             right: 40px;
             z-index: 10;
             display: flex;
@@ -1937,8 +1937,8 @@ export default function Home() {
             gap: 6px;
           }
           .lucky-cube {
-            width: 96px;
-            height: 96px;
+            width: 180px;
+            height: 180px;
             border-radius: 22px;
             transform: rotate(-10deg);
             background: linear-gradient(135deg, #5b9ffb 0%, #1e5dd7 55%, #1448be 100%);
@@ -2120,11 +2120,11 @@ export default function Home() {
             }
             .footer-lucky-graphic {
               right: 12px;
-              top: -28px;
+              top: -60px;
             }
             .lucky-cube {
-              width: 72px;
-              height: 72px;
+              width: 130px;
+              height: 130px;
             }
           }
         `}</style>
