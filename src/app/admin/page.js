@@ -1825,7 +1825,7 @@ export default function AdminDashboard() {
                 localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
                 alert("SEO Settings saved successfully!");
               }}
-              className="w-full px-4 py-2 bg-indigo-650 hover:bg-indigo-600 text-white text-xs font-bold rounded-lg transition-all shadow-md shadow-indigo-500/10 cursor-pointer"
+              className="w-full px-4 py-2 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition-all shadow-md shadow-blue-500/10 cursor-pointer"
             >
               Save SEO Changes
             </button>
