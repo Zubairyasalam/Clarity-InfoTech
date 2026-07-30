@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Footer from "@/components/Footer";
+import SEOMetadata from "@/components/SEOMetadata";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu, X, ArrowUp, Lightbulb, Users2, TrendingUp,
@@ -141,6 +142,7 @@ export default function OurServicesPage() {
 
   return (
     <div className="min-h-screen bg-white text-[#1a1a2e] font-sans antialiased overflow-x-hidden">
+      <SEOMetadata />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
         * { font-family: 'Inter', sans-serif; }

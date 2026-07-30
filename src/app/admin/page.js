@@ -595,7 +595,10 @@ export default function AdminDashboard() {
     instagramUrl: "#",
     twitterUrl: "#",
     linkedinUrl: "#",
-    whatsappUrl: "#"
+    whatsappUrl: "#",
+    seoTitle: "Clarity InfoTech | Enterprise Software Engineering & Cloud Solutions",
+    seoDescription: "Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, cloud architecture, and security audit systems with 24/7 reliability.",
+    seoKeywords: "Clarity InfoTech, software engineering, DevOps, cloud architecture, security audit, custom software, React, Next.js"
   };
   const [systemConfigData, setSystemConfigData] = useState(DEFAULT_SYSTEM_CONFIG);
   const [systemConfigSaveSuccess, setSystemConfigSaveSuccess] = useState(false);
@@ -3872,6 +3875,55 @@ export default function AdminDashboard() {
                         onChange={e => updateSystemConfigField("whatsappUrl", e.target.value)}
                         className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
                       />
+                    </div>
+                  </div>
+
+                  {/* SEO Metadata Card */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-xs flex-shrink-0">
+                        11
+                      </div>
+                      <div>
+                        <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider">
+                          SECTION 11: SEO METADATA
+                        </h3>
+                        <p className="text-slate-500 text-[11px] mt-0.5">
+                          Auto-generated search engine title, meta description, and keywords
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">SEO Title</label>
+                        <input
+                          type="text"
+                          value={systemConfigData.seoTitle || ""}
+                          onChange={e => updateSystemConfigField("seoTitle", e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">SEO Description</label>
+                        <textarea
+                          rows={3}
+                          value={systemConfigData.seoDescription || ""}
+                          onChange={e => updateSystemConfigField("seoDescription", e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition resize-none"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Meta Keywords</label>
+                        <textarea
+                          rows={2}
+                          value={systemConfigData.seoKeywords || ""}
+                          onChange={e => updateSystemConfigField("seoKeywords", e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition resize-none"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>

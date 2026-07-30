@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import AuthModal from "@/components/AuthModal";
 import Footer from "@/components/Footer";
+import SEOMetadata from "@/components/SEOMetadata";
 
 export default function ContactPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -171,6 +172,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-[#F4F6FB] text-navy font-sans flex flex-col relative overflow-x-hidden selection:bg-sky-400 selection:text-white">
+      <SEOMetadata />
       {/* 1. STICKY NAVBAR - ALWAYS 100% TRANSPARENT WITH DYNAMIC CONTRAST TEXT */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-16 md:h-20 flex items-center ${isScrolled ? "bg-white shadow-md border-b border-gray-100" : "bg-transparent"}`}>
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 w-full flex items-center justify-between h-full overflow-visible">

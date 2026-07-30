@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import AuthModal from "@/components/AuthModal";
 import Footer from "@/components/Footer";
+import SEOMetadata from "@/components/SEOMetadata";
 
 export default function AboutPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -118,6 +119,7 @@ export default function AboutPage() {
 
   return (
     <div className="relative min-h-screen bg-white text-[#0F1631] font-sans antialiased selection:bg-cyan-500/20 selection:text-cyan-600">
+      <SEOMetadata />
 
       {/* 1. NAVBAR - ALWAYS 100% TRANSPARENT WITH DYNAMIC CONTRAST TEXT */}
       <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 flex items-center h-16 md:h-20 ${isScrolled ? "bg-white shadow-md border-b border-gray-100" : "bg-transparent"}`}>
