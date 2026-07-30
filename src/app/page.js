@@ -715,6 +715,17 @@ export default function Home() {
       } else {
         localStorage.setItem("clarity_platforms", JSON.stringify(DEFAULT_PLATFORMS));
       }
+
+      const storedFaq = localStorage.getItem("clarity_faq");
+      if (storedFaq) {
+        try {
+          setFaqData(JSON.parse(storedFaq));
+        } catch (e) {
+          // fallback silently
+        }
+      } else {
+        localStorage.setItem("clarity_faq", JSON.stringify(DEFAULT_FAQ));
+      }
     }
   }, []);
 
