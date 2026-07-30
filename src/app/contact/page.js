@@ -73,12 +73,20 @@ export default function ContactPage() {
     setError("");
 
     try {
+      let smtpConfig = null;
+      try {
+        const storedConfig = localStorage.getItem("clarity_system_config");
+        if (storedConfig) {
+          smtpConfig = JSON.parse(storedConfig);
+        }
+      } catch (e) {}
+
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, smtpConfig }),
       });
 
       const data = await res.json();

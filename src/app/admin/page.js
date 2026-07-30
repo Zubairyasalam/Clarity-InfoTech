@@ -33,7 +33,9 @@ import {
   HelpCircle,
   MessageSquare,
   Globe,
-  Link
+  Link,
+  Eye,
+  EyeOff
 } from "lucide-react";
 
 // Pre-populated Inquiry Mock Data
@@ -580,6 +582,24 @@ export default function AdminDashboard() {
   const [headerData, setHeaderData] = useState(DEFAULT_HEADER);
   const [headerSaveSuccess, setHeaderSaveSuccess] = useState(false);
 
+  // System Configuration State
+  const DEFAULT_SYSTEM_CONFIG = {
+    smtpEmail: "salamzubi8@gmail.com",
+    smtpPassword: "ypiz ukra cywo loap",
+    smtpHost: "smtp.gmail.com",
+    smtpPort: "465",
+    smtpEncryption: "SSL",
+    smtpDriver: "SMTP (Default)",
+    facebookUrl: "https://www.facebook.com/profile.php?id=61585230471650",
+    instagramUrl: "https://www.instagram.com/tekquora2025/?hl=en",
+    twitterUrl: "#",
+    linkedinUrl: "#",
+    whatsappUrl: "#"
+  };
+  const [systemConfigData, setSystemConfigData] = useState(DEFAULT_SYSTEM_CONFIG);
+  const [systemConfigSaveSuccess, setSystemConfigSaveSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
 
   // Telemetry Controls
   const [maintenanceMode, setMaintenanceMode] = useState(false);
@@ -725,6 +745,23 @@ export default function AdminDashboard() {
         } catch { }
       } else {
         localStorage.setItem("clarity_legal_pages", JSON.stringify(DEFAULT_LEGAL_PAGES));
+      }
+
+      // Load System Config data
+      const storedSystemConfig = localStorage.getItem("clarity_system_config");
+      if (storedSystemConfig) {
+        try {
+          const parsed = JSON.parse(storedSystemConfig);
+          // Overwrite the placeholder email if it was initialized with it
+          if (parsed.smtpEmail === "zubairyakhan48@gmail.com" || parsed.smtpEmail === "your-email@example.com") {
+            setSystemConfigData(DEFAULT_SYSTEM_CONFIG);
+            localStorage.setItem("clarity_system_config", JSON.stringify(DEFAULT_SYSTEM_CONFIG));
+          } else {
+            setSystemConfigData({ ...DEFAULT_SYSTEM_CONFIG, ...parsed });
+          }
+        } catch { }
+      } else {
+        localStorage.setItem("clarity_system_config", JSON.stringify(DEFAULT_SYSTEM_CONFIG));
       }
     }
   }, []);
@@ -1097,6 +1134,15 @@ export default function AdminDashboard() {
     setTimeout(() => setLegalPagesSaveSuccess(false), 2500);
   };
   const resetLegalPages = () => { if (confirm("Reset all Legal pages to defaults?")) { setLegalPagesData(DEFAULT_LEGAL_PAGES); localStorage.setItem("clarity_legal_pages", JSON.stringify(DEFAULT_LEGAL_PAGES)); } };
+
+  // System Config CRUD
+  const updateSystemConfigField = (key, val) => setSystemConfigData(d => ({ ...d, [key]: val }));
+  const saveSystemConfig = () => {
+    localStorage.setItem("clarity_system_config", JSON.stringify(systemConfigData));
+    setSystemConfigSaveSuccess(true);
+    setTimeout(() => setSystemConfigSaveSuccess(false), 2500);
+  };
+  const resetSystemConfig = () => { if (confirm("Reset System Configuration to defaults?")) { setSystemConfigData(DEFAULT_SYSTEM_CONFIG); localStorage.setItem("clarity_system_config", JSON.stringify(DEFAULT_SYSTEM_CONFIG)); } };
 
   const renderFormattedContent = (text) => {
     if (!text) return null;
@@ -3629,6 +3675,183 @@ export default function AdminDashboard() {
                     </button>
                   </div>
 
+                </div>
+              )}
+
+              {/* 9. SYSTEM CONFIGURATION EDITOR */}
+              {activeTab === "system-config" && (
+                <div className="space-y-6">
+                  {/* Top header card */}
+                  <div className="bg-white rounded-3xl shadow-sm border border-slate-100 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                      <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                        <Settings className="text-[#1E67E2]" size={24} />
+                        System Configuration
+                      </h2>
+                      <p className="text-sm text-slate-500 mt-1">
+                        Configure system-wide settings, mail service credentials, and social media links.
+                      </p>
+                    </div>
+                    <div className="flex gap-3 shrink-0">
+                      <button onClick={resetSystemConfig} className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-red-500 border border-slate-200 hover:border-red-200 rounded-xl transition cursor-pointer whitespace-nowrap shrink-0">Reset</button>
+                      <button onClick={saveSystemConfig} className="px-5 py-2 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0">
+                        {systemConfigSaveSuccess ? <Check size={16} /> : <Save size={16} />}
+                        {systemConfigSaveSuccess ? "Saved!" : "Save All Changes"}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Mail Service Configuration */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2">
+                      <Mail size={14} /> Mail Service Configuration
+                    </h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">System Email Address (Sender)</label>
+                        <input
+                          type="email"
+                          value={systemConfigData.smtpEmail || ""}
+                          onChange={e => updateSystemConfigField("smtpEmail", e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Mail Password / App Password</label>
+                        <div className="relative">
+                          <input
+                            type={showPassword ? "text" : "password"}
+                            value={systemConfigData.smtpPassword || ""}
+                            onChange={e => updateSystemConfigField("smtpPassword", e.target.value)}
+                            className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 pr-10 outline-none focus:border-[#1E67E2] transition"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition cursor-pointer flex items-center justify-center"
+                          >
+                            {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                          </button>
+                        </div>
+                        <span className="text-[10px] text-amber-600 flex items-center gap-1 mt-1">
+                          <Shield size={10} /> This password is encrypted for security.
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Mail Host</label>
+                        <input
+                          type="text"
+                          value={systemConfigData.smtpHost || ""}
+                          onChange={e => updateSystemConfigField("smtpHost", e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Mail Port</label>
+                        <input
+                          type="text"
+                          value={systemConfigData.smtpPort || ""}
+                          onChange={e => updateSystemConfigField("smtpPort", e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Mail Encryption</label>
+                        <select
+                          value={systemConfigData.smtpEncryption || "TLS"}
+                          onChange={e => updateSystemConfigField("smtpEncryption", e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                        >
+                          <option value="TLS">TLS</option>
+                          <option value="SSL">SSL</option>
+                          <option value="None">None</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Mail Driver / Mailer</label>
+                        <select
+                          value={systemConfigData.smtpDriver || "SMTP (Default)"}
+                          onChange={e => updateSystemConfigField("smtpDriver", e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                        >
+                          <option value="SMTP (Default)">SMTP (Default)</option>
+                          <option value="Sendmail">Sendmail</option>
+                          <option value="Mailgun">Mailgun</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="bg-emerald-50 text-emerald-800 border border-emerald-100 rounded-xl p-3.5 text-xs flex items-center gap-2">
+                      <CheckCircle size={16} className="text-emerald-600 shrink-0" />
+                      <span>
+                        <strong>Configuration Active:</strong> These credentials will be used for all outgoing system emails including approvals and notifications.
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Social Media Links */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2">
+                      <Globe size={14} /> Social Media Links
+                    </h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Facebook URL</label>
+                        <input
+                          type="text"
+                          value={systemConfigData.facebookUrl || ""}
+                          onChange={e => updateSystemConfigField("facebookUrl", e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Instagram URL</label>
+                        <input
+                          type="text"
+                          value={systemConfigData.instagramUrl || ""}
+                          onChange={e => updateSystemConfigField("instagramUrl", e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Twitter URL</label>
+                        <input
+                          type="text"
+                          value={systemConfigData.twitterUrl || ""}
+                          onChange={e => updateSystemConfigField("twitterUrl", e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">LinkedIn URL</label>
+                        <input
+                          type="text"
+                          value={systemConfigData.linkedinUrl || ""}
+                          onChange={e => updateSystemConfigField("linkedinUrl", e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">WhatsApp URL / Number</label>
+                      <input
+                        type="text"
+                        value={systemConfigData.whatsappUrl || ""}
+                        onChange={e => updateSystemConfigField("whatsappUrl", e.target.value)}
+                        className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                      />
+                    </div>
+                  </div>
                 </div>
               )}
 

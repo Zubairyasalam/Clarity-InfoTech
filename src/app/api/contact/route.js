@@ -4,7 +4,7 @@ import nodemailer from 'nodemailer';
 export async function POST(request) {
   try {
     const data = await request.json();
-    const { name, email, company, service, otherService, message, recaptcha } = data;
+    const { name, email, company, service, otherService, message, recaptcha, smtpConfig } = data;
 
     if (!recaptcha) {
       return NextResponse.json({ error: 'reCAPTCHA missing' }, { status: 400 });
@@ -14,14 +14,21 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    // Create a Nodemailer transporter using SMTP, forcing IPv4
+    // Use configured SMTP credentials if provided, otherwise fallback to process.env
+    const smtpEmail = smtpConfig?.smtpEmail || process.env.SMTP_EMAIL;
+    const smtpPassword = smtpConfig?.smtpPassword || process.env.SMTP_PASSWORD;
+    const smtpHost = smtpConfig?.smtpHost || 'smtp.gmail.com';
+    const smtpPort = parseInt(smtpConfig?.smtpPort || '465', 10);
+    const smtpEncryption = smtpConfig?.smtpEncryption || 'SSL';
+    const secure = smtpPort === 465 || smtpEncryption === 'SSL';
+
     const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
+      host: smtpHost,
+      port: smtpPort,
+      secure: secure,
       auth: {
-        user: process.env.SMTP_EMAIL,
-        pass: process.env.SMTP_PASSWORD,
+        user: smtpEmail,
+        pass: smtpPassword,
       },
       tls: {
         rejectUnauthorized: false
@@ -32,8 +39,8 @@ export async function POST(request) {
 
     // Send the email
     const mailOptions = {
-      from: process.env.SMTP_EMAIL, // Send from the authenticated address
-      to: process.env.SMTP_EMAIL, // Send to the same address (yours)
+      from: smtpEmail, // Send from the authenticated address
+      to: smtpEmail, // Send to the same address (yours)
       replyTo: email,
       subject: `New Contact Form Submission from ${name} at ${company || 'Unknown Company'}`,
       text: `
@@ -95,7 +102,7 @@ export async function POST(request) {
       `,
     };
 
-    if (process.env.SMTP_EMAIL && process.env.SMTP_PASSWORD) {
+    if (smtpEmail && smtpPassword) {
       await transporter.sendMail(mailOptions);
     } else {
       console.log("SMTP not configured. Message logged locally:", { name, email, company, serviceSelected, message });
