@@ -101,17 +101,7 @@ export default function ServicesPage() {
     ]
   };
   const [headerData, setHeaderData] = useState(DEFAULT_HEADER);
-  useEffect(() => {
-    const stored = localStorage.getItem("clarity_header");
-    if (stored) {
-      try { setHeaderData(JSON.parse(stored)); } catch { }
-    }
 
-    const storedProjects = localStorage.getItem("clarity_page_projects");
-    if (storedProjects) {
-      try { setPageProjectsData({ ...DEFAULT_PAGE_PROJECTS, ...JSON.parse(storedProjects) }); } catch { }
-    }
-  }, []);
 
   const DEFAULT_PAGE_PROJECTS = {
     heroTitle: "Our Projects",
@@ -235,6 +225,18 @@ export default function ServicesPage() {
   };
 
   const [pageProjectsData, setPageProjectsData] = useState(DEFAULT_PAGE_PROJECTS);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("clarity_header");
+    if (stored) {
+      try { setHeaderData(JSON.parse(stored)); } catch { }
+    }
+
+    const storedProjects = localStorage.getItem("clarity_page_projects");
+    if (storedProjects) {
+      try { setPageProjectsData({ ...DEFAULT_PAGE_PROJECTS, ...JSON.parse(storedProjects) }); } catch { }
+    }
+  }, []);
 
   const getIconComponent = (iconName) => {
     if (iconName === "Cloud") return Cloud;

@@ -60,17 +60,7 @@ export default function OurServicesPage() {
     ]
   };
   const [headerData, setHeaderData] = useState(DEFAULT_HEADER);
-  useEffect(() => {
-    const stored = localStorage.getItem("clarity_header");
-    if (stored) {
-      try { setHeaderData(JSON.parse(stored)); } catch { }
-    }
 
-    const storedService = localStorage.getItem("clarity_page_service");
-    if (storedService) {
-      try { setPageServiceData({ ...DEFAULT_PAGE_SERVICE, ...JSON.parse(storedService) }); } catch { }
-    }
-  }, []);
 
   const getIcon = (name) => {
     return (props) => <DynamicIcon name={name} {...props} />;
@@ -119,6 +109,18 @@ export default function OurServicesPage() {
   };
 
   const [pageServiceData, setPageServiceData] = useState(DEFAULT_PAGE_SERVICE);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("clarity_header");
+    if (stored) {
+      try { setHeaderData(JSON.parse(stored)); } catch { }
+    }
+
+    const storedService = localStorage.getItem("clarity_page_service");
+    if (storedService) {
+      try { setPageServiceData({ ...DEFAULT_PAGE_SERVICE, ...JSON.parse(storedService) }); } catch { }
+    }
+  }, []);
 
   const coreValues = (pageServiceData.coreValues || DEFAULT_PAGE_SERVICE.coreValues).map(v => ({
     ...v,
