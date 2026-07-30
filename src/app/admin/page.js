@@ -1210,6 +1210,36 @@ export default function AdminDashboard() {
   const saveServices = () => {
     localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_services", JSON.stringify(servicesData));
+    
+    // Sync to Our Projects Page content so changes apply to the /services page immediately
+    const updatedPageProjects = {
+      ...pageProjectsData,
+      projectsList: servicesData.cards.map(c => {
+        // Map display category to filter key if needed
+        let catKey = "development";
+        const catLower = (c.category || "").toLowerCase();
+        if (catLower.includes("cloud") || catLower.includes("infra")) catKey = "cloud";
+        else if (catLower.includes("security") || catLower.includes("audit")) catKey = "security";
+        else if (catLower.includes("ai") || catLower.includes("analytic")) catKey = "ai";
+        
+        return {
+          id: c.id || "project-" + Date.now() + Math.random(),
+          category: catKey,
+          title: c.title || "",
+          badge: c.category || "Project Showcase",
+          description: c.description || "Enterprise software development and system integration.",
+          icon: c.icon || "Code2",
+          gradient: c.gradient || "from-indigo-500 to-purple-600",
+          media: c.media || "/service.mp4",
+          isVideo: c.isVideo !== undefined ? c.isVideo : true,
+          features: c.features || ["High performance architecture", "Zero downtime scaling"]
+        };
+      })
+    };
+    localStorage.setItem("clarity_page_projects", JSON.stringify(updatedPageProjects));
+    // Update local state to match
+    setPageProjectsData(updatedPageProjects);
+
     setServicesSaveSuccess(true);
     setTimeout(() => setServicesSaveSuccess(false), 2500);
   };
@@ -1328,6 +1358,29 @@ export default function AdminDashboard() {
   const savePageProjects = () => {
     localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_page_projects", JSON.stringify(pageProjectsData));
+
+    // Sync to Homepage Services section so changes apply to the main landing page immediately
+    const updatedServices = {
+      ...servicesData,
+      cards: pageProjectsData.projectsList.map(c => {
+        return {
+          id: c.id || "service-" + Date.now() + Math.random(),
+          title: c.title || "",
+          category: c.badge || "Project Showcase",
+          year: c.year || "2026",
+          media: c.media || "/service.mp4",
+          isVideo: c.isVideo !== undefined ? c.isVideo : true,
+          description: c.description || "",
+          icon: c.icon || "Code2",
+          gradient: c.gradient || "from-indigo-500 to-purple-600",
+          features: c.features || []
+        };
+      })
+    };
+    localStorage.setItem("clarity_services", JSON.stringify(updatedServices));
+    // Update local state to match
+    setServicesData(updatedServices);
+
     setPageProjectsSaveSuccess(true);
     setTimeout(() => setPageProjectsSaveSuccess(false), 2500);
   };
