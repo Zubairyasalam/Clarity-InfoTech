@@ -3881,12 +3881,9 @@ export default function AdminDashboard() {
                   {/* SEO Metadata Card */}
                   <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
                     <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-xs flex-shrink-0">
-                        11
-                      </div>
                       <div>
-                        <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider">
-                          SECTION 11: SEO METADATA
+                        <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2">
+                          <Search size={14} /> SEO METADATA
                         </h3>
                         <p className="text-slate-500 text-[11px] mt-0.5">
                           Auto-generated search engine title, meta description, and keywords
