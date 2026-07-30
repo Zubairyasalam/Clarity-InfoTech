@@ -1377,14 +1377,117 @@ export default function AdminDashboard() {
   const resetSystemConfig = () => { if (confirm("Reset System Configuration to defaults?")) { setSystemConfigData(DEFAULT_SYSTEM_CONFIG); localStorage.setItem("clarity_system_config", JSON.stringify(DEFAULT_SYSTEM_CONFIG)); } };
 
   // ── SEO Management CRUD ──
-  const updateSeoField = (key, val) => {
-    setSeoData(d => ({
-      ...d,
-      [seoSelectedPage]: {
-        ...d[seoSelectedPage],
-        [key]: val
-      }
-    }));
+  const updateSeoField = (keyOrPage, valOrKey, maybeVal) => {
+    if (maybeVal !== undefined) {
+      setSeoData(d => ({
+        ...d,
+        [keyOrPage]: {
+          ...d[keyOrPage],
+          [valOrKey]: maybeVal
+        }
+      }));
+    } else {
+      setSeoData(d => ({
+        ...d,
+        [seoSelectedPage]: {
+          ...d[seoSelectedPage],
+          [keyOrPage]: valOrKey
+        }
+      }));
+    }
+  };
+
+  const renderQuickSeoCard = (pageKey) => {
+    const pageConfig = seoData[pageKey] || {};
+    const validation = getSeoValidation(pageKey);
+    return (
+      <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm mt-6 space-y-4">
+        <div className="flex items-center justify-between border-b border-slate-150 pb-3">
+          <div className="flex items-center gap-2">
+            <Search className="text-[#1E67E2]" size={18} />
+            <h3 className="text-sm font-bold text-slate-805 uppercase tracking-wider">Page SEO & Image Alt Settings</h3>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full ${
+              validation.score > 80 
+                ? 'bg-emerald-50 text-emerald-600' 
+                : validation.score > 50 
+                ? 'bg-amber-50 text-amber-600' 
+                : 'bg-red-50 text-red-500'
+            }`}>
+              SEO Score: ${validation.score}/100
+            </span>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-4">
+          <div>
+            <label className="text-xs text-slate-500 font-semibold mb-1.5 block">SEO Title</label>
+            <input
+              type="text"
+              value={pageConfig.title || ""}
+              onChange={e => updateSeoField(pageKey, "title", e.target.value)}
+              placeholder="Page SEO Title..."
+              className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+            />
+          </div>
+          <div>
+            <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Meta Keywords</label>
+            <input
+              type="text"
+              value={pageConfig.keywords || ""}
+              onChange={e => updateSeoField(pageKey, "keywords", e.target.value)}
+              placeholder="Keywords separated by commas..."
+              className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Meta Description</label>
+          <textarea
+            rows={2}
+            value={pageConfig.description || ""}
+            onChange={e => updateSeoField(pageKey, "description", e.target.value)}
+            placeholder="Meta description for search snippets..."
+            className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-[#1E67E2] transition resize-none"
+          />
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-4">
+          <div>
+            <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Canonical URL</label>
+            <input
+              type="text"
+              value={pageConfig.canonical || ""}
+              onChange={e => updateSeoField(pageKey, "canonical", e.target.value)}
+              className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+            />
+          </div>
+          <div>
+            <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Global Image Alt Tag</label>
+            <input
+              type="text"
+              value={pageConfig.imageAlt || ""}
+              onChange={e => updateSeoField(pageKey, "imageAlt", e.target.value)}
+              placeholder="Image alt attribute..."
+              className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+            />
+          </div>
+          <div className="flex items-end">
+            <button
+              onClick={() => {
+                localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
+                alert("SEO Settings saved successfully!");
+              }}
+              className="w-full px-4 py-2 bg-indigo-650 hover:bg-indigo-600 text-white text-xs font-bold rounded-lg transition-all shadow-md shadow-indigo-500/10 cursor-pointer"
+            >
+              Save SEO Changes
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   const saveSeoData = () => {
@@ -2113,6 +2216,7 @@ export default function AdminDashboard() {
                         ))}
                       </div>
                     </div>
+                    {renderQuickSeoCard("home")}
                   </div>
                 </div>
               )}
@@ -4223,6 +4327,8 @@ export default function AdminDashboard() {
                       <Save size={15} /> Save All Changes
                     </button>
                   </div>
+
+                  {renderQuickSeoCard("home")}
 
                 </div>
               )}
