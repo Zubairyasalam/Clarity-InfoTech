@@ -1407,11 +1407,345 @@ export default function AdminDashboard() {
     }
   };
 
-  const renderQuickSeoCard = (pageKey) => {
+  const renderQuickSeoCard = (pageKey, sectionType = "general") => {
     const pageConfig = seoData[pageKey] || {};
     const validation = getSeoValidation(pageKey);
+
+    // Render custom UI formats for each section
+    if (sectionType === "hero") {
+      return (
+        <div className="col-span-full w-full bg-white border border-slate-100 rounded-3xl p-6 shadow-sm mt-6 space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-150 pb-3">
+            <div className="flex items-center gap-2">
+              <Search className="text-[#1E67E2]" size={18} />
+              <h3 className="text-sm font-bold text-slate-805 uppercase tracking-wider">Hero Section Image Alt & Slide SEO</h3>
+            </div>
+            <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-600">Hero Slide Settings</span>
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Slides Image Alt Text</label>
+              <input
+                type="text"
+                value={pageConfig.imageAlt || ""}
+                onChange={e => updateSeoField(pageKey, "imageAlt", e.target.value)}
+                placeholder="Alt description for main homepage sliders..."
+                className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+              />
+            </div>
+            <div>
+              <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Slide Image Title</label>
+              <input
+                type="text"
+                value={pageConfig.imageTitle || ""}
+                onChange={e => updateSeoField(pageKey, "imageTitle", e.target.value)}
+                placeholder="Title attributes for slider tags..."
+                className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+              />
+            </div>
+          </div>
+          <div className="flex justify-between items-center pt-2">
+            <p className="text-[11px] text-slate-400">These attributes will be bound to all active homepage carousel slide images for image crawler indexation.</p>
+            <button
+              onClick={() => {
+                localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
+                alert("Hero SEO Settings saved!");
+              }}
+              className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-lg transition"
+            >
+              Save Hero SEO
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    if (sectionType === "about_us") {
+      return (
+        <div className="col-span-full w-full bg-white border border-slate-100 rounded-3xl p-6 shadow-sm mt-6 space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-150 pb-3">
+            <div className="flex items-center gap-2">
+              <Search className="text-[#1E67E2]" size={18} />
+              <h3 className="text-sm font-bold text-slate-850 uppercase tracking-wider">About Section Image Alt & Heading SEO</h3>
+            </div>
+            <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-600">About Section SEO</span>
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <label className="text-xs text-slate-500 font-semibold mb-1.5 block">About Section Illustration Alt Tag</label>
+              <input
+                type="text"
+                value={pageConfig.imageAlt || ""}
+                onChange={e => updateSeoField(pageKey, "imageAlt", e.target.value)}
+                placeholder="e.g. Clarity InfoTech Software Developers Team"
+                className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+              />
+            </div>
+            <div>
+              <label className="text-xs text-slate-500 font-semibold mb-1.5 block">About Illustration Image Title</label>
+              <input
+                type="text"
+                value={pageConfig.imageTitle || ""}
+                onChange={e => updateSeoField(pageKey, "imageTitle", e.target.value)}
+                placeholder="About Us Image Title attribute..."
+                className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+              />
+            </div>
+          </div>
+          <div className="flex justify-between items-center pt-2">
+            <p className="text-[11px] text-slate-400">Specifies the crawler indexing parameters for the about section illustration graphic.</p>
+            <button
+              onClick={() => {
+                localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
+                alert("About Section SEO Settings saved!");
+              }}
+              className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-lg transition"
+            >
+              Save About SEO
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    if (sectionType === "projects_list") {
+      return (
+        <div className="col-span-full w-full bg-white border border-slate-100 rounded-3xl p-6 shadow-sm mt-6 space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-150 pb-3">
+            <div className="flex items-center gap-2">
+              <Search className="text-[#1E67E2]" size={18} />
+              <h3 className="text-sm font-bold text-slate-850 uppercase tracking-wider">Project Grid Media Alt & SEO Settings</h3>
+            </div>
+            <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-600">Projects SEO</span>
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Project Thumbnail Default Alt Attribute</label>
+              <input
+                type="text"
+                value={pageConfig.imageAlt || ""}
+                onChange={e => updateSeoField(pageKey, "imageAlt", e.target.value)}
+                placeholder="e.g. Enterprise Software Project Case Studies"
+                className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+              />
+            </div>
+            <div>
+              <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Project Thumbnail Title Tag</label>
+              <input
+                type="text"
+                value={pageConfig.imageTitle || ""}
+                onChange={e => updateSeoField(pageKey, "imageTitle", e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+              />
+            </div>
+          </div>
+          <div className="flex justify-between items-center pt-2">
+            <p className="text-[11px] text-slate-400">Applies search crawler indexing properties to all project showcase thumbnails.</p>
+            <button
+              onClick={() => {
+                localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
+                alert("Projects SEO Settings saved!");
+              }}
+              className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-lg transition"
+            >
+              Save Projects SEO
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    if (sectionType === "platforms") {
+      return (
+        <div className="col-span-full w-full bg-white border border-slate-100 rounded-3xl p-6 shadow-sm mt-6 space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-150 pb-3">
+            <div className="flex items-center gap-2">
+              <Search className="text-[#1E67E2]" size={18} />
+              <h3 className="text-sm font-bold text-slate-850 uppercase tracking-wider">Work Culture Gallery Alt & Image SEO</h3>
+            </div>
+            <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-600">Culture Gallery SEO</span>
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Gallery Image Alt Attribute Prefix</label>
+              <input
+                type="text"
+                value={pageConfig.imageAlt || ""}
+                onChange={e => updateSeoField(pageKey, "imageAlt", e.target.value)}
+                placeholder="e.g. Clarity Office Culture and Collaboration"
+                className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+              />
+            </div>
+            <div>
+              <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Gallery Image Title Tag</label>
+              <input
+                type="text"
+                value={pageConfig.imageTitle || ""}
+                onChange={e => updateSeoField(pageKey, "imageTitle", e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+              />
+            </div>
+          </div>
+          <div className="flex justify-between items-center pt-2">
+            <p className="text-[11px] text-slate-400">Specifies indexing tags for all gallery slides in the Work Culture showcase grid.</p>
+            <button
+              onClick={() => {
+                localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
+                alert("Gallery SEO Settings saved!");
+              }}
+              className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-lg transition"
+            >
+              Save Gallery SEO
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    if (sectionType === "faq") {
+      return (
+        <div className="col-span-full w-full bg-white border border-slate-100 rounded-3xl p-6 shadow-sm mt-6 space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-150 pb-3">
+            <div className="flex items-center gap-2">
+              <Search className="text-[#1E67E2]" size={18} />
+              <h3 className="text-sm font-bold text-slate-850 uppercase tracking-wider">Contact Office Maps & Form Image SEO</h3>
+            </div>
+            <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-600">Contact SEO</span>
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Office Address Maps Illustration Alt</label>
+              <input
+                type="text"
+                value={pageConfig.imageAlt || ""}
+                onChange={e => updateSeoField(pageKey, "imageAlt", e.target.value)}
+                placeholder="e.g. Clarity Office Location Map"
+                className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+              />
+            </div>
+            <div>
+              <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Maps Graphic Title Tag</label>
+              <input
+                type="text"
+                value={pageConfig.imageTitle || ""}
+                onChange={e => updateSeoField(pageKey, "imageTitle", e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+              />
+            </div>
+          </div>
+          <div className="flex justify-between items-center pt-2">
+            <p className="text-[11px] text-slate-400">Configures metadata tags bound to office address card graphics and contact page layouts.</p>
+            <button
+              onClick={() => {
+                localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
+                alert("Contact Page SEO saved!");
+              }}
+              className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-lg transition"
+            >
+              Save Contact SEO
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    if (sectionType === "footer") {
+      return (
+        <div className="col-span-full w-full bg-white border border-slate-100 rounded-3xl p-6 shadow-sm mt-6 space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-150 pb-3">
+            <div className="flex items-center gap-2">
+              <Search className="text-[#1E67E2]" size={18} />
+              <h3 className="text-sm font-bold text-slate-850 uppercase tracking-wider">Footer Logo & Navigation Links Alt Settings</h3>
+            </div>
+            <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-600">Footer Logo SEO</span>
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Footer Brand Logo Alt Attribute</label>
+              <input
+                type="text"
+                value={pageConfig.imageAlt || ""}
+                onChange={e => updateSeoField(pageKey, "imageAlt", e.target.value)}
+                placeholder="e.g. Clarity InfoTech Logo Footer"
+                className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+              />
+            </div>
+            <div>
+              <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Footer Logo Image Title Tag</label>
+              <input
+                type="text"
+                value={pageConfig.imageTitle || ""}
+                onChange={e => updateSeoField(pageKey, "imageTitle", e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+              />
+            </div>
+          </div>
+          <div className="flex justify-between items-center pt-2">
+            <p className="text-[11px] text-slate-400">Injects search crawl parameters specifically bound to the footer logo brand asset.</p>
+            <button
+              onClick={() => {
+                localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
+                alert("Footer Logo Alt Settings saved!");
+              }}
+              className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-lg transition"
+            >
+              Save Footer SEO
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    if (sectionType === "legal") {
+      return (
+        <div className="col-span-full w-full bg-white border border-slate-100 rounded-3xl p-6 shadow-sm mt-6 space-y-4">
+          <div className="flex items-center justify-between border-b border-slate-150 pb-3">
+            <div className="flex items-center gap-2">
+              <Search className="text-[#1E67E2]" size={18} />
+              <h3 className="text-sm font-bold text-slate-850 uppercase tracking-wider">Legal Policy Page SEO & Canonical Settings</h3>
+            </div>
+            <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-600">Legal Policy SEO</span>
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Policy Page SEO Title</label>
+              <input
+                type="text"
+                value={pageConfig.title || ""}
+                onChange={e => updateSeoField(pageKey, "title", e.target.value)}
+                placeholder="Legal Policy Page SEO Title..."
+                className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+              />
+            </div>
+            <div>
+              <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Canonical Policy URL Link</label>
+              <input
+                type="text"
+                value={pageConfig.canonical || ""}
+                onChange={e => updateSeoField(pageKey, "canonical", e.target.value)}
+                className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+              />
+            </div>
+          </div>
+          <div className="flex justify-between items-center pt-2">
+            <p className="text-[11px] text-slate-400">Specifies Search Engine Optimization indexation parameters for company disclosure terms and legal forms.</p>
+            <button
+              onClick={() => {
+                localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
+                alert("Legal Page SEO Settings saved!");
+              }}
+              className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-lg transition"
+            >
+              Save Legal SEO
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    // Default Page-Level Full Card (for general page tabs like Page About, Page Projects, Page Service)
     return (
-      <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm mt-6 space-y-4">
+      <div className="col-span-full w-full bg-white border border-slate-100 rounded-3xl p-6 shadow-sm mt-6 space-y-4">
         <div className="flex items-center justify-between border-b border-slate-150 pb-3">
           <div className="flex items-center gap-2">
             <Search className="text-[#1E67E2]" size={18} />
@@ -1490,7 +1824,7 @@ export default function AdminDashboard() {
                 localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
                 alert("SEO Settings saved successfully!");
               }}
-              className="w-full px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-lg transition-all shadow-md shadow-indigo-500/10 cursor-pointer"
+              className="w-full px-4 py-2 bg-indigo-650 hover:bg-indigo-600 text-white text-xs font-bold rounded-lg transition-all shadow-md shadow-indigo-500/10 cursor-pointer"
             >
               Save SEO Changes
             </button>
@@ -2229,7 +2563,7 @@ export default function AdminDashboard() {
 
                   
                   </div>
-                  {renderQuickSeoCard("home")}
+                  {renderQuickSeoCard("home", "general")}
                 </div>
               )}
 
@@ -2376,7 +2710,7 @@ export default function AdminDashboard() {
                     </div>
                   
                   </div>
-                  {renderQuickSeoCard("about")}
+                  {renderQuickSeoCard("about", "page_about")}
                 </div>
               )}
 
@@ -2559,7 +2893,7 @@ export default function AdminDashboard() {
                     </div>
                   
                   </div>
-                  {renderQuickSeoCard("projects")}
+                  {renderQuickSeoCard("projects", "page_projects")}
                 </div>
               )}
 
@@ -2804,7 +3138,7 @@ export default function AdminDashboard() {
                     </div>
                   
                   </div>
-                  {renderQuickSeoCard("services")}
+                  {renderQuickSeoCard("services", "page_service")}
                 </div>
               )}
 
@@ -2896,7 +3230,7 @@ export default function AdminDashboard() {
                     </div>
                   
                   </div>
-                  {renderQuickSeoCard("contact")}
+                  {renderQuickSeoCard("contact", "faq")}
                 </div>
               )}
 
@@ -3004,7 +3338,7 @@ export default function AdminDashboard() {
                     </div>
                   
                   </div>
-                  {renderQuickSeoCard("privacy")}
+                  {renderQuickSeoCard("privacy", "legal")}
                 </div>
               )}
 
@@ -3354,7 +3688,7 @@ export default function AdminDashboard() {
                   
                   </div>
 
-                  {renderQuickSeoCard("home")}
+                  {renderQuickSeoCard("home", "hero")}
                 </div>
               )}
 
@@ -3498,7 +3832,7 @@ export default function AdminDashboard() {
                   
                   </div>
 
-                  {renderQuickSeoCard("home")}
+                  {renderQuickSeoCard("home", "about_us")}
                 </div>
               )}
 
@@ -3645,7 +3979,7 @@ export default function AdminDashboard() {
                   
                   </div>
 
-                  {renderQuickSeoCard("home")}
+                  {renderQuickSeoCard("home", "platforms")}
                 </div>
               )}
 
@@ -3866,7 +4200,7 @@ export default function AdminDashboard() {
                   
                   </div>
 
-                  {renderQuickSeoCard("projects")}
+                  {renderQuickSeoCard("projects", "projects_list")}
                 </div>
               )}
 
@@ -4181,7 +4515,7 @@ export default function AdminDashboard() {
                     </div>
                   
                   </div>
-                  {renderQuickSeoCard("contact")}
+                  {renderQuickSeoCard("contact", "faq")}
                 </div>
               )}
               {/* 8. FOOTER EDITOR */}
@@ -4363,7 +4697,7 @@ export default function AdminDashboard() {
 
 
 
-                  {renderQuickSeoCard("home")}
+                  {renderQuickSeoCard("home", "footer")}
                 </div>
               )}
 
