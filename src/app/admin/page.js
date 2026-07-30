@@ -1162,6 +1162,7 @@ export default function AdminDashboard() {
   const updateStat = (i, key, val) => setAboutData(d => { const s = [...d.stats]; s[i] = { ...s[i], [key]: val }; return { ...d, stats: s }; });
   const updateFeature = (i, key, val) => setAboutData(d => { const f = [...d.features]; f[i] = { ...f[i], [key]: val }; return { ...d, features: f }; });
   const saveAbout = () => {
+    localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_about", JSON.stringify(aboutData));
     setAboutSaveSuccess(true);
     setTimeout(() => setAboutSaveSuccess(false), 2500);
@@ -1175,6 +1176,7 @@ export default function AdminDashboard() {
   const addGalleryItem = () => setPlatformsData(d => ({ ...d, gallery: [...d.gallery, { id: Date.now(), src: "/office-bg.jpg", label: "New Slide" }] }));
   const deleteGalleryItem = (i) => setPlatformsData(d => ({ ...d, gallery: d.gallery.filter((_, idx) => idx !== i) }));
   const savePlatforms = () => {
+    localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_platforms", JSON.stringify(platformsData));
     setPlatformsSaveSuccess(true);
     setTimeout(() => setPlatformsSaveSuccess(false), 2500);
@@ -1206,6 +1208,7 @@ export default function AdminDashboard() {
   const deleteMarqueeLogo = (i) => setServicesData(d => ({ ...d, marqueeLogos: (d.marqueeLogos || []).filter((_, idx) => idx !== i) }));
 
   const saveServices = () => {
+    localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_services", JSON.stringify(servicesData));
     setServicesSaveSuccess(true);
     setTimeout(() => setServicesSaveSuccess(false), 2500);
@@ -1226,6 +1229,7 @@ export default function AdminDashboard() {
   const deleteInquiryTypeTag = (i) => setFaqData(d => ({ ...d, inquiryTypes: d.inquiryTypes.filter((_, idx) => idx !== i) }));
 
   const saveFaq = () => {
+    localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_faq", JSON.stringify(faqData));
     setFaqSaveSuccess(true);
     setTimeout(() => setFaqSaveSuccess(false), 2500);
@@ -1238,6 +1242,7 @@ export default function AdminDashboard() {
   const addHeaderLink = () => setHeaderData(d => ({ ...d, links: [...d.links, { id: Date.now(), label: "New Link", url: "#" }] }));
   const deleteHeaderLink = (i) => setHeaderData(d => ({ ...d, links: d.links.filter((_, idx) => idx !== i) }));
   const saveHeader = () => {
+    localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_header", JSON.stringify(headerData));
     setHeaderSaveSuccess(true);
     setTimeout(() => setHeaderSaveSuccess(false), 2500);
@@ -1254,6 +1259,7 @@ export default function AdminDashboard() {
   const addNavLink = () => setFooterData(d => ({ ...d, navLinks: [...(d.navLinks || []), { label: "New Link", url: "#" }] }));
   const deleteNavLink = (i) => setFooterData(d => ({ ...d, navLinks: (d.navLinks || []).filter((_, idx) => idx !== i) }));
   const saveFooter = () => {
+    localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_footer", JSON.stringify(footerData));
     setFooterSaveSuccess(true);
     setTimeout(() => setFooterSaveSuccess(false), 2500);
@@ -1270,6 +1276,7 @@ export default function AdminDashboard() {
   const deletePageAboutWhyList = (i) => setPageAboutData(d => ({ ...d, whyChooseList: d.whyChooseList.filter((_, idx) => idx !== i) }));
   
   const savePageAbout = () => {
+    localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_page_about", JSON.stringify(pageAboutData));
     setPageAboutSaveSuccess(true);
     setTimeout(() => setPageAboutSaveSuccess(false), 2500);
@@ -1319,6 +1326,7 @@ export default function AdminDashboard() {
   const deleteWorkflowStep = (i) => setPageProjectsData(d => ({ ...d, workflowSteps: (d.workflowSteps || []).filter((_, idx) => idx !== i) }));
 
   const savePageProjects = () => {
+    localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_page_projects", JSON.stringify(pageProjectsData));
     setPageProjectsSaveSuccess(true);
     setTimeout(() => setPageProjectsSaveSuccess(false), 2500);
@@ -1343,6 +1351,7 @@ export default function AdminDashboard() {
   const deleteStatItem = (i) => setPageServiceData(d => ({ ...d, stats: (d.stats || []).filter((_, idx) => idx !== i) }));
 
   const savePageService = () => {
+    localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_page_service", JSON.stringify(pageServiceData));
     setPageServiceSaveSuccess(true);
     setTimeout(() => setPageServiceSaveSuccess(false), 2500);
@@ -1361,6 +1370,7 @@ export default function AdminDashboard() {
   // Legal Pages CRUD
   const updateLegalPagesField = (key, val) => setLegalPagesData(d => ({ ...d, [key]: val }));
   const saveLegalPages = () => {
+    localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_legal_pages", JSON.stringify(legalPagesData));
     setLegalPagesSaveSuccess(true);
     setTimeout(() => setLegalPagesSaveSuccess(false), 2500);
