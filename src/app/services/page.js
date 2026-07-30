@@ -32,6 +32,7 @@ import {
   Share2
 } from "lucide-react";
 import AuthModal from "@/components/AuthModal";
+import Footer from "@/components/Footer";
 import ClarityNetworkGlobe from "@/components/ClarityNetworkGlobe";
 
 export default function ServicesPage() {
@@ -542,7 +543,7 @@ export default function ServicesPage() {
 
       </main>
 
-      
+      <Footer />
 
       {/* Floating Scroll-to-Top Blue Button */}
       <AnimatePresence>

@@ -16,6 +16,7 @@ import {
   Share2
 } from "lucide-react";
 import AuthModal from "@/components/AuthModal";
+import Footer from "@/components/Footer";
 
 export default function ContactPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -535,7 +536,7 @@ export default function ContactPage() {
         </section>
       </main>
 
-
+      <Footer />
 
       {/* SCROLL TO TOP BUTTON */}
       <AnimatePresence>

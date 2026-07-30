@@ -22,6 +22,7 @@ import {
   Share2
 } from "lucide-react";
 import AuthModal from "@/components/AuthModal";
+import Footer from "@/components/Footer";
 
 export default function AboutPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -407,7 +408,7 @@ export default function AboutPage() {
 
       </main>
 
-      
+      <Footer />
 
       {/* Floating Scroll-to-Top Blue Button */}
       <AnimatePresence>

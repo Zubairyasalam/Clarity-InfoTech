@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu, X, ArrowUp, Lightbulb, Users2, TrendingUp,
@@ -557,6 +558,8 @@ export default function OurServicesPage() {
           </div>
         </section>
       </main>
+
+      <Footer />
 
 
 
