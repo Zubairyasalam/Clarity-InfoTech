@@ -4169,7 +4169,7 @@ export default function AdminDashboard() {
                                 value={card.media}
                                 onChange={e => updateServiceCard(i, "media", e.target.value)}
                                 placeholder="/service.mp4 or https://..."
-                                className="w-full bg-white border border-slate-200 text-xs font-mono text-white/80 rounded-lg px-3 py-2 outline-none focus:border-indigo-500 transition"
+                                className="w-full bg-white border border-slate-200 text-xs font-mono text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-indigo-500 transition"
                               />
                             </div>
                             <div>
