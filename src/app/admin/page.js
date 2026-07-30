@@ -1342,9 +1342,6 @@ export default function AdminDashboard() {
         {/* Top Header Panel */}
         <header className="bg-white border-b border-slate-100 sticky top-0 z-40 px-6 flex items-center justify-between shadow-sm shadow-slate-100/10 h-[76px]">
           <div className="flex items-center gap-3">
-            <a href="/" className="flex items-center justify-center p-2 rounded-xl bg-slate-50 border border-slate-100 hover:bg-slate-100 text-slate-500 transition duration-150">
-              <ArrowLeft size={16} />
-            </a>
             <div className="flex items-center gap-2">
               <div className="flex items-center gap-1.5 bg-blue-50/50 text-[#1E67E2] rounded-full px-3 py-1 text-xs font-semibold border border-blue-100/50">
                 <Settings size={12} />
@@ -1539,9 +1536,9 @@ export default function AdminDashboard() {
                         Manage all the text content, sections, and values for the main About Us page.
                       </p>
                     </div>
-                    <div className="flex gap-3">
-                      <button onClick={resetPageAbout} className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-red-500 border border-slate-200 hover:border-red-200 rounded-xl transition cursor-pointer">Reset</button>
-                      <button onClick={savePageAbout} className="px-5 py-2 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition-all flex items-center gap-2 cursor-pointer">
+                    <div className="flex gap-3 shrink-0">
+                      <button onClick={resetPageAbout} className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-red-500 border border-slate-200 hover:border-red-200 rounded-xl transition cursor-pointer whitespace-nowrap shrink-0">Reset</button>
+                      <button onClick={savePageAbout} className="px-5 py-2 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0">
                         {pageAboutSaveSuccess ? <Check size={16} /> : <Save size={16} />}
                         {pageAboutSaveSuccess ? "Saved!" : "Save All Changes"}
                       </button>
@@ -1684,9 +1681,9 @@ export default function AdminDashboard() {
                         Manage all projects, showcase cards, categories, agile workflow steps, and CTA banner for the Our Projects page.
                       </p>
                     </div>
-                    <div className="flex gap-3">
-                      <button onClick={resetPageProjects} className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-red-500 border border-slate-200 hover:border-red-200 rounded-xl transition cursor-pointer">Reset</button>
-                      <button onClick={savePageProjects} className="px-5 py-2 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition-all flex items-center gap-2 cursor-pointer">
+                    <div className="flex gap-3 shrink-0">
+                      <button onClick={resetPageProjects} className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-red-500 border border-slate-200 hover:border-red-200 rounded-xl transition cursor-pointer whitespace-nowrap shrink-0">Reset</button>
+                      <button onClick={savePageProjects} className="px-5 py-2 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0">
                         {pageProjectsSaveSuccess ? <Check size={16} /> : <Save size={16} />}
                         {pageProjectsSaveSuccess ? "Saved!" : "Save All Changes"}
                       </button>
@@ -1865,9 +1862,9 @@ export default function AdminDashboard() {
                         Manage all hero titles, core values, service cards, culture pillars, global stats, and CTA banner for Our Service page.
                       </p>
                     </div>
-                    <div className="flex gap-3">
-                      <button onClick={resetPageService} className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-red-500 border border-slate-200 hover:border-red-200 rounded-xl transition cursor-pointer">Reset</button>
-                      <button onClick={savePageService} className="px-5 py-2 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition-all flex items-center gap-2 cursor-pointer">
+                    <div className="flex gap-3 shrink-0">
+                      <button onClick={resetPageService} className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-red-500 border border-slate-200 hover:border-red-200 rounded-xl transition cursor-pointer whitespace-nowrap shrink-0">Reset</button>
+                      <button onClick={savePageService} className="px-5 py-2 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0">
                         {pageServiceSaveSuccess ? <Check size={16} /> : <Save size={16} />}
                         {pageServiceSaveSuccess ? "Saved!" : "Save All Changes"}
                       </button>
@@ -2108,9 +2105,9 @@ export default function AdminDashboard() {
                         Manage hero header, contact form title, head office address, phone, email, and Google Maps embed URL for the Contact page.
                       </p>
                     </div>
-                    <div className="flex gap-3">
-                      <button onClick={resetPageContact} className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-red-500 border border-slate-200 hover:border-red-200 rounded-xl transition cursor-pointer">Reset</button>
-                      <button onClick={savePageContact} className="px-5 py-2 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition-all flex items-center gap-2 cursor-pointer">
+                    <div className="flex gap-3 shrink-0">
+                      <button onClick={resetPageContact} className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-red-500 border border-slate-200 hover:border-red-200 rounded-xl transition cursor-pointer whitespace-nowrap shrink-0">Reset</button>
+                      <button onClick={savePageContact} className="px-5 py-2 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0">
                         {pageContactSaveSuccess ? <Check size={16} /> : <Save size={16} />}
                         {pageContactSaveSuccess ? "Saved!" : "Save All Changes"}
                       </button>
@@ -2198,9 +2195,9 @@ export default function AdminDashboard() {
                         Manage titles, subtitles, and content for Privacy Policy, Terms of Service, and Refund Policy.
                       </p>
                     </div>
-                    <div className="flex gap-3">
-                      <button onClick={resetLegalPages} className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-red-500 border border-slate-200 hover:border-red-200 rounded-xl transition cursor-pointer">Reset</button>
-                      <button onClick={saveLegalPages} className="px-5 py-2 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition-all flex items-center gap-2 cursor-pointer">
+                    <div className="flex gap-3 shrink-0">
+                      <button onClick={resetLegalPages} className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-red-500 border border-slate-200 hover:border-red-200 rounded-xl transition cursor-pointer whitespace-nowrap shrink-0">Reset</button>
+                      <button onClick={saveLegalPages} className="px-5 py-2 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0">
                         {legalPagesSaveSuccess ? <Check size={16} /> : <Save size={16} />}
                         {legalPagesSaveSuccess ? "Saved!" : "Save All Changes"}
                       </button>
@@ -2772,7 +2769,7 @@ export default function AdminDashboard() {
 
                   {/* Save footer */}
                   <div className="flex justify-end pt-2">
-                    <button onClick={saveAbout} className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition cursor-pointer">
+                    <button onClick={saveAbout} className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition cursor-pointer whitespace-nowrap shrink-0">
                       <Save size={15} /> Save All Changes
                     </button>
                   </div>
@@ -2917,7 +2914,7 @@ export default function AdminDashboard() {
 
                   {/* Save footer */}
                   <div className="flex justify-end pt-2">
-                    <button onClick={savePlatforms} className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition cursor-pointer">
+                    <button onClick={savePlatforms} className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition cursor-pointer whitespace-nowrap shrink-0">
                       <Save size={15} /> Save All Changes
                     </button>
                   </div>
@@ -3136,7 +3133,7 @@ export default function AdminDashboard() {
 
                   {/* Save footer */}
                   <div className="flex justify-end pt-2">
-                    <button onClick={saveServices} className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition cursor-pointer">
+                    <button onClick={saveServices} className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition cursor-pointer whitespace-nowrap shrink-0">
                       <Save size={15} /> Save All Changes
                     </button>
                   </div>
@@ -3350,7 +3347,7 @@ export default function AdminDashboard() {
 
                   {/* Save footer */}
                   <div className="flex justify-end pt-2">
-                    <button onClick={saveFaq} className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition cursor-pointer">
+                    <button onClick={saveFaq} className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition cursor-pointer whitespace-nowrap shrink-0">
                       <Save size={15} /> Save All Changes
                     </button>
                   </div>
@@ -3627,7 +3624,7 @@ export default function AdminDashboard() {
 
                   {/* Save footer */}
                   <div className="flex justify-end pt-2">
-                    <button onClick={saveFooter} className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition cursor-pointer">
+                    <button onClick={saveFooter} className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition cursor-pointer whitespace-nowrap shrink-0">
                       <Save size={15} /> Save All Changes
                     </button>
                   </div>

@@ -1925,6 +1925,7 @@ export default function Home() {
             flex-direction: column;
             justify-content: space-between;
             position: relative;
+            z-index: 1;
           }
           .footer-lucky-graphic {
             position: absolute;
@@ -2074,11 +2075,14 @@ export default function Home() {
           }
           .footer-watermark {
             max-width: 720px;
-            margin: -20px auto 0;
+            margin: 0 auto;
             pointer-events: none;
             user-select: none;
-            position: relative;
-            z-index: 0;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: -1;
             line-height: 0;
             opacity: 0.75;
           }
@@ -2184,6 +2188,13 @@ export default function Home() {
 
           {/* Right Card */}
           <div className="footer-right">
+            {/* Watermark SVG */}
+            <div className="footer-watermark" aria-hidden="true">
+              <svg id="watermarkSvg" viewBox="62 95 876 175" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+                <text id="watermarkText" x="500" y="240" textAnchor="middle" fontSize="210">Clarity</text>
+              </svg>
+            </div>
+
             {/* Floating Lucky Graphic */}
             <div className="footer-lucky-graphic">
               <div className="lucky-cube" style={{ background: 'transparent', boxShadow: 'none' }}>
@@ -2262,13 +2273,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Watermark SVG */}
-        <div className="footer-watermark" aria-hidden="true">
-          <svg id="watermarkSvg" viewBox="62 95 876 175" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-            <text id="watermarkText" x="500" y="240" textAnchor="middle" fontSize="210">Clarity</text>
-          </svg>
         </div>
       </section>
 
