@@ -1254,9 +1254,9 @@ export default function AdminDashboard() {
   }));
   const deleteFaqQuestion = (i) => setFaqData(d => ({ ...d, questions: d.questions.filter((_, idx) => idx !== i) }));
 
-  const updateInquiryTypeTag = (i, val) => setFaqData(d => { const t = [...d.inquiryTypes]; t[i] = val; return { ...d, inquiryTypes: t }; });
-  const addInquiryTypeTag = () => setFaqData(d => ({ ...d, inquiryTypes: [...d.inquiryTypes, "New Category"] }));
-  const deleteInquiryTypeTag = (i) => setFaqData(d => ({ ...d, inquiryTypes: d.inquiryTypes.filter((_, idx) => idx !== i) }));
+  const updateInquiryTypeTag = (i, val) => setFaqData(d => { const t = [...(d.inquiryTypes || [])]; t[i] = val; return { ...d, inquiryTypes: t }; });
+  const addInquiryTypeTag = () => setFaqData(d => ({ ...d, inquiryTypes: [...(d.inquiryTypes || []), "New Category"] }));
+  const deleteInquiryTypeTag = (i) => setFaqData(d => ({ ...d, inquiryTypes: (d.inquiryTypes || []).filter((_, idx) => idx !== i) }));
 
   const saveFaq = () => {
     localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
@@ -4435,13 +4435,13 @@ export default function AdminDashboard() {
                     {/* Inquiry Type Pills Editor */}
                     <div className="pt-2">
                       <div className="flex justify-between items-center mb-2">
-                        <label className="text-xs text-slate-500 font-semibold block">Inquiry Type Option Pills ({faqData.inquiryTypes.length})</label>
-                        <button onClick={addInquiryTypeTag} className="flex items-center gap-1 px-2.5 py-1 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-600 rounded text-xs font-semibold transition cursor-pointer">
+                        <label className="text-xs text-slate-500 font-semibold block">Inquiry Type Option Pills ({(faqData.inquiryTypes || []).length})</label>
+                        <button type="button" onClick={addInquiryTypeTag} className="flex items-center gap-1 px-2.5 py-1 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-600 rounded text-xs font-semibold transition cursor-pointer">
                           <Plus size={12} /> Add Category
                         </button>
                       </div>
                       <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
-                        {faqData.inquiryTypes.map((typeTag, i) => (
+                        {(faqData.inquiryTypes || []).map((typeTag, i) => (
                           <div key={i} className="flex items-center gap-1.5 bg-white border border-slate-200 rounded-lg p-1.5">
                             <input
                               type="text"
@@ -4449,7 +4449,7 @@ export default function AdminDashboard() {
                               onChange={e => updateInquiryTypeTag(i, e.target.value)}
                               className="w-full bg-transparent border-none text-xs text-slate-700 outline-none px-1"
                             />
-                            <button onClick={() => deleteInquiryTypeTag(i)} className="text-red-400 hover:text-red-300 p-0.5" title="Delete">
+                            <button type="button" onClick={() => deleteInquiryTypeTag(i)} className="text-red-400 hover:text-red-300 p-0.5" title="Delete">
                               <X size={12} />
                             </button>
                           </div>
