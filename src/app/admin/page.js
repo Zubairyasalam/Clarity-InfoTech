@@ -2656,14 +2656,13 @@ export default function AdminDashboard() {
                             <div><label className="text-xs text-slate-500 font-semibold block mb-1">Tag</label><input type="text" value={card.tag} onChange={e => updatePageAboutCard(i, "tag", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" /></div>
                             <div>
                               <label className="text-xs text-slate-500 font-semibold block mb-1">Icon</label>
-                              <select value={card.icon} onChange={e => updatePageAboutCard(i, "icon", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition">
-                                <option value="Lightbulb">Lightbulb</option>
-                                <option value="Star">Star</option>
-                                <option value="Users">Users</option>
-                                <option value="Target">Target</option>
-                                <option value="Check">Check</option>
-                                <option value="Globe">Globe</option>
-                              </select>
+                              <input
+                                type="text"
+                                value={card.icon}
+                                onChange={e => updatePageAboutCard(i, "icon", e.target.value)}
+                                placeholder="Lucide icon name (e.g. Lightbulb, Star, Target)"
+                                className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+                              />
                             </div>
                           </div>
                           <div><label className="text-xs text-slate-500 font-semibold block mb-1">Description</label><input type="text" value={card.desc} onChange={e => updatePageAboutCard(i, "desc", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" /></div>
@@ -3001,14 +3000,13 @@ export default function AdminDashboard() {
                                 </div>
                                 <div>
                                   <label className="text-xs text-slate-500 font-semibold block mb-1">Icon</label>
-                                  <select value={card.icon} onChange={e => updateServiceCardItem(i, "icon", e.target.value)} className="w-full bg-white border border-slate-200 text-xs text-slate-800 rounded-lg px-2.5 py-1.5 outline-none focus:border-[#1E67E2] transition">
-                                    <option value="Code2">Code2 (Web)</option>
-                                    <option value="Smartphone">Smartphone (Mobile)</option>
-                                    <option value="Cloud">Cloud (Services)</option>
-                                    <option value="Cpu">Cpu (AI)</option>
-                                    <option value="Shield">Shield (Security)</option>
-                                    <option value="BarChart3">BarChart3 (Data)</option>
-                                  </select>
+                                  <input
+                                    type="text"
+                                    value={card.icon}
+                                    onChange={e => updateServiceCardItem(i, "icon", e.target.value)}
+                                    placeholder="Lucide icon name (e.g. Code2, Cloud, Cpu)"
+                                    className="w-full bg-white border border-slate-200 text-xs text-slate-800 rounded-lg px-2.5 py-1.5 outline-none focus:border-[#1E67E2] transition"
+                                  />
                                 </div>
                               </div>
                               <div>
@@ -3800,15 +3798,13 @@ export default function AdminDashboard() {
                             </div>
                             <div>
                               <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Icon</label>
-                              <select
+                              <input
+                                type="text"
                                 value={feat.icon}
                                 onChange={e => updateFeature(i, "icon", e.target.value)}
-                                className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2.5 outline-none focus:border-indigo-500 transition cursor-pointer"
-                              >
-                                <option value="Shield">🛡️  Shield</option>
-                                <option value="ThumbsUp">👍  ThumbsUp</option>
-                                <option value="Activity">📈  Activity</option>
-                              </select>
+                                placeholder="Lucide icon name (e.g. Shield, Cpu, Laptop)"
+                                className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2.5 outline-none focus:border-indigo-500 transition"
+                              />
                             </div>
                             <div>
                               <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Description</label>

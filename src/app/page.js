@@ -33,6 +33,7 @@ import {
   Zap,
   Cpu
 } from "lucide-react";
+import * as LucideIcons from "lucide-react";
 import AuthModal from "@/components/AuthModal";
 import Footer from "@/components/Footer";
 import SEOMetadata from "@/components/SEOMetadata";
@@ -1232,8 +1233,7 @@ export default function Home() {
               >
                 {/* Dynamic Feature Cards */}
                 {(aboutData.features || []).map((feat, i) => {
-                  const iconMap = { Shield, ThumbsUp, Activity };
-                  const IconComp = iconMap[feat.icon] || Shield;
+                  const IconComp = LucideIcons[feat.icon] || LucideIcons.Shield;
                   const offsets = ["ml-0", "ml-4 sm:ml-12", "ml-0 sm:ml-2"];
                   return (
                     <motion.div

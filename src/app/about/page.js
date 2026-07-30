@@ -25,6 +25,8 @@ import AuthModal from "@/components/AuthModal";
 import Footer from "@/components/Footer";
 import SEOMetadata from "@/components/SEOMetadata";
 
+import * as LucideIcons from "lucide-react";
+
 export default function AboutPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -317,8 +319,7 @@ export default function AboutPage() {
             {/* 4 Cards Grid Layout */}
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {pageAboutData.valuesCards.map((item, idx) => {
-                const IconMap = { Lightbulb, Star, Users, Target, Check, Globe };
-                const IconComp = IconMap[item.icon] || Lightbulb;
+                const IconComp = LucideIcons[item.icon] || LucideIcons.Lightbulb;
                 return (
                   <motion.div
                     key={idx}

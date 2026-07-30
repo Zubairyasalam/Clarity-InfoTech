@@ -36,6 +36,8 @@ import Footer from "@/components/Footer";
 import SEOMetadata from "@/components/SEOMetadata";
 import ClarityNetworkGlobe from "@/components/ClarityNetworkGlobe";
 
+import * as LucideIcons from "lucide-react";
+
 export default function ServicesPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -436,7 +438,7 @@ export default function ServicesPage() {
           {/* Services Cards Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredServices.map((service, idx) => {
-              const IconComp = typeof service.icon === 'string' ? getIconComponent(service.icon) : (service.icon || Code2);
+              const IconComp = LucideIcons[service.icon] || LucideIcons.Code2;
               return (
                 <motion.div
                   key={service.id || idx}
