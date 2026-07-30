@@ -1104,27 +1104,29 @@ export default function AdminDashboard() {
   };
 
   const saveEditSlide = () => {
-    const updated = heroSlides.map((s, i) => (i === editingSlide ? { ...editForm, id: s.id } : s));
+    const updated = (heroSlides || []).map((s, i) => (i === editingSlide ? { ...editForm, id: s.id } : s));
     saveHeroSlides(updated);
     setEditingSlide(null);
     setEditForm({});
   };
 
   const deleteSlide = (idx) => {
-    if (heroSlides.length <= 1) return alert("You must keep at least 1 slide.");
+    const slides = heroSlides || [];
+    if (slides.length <= 1) return alert("You must keep at least 1 slide.");
     if (!confirm("Delete this slide?")) return;
-    const updated = heroSlides.filter((_, i) => i !== idx).map((s, i) => ({
+    const updated = slides.filter((_, i) => i !== idx).map((s, i) => ({
       ...s,
-      badge: `0${i + 1} / 0${heroSlides.length - 1} • ${s.badge.split("•")[1]?.trim() || s.title.toUpperCase()}`
+      badge: `0${i + 1} / 0${slides.length - 1} • ${(s.badge || "").split("•")[1]?.trim() || (s.title || "").toUpperCase()}`
     }));
     saveHeroSlides(updated);
     if (editingSlide === idx) cancelEditSlide();
   };
 
   const moveSlide = (idx, dir) => {
+    const slides = heroSlides || [];
     const newIdx = idx + dir;
-    if (newIdx < 0 || newIdx >= heroSlides.length) return;
-    const updated = [...heroSlides];
+    if (newIdx < 0 || newIdx >= slides.length) return;
+    const updated = [...slides];
     [updated[idx], updated[newIdx]] = [updated[newIdx], updated[idx]];
     saveHeroSlides(updated);
     if (editingSlide === idx) setEditingSlide(newIdx);
@@ -1132,7 +1134,8 @@ export default function AdminDashboard() {
 
   const handleAddSlide = (e) => {
     e.preventDefault();
-    const total = heroSlides.length + 1;
+    const slides = heroSlides || [];
+    const total = slides.length + 1;
     const added = {
       ...newSlide,
       id: Date.now(),
@@ -1171,10 +1174,10 @@ export default function AdminDashboard() {
 
   // Platforms CRUD
   const updatePlatformField = (key, val) => setPlatformsData(d => ({ ...d, [key]: val }));
-  const updatePlatformStat = (i, key, val) => setPlatformsData(d => { const s = [...d.stats]; s[i] = { ...s[i], [key]: val }; return { ...d, stats: s }; });
-  const updateGalleryItem = (i, key, val) => setPlatformsData(d => { const g = [...d.gallery]; g[i] = { ...g[i], [key]: val }; return { ...d, gallery: g }; });
-  const addGalleryItem = () => setPlatformsData(d => ({ ...d, gallery: [...d.gallery, { id: Date.now(), src: "/office-bg.jpg", label: "New Slide" }] }));
-  const deleteGalleryItem = (i) => setPlatformsData(d => ({ ...d, gallery: d.gallery.filter((_, idx) => idx !== i) }));
+  const updatePlatformStat = (i, key, val) => setPlatformsData(d => { const s = [...(d.stats || [])]; s[i] = { ...s[i], [key]: val }; return { ...d, stats: s }; });
+  const updateGalleryItem = (i, key, val) => setPlatformsData(d => { const g = [...(d.gallery || [])]; g[i] = { ...g[i], [key]: val }; return { ...d, gallery: g }; });
+  const addGalleryItem = () => setPlatformsData(d => ({ ...d, gallery: [...(d.gallery || []), { id: Date.now(), src: "/office-bg.jpg", label: "New Slide" }] }));
+  const deleteGalleryItem = (i) => setPlatformsData(d => ({ ...d, gallery: (d.gallery || []).filter((_, idx) => idx !== i) }));
   const savePlatforms = () => {
     localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_platforms", JSON.stringify(platformsData));
@@ -1247,12 +1250,12 @@ export default function AdminDashboard() {
 
   // FAQ CRUD
   const updateFaqField = (key, val) => setFaqData(d => ({ ...d, [key]: val }));
-  const updateFaqQuestion = (i, key, val) => setFaqData(d => { const q = [...d.questions]; q[i] = { ...q[i], [key]: val }; return { ...d, questions: q }; });
+  const updateFaqQuestion = (i, key, val) => setFaqData(d => { const q = [...(d.questions || [])]; q[i] = { ...q[i], [key]: val }; return { ...d, questions: q }; });
   const addFaqQuestion = () => setFaqData(d => ({
     ...d,
-    questions: [...d.questions, { q: "New Question Title?", a: "Detailed answer text..." }]
+    questions: [...(d.questions || []), { q: "New Question Title?", a: "Detailed answer text..." }]
   }));
-  const deleteFaqQuestion = (i) => setFaqData(d => ({ ...d, questions: d.questions.filter((_, idx) => idx !== i) }));
+  const deleteFaqQuestion = (i) => setFaqData(d => ({ ...d, questions: (d.questions || []).filter((_, idx) => idx !== i) }));
 
   const updateInquiryTypeTag = (i, val) => setFaqData(d => { const t = [...(d.inquiryTypes || [])]; t[i] = val; return { ...d, inquiryTypes: t }; });
   const addInquiryTypeTag = () => setFaqData(d => ({ ...d, inquiryTypes: [...(d.inquiryTypes || []), "New Category"] }));
@@ -1268,9 +1271,9 @@ export default function AdminDashboard() {
 
   // Header CRUD
   const updateHeaderLogo = (val) => setHeaderData(d => ({ ...d, logo: val }));
-  const updateHeaderLink = (i, key, val) => setHeaderData(d => { const l = [...d.links]; l[i] = { ...l[i], [key]: val }; return { ...d, links: l }; });
-  const addHeaderLink = () => setHeaderData(d => ({ ...d, links: [...d.links, { id: Date.now(), label: "New Link", url: "#" }] }));
-  const deleteHeaderLink = (i) => setHeaderData(d => ({ ...d, links: d.links.filter((_, idx) => idx !== i) }));
+  const updateHeaderLink = (i, key, val) => setHeaderData(d => { const l = [...(d.links || [])]; l[i] = { ...l[i], [key]: val }; return { ...d, links: l }; });
+  const addHeaderLink = () => setHeaderData(d => ({ ...d, links: [...(d.links || []), { id: Date.now(), label: "New Link", url: "#" }] }));
+  const deleteHeaderLink = (i) => setHeaderData(d => ({ ...d, links: (d.links || []).filter((_, idx) => idx !== i) }));
   const saveHeader = () => {
     localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_header", JSON.stringify(headerData));
@@ -1281,7 +1284,7 @@ export default function AdminDashboard() {
 
   // Footer CRUD
   const updateFooterField = (key, val) => setFooterData(d => ({ ...d, [key]: val }));
-  const updateCompanyLink = (i, key, val) => setFooterData(d => { const c = [...d.companyLinks]; c[i] = { ...c[i], [key]: val }; return { ...d, companyLinks: c }; });
+  const updateCompanyLink = (i, key, val) => setFooterData(d => { const c = [...(d.companyLinks || [])]; c[i] = { ...c[i], [key]: val }; return { ...d, companyLinks: c }; });
   const addCompanyLink = () => setFooterData(d => ({ ...d, companyLinks: [...(d.companyLinks || []), { label: "New Link", url: "#" }] }));
   const deleteCompanyLink = (i) => setFooterData(d => ({ ...d, companyLinks: (d.companyLinks || []).filter((_, idx) => idx !== i) }));
 
@@ -1298,12 +1301,12 @@ export default function AdminDashboard() {
 
   // About Page CRUD
   const updatePageAboutField = (key, val) => setPageAboutData(d => ({ ...d, [key]: val }));
-  const updatePageAboutCard = (i, key, val) => setPageAboutData(d => { const c = [...d.valuesCards]; c[i] = { ...c[i], [key]: val }; return { ...d, valuesCards: c }; });
-  const addPageAboutCard = () => setPageAboutData(d => ({ ...d, valuesCards: [...d.valuesCards, { step: "0X", title: "New Value", icon: "Star", gradient: "from-sky-400 to-indigo-600", tag: "Tag", desc: "Description" }] }));
-  const deletePageAboutCard = (i) => setPageAboutData(d => ({ ...d, valuesCards: d.valuesCards.filter((_, idx) => idx !== i) }));
-  const updatePageAboutWhyList = (i, val) => setPageAboutData(d => { const l = [...d.whyChooseList]; l[i] = val; return { ...d, whyChooseList: l }; });
-  const addPageAboutWhyList = () => setPageAboutData(d => ({ ...d, whyChooseList: [...d.whyChooseList, "New Reason"] }));
-  const deletePageAboutWhyList = (i) => setPageAboutData(d => ({ ...d, whyChooseList: d.whyChooseList.filter((_, idx) => idx !== i) }));
+  const updatePageAboutCard = (i, key, val) => setPageAboutData(d => { const c = [...(d.valuesCards || [])]; c[i] = { ...c[i], [key]: val }; return { ...d, valuesCards: c }; });
+  const addPageAboutCard = () => setPageAboutData(d => ({ ...d, valuesCards: [...(d.valuesCards || []), { step: "0X", title: "New Value", icon: "Star", gradient: "from-sky-400 to-indigo-600", tag: "Tag", desc: "Description" }] }));
+  const deletePageAboutCard = (i) => setPageAboutData(d => ({ ...d, valuesCards: (d.valuesCards || []).filter((_, idx) => idx !== i) }));
+  const updatePageAboutWhyList = (i, val) => setPageAboutData(d => { const l = [...(d.whyChooseList || [])]; l[i] = val; return { ...d, whyChooseList: l }; });
+  const addPageAboutWhyList = () => setPageAboutData(d => ({ ...d, whyChooseList: [...(d.whyChooseList || []), "New Reason"] }));
+  const deletePageAboutWhyList = (i) => setPageAboutData(d => ({ ...d, whyChooseList: (d.whyChooseList || []).filter((_, idx) => idx !== i) }));
   
   const savePageAbout = () => {
     localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
@@ -2700,7 +2703,7 @@ export default function AdminDashboard() {
                     </div>
                     
                     <div className="space-y-4 mt-4">
-                      {pageAboutData.valuesCards.map((card, i) => (
+                      {(pageAboutData.valuesCards || []).map((card, i) => (
                         <div key={i} className="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col gap-3 relative">
                           <button onClick={() => deletePageAboutCard(i)} className="absolute top-3 right-3 p-1.5 bg-white text-red-400 hover:text-red-500 rounded-lg border border-slate-200 shadow-sm transition cursor-pointer"><Trash2 size={14} /></button>
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pr-8">
@@ -2754,7 +2757,7 @@ export default function AdminDashboard() {
                       <input type="text" value={pageAboutData.whyChooseTitle || ""} onChange={e => updatePageAboutField("whyChooseTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
                     </div>
                     <div className="space-y-2.5 mt-4">
-                      {pageAboutData.whyChooseList.map((item, i) => (
+                      {(pageAboutData.whyChooseList || []).map((item, i) => (
                         <div key={i} className="flex items-center gap-2">
                           <input type="text" value={item} onChange={e => updatePageAboutWhyList(i, e.target.value)} className="flex-1 bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2 outline-none focus:border-[#1E67E2] transition" />
                           <button onClick={() => deletePageAboutWhyList(i)} className="p-2.5 bg-red-50 text-red-500 hover:bg-red-100 rounded-xl border border-red-100 transition cursor-pointer"><Trash2 size={14} /></button>
@@ -3610,7 +3613,7 @@ export default function AdminDashboard() {
 
                   {/* Slides List */}
                   <div className="space-y-4">
-                    {heroSlides.map((slide, idx) => (
+                    {(heroSlides || []).map((slide, idx) => (
                       <motion.div
                         key={slide.id}
                         layout
@@ -3952,7 +3955,7 @@ export default function AdminDashboard() {
                   <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4">
                     <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><Edit3 size={12} /> 5 Metric Counters</h3>
                     <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-                      {platformsData.stats.map((stat, i) => (
+                      {(platformsData.stats || []).map((stat, i) => (
                         <div key={i} className="bg-white border border-slate-200 rounded-xl p-4 space-y-2">
                           <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Metric {i + 1}</div>
                           <div className="flex gap-2">
@@ -3992,7 +3995,7 @@ export default function AdminDashboard() {
                       </button>
                     </div>
                     <div className="space-y-3">
-                      {platformsData.gallery.map((imgItem, i) => (
+                      {(platformsData.gallery || []).map((imgItem, i) => (
                         <div key={i} className="flex items-center gap-4 bg-white border border-slate-200 rounded-xl p-3">
                           <div className="w-16 h-10 rounded-lg overflow-hidden bg-white/5 border border-slate-200 flex-shrink-0">
                             <img src={imgItem.src} alt={imgItem.label} className="w-full h-full object-cover" onError={e => { e.target.style.display = 'none'; }} />
@@ -4316,13 +4319,13 @@ export default function AdminDashboard() {
                   {/* FAQ QUESTIONS & ANSWERS LIST */}
                   <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4">
                     <div className="flex justify-between items-center">
-                      <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><HelpCircle size={14} /> Q&A Items ({faqData.questions.length})</h3>
+                      <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><HelpCircle size={14} /> Q&A Items ({(faqData.questions || []).length})</h3>
                       <button onClick={addFaqQuestion} className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-600 rounded-lg text-xs font-semibold transition cursor-pointer">
                         <Plus size={13} /> Add Question
                       </button>
                     </div>
                     <div className="space-y-4">
-                      {faqData.questions.map((item, i) => (
+                      {(faqData.questions || []).map((item, i) => (
                         <div key={i} className="bg-white border border-slate-200 rounded-xl p-4 space-y-3">
                           <div className="flex justify-between items-center">
                             <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-400">Question {i + 1}</span>
@@ -4530,7 +4533,7 @@ export default function AdminDashboard() {
                           </button>
                         </div>
                         <div className="space-y-3">
-                          {headerData.links.map((link, i) => (
+                          {(headerData.links || []).map((link, i) => (
                             <div key={link.id || i} className="flex items-center gap-3 p-3 bg-slate-50 border border-slate-200 rounded-xl relative group">
                               <div className="flex-1 grid grid-cols-2 gap-3">
                                 <div>
@@ -4557,7 +4560,7 @@ export default function AdminDashboard() {
                               </button>
                             </div>
                           ))}
-                          {headerData.links.length === 0 && (
+                          {(headerData.links || []).length === 0 && (
                             <div className="text-center py-8 text-sm text-slate-400 font-medium">No links added.</div>
                           )}
                         </div>
@@ -4686,7 +4689,7 @@ export default function AdminDashboard() {
                       </button>
                     </div>
                     <div className="space-y-3">
-                      {footerData.companyLinks.map((link, i) => (
+                      {(footerData.companyLinks || []).map((link, i) => (
                         <div key={i} className="flex items-center gap-3 bg-white border border-slate-200 rounded-xl p-3">
                           <div className="flex-1 grid md:grid-cols-2 gap-3">
                             <input
