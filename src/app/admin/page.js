@@ -3879,10 +3879,25 @@ export default function AdminDashboard() {
 
                   {/* Save footer */}
                   <div className="flex justify-end pt-2">
-                    <button onClick={saveAbout} className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition cursor-pointer whitespace-nowrap shrink-0">
-                      <Save size={15} /> Save All Changes
+                    <button 
+                      type="button"
+                      onClick={saveAbout} 
+                      className={`flex items-center gap-2 px-6 py-2.5 font-semibold rounded-xl shadow-lg transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 ${
+                        aboutSaveSuccess 
+                          ? "bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-500/20" 
+                          : "bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-500/20"
+                      }`}
+                    >
+                      {aboutSaveSuccess ? (
+                        <>
+                          <CheckCircle size={15} /> Saved Successfully!
+                        </>
+                      ) : (
+                        <>
+                          <Save size={15} /> Save All Changes
+                        </>
+                      )}
                     </button>
-                  
                   </div>
 
                   {renderQuickSeoCard("home", "about_us")}
@@ -4026,10 +4041,25 @@ export default function AdminDashboard() {
 
                   {/* Save footer */}
                   <div className="flex justify-end pt-2">
-                    <button onClick={savePlatforms} className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition cursor-pointer whitespace-nowrap shrink-0">
-                      <Save size={15} /> Save All Changes
+                    <button 
+                      type="button"
+                      onClick={savePlatforms} 
+                      className={`flex items-center gap-2 px-6 py-2.5 font-semibold rounded-xl shadow-lg transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 ${
+                        platformsSaveSuccess 
+                          ? "bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-500/20" 
+                          : "bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-500/20"
+                      }`}
+                    >
+                      {platformsSaveSuccess ? (
+                        <>
+                          <CheckCircle size={15} /> Saved Successfully!
+                        </>
+                      ) : (
+                        <>
+                          <Save size={15} /> Save All Changes
+                        </>
+                      )}
                     </button>
-                  
                   </div>
 
                   {renderQuickSeoCard("home", "platforms")}
@@ -4247,10 +4277,25 @@ export default function AdminDashboard() {
 
                   {/* Save footer */}
                   <div className="flex justify-end pt-2">
-                    <button onClick={saveServices} className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition cursor-pointer whitespace-nowrap shrink-0">
-                      <Save size={15} /> Save All Changes
+                    <button 
+                      type="button"
+                      onClick={saveServices} 
+                      className={`flex items-center gap-2 px-6 py-2.5 font-semibold rounded-xl shadow-lg transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 ${
+                        servicesSaveSuccess 
+                          ? "bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-500/20" 
+                          : "bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-500/20"
+                      }`}
+                    >
+                      {servicesSaveSuccess ? (
+                        <>
+                          <CheckCircle size={15} /> Saved Successfully!
+                        </>
+                      ) : (
+                        <>
+                          <Save size={15} /> Save All Changes
+                        </>
+                      )}
                     </button>
-                  
                   </div>
 
                   {renderQuickSeoCard("projects", "general")}
@@ -4463,8 +4508,24 @@ export default function AdminDashboard() {
 
                   {/* Save footer */}
                   <div className="flex justify-end pt-2">
-                    <button onClick={saveFaq} className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition cursor-pointer whitespace-nowrap shrink-0">
-                      <Save size={15} /> Save All Changes
+                    <button 
+                      type="button"
+                      onClick={saveFaq} 
+                      className={`flex items-center gap-2 px-6 py-2.5 font-semibold rounded-xl shadow-lg transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 ${
+                        faqSaveSuccess 
+                          ? "bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-500/20" 
+                          : "bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-500/20"
+                      }`}
+                    >
+                      {faqSaveSuccess ? (
+                        <>
+                          <CheckCircle size={15} /> Saved Successfully!
+                        </>
+                      ) : (
+                        <>
+                          <Save size={15} /> Save All Changes
+                        </>
+                      )}
                     </button>
                   </div>
 
@@ -4742,10 +4803,25 @@ export default function AdminDashboard() {
 
                   {/* Save footer */}
                   <div className="flex justify-end pt-2">
-                    <button onClick={saveFooter} className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition cursor-pointer whitespace-nowrap shrink-0">
-                      <Save size={15} /> Save All Changes
+                    <button 
+                      type="button"
+                      onClick={saveFooter} 
+                      className={`flex items-center gap-2 px-6 py-2.5 font-semibold rounded-xl shadow-lg transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 ${
+                        footerSaveSuccess 
+                          ? "bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-500/20" 
+                          : "bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-500/20"
+                      }`}
+                    >
+                      {footerSaveSuccess ? (
+                        <>
+                          <CheckCircle size={15} /> Saved Successfully!
+                        </>
+                      ) : (
+                        <>
+                          <Save size={15} /> Save All Changes
+                        </>
+                      )}
                     </button>
-                  
                   </div>
 
 
