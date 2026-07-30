@@ -35,7 +35,8 @@ import {
   Globe,
   Link,
   Eye,
-  EyeOff
+  EyeOff,
+  Lightbulb
 } from "lucide-react";
 
 // Pre-populated Inquiry Mock Data
@@ -3797,6 +3798,22 @@ export default function AdminDashboard() {
                       <span>
                         <strong>Configuration Active:</strong> These credentials will be used for all outgoing system emails including approvals and notifications.
                       </span>
+                    </div>
+
+                    {/* How to generate App Password Guide */}
+                    <div className="bg-amber-50/50 border border-amber-100 rounded-2xl p-5 space-y-3">
+                      <h4 className="text-xs font-bold text-amber-800 flex items-center gap-2">
+                        <Lightbulb size={14} className="text-amber-600" />
+                        How to generate a Gmail App Password?
+                      </h4>
+                      <ol className="text-xs text-amber-700/90 list-decimal list-inside space-y-1.5 leading-relaxed">
+                        <li>Go to your <a href="https://myaccount.google.com/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Google Account</a>.</li>
+                        <li>Ensure <strong>2-Step Verification</strong> is ON in the Security tab.</li>
+                        <li>Go directly to <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">App Passwords</a>.</li>
+                        <li>Select "Mail" and "Other (Custom name: MCC IGH)".</li>
+                        <li>Copy the <strong>16-character code</strong> and paste it above.</li>
+                        <li><em>Note: Do not include spaces when pasting; the system will handle it.</em></li>
+                      </ol>
                     </div>
                   </div>
 
