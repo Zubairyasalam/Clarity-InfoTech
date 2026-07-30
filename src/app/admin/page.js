@@ -590,8 +590,8 @@ export default function AdminDashboard() {
     smtpPort: "465",
     smtpEncryption: "SSL",
     smtpDriver: "SMTP (Default)",
-    facebookUrl: "https://www.facebook.com/profile.php?id=61585230471650",
-    instagramUrl: "https://www.instagram.com/tekquora2025/?hl=en",
+    facebookUrl: "#",
+    instagramUrl: "#",
     twitterUrl: "#",
     linkedinUrl: "#",
     whatsappUrl: "#"
@@ -752,8 +752,13 @@ export default function AdminDashboard() {
       if (storedSystemConfig) {
         try {
           const parsed = JSON.parse(storedSystemConfig);
-          // Overwrite the placeholder email if it was initialized with it
-          if (parsed.smtpEmail === "zubairyakhan48@gmail.com" || parsed.smtpEmail === "your-email@example.com") {
+          // Overwrite the placeholder email or old tekquora/facebook profile links
+          if (
+            parsed.smtpEmail === "zubairyakhan48@gmail.com" ||
+            parsed.smtpEmail === "your-email@example.com" ||
+            (parsed.instagramUrl && parsed.instagramUrl.includes("tekquora")) ||
+            (parsed.facebookUrl && parsed.facebookUrl.includes("61585230471650"))
+          ) {
             setSystemConfigData(DEFAULT_SYSTEM_CONFIG);
             localStorage.setItem("clarity_system_config", JSON.stringify(DEFAULT_SYSTEM_CONFIG));
           } else {
