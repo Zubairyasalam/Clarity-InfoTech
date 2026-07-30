@@ -1380,6 +1380,7 @@ export default function AdminDashboard() {
   // System Config CRUD
   const updateSystemConfigField = (key, val) => setSystemConfigData(d => ({ ...d, [key]: val }));
   const saveSystemConfig = () => {
+    localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_system_config", JSON.stringify(systemConfigData));
     setSystemConfigSaveSuccess(true);
     setTimeout(() => setSystemConfigSaveSuccess(false), 2500);
@@ -3230,7 +3231,7 @@ export default function AdminDashboard() {
                     </div>
                   
                   </div>
-                  {renderQuickSeoCard("contact", "faq")}
+                  {renderQuickSeoCard("contact", "general")}
                 </div>
               )}
 
@@ -4200,7 +4201,7 @@ export default function AdminDashboard() {
                   
                   </div>
 
-                  {renderQuickSeoCard("projects", "projects_list")}
+                  {renderQuickSeoCard("projects", "general")}
                 </div>
               )}
 
@@ -4515,7 +4516,7 @@ export default function AdminDashboard() {
                     </div>
                   
                   </div>
-                  {renderQuickSeoCard("contact", "faq")}
+                  {renderQuickSeoCard("contact", "general")}
                 </div>
               )}
               {/* 8. FOOTER EDITOR */}
@@ -5453,51 +5454,7 @@ export default function AdminDashboard() {
                     </div>
                   </div>
 
-                  {/* SEO Metadata Card */}
-                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
-                    <div className="flex items-start gap-3">
-                      <div>
-                        <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2">
-                          <Search size={14} /> SEO METADATA
-                        </h3>
-                        <p className="text-slate-500 text-[11px] mt-0.5">
-                          Auto-generated search engine title, meta description, and keywords
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="space-y-4">
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">SEO Title</label>
-                        <input
-                          type="text"
-                          value={systemConfigData.seoTitle || ""}
-                          onChange={e => updateSystemConfigField("seoTitle", e.target.value)}
-                          className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">SEO Description</label>
-                        <textarea
-                          rows={3}
-                          value={systemConfigData.seoDescription || ""}
-                          onChange={e => updateSystemConfigField("seoDescription", e.target.value)}
-                          className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition resize-none"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Meta Keywords</label>
-                        <textarea
-                          rows={2}
-                          value={systemConfigData.seoKeywords || ""}
-                          onChange={e => updateSystemConfigField("seoKeywords", e.target.value)}
-                          className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition resize-none"
-                        />
-                      </div>
-                    </div>
-                  </div>
+                  {renderQuickSeoCard("home", "general")}
                 </div>
               )}
 
