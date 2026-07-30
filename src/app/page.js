@@ -37,6 +37,7 @@ import * as LucideIcons from "lucide-react";
 import AuthModal from "@/components/AuthModal";
 import Footer from "@/components/Footer";
 import SEOMetadata from "@/components/SEOMetadata";
+import DynamicIcon from "@/components/DynamicIcon";
 
 // Reusable Typewriter Component (Scroll-triggered Character Reveal)
 function Typewriter({ text, delay = 0, speed = 0.015, className = "" }) {
@@ -1233,7 +1234,6 @@ export default function Home() {
               >
                 {/* Dynamic Feature Cards */}
                 {(aboutData.features || []).map((feat, i) => {
-                  const IconComp = LucideIcons[feat.icon] || LucideIcons.Shield;
                   const offsets = ["ml-0", "ml-4 sm:ml-12", "ml-0 sm:ml-2"];
                   return (
                     <motion.div
@@ -1249,7 +1249,7 @@ export default function Home() {
                       <span className="absolute -top-4 left-5 text-4xl sm:text-5xl font-black text-navy/15 select-none font-sans">{i + 1}</span>
                       <div className="flex items-start gap-4">
                         <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <IconComp size={24} />
+                          <DynamicIcon name={feat.icon} size={24} className="text-primary" />
                         </div>
                         <div>
                           <h3 className="font-extrabold text-xl text-navy mb-1.5 font-sans">{feat.title}</h3>

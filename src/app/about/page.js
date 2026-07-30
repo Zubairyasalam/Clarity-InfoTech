@@ -24,6 +24,7 @@ import {
 import AuthModal from "@/components/AuthModal";
 import Footer from "@/components/Footer";
 import SEOMetadata from "@/components/SEOMetadata";
+import DynamicIcon from "@/components/DynamicIcon";
 
 import * as LucideIcons from "lucide-react";
 
@@ -319,7 +320,6 @@ export default function AboutPage() {
             {/* 4 Cards Grid Layout */}
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {pageAboutData.valuesCards.map((item, idx) => {
-                const IconComp = LucideIcons[item.icon] || LucideIcons.Lightbulb;
                 return (
                   <motion.div
                     key={idx}
@@ -343,7 +343,7 @@ export default function AboutPage() {
                     {/* Icon Container */}
                     <div className="mb-6">
                       <div className={`w-14 h-14 rounded-2xl bg-gradient-to-tr ${item.gradient} text-white flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:scale-110 transition-transform duration-300`}>
-                        <IconComp size={28} />
+                        <DynamicIcon name={item.icon} size={28} className="text-white" />
                       </div>
                     </div>
 

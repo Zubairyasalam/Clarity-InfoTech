@@ -35,6 +35,7 @@ import AuthModal from "@/components/AuthModal";
 import Footer from "@/components/Footer";
 import SEOMetadata from "@/components/SEOMetadata";
 import ClarityNetworkGlobe from "@/components/ClarityNetworkGlobe";
+import DynamicIcon from "@/components/DynamicIcon";
 
 import * as LucideIcons from "lucide-react";
 

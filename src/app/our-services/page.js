@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Footer from "@/components/Footer";
 import SEOMetadata from "@/components/SEOMetadata";
+import DynamicIcon from "@/components/DynamicIcon";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu, X, ArrowUp, Lightbulb, Users2, TrendingUp,
@@ -72,23 +73,7 @@ export default function OurServicesPage() {
   }, []);
 
   const getIcon = (name) => {
-    if (name === "Lightbulb") return Lightbulb;
-    if (name === "Users") return Users2;
-    if (name === "TrendingUp") return TrendingUp;
-    if (name === "Star") return Star;
-    if (name === "Globe") return Globe;
-    if (name === "Code2") return Code2;
-    if (name === "Smartphone") return Smartphone;
-    if (name === "Cloud") return Cloud;
-    if (name === "Cpu") return Cpu;
-    if (name === "Shield") return Shield;
-    if (name === "BarChart3") return BarChart3;
-    if (name === "Zap") return Zap;
-    if (name === "Heart") return Heart;
-    if (name === "BookOpen") return BookOpen;
-    if (name === "Handshake") return Handshake;
-    if (name === "Award") return Award;
-    return Star;
+    return (props) => <DynamicIcon name={name} {...props} />;
   };
 
   const DEFAULT_PAGE_SERVICE = {
