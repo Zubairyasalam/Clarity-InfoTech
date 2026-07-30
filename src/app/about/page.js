@@ -32,6 +32,25 @@ export default function AboutPage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
+  const [seoConfig, setSeoConfig] = useState({
+    imageAlt: "About Clarity InfoTech",
+    imageTitle: "Clarity InfoTech Team"
+  });
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("clarity_seo_data");
+      if (stored) {
+        try {
+          const config = JSON.parse(stored);
+          if (config.about) {
+            setSeoConfig(config.about);
+          }
+        } catch (e) { }
+      }
+    }
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 20) {
@@ -119,7 +138,7 @@ export default function AboutPage() {
 
   return (
     <div className="relative min-h-screen bg-white text-[#0F1631] font-sans antialiased selection:bg-cyan-500/20 selection:text-cyan-600">
-      <SEOMetadata />
+      <SEOMetadata pageKey="about" />
 
       {/* 1. NAVBAR - ALWAYS 100% TRANSPARENT WITH DYNAMIC CONTRAST TEXT */}
       <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 flex items-center h-16 md:h-20 ${isScrolled ? "bg-white shadow-md border-b border-gray-100" : "bg-transparent"}`}>
@@ -129,7 +148,8 @@ export default function AboutPage() {
           <a href="/" className="flex items-center group h-full overflow-visible relative">
             <img
               src={headerData.logo}
-              alt="Clarity InfoTech Logo"
+              alt={seoConfig.imageAlt || "Clarity InfoTech Logo"}
+              title={seoConfig.imageTitle || "Clarity InfoTech"}
               className={`w-auto h-8 sm:h-10 md:h-10 lg:h-12 object-contain transition-all duration-300 group-hover:scale-105 filter ${
                 isScrolled
                   ? "brightness-90 contrast-200 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"

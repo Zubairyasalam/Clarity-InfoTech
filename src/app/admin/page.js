@@ -584,6 +584,209 @@ export default function AdminDashboard() {
   const [headerSaveSuccess, setHeaderSaveSuccess] = useState(false);
 
   // System Configuration State
+  const DEFAULT_SEO_DATA = {
+    home: {
+      title: "Clarity InfoTech | Enterprise Software Engineering & Cloud Solutions",
+      description: "Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, cloud architecture, and security audit systems with 24/7 reliability.",
+      keywords: "Clarity InfoTech, software engineering, DevOps, cloud architecture, security audit, custom software, React, Next.js",
+      canonical: "https://clarityinfotech.com",
+      slug: "/",
+      robotsIndex: "index",
+      robotsFollow: "follow",
+      ogTitle: "Clarity InfoTech | Enterprise Software Solutions",
+      ogDescription: "Enterprise-grade software engineering, DevOps automation, and security audits.",
+      ogImage: "https://clarityinfotech.com/logo.png",
+      ogUrl: "https://clarityinfotech.com",
+      ogType: "website",
+      twitterTitle: "Clarity InfoTech | Enterprise Software Solutions",
+      twitterDescription: "Enterprise-grade software engineering, DevOps automation, and security audits.",
+      twitterImage: "https://clarityinfotech.com/logo.png",
+      twitterCardType: "summary_large_image",
+      imageAlt: "Clarity InfoTech Enterprise Software Solutions",
+      imageTitle: "Clarity InfoTech Logo",
+      imageCaption: "Powering platforms that scale your business.",
+      schemaType: "Organization",
+      schemaJson: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Clarity InfoTech",
+        "url": "https://clarityinfotech.com",
+        "logo": "https://clarityinfotech.com/logo.png",
+        "sameAs": [
+          "https://linkedin.com/company/clarityinfotech"
+        ]
+      }, null, 2),
+      sitemapInclude: true,
+      sitemapPriority: 1.0,
+      sitemapFrequency: "weekly"
+    },
+    about: {
+      title: "About Us | Clarity InfoTech - Premium Software Engineering Squad",
+      description: "Learn more about our elite team of engineers, developers, and architects. We help corporations automate systems and scale cloud deployments.",
+      keywords: "about clarity, tech engineering team, software development company, Prince Infocity",
+      canonical: "https://clarityinfotech.com/about",
+      slug: "/about",
+      robotsIndex: "index",
+      robotsFollow: "follow",
+      ogTitle: "About Us | Clarity InfoTech",
+      ogDescription: "Meet our elite team of cloud architects and software engineers.",
+      ogImage: "https://clarityinfotech.com/logo.png",
+      ogUrl: "https://clarityinfotech.com/about",
+      ogType: "website",
+      twitterTitle: "About Us | Clarity InfoTech",
+      twitterDescription: "Meet our elite team of cloud architects and software engineers.",
+      twitterImage: "https://clarityinfotech.com/logo.png",
+      twitterCardType: "summary_large_image",
+      imageAlt: "Clarity InfoTech Team Collaboration",
+      imageTitle: "Clarity Engineers Working",
+      imageCaption: "Innovation, wellness, and technical excellence.",
+      schemaType: "Organization",
+      schemaJson: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "About Clarity InfoTech",
+        "description": "Learn about our development team and corporate locations in India."
+      }, null, 2),
+      sitemapInclude: true,
+      sitemapPriority: 0.8,
+      sitemapFrequency: "weekly"
+    },
+    projects: {
+      title: "Our Projects & Case Studies | Clarity InfoTech",
+      description: "Explore our success stories. From Kubernetes deployments for fintech platforms to security readiness audits for legacy systems.",
+      keywords: "case studies, kubernetes migration, cloud security review, portfolio",
+      canonical: "https://clarityinfotech.com/services",
+      slug: "/services",
+      robotsIndex: "index",
+      robotsFollow: "follow",
+      ogTitle: "Our Projects & Case Studies | Clarity InfoTech",
+      ogDescription: "Explore our real-world cloud migrations and custom platforms.",
+      ogImage: "https://clarityinfotech.com/logo.png",
+      ogUrl: "https://clarityinfotech.com/services",
+      ogType: "website",
+      twitterTitle: "Our Projects & Case Studies | Clarity InfoTech",
+      twitterDescription: "Explore our real-world cloud migrations and custom platforms.",
+      twitterImage: "https://clarityinfotech.com/logo.png",
+      twitterCardType: "summary_large_image",
+      imageAlt: "Clarity InfoTech Real-World Cloud Migrations",
+      imageTitle: "Case Studies and Kubernetes Workloads",
+      imageCaption: "Zero-downtime microservices migrations.",
+      schemaType: "Service",
+      schemaJson: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Clarity InfoTech Projects",
+        "description": "Case studies of enterprise cloud migrations and security audits."
+      }, null, 2),
+      sitemapInclude: true,
+      sitemapPriority: 0.8,
+      sitemapFrequency: "weekly"
+    },
+    services: {
+      title: "Our Services | Software Architecture & DevOps Automation",
+      description: "We design high-throughput cloud strategies, automated DevOps pipelines, bespoke web and mobile platforms, and advanced AI systems.",
+      keywords: "devops automation, bespoke software, cloud migration, cyber security audit",
+      canonical: "https://clarityinfotech.com/our-services",
+      slug: "/our-services",
+      robotsIndex: "index",
+      robotsFollow: "follow",
+      ogTitle: "Our Services | Clarity InfoTech",
+      ogDescription: "Bespoke engineering, DevOps automation, cloud architecture, and cybersecurity.",
+      ogImage: "https://clarityinfotech.com/logo.png",
+      ogUrl: "https://clarityinfotech.com/our-services",
+      ogType: "website",
+      twitterTitle: "Our Services | Clarity InfoTech",
+      twitterDescription: "Bespoke engineering, DevOps automation, cloud architecture, and cybersecurity.",
+      twitterImage: "https://clarityinfotech.com/logo.png",
+      twitterCardType: "summary_large_image",
+      imageAlt: "Bespoke software development & DevOps consultation",
+      imageTitle: "Services list grid",
+      imageCaption: "Automated pipelines and AI-driven systems.",
+      schemaType: "Service",
+      schemaJson: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Bespoke Software Development & DevOps Consultation",
+        "provider": {
+          "@type": "Organization",
+          "name": "Clarity InfoTech"
+        }
+      }, null, 2),
+      sitemapInclude: true,
+      sitemapPriority: 0.9,
+      sitemapFrequency: "weekly"
+    },
+    contact: {
+      title: "Contact Us | Reach Clarity InfoTech Squad",
+      description: "Get in touch with us to discuss your enterprise workloads. Offices in Prince Infocity, Chennai and Coimbatore, India.",
+      keywords: "contact developers, hire software squad, Prince Infocity Chennai, Kandhanchavadi map",
+      canonical: "https://clarityinfotech.com/contact",
+      slug: "/contact",
+      robotsIndex: "index",
+      robotsFollow: "follow",
+      ogTitle: "Contact Us | Clarity InfoTech",
+      ogDescription: "Reach our software squads and visit our offices in India.",
+      ogImage: "https://clarityinfotech.com/logo.png",
+      ogUrl: "https://clarityinfotech.com/contact",
+      ogType: "website",
+      twitterTitle: "Contact Us | Clarity InfoTech",
+      twitterDescription: "Reach our software squads and visit our offices in India.",
+      twitterImage: "https://clarityinfotech.com/logo.png",
+      twitterCardType: "summary_large_image",
+      imageAlt: "Prince Infocity Kandhanchavadi Office Location Map",
+      imageTitle: "Map coordinates",
+      imageCaption: "Visit our headquarters in Chennai.",
+      schemaType: "Organization",
+      schemaJson: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "Contact Clarity InfoTech",
+        "description": "Phone number, email address, physical location, and contact form."
+      }, null, 2),
+      sitemapInclude: true,
+      sitemapPriority: 0.8,
+      sitemapFrequency: "monthly"
+    },
+    privacy: {
+      title: "Privacy Policy | Clarity InfoTech CIT",
+      description: "Read our corporate Privacy Policy explaining how we secure, process, and safeguard your data.",
+      keywords: "privacy policy, cookies tracking, security data retention",
+      canonical: "https://clarityinfotech.com/privacy-policy",
+      slug: "/privacy-policy",
+      robotsIndex: "noindex",
+      robotsFollow: "follow",
+      schemaJson: "{}",
+      sitemapInclude: false,
+      sitemapPriority: 0.3,
+      sitemapFrequency: "yearly"
+    },
+    terms: {
+      title: "Terms and Conditions | Clarity InfoTech CIT",
+      description: "Read our corporate terms and conditions of usage of our cloud services and custom solutions.",
+      keywords: "terms and conditions, intellectual property, service SLA",
+      canonical: "https://clarityinfotech.com/terms-of-service",
+      slug: "/terms-of-service",
+      robotsIndex: "noindex",
+      robotsFollow: "follow",
+      schemaJson: "{}",
+      sitemapInclude: false,
+      sitemapPriority: 0.3,
+      sitemapFrequency: "yearly"
+    },
+    refund: {
+      title: "Refund Policy | Clarity InfoTech",
+      description: "Read our corporate refund and milestone cancellation policy.",
+      keywords: "refund scope, milestone cancellation",
+      canonical: "https://clarityinfotech.com/refund-policy",
+      slug: "/refund-policy",
+      robotsIndex: "noindex",
+      robotsFollow: "follow",
+      schemaJson: "{}",
+      sitemapInclude: false,
+      sitemapPriority: 0.3,
+      sitemapFrequency: "yearly"
+    }
+  };
   const DEFAULT_SYSTEM_CONFIG = {
     smtpEmail: "salamzubi8@gmail.com",
     smtpPassword: "ypiz ukra cywo loap",
@@ -601,6 +804,12 @@ export default function AdminDashboard() {
     seoKeywords: "Clarity InfoTech, software engineering, DevOps, cloud architecture, security audit, custom software, React, Next.js"
   };
   const [systemConfigData, setSystemConfigData] = useState(DEFAULT_SYSTEM_CONFIG);
+  const [seoData, setSeoData] = useState(DEFAULT_SEO_DATA);
+  const [seoSelectedPage, setSeoSelectedPage] = useState("home");
+  const [seoActiveSubTab, setSeoActiveSubTab] = useState("general");
+  const [seoSaveSuccess, setSeoSaveSuccess] = useState(false);
+  const [schemaTemplateType, setSchemaTemplateType] = useState("Organization");
+
   const [systemConfigSaveSuccess, setSystemConfigSaveSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -749,6 +958,20 @@ export default function AdminDashboard() {
         } catch { }
       } else {
         localStorage.setItem("clarity_legal_pages", JSON.stringify(DEFAULT_LEGAL_PAGES));
+      }
+
+      // Load SEO data
+      const storedSeoData = localStorage.getItem("clarity_seo_data");
+      if (storedSeoData) {
+        try {
+          const parsed = JSON.parse(storedSeoData);
+          setSeoData({ ...DEFAULT_SEO_DATA, ...parsed });
+        } catch {
+          setSeoData(DEFAULT_SEO_DATA);
+        }
+      } else {
+        localStorage.setItem("clarity_seo_data", JSON.stringify(DEFAULT_SEO_DATA));
+        setSeoData(DEFAULT_SEO_DATA);
       }
 
       // Load System Config data
@@ -1153,6 +1376,322 @@ export default function AdminDashboard() {
   };
   const resetSystemConfig = () => { if (confirm("Reset System Configuration to defaults?")) { setSystemConfigData(DEFAULT_SYSTEM_CONFIG); localStorage.setItem("clarity_system_config", JSON.stringify(DEFAULT_SYSTEM_CONFIG)); } };
 
+  // ── SEO Management CRUD ──
+  const updateSeoField = (key, val) => {
+    setSeoData(d => ({
+      ...d,
+      [seoSelectedPage]: {
+        ...d[seoSelectedPage],
+        [key]: val
+      }
+    }));
+  };
+
+  const saveSeoData = () => {
+    localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
+    setSeoSaveSuccess(true);
+    setTimeout(() => setSeoSaveSuccess(false), 2500);
+  };
+
+  const resetSeoData = () => {
+    if (confirm("Reset SEO settings for all pages to defaults?")) {
+      setSeoData(DEFAULT_SEO_DATA);
+      localStorage.setItem("clarity_seo_data", JSON.stringify(DEFAULT_SEO_DATA));
+    }
+  };
+
+  const loadSchemaTemplate = () => {
+    let schema = "";
+    if (schemaTemplateType === "Organization") {
+      schema = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Clarity InfoTech",
+        "url": "https://clarityinfotech.com",
+        "logo": "https://clarityinfotech.com/logo.png",
+        "sameAs": [
+          "https://linkedin.com/company/clarityinfotech"
+        ]
+      }, null, 2);
+    } else if (schemaTemplateType === "LocalBusiness") {
+      schema = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Clarity InfoTech Office",
+        "image": "https://clarityinfotech.com/logo.png",
+        "telephone": "+91 7373306677",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Prince Infocity 1, 8th Floor, 286/1, OMR, Kandhanchavadi",
+          "addressLocality": "Chennai",
+          "addressRegion": "Tamil Nadu",
+          "postalCode": "600096",
+          "addressCountry": "IN"
+        }
+      }, null, 2);
+    } else if (schemaTemplateType === "Service") {
+      schema = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Cloud DevOps & Architecture Engineering",
+        "provider": {
+          "@type": "Organization",
+          "name": "Clarity InfoTech"
+        },
+        "areaServed": "Global",
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Software Engineering Services",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Kubernetes Orchestration"
+              }
+            }
+          ]
+        }
+      }, null, 2);
+    } else if (schemaTemplateType === "Product") {
+      schema = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Enterprise Telemetry Dashboard",
+        "image": "https://clarityinfotech.com/logo.png",
+        "description": "High-throughput real-time telemetry metrics tracker.",
+        "brand": {
+          "@type": "Brand",
+          "name": "Clarity InfoTech"
+        }
+      }, null, 2);
+    } else if (schemaTemplateType === "FAQ") {
+      schema = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How does Clarity InfoTech handle scalability audits?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Our cloud teams conduct monthly infrastructure usage reviews to identify bottlenecks and configure auto-scaling thresholds."
+            }
+          }
+        ]
+      }, null, 2);
+    } else if (schemaTemplateType === "Article") {
+      schema = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "Scaling Microservices with Kubernetes: Best Practices",
+        "author": {
+          "@type": "Person",
+          "name": "Rain Corraya"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Clarity InfoTech"
+        },
+        "datePublished": "2026-07-30"
+      }, null, 2);
+    } else if (schemaTemplateType === "Event") {
+      schema = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Event",
+        "name": "Clarity InfoTech Virtual DevOps Summit 2026",
+        "startDate": "2026-11-15T09:00:00+05:30",
+        "endDate": "2026-11-15T17:00:00+05:30",
+        "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+        "location": {
+          "@type": "VirtualLocation",
+          "url": "https://clarityinfotech.com/summit"
+        },
+        "organizer": {
+          "@type": "Organization",
+          "name": "Clarity InfoTech"
+        }
+      }, null, 2);
+    }
+
+    updateSeoField("schemaJson", schema);
+  };
+
+  const generateAiSeo = () => {
+    const brand = "Clarity InfoTech";
+    let title = "";
+    let desc = "";
+    let keywords = "";
+    let slug = "";
+    
+    if (seoSelectedPage === "home") {
+      title = brand + " | Enterprise Software Engineering & Cloud Solutions";
+      desc = brand + " delivers premium enterprise-grade software engineering, DevOps automation, cloud architecture, and security audit systems with 24/7 reliability.";
+      keywords = "clarity infotech, software engineering, cloud solutions, devops, security audit, microservices";
+      slug = "/";
+    } else if (seoSelectedPage === "about") {
+      title = "About Us | " + brand + " - Elite Software Engineering Squad";
+      desc = "Learn about " + brand + "'s mission, corporate locations in India, and team of software engineers, cloud architects, and developers.";
+      keywords = "about clarity, tech squads, software developers, chennai office, prince infocity";
+      slug = "/about";
+    } else if (seoSelectedPage === "projects") {
+      title = "Our Projects & Case Studies | " + brand;
+      desc = "Discover how " + brand + " architected high-throughput Kubernetes systems and achieved SOC2 compliance for legacy enterprise workloads.";
+      keywords = "case studies, kubernetes migration, cloud security review, project portfolio";
+      slug = "/services";
+    } else if (seoSelectedPage === "services") {
+      title = "Our Services | Software Architecture & DevOps | " + brand;
+      desc = "Scale your business platforms with our custom software design, cloud migration, automated DevOps pipelines, and intelligent AI solutions.";
+      keywords = "devops automation, bespoke software development, cloud governance, artificial intelligence";
+      slug = "/our-services";
+    } else if (seoSelectedPage === "contact") {
+      title = "Contact Us | Reach the " + brand + " Squad";
+      desc = "Get in touch with our elite developers. Speak to our team at Prince Infocity, Chennai and Coimbatore, India.";
+      keywords = "hire developers, contact engineering squad, chennai office phone, software consultation";
+      slug = "/contact";
+    } else {
+      title = seoSelectedPage.charAt(0).toUpperCase() + seoSelectedPage.slice(1) + " | " + brand;
+      desc = "Read our corporate policy page and milestone agreements for " + brand + ".";
+      keywords = "terms, privacy, legal pages";
+      slug = "/" + seoSelectedPage + "-policy";
+    }
+
+    setSeoData(prev => ({
+      ...prev,
+      [seoSelectedPage]: {
+        ...prev[seoSelectedPage],
+        title,
+        description: desc,
+        keywords,
+        canonical: "https://clarityinfotech.com" + slug,
+        slug,
+        ogTitle: title,
+        ogDescription: desc,
+        ogImage: "https://clarityinfotech.com/logo.png",
+        ogUrl: "https://clarityinfotech.com" + slug,
+        ogType: "website",
+        twitterTitle: title,
+        twitterDescription: desc,
+        twitterImage: "https://clarityinfotech.com/logo.png",
+        twitterCardType: "summary_large_image",
+        imageAlt: brand + " - " + title.split("|")[0].trim(),
+        imageTitle: brand + " Brand Logo"
+      }
+    }));
+    alert("AI SEO Generation completed! Review the generated tags and click Save.");
+  };
+
+  const getSeoValidation = (pageKey) => {
+    const config = seoData[pageKey] || {};
+    let score = 100;
+    const warnings = [];
+    const recommendations = [];
+
+    if (!config.title) {
+      score -= 25;
+      warnings.push("Missing SEO Title");
+      recommendations.push("Add a meta title for this page (recommended length: 50-60 characters).");
+    } else {
+      if (config.title.length < 30) {
+        score -= 8;
+        warnings.push("Title is too short");
+        recommendations.push("Extend title length to at least 30 characters to improve CTR.");
+      }
+      if (config.title.length > 60) {
+        score -= 8;
+        warnings.push("Title is too long");
+        recommendations.push("Shorten title length below 60 characters to prevent search engine truncation.");
+      }
+    }
+
+    if (!config.description) {
+      score -= 25;
+      warnings.push("Missing Meta Description");
+      recommendations.push("Add a meta description (recommended length: 120-160 characters).");
+    } else {
+      if (config.description.length < 80) {
+        score -= 8;
+        warnings.push("Description is too short");
+        recommendations.push("Extend description to at least 80 characters to describe the page accurately.");
+      }
+      if (config.description.length > 160) {
+        score -= 8;
+        warnings.push("Description is too long");
+        recommendations.push("Shorten description below 160 characters to avoid snippet cutoff.");
+      }
+    }
+
+    if (!config.keywords) {
+      score -= 10;
+      warnings.push("Missing Meta Keywords");
+      recommendations.push("Add 4-8 relevant keywords separated by commas.");
+    }
+
+    if (!config.canonical) {
+      score -= 15;
+      warnings.push("Missing Canonical URL");
+      recommendations.push("Specify a canonical URL to prevent duplicate content indexing issue.");
+    } else if (!config.canonical.startsWith("https://")) {
+      score -= 5;
+      warnings.push("Non-HTTPS Canonical URL");
+      recommendations.push("Ensure canonical URL starts with https:// for security protocols.");
+    }
+
+    if (!config.imageAlt) {
+      score -= 10;
+      warnings.push("Missing Image Alt Text");
+      recommendations.push("Provide descriptive alt text for page assets to improve image rankings.");
+    }
+
+    if (config.schemaJson && config.schemaJson !== "{}") {
+      try {
+        JSON.parse(config.schemaJson);
+      } catch (e) {
+        score -= 15;
+        warnings.push("Invalid JSON-LD Syntax");
+        recommendations.push("Fix the formatting error in the JSON-LD schema config.");
+      }
+    } else {
+      if (pageKey !== "privacy" && pageKey !== "terms" && pageKey !== "refund") {
+        score -= 5;
+        warnings.push("No Structured Schema");
+        recommendations.push("Load a JSON-LD schema template (e.g. Service or Organization) to help crawlers understand your page structure.");
+      }
+    }
+
+    score = Math.max(0, score);
+    return { score, warnings, recommendations };
+  };
+
+  const generateAndDownloadSitemap = () => {
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
+    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
+
+    Object.keys(seoData).forEach((key) => {
+      const page = seoData[key];
+      if (page.sitemapInclude !== false) {
+        xml += '  <url>\n';
+        xml += '    <loc>' + (page.canonical || ('https://clarityinfotech.com' + (page.slug || '/'))) + '</loc>\n';
+        xml += '    <lastmod>' + new Date().toISOString().split('T')[0] + '</lastmod>\n';
+        xml += '    <changefreq>' + (page.sitemapFrequency || 'weekly') + '</changefreq>\n';
+        xml += '    <priority>' + (page.sitemapPriority || 0.8) + '</priority>\n';
+        xml += '  </url>\n';
+      }
+    });
+
+    xml += '</urlset>';
+
+    const blob = new Blob([xml], { type: "text/xml" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "sitemap.xml";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   const renderFormattedContent = (text) => {
     if (!text) return null;
     const lines = text.replace(/\r\n/g, "\n").split("\n");
@@ -1363,6 +1902,7 @@ export default function AdminDashboard() {
             <div className="space-y-1">
               {[
                 { id: "system-config", label: "System Configuration", icon: Settings },
+                { id: "seo-management", label: "SEO Management", icon: Search },
               ].map((item) => {
                 const Icon = item.icon;
                 const isActive = activeTab === item.id;
@@ -3688,6 +4228,567 @@ export default function AdminDashboard() {
               )}
 
               {/* 9. SYSTEM CONFIGURATION EDITOR */}
+              {/* 10. SEO MANAGEMENT SYSTEM EDITOR */}
+              {activeTab === "seo-management" && (() => {
+                const validation = getSeoValidation(seoSelectedPage);
+                const pageConfig = seoData[seoSelectedPage] || {};
+
+                return (
+                  <div className="space-y-6">
+                    {/* Header Controls Card */}
+                    <div className="bg-white rounded-3xl shadow-sm border border-slate-100 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                      <div>
+                        <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                          <Search className="text-[#1E67E2]" size={24} />
+                          SEO Management System
+                        </h2>
+                        <p className="text-sm text-slate-500 mt-1">
+                          Configure search engine optimization, canonicals, social meta cards, structured schema markup, and sitemaps dynamically.
+                        </p>
+                      </div>
+                      <div className="flex flex-wrap gap-2 shrink-0">
+                        <button onClick={resetSeoData} className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-red-500 border border-slate-200 hover:border-red-200 rounded-xl transition cursor-pointer whitespace-nowrap">Reset All</button>
+                        <button onClick={generateAndDownloadSitemap} className="px-4 py-2 text-xs font-semibold text-slate-650 hover:text-blue-650 border border-slate-200 hover:border-blue-200 rounded-xl transition cursor-pointer whitespace-nowrap flex items-center gap-1.5">
+                          <Globe size={13} /> Download Sitemap
+                        </button>
+                        <button onClick={saveSeoData} className="px-5 py-2 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap">
+                          {seoSaveSuccess ? <Check size={16} /> : <Save size={16} />}
+                          {seoSaveSuccess ? "Saved!" : "Save Page SEO"}
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Split Layout: Configuration Form & Real-time Validation Score */}
+                    <div className="grid lg:grid-cols-3 gap-6">
+                      
+                      {/* Left and Middle Column: Page Config & Sub-tabs */}
+                      <div className="lg:col-span-2 space-y-6">
+                        
+                        {/* Selector card */}
+                        <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                          <div className="flex-1">
+                            <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Select Website Page</label>
+                            <select
+                              value={seoSelectedPage}
+                              onChange={e => setSeoSelectedPage(e.target.value)}
+                              className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition cursor-pointer"
+                            >
+                              <option value="home">Homepage (Home)</option>
+                              <option value="about">About Us Page (About)</option>
+                              <option value="projects">Our Projects Page (Services)</option>
+                              <option value="services">Our Services Page (Our-Services)</option>
+                              <option value="contact">Contact Page (Contact)</option>
+                              <option value="privacy">Privacy Policy</option>
+                              <option value="terms">Terms of Service</option>
+                              <option value="refund">Refund Policy</option>
+                            </select>
+                          </div>
+
+                          <div className="shrink-0 flex items-end">
+                            <button
+                              onClick={generateAiSeo}
+                              className="w-full sm:w-auto px-5 py-2.5 bg-gradient-to-r from-blue-600 to-[#0ea5e9] hover:from-blue-700 hover:to-sky-500 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition flex items-center justify-center gap-2 cursor-pointer whitespace-nowrap"
+                            >
+                              <Sparkles size={14} className="animate-pulse" />
+                              Generate SEO
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Editor tabs */}
+                        <div className="bg-white border border-slate-100 rounded-3xl shadow-sm overflow-hidden">
+                          
+                          {/* Inner Tabs header */}
+                          <div className="flex border-b border-slate-100 bg-slate-50/50 p-2 overflow-x-auto gap-1">
+                            {[
+                              { id: "general", label: "General Settings" },
+                              { id: "social", label: "Social Meta Tags" },
+                              { id: "image", label: "Image Alt/SEO" },
+                              { id: "schema", label: "Structured Schema" },
+                              { id: "sitemap", label: "Sitemap Config" }
+                            ].map((subTab) => (
+                              <button
+                                key={subTab.id}
+                                onClick={() => setSeoActiveSubTab(subTab.id)}
+                                className={'px-4 py-2 text-xs font-bold rounded-lg transition whitespace-nowrap cursor-pointer ' + (
+                                  seoActiveSubTab === subTab.id
+                                    ? 'bg-white text-[#1E67E2] shadow-sm border border-slate-200/50'
+                                    : 'text-slate-500 hover:text-slate-800'
+                                )}
+                              >
+                                {subTab.label}
+                              </button>
+                            ))}
+                          </div>
+
+                          {/* Editor forms body */}
+                          <div className="p-6">
+                            
+                            {/* GENERAL TAB */}
+                            {seoActiveSubTab === "general" && (
+                              <div className="space-y-4">
+                                <div>
+                                  <label className="text-xs text-slate-500 font-semibold mb-1.5 block flex justify-between">
+                                    <span>SEO Title *</span>
+                                    <span className={(pageConfig.title || "").length > 60 || (pageConfig.title || "").length < 30 ? "text-amber-500 font-bold" : "text-emerald-500 font-bold"}>
+                                      {(pageConfig.title || "").length} / 60 chars
+                                    </span>
+                                  </label>
+                                  <input
+                                    type="text"
+                                    value={pageConfig.title || ""}
+                                    onChange={e => updateSeoField("title", e.target.value)}
+                                    placeholder="Enter page-specific SEO Title..."
+                                    className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                                  />
+                                </div>
+
+                                <div>
+                                  <label className="text-xs text-slate-500 font-semibold mb-1.5 block flex justify-between">
+                                    <span>Meta Description *</span>
+                                    <span className={(pageConfig.description || "").length > 160 || (pageConfig.description || "").length < 80 ? "text-amber-500 font-bold" : "text-emerald-500 font-bold"}>
+                                      {(pageConfig.description || "").length} / 160 chars
+                                    </span>
+                                  </label>
+                                  <textarea
+                                    rows={4}
+                                    value={pageConfig.description || ""}
+                                    onChange={e => updateSeoField("description", e.target.value)}
+                                    placeholder="Enter meta description used in search snippets..."
+                                    className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition resize-none"
+                                  />
+                                </div>
+
+                                <div>
+                                  <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Meta Keywords</label>
+                                  <textarea
+                                    rows={2}
+                                    value={pageConfig.keywords || ""}
+                                    onChange={e => updateSeoField("keywords", e.target.value)}
+                                    placeholder="e.g. clarity infotech, software team, DevOps chennai (comma separated)..."
+                                    className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition resize-none"
+                                  />
+                                </div>
+
+                                <div className="grid md:grid-cols-2 gap-4">
+                                  <div>
+                                    <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Canonical URL</label>
+                                    <input
+                                      type="text"
+                                      value={pageConfig.canonical || ""}
+                                      onChange={e => updateSeoField("canonical", e.target.value)}
+                                      placeholder="e.g. https://clarityinfotech.com/about"
+                                      className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                                    />
+                                  </div>
+                                  <div>
+                                    <label className="text-xs text-slate-500 font-semibold mb-1.5 block">SEO Slug (URL Path)</label>
+                                    <input
+                                      type="text"
+                                      value={pageConfig.slug || ""}
+                                      onChange={e => updateSeoField("slug", e.target.value)}
+                                      placeholder="e.g. /about"
+                                      className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                                    />
+                                  </div>
+                                </div>
+
+                                <div className="grid md:grid-cols-2 gap-4">
+                                  <div>
+                                    <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Robots Indexing</label>
+                                    <select
+                                      value={pageConfig.robotsIndex || "index"}
+                                      onChange={e => updateSeoField("robotsIndex", e.target.value)}
+                                      className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition cursor-pointer"
+                                    >
+                                      <option value="index">Index (Recommended - show in Google)</option>
+                                      <option value="noindex">Noindex (Hide page from search results)</option>
+                                    </select>
+                                  </div>
+                                  <div>
+                                    <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Robots Links Follow</label>
+                                    <select
+                                      value={pageConfig.robotsFollow || "follow"}
+                                      onChange={e => updateSeoField("robotsFollow", e.target.value)}
+                                      className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition cursor-pointer"
+                                    >
+                                      <option value="follow">Follow (Follow links on page)</option>
+                                      <option value="nofollow">Nofollow (Do not crawl page links)</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+
+                            {/* SOCIAL TAB */}
+                            {seoActiveSubTab === "social" && (
+                              <div className="space-y-6">
+                                {/* Open Graph Section */}
+                                <div className="space-y-4">
+                                  <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-2">
+                                    <Globe size={13} /> Open Graph (OG) Facebook Configuration
+                                  </h4>
+                                  <div className="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">OG Title</label>
+                                      <input
+                                        type="text"
+                                        value={pageConfig.ogTitle || ""}
+                                        onChange={e => updateSeoField("ogTitle", e.target.value)}
+                                        placeholder="Social share title..."
+                                        className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                                      />
+                                    </div>
+                                    <div>
+                                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">OG Image URL</label>
+                                      <input
+                                        type="text"
+                                        value={pageConfig.ogImage || ""}
+                                        onChange={e => updateSeoField("ogImage", e.target.value)}
+                                        placeholder="URL of share preview image..."
+                                        className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                                      />
+                                    </div>
+                                  </div>
+
+                                  <div className="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">OG Page URL</label>
+                                      <input
+                                        type="text"
+                                        value={pageConfig.ogUrl || ""}
+                                        onChange={e => updateSeoField("ogUrl", e.target.value)}
+                                        placeholder="Canonical page share link..."
+                                        className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                                      />
+                                    </div>
+                                    <div>
+                                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">OG Content Type</label>
+                                      <input
+                                        type="text"
+                                        value={pageConfig.ogType || "website"}
+                                        onChange={e => updateSeoField("ogType", e.target.value)}
+                                        placeholder="e.g. website, article..."
+                                        className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                                      />
+                                    </div>
+                                  </div>
+
+                                  <div>
+                                    <label className="text-xs text-slate-500 font-semibold mb-1.5 block">OG Description</label>
+                                    <textarea
+                                      rows={2}
+                                      value={pageConfig.ogDescription || ""}
+                                      onChange={e => updateSeoField("ogDescription", e.target.value)}
+                                      placeholder="Snippet displayed on social feeds..."
+                                      className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition resize-none"
+                                    />
+                                  </div>
+                                </div>
+
+                                {/* Twitter Card Section */}
+                                <div className="space-y-4 pt-4 border-t border-slate-100">
+                                  <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-2">
+                                    <Search size={13} /> Twitter Card Integration
+                                  </h4>
+                                  <div className="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Twitter Card Title</label>
+                                      <input
+                                        type="text"
+                                        value={pageConfig.twitterTitle || ""}
+                                        onChange={e => updateSeoField("twitterTitle", e.target.value)}
+                                        placeholder="Share title for Twitter card..."
+                                        className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                                      />
+                                    </div>
+                                    <div>
+                                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Twitter Preview Image URL</label>
+                                      <input
+                                        type="text"
+                                        value={pageConfig.twitterImage || ""}
+                                        onChange={e => updateSeoField("twitterImage", e.target.value)}
+                                        placeholder="Preview image link..."
+                                        className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                                      />
+                                    </div>
+                                  </div>
+
+                                  <div className="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Twitter Card Type</label>
+                                      <select
+                                        value={pageConfig.twitterCardType || "summary_large_image"}
+                                        onChange={e => updateSeoField("twitterCardType", e.target.value)}
+                                        className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition cursor-pointer"
+                                      >
+                                        <option value="summary">Summary Card (Small thumbnail)</option>
+                                        <option value="summary_large_image">Summary Card with Large Image</option>
+                                        <option value="app">App Card</option>
+                                        <option value="player">Player Card (Video player)</option>
+                                      </select>
+                                    </div>
+                                    <div>
+                                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Twitter Card Description</label>
+                                      <textarea
+                                        rows={1.5}
+                                        value={pageConfig.twitterDescription || ""}
+                                        onChange={e => updateSeoField("twitterDescription", e.target.value)}
+                                        placeholder="Description displayed on Twitter card..."
+                                        className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition resize-none"
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+
+                            {/* IMAGE TAB */}
+                            {seoActiveSubTab === "image" && (
+                              <div className="space-y-4">
+                                <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-2">
+                                  <Image size={13} /> Dynamic Page Image Alt & Title Configuration
+                                </h4>
+                                <div className="grid md:grid-cols-2 gap-4">
+                                  <div>
+                                    <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Global Image Alt Attribute</label>
+                                    <input
+                                      type="text"
+                                      value={pageConfig.imageAlt || ""}
+                                      onChange={e => updateSeoField("imageAlt", e.target.value)}
+                                      placeholder="Describe the image content for screen readers..."
+                                      className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                                    />
+                                  </div>
+                                  <div>
+                                    <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Global Image Title Attribute</label>
+                                    <input
+                                      type="text"
+                                      value={pageConfig.imageTitle || ""}
+                                      onChange={e => updateSeoField("imageTitle", e.target.value)}
+                                      placeholder="Title attribute for image elements..."
+                                      className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                                    />
+                                  </div>
+                                </div>
+
+                                <div>
+                                  <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Global Image Caption / Tooltip</label>
+                                  <textarea
+                                    rows={3}
+                                    value={pageConfig.imageCaption || ""}
+                                    onChange={e => updateSeoField("imageCaption", e.target.value)}
+                                    placeholder="Image tooltip or caption text block..."
+                                    className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition resize-none"
+                                  />
+                                </div>
+                              </div>
+                            )}
+
+                            {/* SCHEMA TAB */}
+                            {seoActiveSubTab === "schema" && (() => {
+                              let isValidJson = true;
+                              if (pageConfig.schemaJson && pageConfig.schemaJson.trim() !== "{}") {
+                                try {
+                                  JSON.parse(pageConfig.schemaJson);
+                                } catch (e) {
+                                  isValidJson = false;
+                                }
+                              }
+                              return (
+                                <div className="space-y-4">
+                                  <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider flex justify-between items-center border-b border-slate-100 pb-2">
+                                    <span className="flex items-center gap-2"><Layers size={13} /> JSON-LD Structured Data Schema</span>
+                                    <span className={'text-[10px] font-bold px-2 py-0.5 rounded-full ' + (isValidJson ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-500 animate-pulse')}>
+                                      {isValidJson ? '✓ JSON Syntax Valid' : '✗ JSON Syntax Invalid'}
+                                    </span>
+                                  </h4>
+
+                                  <div className="flex flex-col sm:flex-row sm:items-center gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200/50">
+                                    <div className="flex-1">
+                                      <label className="text-[11px] text-slate-500 font-bold uppercase tracking-wider block mb-1">Select Schema Template</label>
+                                      <select
+                                        value={schemaTemplateType}
+                                        onChange={e => setSchemaTemplateType(e.target.value)}
+                                        className="bg-white border border-slate-200 text-xs text-slate-800 rounded-lg px-2.5 py-1.5 outline-none focus:border-[#1E67E2] cursor-pointer"
+                                      >
+                                        <option value="Organization">Organization Schema (Logo, Social links)</option>
+                                        <option value="LocalBusiness">Local Business Schema (Address, Hours, Map)</option>
+                                        <option value="Service">Service Schema (Offered items list)</option>
+                                        <option value="Product">Product Schema (Name, Brand, Detail)</option>
+                                        <option value="FAQ">FAQ Page Schema (Questions & Answers)</option>
+                                        <option value="Article">Article Schema (Publish date, Author)</option>
+                                        <option value="Event">Event Schema (Date, online link, Organizer)</option>
+                                      </select>
+                                    </div>
+                                    <div className="shrink-0 flex items-end">
+                                      <button
+                                        onClick={loadSchemaTemplate}
+                                        className="px-4 py-2 bg-slate-900 hover:bg-black text-white text-xs font-bold rounded-xl transition cursor-pointer"
+                                      >
+                                        Load Template
+                                      </button>
+                                    </div>
+                                  </div>
+
+                                  <div>
+                                    <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Custom JSON-LD Payload Editor</label>
+                                    <textarea
+                                      rows={10}
+                                      value={pageConfig.schemaJson || "{}"}
+                                      onChange={e => updateSeoField("schemaJson", e.target.value)}
+                                      placeholder='{\n  "@context": "https://schema.org",\n  "@type": "Organization"...\n}'
+                                      className="w-full bg-slate-900 border border-slate-850 text-emerald-400 font-mono text-xs rounded-xl p-4 outline-none focus:border-emerald-500 transition resize-y"
+                                    />
+                                  </div>
+                                </div>
+                              );
+                            })()}
+
+                            {/* SITEMAP TAB */}
+                            {seoActiveSubTab === "sitemap" && (
+                              <div className="space-y-4">
+                                <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2 border-b border-slate-100 pb-2">
+                                  <Globe size={13} /> Sitemap XML & Crawler Settings
+                                </h4>
+
+                                <div className="flex items-center justify-between bg-slate-50/50 p-4 border border-slate-150 rounded-2xl">
+                                  <div>
+                                    <h5 className="text-xs font-bold text-slate-700">Include in Sitemap.xml</h5>
+                                    <p className="text-[11px] text-slate-500 mt-0.5">Toggle whether search bots are directed to this page in sitemaps.</p>
+                                  </div>
+                                  <input
+                                    type="checkbox"
+                                    checked={pageConfig.sitemapInclude !== false}
+                                    onChange={e => updateSeoField("sitemapInclude", e.target.checked)}
+                                    className="w-4 h-4 rounded accent-primary cursor-pointer"
+                                  />
+                                </div>
+
+                                <div className="grid md:grid-cols-2 gap-4 pt-2">
+                                  <div>
+                                    <label className="text-xs text-slate-500 font-semibold mb-1.5 block flex justify-between">
+                                      <span>Sitemap Priority Score</span>
+                                      <span className="font-bold text-primary">{pageConfig.sitemapPriority || 0.8}</span>
+                                    </label>
+                                    <input
+                                      type="range"
+                                      min="0.1"
+                                      max="1.0"
+                                      step="0.1"
+                                      value={pageConfig.sitemapPriority || 0.8}
+                                      onChange={e => updateSeoField("sitemapPriority", parseFloat(e.target.value))}
+                                      className="w-full accent-[#1E67E2] cursor-pointer"
+                                    />
+                                    <div className="flex justify-between text-[10px] text-slate-400 mt-1">
+                                      <span>0.1 (Low)</span>
+                                      <span>0.5</span>
+                                      <span>1.0 (High)</span>
+                                    </div>
+                                  </div>
+
+                                  <div>
+                                    <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Change Frequency</label>
+                                    <select
+                                      value={pageConfig.sitemapFrequency || "weekly"}
+                                      onChange={e => updateSeoField("sitemapFrequency", e.target.value)}
+                                      className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition cursor-pointer"
+                                    >
+                                      <option value="always">Always (Dynamic content updates)</option>
+                                      <option value="hourly">Hourly</option>
+                                      <option value="daily">Daily</option>
+                                      <option value="weekly">Weekly (Standard static content)</option>
+                                      <option value="monthly">Monthly</option>
+                                      <option value="yearly">Yearly</option>
+                                      <option value="never">Never (Archived content)</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
+
+                          </div>
+                        </div>
+
+                      </div>
+
+                      {/* Right Column: Dynamic Validation Dashboard */}
+                      <div className="space-y-6">
+                        
+                        {/* Score Circular Gauge */}
+                        <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col items-center justify-center space-y-4">
+                          <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wider text-center">Real-Time SEO Score</h3>
+                          
+                          <div className="relative w-36 h-36 flex items-center justify-center">
+                            {/* Inner Circle Track */}
+                            <svg className="w-full h-full transform -rotate-90">
+                              <circle cx="72" cy="72" r="62" stroke="#f1f5f9" strokeWidth="12" fill="transparent" />
+                              <circle 
+                                cx="72" 
+                                cy="72" 
+                                r="62" 
+                                stroke={validation.score > 80 ? '#10b981' : validation.score > 50 ? '#f59e0b' : '#ef4444'} 
+                                strokeWidth="12" 
+                                fill="transparent" 
+                                strokeDasharray={2 * Math.PI * 62}
+                                strokeDashoffset={2 * Math.PI * 62 * (1 - validation.score / 100)}
+                                className="transition-all duration-500 ease-out"
+                              />
+                            </svg>
+                            {/* Center score readout */}
+                            <div className="absolute flex flex-col items-center justify-center">
+                              <span className="text-3xl font-black text-slate-800 leading-none">{validation.score}</span>
+                              <span className="text-[10px] text-slate-400 font-bold uppercase mt-1">/ 100 Score</span>
+                            </div>
+                          </div>
+
+                          <div className="text-center">
+                            <span className={'text-xs font-extrabold px-3 py-1 rounded-full ' + (
+                              validation.score > 80 
+                                ? 'bg-emerald-50 text-emerald-600' 
+                                : validation.score > 50 
+                                ? 'bg-amber-50 text-amber-600' 
+                                : 'bg-red-50 text-red-500'
+                            )}>
+                              {validation.score > 80 ? 'Excellent SEO Health' : validation.score > 50 ? 'Needs Optimization' : 'Poor SEO Status'}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Checklist Details */}
+                        <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                          <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5">
+                            <AlertTriangle size={14} className="text-slate-500" /> Actionable Recommendations
+                          </h4>
+                          
+                          {validation.warnings.length === 0 ? (
+                            <div className="flex items-center gap-2 bg-emerald-50/50 border border-emerald-100 rounded-2xl p-4 text-emerald-700 text-xs">
+                              <CheckCircle size={15} /> All search checks passed successfully! This page is fully optimized.
+                            </div>
+                          ) : (
+                            <div className="space-y-3">
+                              {validation.warnings.map((warn, idx) => (
+                                <div key={idx} className="bg-slate-50 border border-slate-200/60 rounded-xl p-3.5 space-y-1">
+                                  <div className="text-xs font-extrabold text-slate-700 flex items-center gap-1.5">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                                    {warn}
+                                  </div>
+                                  <p className="text-[11px] text-slate-500 pl-3 leading-relaxed">
+                                    {validation.recommendations[idx]}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+
+                      </div>
+
+                    </div>
+                  </div>
+                );
+              })()}
+
               {activeTab === "system-config" && (
                 <div className="space-y-6">
                   {/* Top header card */}

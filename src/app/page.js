@@ -270,6 +270,25 @@ export default function Home() {
 
   const [showScrollTop, setShowScrollTop] = useState(false);
 
+  const [seoConfig, setSeoConfig] = useState({
+    imageAlt: "Clarity InfoTech Software Solutions",
+    imageTitle: "Clarity InfoTech"
+  });
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("clarity_seo_data");
+      if (stored) {
+        try {
+          const config = JSON.parse(stored);
+          if (config.home) {
+            setSeoConfig(config.home);
+          }
+        } catch (e) { }
+      }
+    }
+  }, []);
+
   // Monitor Scroll for Navbar Glassmorphism & Floating Scroll Top Button
   useEffect(() => {
     const handleScroll = () => {
@@ -858,7 +877,7 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen bg-offwhite text-navy font-sans antialiased selection:bg-primary/20 selection:text-primary">
-      <SEOMetadata />
+      <SEOMetadata pageKey="home" />
 
       {/* 1. NAVBAR - ALWAYS 100% TRANSPARENT WITH DYNAMIC CONTRAST TEXT */}
       <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 flex items-center h-16 md:h-20 ${isScrolled ? "bg-white shadow-md border-b border-gray-100" : "bg-transparent"}`}>
@@ -867,7 +886,8 @@ export default function Home() {
           <a href="#" className="flex items-center group h-full overflow-visible relative">
             <img
               src={headerData.logo}
-              alt="Clarity InfoTech Logo"
+              alt={seoConfig.imageAlt || "Clarity InfoTech Logo"}
+              title={seoConfig.imageTitle || "Clarity InfoTech"}
               className={`w-auto h-8 sm:h-10 md:h-10 lg:h-12 object-contain transition-all duration-300 group-hover:scale-105 filter ${
                 isScrolled
                   ? "brightness-90 contrast-200 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
@@ -989,7 +1009,8 @@ export default function Home() {
               >
                 <img
                   src={heroSlides[activeSlide].image}
-                  alt={heroSlides[activeSlide].title}
+                  alt={seoConfig.imageAlt ? `${seoConfig.imageAlt} - ${heroSlides[activeSlide].title}` : heroSlides[activeSlide].title}
+                  title={seoConfig.imageTitle ? `${seoConfig.imageTitle} - ${heroSlides[activeSlide].title}` : heroSlides[activeSlide].title}
                   className="w-full h-full object-cover object-center pointer-events-none"
                 />
               </motion.div>

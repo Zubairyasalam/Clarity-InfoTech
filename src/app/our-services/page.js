@@ -18,6 +18,25 @@ export default function OurServicesPage() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [activeCircle, setActiveCircle] = useState("Growth");
 
+  const [seoConfig, setSeoConfig] = useState({
+    imageAlt: "Our Services DevOps Cloud Bespoke Software",
+    imageTitle: "Clarity InfoTech Services"
+  });
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("clarity_seo_data");
+      if (stored) {
+        try {
+          const config = JSON.parse(stored);
+          if (config.services) {
+            setSeoConfig(config.services);
+          }
+        } catch (e) { }
+      }
+    }
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -142,7 +161,7 @@ export default function OurServicesPage() {
 
   return (
     <div className="min-h-screen bg-white text-[#1a1a2e] font-sans antialiased overflow-x-hidden">
-      <SEOMetadata />
+      <SEOMetadata pageKey="services" />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
         * { font-family: 'Inter', sans-serif; }
@@ -191,7 +210,7 @@ export default function OurServicesPage() {
       <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 flex items-center h-16 md:h-20 ${isScrolled ? "bg-white shadow-md border-b border-gray-100" : "bg-transparent"}`}>
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 w-full flex items-center justify-between h-full overflow-visible">
           <a href="/" className="flex items-center group h-full overflow-visible">
-            <img src={headerData.logo} alt="Clarity InfoTech"
+            <img src={headerData.logo} alt={seoConfig.imageAlt || "Clarity InfoTech"} title={seoConfig.imageTitle || "Clarity InfoTech"}
               className={`w-auto h-8 sm:h-10 md:h-10 lg:h-12 object-contain transition-all duration-300 group-hover:scale-105 filter ${isScrolled ? "brightness-90 contrast-200" : "brightness-150 contrast-125"}`} />
           </a>
           <nav className="hidden md:flex items-center gap-1">

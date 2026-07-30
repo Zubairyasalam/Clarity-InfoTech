@@ -26,6 +26,25 @@ export default function ContactPage() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [hoveredIdx, setHoveredIdx] = useState(null);
 
+  const [seoConfig, setSeoConfig] = useState({
+    imageAlt: "Contact Clarity InfoTech",
+    imageTitle: "Clarity InfoTech Chennai Office Location Map"
+  });
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("clarity_seo_data");
+      if (stored) {
+        try {
+          const config = JSON.parse(stored);
+          if (config.contact) {
+            setSeoConfig(config.contact);
+          }
+        } catch (e) { }
+      }
+    }
+  }, []);
+
   // Form State
   const [formData, setFormData] = useState({
     name: "",
@@ -172,7 +191,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-[#F4F6FB] text-navy font-sans flex flex-col relative overflow-x-hidden selection:bg-sky-400 selection:text-white">
-      <SEOMetadata />
+      <SEOMetadata pageKey="contact" />
       {/* 1. STICKY NAVBAR - ALWAYS 100% TRANSPARENT WITH DYNAMIC CONTRAST TEXT */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-16 md:h-20 flex items-center ${isScrolled ? "bg-white shadow-md border-b border-gray-100" : "bg-transparent"}`}>
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 w-full flex items-center justify-between h-full overflow-visible">
@@ -180,7 +199,8 @@ export default function ContactPage() {
           <a href="/" className="flex items-center group h-full overflow-visible relative">
             <img
               src={headerData.logo}
-              alt="Clarity InfoTech Logo"
+              alt={seoConfig.imageAlt || "Clarity InfoTech Logo"}
+              title={seoConfig.imageTitle || "Clarity InfoTech"}
               className={`w-auto h-8 sm:h-10 md:h-10 lg:h-12 object-contain transition-all duration-300 group-hover:scale-105 filter ${
                 isScrolled
                   ? "brightness-90 contrast-200 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"

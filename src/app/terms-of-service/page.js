@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Shield, FileText, ArrowLeft, Sparkles, Globe } from "lucide-react";
+import SEOMetadata from "@/components/SEOMetadata";
 
 export default function TermsOfServicePage() {
   const DEFAULT_LEGAL_PAGES = {
@@ -142,6 +143,7 @@ For questions about these Terms and Conditions, please contact us at salamzubi8@
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-800 font-sans flex flex-col">
+      <SEOMetadata pageKey="terms" />
       {/* Navbar */}
       <header className="bg-white border-b border-slate-100 h-16 md:h-20 flex items-center sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 md:px-12 w-full flex items-center justify-between">
