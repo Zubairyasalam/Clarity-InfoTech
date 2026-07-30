@@ -1159,8 +1159,8 @@ export default function AdminDashboard() {
 
   // About Us CRUD — always-editable, save on button click
   const updateAboutField = (key, val) => setAboutData(d => ({ ...d, [key]: val }));
-  const updateStat = (i, key, val) => setAboutData(d => { const s = [...d.stats]; s[i] = { ...s[i], [key]: val }; return { ...d, stats: s }; });
-  const updateFeature = (i, key, val) => setAboutData(d => { const f = [...d.features]; f[i] = { ...f[i], [key]: val }; return { ...d, features: f }; });
+  const updateStat = (i, key, val) => setAboutData(d => { const s = [...(d.stats || [])]; s[i] = { ...s[i], [key]: val }; return { ...d, stats: s }; });
+  const updateFeature = (i, key, val) => setAboutData(d => { const f = [...(d.features || [])]; f[i] = { ...f[i], [key]: val }; return { ...d, features: f }; });
   const saveAbout = () => {
     localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_about", JSON.stringify(aboutData));
@@ -3810,7 +3810,7 @@ export default function AdminDashboard() {
                   <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4">
                     <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><Edit3 size={12} /> Statistics</h3>
                     <div className="grid grid-cols-3 gap-4">
-                      {aboutData.stats.map((stat, i) => (
+                      {(aboutData.stats || []).map((stat, i) => (
                         <div key={i} className="bg-white border border-slate-200 rounded-xl p-4 space-y-2">
                           <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Stat {i + 1}</div>
                           <input
@@ -3836,7 +3836,7 @@ export default function AdminDashboard() {
                   <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4">
                     <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><Edit3 size={12} /> Feature Cards</h3>
                     <div className="space-y-3">
-                      {aboutData.features.map((feat, i) => (
+                      {(aboutData.features || []).map((feat, i) => (
                         <div key={i} className="bg-white border border-slate-200 rounded-xl p-4">
                           <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-3">Card {i + 1}</div>
                           <div className="grid md:grid-cols-3 gap-3">
