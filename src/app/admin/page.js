@@ -2217,8 +2217,9 @@ export default function AdminDashboard() {
                       </div>
                     </div>
 
-                  {renderQuickSeoCard("home")}
+                  
                   </div>
+                  {renderQuickSeoCard("home")}
                 </div>
               )}
 
@@ -2363,8 +2364,9 @@ export default function AdminDashboard() {
                         </div>
                       ))}
                     </div>
-                  {renderQuickSeoCard("about")}
+                  
                   </div>
+                  {renderQuickSeoCard("about")}
                 </div>
               )}
 
@@ -2545,8 +2547,9 @@ export default function AdminDashboard() {
                         <input type="text" value={pageProjectsData.ctaButtonText || ""} onChange={e => updatePageProjectsField("ctaButtonText", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
                       </div>
                     </div>
-                  {renderQuickSeoCard("projects")}
+                  
                   </div>
+                  {renderQuickSeoCard("projects")}
                 </div>
               )}
 
@@ -2789,8 +2792,9 @@ export default function AdminDashboard() {
                         <input type="text" value={pageServiceData.ctaButtonText || ""} onChange={e => updatePageServiceField("ctaButtonText", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
                       </div>
                     </div>
-                  {renderQuickSeoCard("services")}
+                  
                   </div>
+                  {renderQuickSeoCard("services")}
                 </div>
               )}
 
@@ -2880,8 +2884,9 @@ export default function AdminDashboard() {
                       <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Google Maps Embed iframe URL</label>
                       <input type="text" value={pageContactData.mapEmbedUrl || ""} onChange={e => updatePageContactField("mapEmbedUrl", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
                     </div>
-                  {renderQuickSeoCard("contact")}
+                  
                   </div>
+                  {renderQuickSeoCard("contact")}
                 </div>
               )}
 
@@ -2987,8 +2992,9 @@ export default function AdminDashboard() {
                         </div>
                       </div>
                     </div>
-                  {renderQuickSeoCard("privacy")}
+                  
                   </div>
+                  {renderQuickSeoCard("privacy")}
                 </div>
               )}
 
@@ -3335,9 +3341,10 @@ export default function AdminDashboard() {
                     >
                       Reset to defaults
                     </button>
-                  {renderQuickSeoCard("home")}
+                  
                   </div>
 
+                  {renderQuickSeoCard("home")}
                 </div>
               )}
 
@@ -3478,9 +3485,10 @@ export default function AdminDashboard() {
                     <button onClick={saveAbout} className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition cursor-pointer whitespace-nowrap shrink-0">
                       <Save size={15} /> Save All Changes
                     </button>
-                  {renderQuickSeoCard("home")}
+                  
                   </div>
 
+                  {renderQuickSeoCard("home")}
                 </div>
               )}
 
@@ -3624,9 +3632,10 @@ export default function AdminDashboard() {
                     <button onClick={savePlatforms} className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition cursor-pointer whitespace-nowrap shrink-0">
                       <Save size={15} /> Save All Changes
                     </button>
-                  {renderQuickSeoCard("home")}
+                  
                   </div>
 
+                  {renderQuickSeoCard("home")}
                 </div>
               )}
 
@@ -3844,9 +3853,10 @@ export default function AdminDashboard() {
                     <button onClick={saveServices} className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition cursor-pointer whitespace-nowrap shrink-0">
                       <Save size={15} /> Save All Changes
                     </button>
-                  {renderQuickSeoCard("projects")}
+                  
                   </div>
 
+                  {renderQuickSeoCard("projects")}
                 </div>
               )}
 
@@ -4159,8 +4169,9 @@ export default function AdminDashboard() {
                         </div>
                       </div>
                     </div>
-                  {renderQuickSeoCard("contact")}
+                  
                   </div>
+                  {renderQuickSeoCard("contact")}
                 </div>
               )}
               {/* 8. FOOTER EDITOR */}
@@ -4337,11 +4348,12 @@ export default function AdminDashboard() {
                     <button onClick={saveFooter} className="flex items-center gap-2 px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition cursor-pointer whitespace-nowrap shrink-0">
                       <Save size={15} /> Save All Changes
                     </button>
-                  {renderQuickSeoCard("home")}
+                  
                   </div>
 
 
 
+                  {renderQuickSeoCard("home")}
                 </div>
               )}
 
