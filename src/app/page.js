@@ -692,6 +692,32 @@ export default function Home() {
 
   const [platformsData, setPlatformsData] = useState(DEFAULT_PLATFORMS);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedAbout = localStorage.getItem("clarity_about");
+      if (storedAbout) {
+        try {
+          setAboutData(JSON.parse(storedAbout));
+        } catch (e) {
+          // fallback silently
+        }
+      } else {
+        localStorage.setItem("clarity_about", JSON.stringify(DEFAULT_ABOUT));
+      }
+
+      const storedPlatforms = localStorage.getItem("clarity_platforms");
+      if (storedPlatforms) {
+        try {
+          setPlatformsData(JSON.parse(storedPlatforms));
+        } catch (e) {
+          // fallback silently
+        }
+      } else {
+        localStorage.setItem("clarity_platforms", JSON.stringify(DEFAULT_PLATFORMS));
+      }
+    }
+  }, []);
+
 
 
   const paginate = (newDirection) => {
