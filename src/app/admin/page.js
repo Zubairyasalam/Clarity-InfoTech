@@ -1426,7 +1426,7 @@ export default function AdminDashboard() {
             </div>
             {activeTab === "overview" && (
               <button className="flex items-center gap-2 px-4 py-2 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition shadow-lg shadow-blue-500/10 cursor-pointer">
-                + + Automation
+                <Plus size={14} /> Create Automation
               </button>
             )}
           </div>
