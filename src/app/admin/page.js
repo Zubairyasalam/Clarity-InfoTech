@@ -1214,7 +1214,7 @@ export default function AdminDashboard() {
     // Sync to Our Projects Page content so changes apply to the /services page immediately
     const updatedPageProjects = {
       ...pageProjectsData,
-      projectsList: servicesData.cards.map(c => {
+      projectsList: (servicesData.cards || []).map(c => {
         // Map display category to filter key if needed
         let catKey = "development";
         const catLower = (c.category || "").toLowerCase();
@@ -1362,7 +1362,7 @@ export default function AdminDashboard() {
     // Sync to Homepage Services section so changes apply to the main landing page immediately
     const updatedServices = {
       ...servicesData,
-      cards: pageProjectsData.projectsList.map(c => {
+      cards: (pageProjectsData.projectsList || []).map(c => {
         return {
           id: c.id || "service-" + Date.now() + Math.random(),
           title: c.title || "",
