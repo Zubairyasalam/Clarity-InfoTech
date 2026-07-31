@@ -2377,10 +2377,10 @@ export default function AdminDashboard() {
 
   if (verifyingSession) {
     return (
-      <div className="min-h-screen bg-[#0F172A] flex flex-col items-center justify-center text-white">
+      <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <RefreshCw size={36} className="animate-spin text-[#1E67E2]" />
-          <span className="text-sm font-semibold tracking-wider uppercase text-slate-400">Verifying session...</span>
+          <RefreshCw size={36} className="animate-spin text-slate-700" />
+          <span className="text-sm font-semibold tracking-wider uppercase text-slate-500">Verifying session...</span>
         </div>
       </div>
     );
@@ -2388,48 +2388,48 @@ export default function AdminDashboard() {
 
   if (!isAuthorized) {
     return (
-      <div className="min-h-screen bg-[#0F172A] flex items-center justify-center p-4 relative overflow-hidden">
-        {/* Glow Effects */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#1E67E2]/10 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#0ea5e9]/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 flex items-center justify-center p-4 relative overflow-hidden">
+        {/* Soft Neutral Glows */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-slate-200/40 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-slate-300/30 rounded-full blur-[100px] pointer-events-none" />
         
-        <div className="w-full max-w-md bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-3xl p-8 shadow-2xl relative z-10">
+        <div className="w-full max-w-md bg-white border border-slate-200/80 rounded-3xl p-8 shadow-xl relative z-10">
           <div className="flex flex-col items-center mb-8">
-            <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-4 border border-slate-800">
-              <img src="/logo.png" alt="Clarity Logo" className="h-10 w-auto object-contain" />
+            <div className="mb-6 flex justify-center">
+              <img src="/logo.png" alt="Clarity Logo" className="h-20 w-auto object-contain max-w-[260px]" />
             </div>
-            <h2 className="text-xl font-black text-white tracking-tight">Admin Console</h2>
-            <p className="text-xs text-slate-400 mt-1">Please sign in to manage your site configuration</p>
+            <h2 className="text-2xl font-black text-slate-900 tracking-tight">Admin Console</h2>
+            <p className="text-xs text-slate-500 mt-1.5 font-medium">Please sign in to manage your site configuration</p>
           </div>
           
           <form onSubmit={handleLogin} className="space-y-5">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Username</label>
+              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Username</label>
               <input 
                 type="text" 
                 value={usernameInput}
                 onChange={(e) => setUsernameInput(e.target.value)}
-                className="w-full bg-slate-800/50 border border-slate-800 text-white text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#1E67E2] transition"
+                className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-slate-400 focus:ring-2 focus:ring-slate-100 transition"
                 placeholder="admin"
                 required
               />
             </div>
             
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Password</label>
+              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Password</label>
               <div className="relative">
                 <input 
                   type={showAdminPassword ? "text" : "password"}
                   value={passwordInput}
                   onChange={(e) => setPasswordInput(e.target.value)}
-                  className="w-full bg-slate-800/50 border border-slate-800 text-white text-sm rounded-xl px-4 py-2.5 pr-10 focus:outline-none focus:border-[#1E67E2] transition"
+                  className="w-full bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl px-4 py-2.5 pr-10 focus:outline-none focus:border-slate-400 focus:ring-2 focus:ring-slate-100 transition"
                   placeholder="••••••••"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowAdminPassword(!showAdminPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-400 transition flex items-center justify-center cursor-pointer"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition flex items-center justify-center cursor-pointer"
                 >
                   {showAdminPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -2437,8 +2437,8 @@ export default function AdminDashboard() {
             </div>
             
             {loginError && (
-              <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-semibold rounded-xl p-3.5 flex items-center gap-2">
-                <AlertTriangle size={14} className="shrink-0" />
+              <div className="bg-red-50 border border-red-200 text-red-600 text-xs font-semibold rounded-xl p-3.5 flex items-center gap-2">
+                <AlertTriangle size={14} className="shrink-0 text-red-500" />
                 <span>{loginError}</span>
               </div>
             )}
@@ -2446,9 +2446,9 @@ export default function AdminDashboard() {
             <button
               type="submit"
               disabled={loggingIn}
-              className="w-full py-2.5 px-4 bg-[#1E67E2] hover:bg-blue-600 text-white text-sm font-bold rounded-xl transition shadow-lg shadow-blue-500/20 disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
+              className="w-full py-2.5 px-4 bg-slate-900 hover:bg-black text-white text-sm font-bold rounded-xl transition shadow-lg shadow-slate-900/10 disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
             >
-              {loggingIn ? <RefreshCw size={14} className="animate-spin" /> : "Sign In"}
+              {loggingIn ? <RefreshCw size={14} className="animate-spin text-white" /> : "Sign In"}
             </button>
           </form>
         </div>
