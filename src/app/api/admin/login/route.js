@@ -15,7 +15,7 @@ export async function POST(request) {
     const { username, password } = await request.json();
     
     const expectedUsername = process.env.ADMIN_USERNAME || 'admin';
-    const expectedPassword = process.env.ADMIN_PASSWORD || 'ClarityAdmin2026!';
+    const expectedPassword = process.env.ADMIN_PASSWORD || 'clarityadmin123';
     
     if (username === expectedUsername && password === expectedPassword) {
       const token = getSessionToken(username);
