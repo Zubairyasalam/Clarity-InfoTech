@@ -36,7 +36,8 @@ import {
   Link,
   Eye,
   EyeOff,
-  Lightbulb
+  Lightbulb,
+  LogOut
 } from "lucide-react";
 
 // Pre-populated Inquiry Mock Data
@@ -98,6 +99,55 @@ const INITIAL_PROJECTS = [
 ];
 
 export default function AdminDashboard() {
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [verifyingSession, setVerifyingSession] = useState(true);
+  const [usernameInput, setUsernameInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const [loggingIn, setLoggingIn] = useState(false);
+  const [showAdminPassword, setShowAdminPassword] = useState(false);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    if (!usernameInput || !passwordInput) {
+      setLoginError("Please enter both username and password");
+      return;
+    }
+    setLoginError("");
+    setLoggingIn(true);
+    try {
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: usernameInput, password: passwordInput })
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setIsAuthorized(true);
+      } else {
+        setLoginError(data.error || "Invalid username or password");
+      }
+    } catch (err) {
+      setLoginError("An error occurred during login. Please try again.");
+      console.error(err);
+    } finally {
+      setLoggingIn(false);
+    }
+  };
+
+  const handleLogout = async () => {
+    if (confirm("Are you sure you want to log out?")) {
+      try {
+        await fetch("/api/admin/logout", { method: "POST" });
+        setIsAuthorized(false);
+        setUsernameInput("");
+        setPasswordInput("");
+      } catch (err) {
+        console.error("Logout failed:", err);
+      }
+    }
+  };
+
   const [inquiries, setInquiries] = useState([]);
   const [projects, setProjects] = useState([]);
   const [activeTab, setActiveTab] = useState("overview");
@@ -875,7 +925,22 @@ export default function AdminDashboard() {
 
   // Initialize data from localStorage or fallback
   useEffect(() => {
+    const verifySession = async () => {
+      try {
+        const res = await fetch("/api/admin/verify");
+        const data = await res.json();
+        if (data.authenticated) {
+          setIsAuthorized(true);
+        }
+      } catch (err) {
+        console.error("Session verification failed:", err);
+      } finally {
+        setVerifyingSession(false);
+      }
+    };
+
     if (typeof window !== "undefined") {
+      verifySession();
       fetchLogos();
       const storedInquiries = localStorage.getItem("clarity_inquiries");
       if (storedInquiries) {
@@ -2310,6 +2375,87 @@ export default function AdminDashboard() {
     return titles[tab] || tab.replace("-", " ");
   };
 
+  if (verifyingSession) {
+    return (
+      <div className="min-h-screen bg-[#0F172A] flex flex-col items-center justify-center text-white">
+        <div className="flex flex-col items-center gap-4">
+          <RefreshCw size={36} className="animate-spin text-[#1E67E2]" />
+          <span className="text-sm font-semibold tracking-wider uppercase text-slate-400">Verifying session...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAuthorized) {
+    return (
+      <div className="min-h-screen bg-[#0F172A] flex items-center justify-center p-4 relative overflow-hidden">
+        {/* Glow Effects */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#1E67E2]/10 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#0ea5e9]/10 rounded-full blur-[100px] pointer-events-none" />
+        
+        <div className="w-full max-w-md bg-slate-900/60 backdrop-blur-xl border border-slate-800 rounded-3xl p-8 shadow-2xl relative z-10">
+          <div className="flex flex-col items-center mb-8">
+            <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mb-4 border border-slate-800">
+              <img src="/logo.png" alt="Clarity Logo" className="h-10 w-auto object-contain" />
+            </div>
+            <h2 className="text-xl font-black text-white tracking-tight">Admin Console</h2>
+            <p className="text-xs text-slate-400 mt-1">Please sign in to manage your site configuration</p>
+          </div>
+          
+          <form onSubmit={handleLogin} className="space-y-5">
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Username</label>
+              <input 
+                type="text" 
+                value={usernameInput}
+                onChange={(e) => setUsernameInput(e.target.value)}
+                className="w-full bg-slate-800/50 border border-slate-800 text-white text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-[#1E67E2] transition"
+                placeholder="admin"
+                required
+              />
+            </div>
+            
+            <div className="space-y-1.5">
+              <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Password</label>
+              <div className="relative">
+                <input 
+                  type={showAdminPassword ? "text" : "password"}
+                  value={passwordInput}
+                  onChange={(e) => setPasswordInput(e.target.value)}
+                  className="w-full bg-slate-800/50 border border-slate-800 text-white text-sm rounded-xl px-4 py-2.5 pr-10 focus:outline-none focus:border-[#1E67E2] transition"
+                  placeholder="••••••••"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowAdminPassword(!showAdminPassword)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-400 transition flex items-center justify-center cursor-pointer"
+                >
+                  {showAdminPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                </button>
+              </div>
+            </div>
+            
+            {loginError && (
+              <div className="bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-semibold rounded-xl p-3.5 flex items-center gap-2">
+                <AlertTriangle size={14} className="shrink-0" />
+                <span>{loginError}</span>
+              </div>
+            )}
+            
+            <button
+              type="submit"
+              disabled={loggingIn}
+              className="w-full py-2.5 px-4 bg-[#1E67E2] hover:bg-blue-600 text-white text-sm font-bold rounded-xl transition shadow-lg shadow-blue-500/20 disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
+            >
+              {loggingIn ? <RefreshCw size={14} className="animate-spin" /> : "Sign In"}
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-slate-800 font-sans antialiased flex">
 
@@ -2472,6 +2618,17 @@ export default function AdminDashboard() {
               })}
             </div>
           </div>
+        </div>
+
+        {/* Sign Out Button */}
+        <div className="px-4 py-2 border-t border-slate-50">
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-3 px-3 py-2 bg-red-50 hover:bg-red-100 text-red-600 hover:text-red-700 rounded-xl text-xs font-bold transition cursor-pointer"
+          >
+            <LogOut size={14} />
+            <span>Sign Out</span>
+          </button>
         </div>
 
         {/* Bottom Sidebar Copyright */}
