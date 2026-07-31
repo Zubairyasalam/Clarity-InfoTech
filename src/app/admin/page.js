@@ -152,6 +152,24 @@ export default function AdminDashboard() {
   const [projects, setProjects] = useState([]);
   const [activeTab, setActiveTab] = useState("overview");
 
+  // Admin Credentials Configuration Settings
+  const [adminUsernameSetting, setAdminUsernameSetting] = useState("admin");
+  const [adminPasswordSetting, setAdminPasswordSetting] = useState("clarityadmin123");
+  const [showAdminPasswordSetting, setShowAdminPasswordSetting] = useState(false);
+
+  const fetchAuthSettings = async () => {
+    try {
+      const res = await fetch("/api/admin/auth-settings");
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setAdminUsernameSetting(data.username);
+        setAdminPasswordSetting(data.password);
+      }
+    } catch (err) {
+      console.error("Failed to fetch auth settings:", err);
+    }
+  };
+
   // Filtering & Searching Inquiries
   const [inquiryFilter, setInquiryFilter] = useState("All");
   const [inquirySearch, setInquirySearch] = useState("");
@@ -931,6 +949,7 @@ export default function AdminDashboard() {
         const data = await res.json();
         if (data.authenticated) {
           setIsAuthorized(true);
+          fetchAuthSettings();
         }
       } catch (err) {
         console.error("Session verification failed:", err);
@@ -1546,13 +1565,39 @@ export default function AdminDashboard() {
 
   // System Config CRUD
   const updateSystemConfigField = (key, val) => setSystemConfigData(d => ({ ...d, [key]: val }));
-  const saveSystemConfig = () => {
+  const saveSystemConfig = async () => {
     localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_system_config", JSON.stringify(systemConfigData));
+    
+    // Save Admin Login credentials server-side
+    try {
+      const res = await fetch("/api/admin/auth-settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: adminUsernameSetting, password: adminPasswordSetting })
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        alert(data.error || "Failed to update admin login credentials settings");
+        return;
+      }
+    } catch (err) {
+      console.error("Failed to save auth settings:", err);
+      alert("Failed to connect to authentication server settings");
+      return;
+    }
+
     setSystemConfigSaveSuccess(true);
     setTimeout(() => setSystemConfigSaveSuccess(false), 2500);
   };
-  const resetSystemConfig = () => { if (confirm("Reset System Configuration to defaults?")) { setSystemConfigData(DEFAULT_SYSTEM_CONFIG); localStorage.setItem("clarity_system_config", JSON.stringify(DEFAULT_SYSTEM_CONFIG)); } };
+  const resetSystemConfig = () => { 
+    if (confirm("Reset System Configuration to defaults?")) { 
+      setSystemConfigData(DEFAULT_SYSTEM_CONFIG); 
+      localStorage.setItem("clarity_system_config", JSON.stringify(DEFAULT_SYSTEM_CONFIG)); 
+      setAdminUsernameSetting("admin");
+      setAdminPasswordSetting("clarityadmin123");
+    } 
+  };
 
   // ── SEO Management CRUD ──
   const updateSeoField = (keyOrPage, valOrKey, maybeVal) => {
@@ -5686,6 +5731,50 @@ export default function AdminDashboard() {
                         {systemConfigSaveSuccess ? <Check size={16} /> : <Save size={16} />}
                         {systemConfigSaveSuccess ? "Saved!" : "Save All Changes"}
                       </button>
+                    </div>
+                  </div>
+
+                  {/* Console Security & Login Settings */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2">
+                      <Shield size={14} /> Console Security & Login Settings
+                    </h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Console Administrator Username</label>
+                        <input
+                          type="text"
+                          value={adminUsernameSetting}
+                          onChange={e => setAdminUsernameSetting(e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition"
+                          placeholder="admin"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Console Administrator Password</label>
+                        <div className="relative">
+                          <input
+                            type={showAdminPasswordSetting ? "text" : "password"}
+                            value={adminPasswordSetting}
+                            onChange={e => setAdminPasswordSetting(e.target.value)}
+                            className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 pr-10 outline-none focus:border-[#1E67E2] transition"
+                            placeholder="••••••••"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowAdminPasswordSetting(!showAdminPasswordSetting)}
+                            className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition cursor-pointer flex items-center justify-center"
+                          >
+                            {showAdminPasswordSetting ? <EyeOff size={16} /> : <Eye size={16} />}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-amber-50 border border-amber-100 text-amber-800 rounded-xl p-3.5 text-xs flex items-center gap-2">
+                      <AlertTriangle size={16} className="text-amber-600 shrink-0" />
+                      <span>
+                        <strong>Important:</strong> Changing these login credentials will require you to log in again on the next session using the updated details.
+                      </span>
                     </div>
                   </div>
 
