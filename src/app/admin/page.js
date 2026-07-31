@@ -582,6 +582,9 @@ export default function AdminDashboard() {
   };
   const [headerData, setHeaderData] = useState(DEFAULT_HEADER);
   const [headerSaveSuccess, setHeaderSaveSuccess] = useState(false);
+  const [availableLogos, setAvailableLogos] = useState([]);
+  const [loadingLogos, setLoadingLogos] = useState(false);
+  const [logoUploadError, setLogoUploadError] = useState("");
 
   // System Configuration State
   const DEFAULT_SEO_DATA = {
@@ -823,9 +826,57 @@ export default function AdminDashboard() {
   const [consoleLogs, setConsoleLogs] = useState([]);
   const logContainerRef = useRef(null);
 
+  const fetchLogos = async () => {
+    setLoadingLogos(true);
+    try {
+      const res = await fetch("/api/logos");
+      const data = await res.json();
+      if (data.logos) {
+        setAvailableLogos(data.logos);
+      }
+    } catch (err) {
+      console.error("Failed to fetch logos:", err);
+    } finally {
+      setLoadingLogos(false);
+    }
+  };
+
+  const handleLogoUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/svg+xml', 'image/gif', 'image/webp'];
+    if (!validTypes.includes(file.type)) {
+      setLogoUploadError("Please select a valid image file (.png, .jpg, .svg, .gif, .webp)");
+      return;
+    }
+    
+    setLogoUploadError("");
+    const formData = new FormData();
+    formData.append("file", file);
+    
+    try {
+      const res = await fetch("/api/logos", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.success) {
+        updateHeaderLogo(data.url);
+        fetchLogos();
+      } else {
+        setLogoUploadError(data.error || "Upload failed");
+      }
+    } catch (err) {
+      setLogoUploadError("Failed to upload logo");
+      console.error(err);
+    }
+  };
+
   // Initialize data from localStorage or fallback
   useEffect(() => {
     if (typeof window !== "undefined") {
+      fetchLogos();
       const storedInquiries = localStorage.getItem("clarity_inquiries");
       if (storedInquiries) {
         setInquiries(JSON.parse(storedInquiries));
@@ -949,12 +1000,7 @@ export default function AdminDashboard() {
       if (storedLegalPages) {
         try {
           const parsed = JSON.parse(storedLegalPages);
-          if (!parsed.privacyContent || parsed.privacyContent.length < 500) {
-            localStorage.setItem("clarity_legal_pages", JSON.stringify(DEFAULT_LEGAL_PAGES));
-            setLegalPagesData(DEFAULT_LEGAL_PAGES);
-          } else {
-            setLegalPagesData({ ...DEFAULT_LEGAL_PAGES, ...parsed });
-          }
+          setLegalPagesData({ ...DEFAULT_LEGAL_PAGES, ...parsed });
         } catch { }
       } else {
         localStorage.setItem("clarity_legal_pages", JSON.stringify(DEFAULT_LEGAL_PAGES));
@@ -4562,24 +4608,96 @@ export default function AdminDashboard() {
                         <h3 className="font-bold text-slate-800 text-base mb-4 flex items-center gap-2">
                           <Image size={18} className="text-[#1E67E2]" /> Logo Image
                         </h3>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div className="space-y-1.5">
-                            <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Logo URL</label>
-                            <input 
-                              type="text" 
-                              value={headerData.logo} 
-                              onChange={(e) => updateHeaderLogo(e.target.value)} 
-                              className="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#1E67E2]/50" 
-                              placeholder="/logo.png" 
-                            />
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                          {/* Logo URL Input & File Upload */}
+                          <div className="lg:col-span-2 space-y-4">
+                            <div className="space-y-1.5">
+                              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Logo URL</label>
+                              <input 
+                                type="text" 
+                                value={headerData.logo} 
+                                onChange={(e) => updateHeaderLogo(e.target.value)} 
+                                className="w-full bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#1E67E2]/50" 
+                                placeholder="/logo.png" 
+                              />
+                            </div>
+                            
+                            {/* Upload New Logo */}
+                            <div className="space-y-1.5">
+                              <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider block">Upload New Logo to Folder</label>
+                              <div className="flex items-center gap-3">
+                                <label className="flex items-center justify-center gap-2 px-4 py-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-700 rounded-xl transition cursor-pointer text-xs font-bold shrink-0">
+                                  <Plus size={14} className="text-[#1E67E2]" />
+                                  <span>Choose File</span>
+                                  <input 
+                                    type="file" 
+                                    accept="image/*" 
+                                    onChange={handleLogoUpload} 
+                                    className="hidden" 
+                                  />
+                                </label>
+                                <span className="text-xs text-slate-400 truncate">
+                                  Supports PNG, JPG, SVG, WebP, GIF
+                                </span>
+                              </div>
+                              {logoUploadError && (
+                                <p className="text-xs text-red-500 mt-1 font-semibold">{logoUploadError}</p>
+                              )}
+                            </div>
                           </div>
-                          <div className="flex items-center justify-center bg-slate-100 rounded-xl border border-slate-200 p-4 h-full min-h-[100px]">
-                            {headerData.logo ? (
-                              <img src={headerData.logo} alt="Logo Preview" className="max-h-12 object-contain" />
-                            ) : (
-                              <span className="text-xs text-slate-400">No Image</span>
-                            )}
+
+                          {/* Preview Panel */}
+                          <div className="flex flex-col items-center justify-center bg-slate-50 rounded-xl border border-slate-200 p-4 h-full min-h-[140px]">
+                            <span className="text-xs font-semibold text-slate-400 mb-2 uppercase tracking-wider">Active Logo Preview</span>
+                            <div className="flex-1 flex items-center justify-center min-h-[60px] w-full">
+                              {headerData.logo ? (
+                                <img src={headerData.logo} alt="Logo Preview" className="max-h-16 object-contain" />
+                              ) : (
+                                <span className="text-xs text-slate-400">No Image</span>
+                              )}
+                            </div>
                           </div>
+                        </div>
+
+                        {/* Logo Folder Gallery Selection */}
+                        <div className="mt-6 border-t border-slate-100 pt-6">
+                          <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-3">Select Logo From Folder</label>
+                          {loadingLogos ? (
+                            <div className="flex items-center gap-2 py-4 justify-center text-xs text-slate-400">
+                              <RefreshCw size={14} className="animate-spin text-[#1E67E2]" /> Loading folder contents...
+                            </div>
+                          ) : availableLogos.length === 0 ? (
+                            <p className="text-xs text-slate-400 italic py-2">No logos found in public/logos/ folder.</p>
+                          ) : (
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                              {availableLogos.map((logo) => {
+                                const isSelected = headerData.logo === logo.url;
+                                return (
+                                  <button
+                                    key={logo.name}
+                                    onClick={() => updateHeaderLogo(logo.url)}
+                                    className={`relative flex flex-col items-center justify-between p-3 bg-white rounded-xl border transition-all cursor-pointer h-28 group overflow-hidden ${
+                                      isSelected 
+                                        ? "border-[#1E67E2] ring-2 ring-[#1E67E2]/25 shadow-sm" 
+                                        : "border-slate-200 hover:border-slate-300 hover:shadow-sm"
+                                    }`}
+                                  >
+                                    <div className="flex-1 flex items-center justify-center max-h-12 w-full p-1">
+                                      <img src={logo.url} alt={logo.name} className="max-h-full max-w-full object-contain transition-transform group-hover:scale-105" />
+                                    </div>
+                                    <span className="text-[10px] text-slate-500 truncate w-full text-center mt-2 font-mono">
+                                      {logo.name}
+                                    </span>
+                                    {isSelected && (
+                                      <span className="absolute top-1.5 right-1.5 bg-[#1E67E2] text-white rounded-full p-0.5 shadow-sm">
+                                        <Check size={8} strokeWidth={3} />
+                                      </span>
+                                    )}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          )}
                         </div>
                       </div>
 

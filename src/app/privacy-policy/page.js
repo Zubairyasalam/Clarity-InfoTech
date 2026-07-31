@@ -85,7 +85,7 @@ If you have questions or concerns about this Privacy Policy or our data practice
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
-        if (parsed.privacyContent && parsed.privacyContent.length >= 500) {
+        if (parsed.privacyContent) {
           setLegalData({ ...DEFAULT_LEGAL_PAGES, ...parsed });
         } else {
           setLegalData(DEFAULT_LEGAL_PAGES);

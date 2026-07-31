@@ -65,7 +65,7 @@ For questions about these Terms and Conditions, please contact us at salamzubi8@
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
-        if (parsed.termsContent && parsed.termsContent.length >= 500) {
+        if (parsed.termsContent) {
           setLegalData({ ...DEFAULT_LEGAL_PAGES, ...parsed });
         } else {
           setLegalData(DEFAULT_LEGAL_PAGES);

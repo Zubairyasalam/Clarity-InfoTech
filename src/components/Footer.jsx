@@ -42,11 +42,6 @@ export default function Footer() {
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
-          if (parsed.companyLinks) {
-            // Ensure legal routes match standard subpages
-            parsed.companyLinks = DEFAULT_FOOTER.companyLinks;
-            localStorage.setItem("clarity_footer", JSON.stringify(parsed));
-          }
           // Dynamically read social URLs from clarity_system_config if available
           const storedSysConfig = localStorage.getItem("clarity_system_config");
           if (storedSysConfig) {
