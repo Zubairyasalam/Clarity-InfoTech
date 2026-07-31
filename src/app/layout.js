@@ -1,4 +1,5 @@
 import "./globals.css";
+import SyncProvider from "../components/SyncProvider";
 
 export const metadata = {
   title: "Clarity InfoTech | Software Engineering & Cloud Solutions",
@@ -8,7 +9,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="font-sans h-full antialiased">
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+      <body className="min-h-full flex flex-col font-sans">
+        <SyncProvider>{children}</SyncProvider>
+      </body>
     </html>
   );
 }
