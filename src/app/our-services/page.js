@@ -204,8 +204,19 @@ export default function OurServicesPage() {
             {headerData.links.map((link) => {
               const isActive = link.label === "Our Services";
               return (
-                <a key={link.label} href={link.url}
-                  className={`px-4 py-2 font-semibold text-sm transition-all duration-200 rounded-md ${isActive ? "bg-[#1E67E2] text-white" : isScrolled ? "text-gray-700 hover:text-[#1E67E2]" : "text-white/90 hover:text-white"}`}>
+                <a
+                  key={link.label}
+                  href={link.url}
+                  className={`px-5 py-2 font-bold text-sm transition-colors duration-200 ${
+                    isScrolled
+                      ? isActive
+                        ? "text-indigo-600 font-extrabold"
+                        : "text-slate-900 hover:text-indigo-600"
+                      : isActive
+                        ? "text-sky-400 font-extrabold"
+                        : "text-white/90 hover:text-white"
+                  }`}
+                >
                   {link.label}
                 </a>
               );
