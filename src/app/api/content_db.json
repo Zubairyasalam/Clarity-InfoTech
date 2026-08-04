@@ -1,1 +1,422 @@
-{}
+{
+  "clarity_inquiries": [
+    {
+      "id": "inq-1785326138452",
+      "name": "Zubairya Salam khan",
+      "email": "zubairyasalamkhan213@gmail.com",
+      "company": "MRF",
+      "service": "Web Development",
+      "message": "HII",
+      "date": "Jul 29, 2026",
+      "time": "05:25 PM",
+      "status": "unread",
+      "priority": "high"
+    },
+    {
+      "id": "inq-1785326080202",
+      "name": "Zubairya Salam khan",
+      "email": "zubairyasalamkhan213@gmail.com",
+      "company": "MRF",
+      "service": "Cloud Services",
+      "message": "HII",
+      "date": "Jul 29, 2026",
+      "time": "05:24 PM",
+      "status": "unread",
+      "priority": "high"
+    },
+    {
+      "id": 101,
+      "firstName": "Sarah",
+      "lastName": "Jenkins",
+      "email": "s.jenkins@enterprise.com",
+      "phone": "+1 (555) 234-5678",
+      "country": "United States",
+      "inquiryType": "Cloud & DevOps",
+      "message": "We need an architectural review of our current AWS infrastructure. We are experiencing latency spikes in our European regions during peak hours.",
+      "date": "2026-07-27T15:06:15.811Z",
+      "status": "Pending"
+    },
+    {
+      "id": 102,
+      "firstName": "Akihiro",
+      "lastName": "Sato",
+      "email": "sato@tokyotech.jp",
+      "phone": "+81 3 5555 0192",
+      "country": "Japan",
+      "inquiryType": "Cyber Security",
+      "message": "Seeking ISO 27001 readiness audit and penetration testing services for our financial trading platform.",
+      "date": "2026-07-26T19:06:15.811Z",
+      "status": "In Progress"
+    },
+    {
+      "id": 103,
+      "firstName": "Marcus",
+      "lastName": "Vance",
+      "email": "marcus@datalink.co",
+      "phone": "+44 20 7946 0958",
+      "country": "United Kingdom",
+      "inquiryType": "Software Dev",
+      "message": "Looking to build a custom real-time telemetry dashboard. Prefer React/Next.js stack with high-throughput WebSockets integration.",
+      "date": "2026-07-25T19:06:15.811Z",
+      "status": "Pending"
+    },
+    {
+      "id": 1785735348019,
+      "firstName": "zubairya",
+      "lastName": "khan",
+      "country": "India",
+      "phone": "09043898231",
+      "email": "zubairyakhan48@gmail.com",
+      "inquiryType": "AI Consulting",
+      "message": "hii",
+      "date": "2026-08-03T05:35:48.019Z",
+      "status": "Pending"
+    },
+    {
+      "id": 1785736431166,
+      "firstName": "zubairya",
+      "lastName": "khan",
+      "country": "India",
+      "phone": "09043898231",
+      "email": "zubairyakhan48@gmail.com",
+      "inquiryType": "Cloud & DevOps",
+      "message": "hii",
+      "date": "2026-08-03T05:53:51.166Z",
+      "status": "Pending"
+    }
+  ],
+  "clarity_hero_slides": [
+    {
+      "id": 1,
+      "image": "/office-bg.jpg?v=10",
+      "title": "Clarity Headquarters ",
+      "subtitle": "Powering Your Technology Like It's",
+      "highlight": "Our Own",
+      "description": "Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, and security audit systems. We align our processes with your vision to secure your production environments.",
+      "buttonText": "Explore IT Solutions",
+      "buttonLink": "#services",
+      "category": "Enterprise Lobby & Executive Suite",
+      "badge": "01 / 04 • ENTERPRISE HQ"
+    },
+    {
+      "id": 2,
+      "image": "/carousel-1.png?v=10",
+      "title": "Executive Tech Strategy",
+      "subtitle": "Architecting Your Future With",
+      "highlight": "Precision",
+      "description": "Our senior architects design cloud-native strategies and governance frameworks that scale with your business growth across global markets.",
+      "buttonText": "View Our Solutions",
+      "buttonLink": "#solutions",
+      "category": "Architecture & Cloud Planning",
+      "badge": "02 / 04 • STRATEGY & GOVERNANCE"
+    },
+    {
+      "id": 3,
+      "image": "/carousel-2.png?v=10",
+      "title": "Software Engineering Hub",
+      "subtitle": "Building Products That",
+      "highlight": "Last Forever",
+      "description": "From full-stack web platforms to mobile apps, our agile teams deliver high-quality, maintainable code with rapid deployment cycles and zero downtime.",
+      "buttonText": "Our Services",
+      "buttonLink": "#services",
+      "category": "Full-Stack & DevOps Experts",
+      "badge": "03 / 04 • AGILE DEVELOPMENT"
+    },
+    {
+      "id": 4,
+      "image": "/carousel-3.png?v=10",
+      "title": "Modern Tech Workstations",
+      "subtitle": "Infrastructure Built For",
+      "highlight": "Innovation",
+      "description": "State-of-the-art workstations and high-performance cloud environments enable our teams to deliver cutting-edge solutions for the most demanding enterprise workloads.",
+      "buttonText": "Contact Us",
+      "buttonLink": "#contact",
+      "category": "High-Performance Infrastructure",
+      "badge": "04 / 04 • WORKSPACE & INNOVATION"
+    }
+  ],
+  "clarity_seo_data": {
+    "home": {
+      "title": "Clarity InfoTech | Enterprise Software Engineering & Cloud Solutions",
+      "description": "Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, cloud architecture, and security audit systems with 24/7 reliability.",
+      "keywords": "Clarity InfoTech, software engineering, DevOps, cloud architecture, security audit, custom software, React, Next.js",
+      "canonical": "https://clarityinfotech.com",
+      "slug": "/",
+      "robotsIndex": "index",
+      "robotsFollow": "follow",
+      "ogTitle": "Clarity InfoTech | Enterprise Software Solutions",
+      "ogDescription": "Enterprise-grade software engineering, DevOps automation, and security audits.",
+      "ogImage": "https://clarityinfotech.com/logo.png",
+      "ogUrl": "https://clarityinfotech.com",
+      "ogType": "website",
+      "twitterTitle": "Clarity InfoTech | Enterprise Software Solutions",
+      "twitterDescription": "Enterprise-grade software engineering, DevOps automation, and security audits.",
+      "twitterImage": "https://clarityinfotech.com/logo.png",
+      "twitterCardType": "summary_large_image",
+      "imageAlt": "Clarity InfoTech Enterprise Software Solutions",
+      "imageTitle": "Clarity InfoTech Logo",
+      "imageCaption": "Powering platforms that scale your business.",
+      "schemaType": "Organization",
+      "schemaJson": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Organization\",\n  \"name\": \"Clarity InfoTech\",\n  \"url\": \"https://clarityinfotech.com\",\n  \"logo\": \"https://clarityinfotech.com/logo.png\",\n  \"sameAs\": [\n    \"https://linkedin.com/company/clarityinfotech\"\n  ]\n}",
+      "sitemapInclude": true,
+      "sitemapPriority": 1,
+      "sitemapFrequency": "weekly"
+    },
+    "about": {
+      "title": "About Us | Clarity InfoTech - Premium Software Engineering Squad",
+      "description": "Learn more about our elite team of engineers, developers, and architects. We help corporations automate systems and scale cloud deployments.",
+      "keywords": "about clarity, tech engineering team, software development company, Prince Infocity",
+      "canonical": "https://clarityinfotech.com/about",
+      "slug": "/about",
+      "robotsIndex": "index",
+      "robotsFollow": "follow",
+      "ogTitle": "About Us | Clarity InfoTech",
+      "ogDescription": "Meet our elite team of cloud architects and software engineers.",
+      "ogImage": "https://clarityinfotech.com/logo.png",
+      "ogUrl": "https://clarityinfotech.com/about",
+      "ogType": "website",
+      "twitterTitle": "About Us | Clarity InfoTech",
+      "twitterDescription": "Meet our elite team of cloud architects and software engineers.",
+      "twitterImage": "https://clarityinfotech.com/logo.png",
+      "twitterCardType": "summary_large_image",
+      "imageAlt": "Clarity InfoTech Team Collaboration",
+      "imageTitle": "Clarity Engineers Working",
+      "imageCaption": "Innovation, wellness, and technical excellence.",
+      "schemaType": "Organization",
+      "schemaJson": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"AboutPage\",\n  \"name\": \"About Clarity InfoTech\",\n  \"description\": \"Learn about our development team and corporate locations in India.\"\n}",
+      "sitemapInclude": true,
+      "sitemapPriority": 0.8,
+      "sitemapFrequency": "weekly"
+    },
+    "projects": {
+      "title": "Our Projects & Case Studies | Clarity InfoTech",
+      "description": "Explore our success stories. From Kubernetes deployments for fintech platforms to security readiness audits for legacy systems.",
+      "keywords": "case studies, kubernetes migration, cloud security review, portfolio",
+      "canonical": "https://clarityinfotech.com/services",
+      "slug": "/services",
+      "robotsIndex": "index",
+      "robotsFollow": "follow",
+      "ogTitle": "Our Projects & Case Studies | Clarity InfoTech",
+      "ogDescription": "Explore our real-world cloud migrations and custom platforms.",
+      "ogImage": "https://clarityinfotech.com/logo.png",
+      "ogUrl": "https://clarityinfotech.com/services",
+      "ogType": "website",
+      "twitterTitle": "Our Projects & Case Studies | Clarity InfoTech",
+      "twitterDescription": "Explore our real-world cloud migrations and custom platforms.",
+      "twitterImage": "https://clarityinfotech.com/logo.png",
+      "twitterCardType": "summary_large_image",
+      "imageAlt": "Clarity InfoTech Real-World Cloud Migrations",
+      "imageTitle": "Case Studies and Kubernetes Workloads",
+      "imageCaption": "Zero-downtime microservices migrations.",
+      "schemaType": "Service",
+      "schemaJson": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"CollectionPage\",\n  \"name\": \"Clarity InfoTech Projects\",\n  \"description\": \"Case studies of enterprise cloud migrations and security audits.\"\n}",
+      "sitemapInclude": true,
+      "sitemapPriority": 0.8,
+      "sitemapFrequency": "weekly"
+    },
+    "services": {
+      "title": "Our Services | Software Architecture & DevOps Automation",
+      "description": "We design high-throughput cloud strategies, automated DevOps pipelines, bespoke web and mobile platforms, and advanced AI systems.",
+      "keywords": "devops automation, bespoke software, cloud migration, cyber security audit",
+      "canonical": "https://clarityinfotech.com/our-services",
+      "slug": "/our-services",
+      "robotsIndex": "index",
+      "robotsFollow": "follow",
+      "ogTitle": "Our Services | Clarity InfoTech",
+      "ogDescription": "Bespoke engineering, DevOps automation, cloud architecture, and cybersecurity.",
+      "ogImage": "https://clarityinfotech.com/logo.png",
+      "ogUrl": "https://clarityinfotech.com/our-services",
+      "ogType": "website",
+      "twitterTitle": "Our Services | Clarity InfoTech",
+      "twitterDescription": "Bespoke engineering, DevOps automation, cloud architecture, and cybersecurity.",
+      "twitterImage": "https://clarityinfotech.com/logo.png",
+      "twitterCardType": "summary_large_image",
+      "imageAlt": "Bespoke software development & DevOps consultation",
+      "imageTitle": "Services list grid",
+      "imageCaption": "Automated pipelines and AI-driven systems.",
+      "schemaType": "Service",
+      "schemaJson": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Service\",\n  \"name\": \"Bespoke Software Development & DevOps Consultation\",\n  \"provider\": {\n    \"@type\": \"Organization\",\n    \"name\": \"Clarity InfoTech\"\n  }\n}",
+      "sitemapInclude": true,
+      "sitemapPriority": 0.9,
+      "sitemapFrequency": "weekly"
+    },
+    "contact": {
+      "title": "Contact Us | Reach Clarity InfoTech Squad",
+      "description": "Get in touch with us to discuss your enterprise workloads. Offices in Prince Infocity, Chennai and Coimbatore, India.",
+      "keywords": "contact developers, hire software squad, Prince Infocity Chennai, Kandhanchavadi map",
+      "canonical": "https://clarityinfotech.com/contact",
+      "slug": "/contact",
+      "robotsIndex": "index",
+      "robotsFollow": "follow",
+      "ogTitle": "Contact Us | Clarity InfoTech",
+      "ogDescription": "Reach our software squads and visit our offices in India.",
+      "ogImage": "https://clarityinfotech.com/logo.png",
+      "ogUrl": "https://clarityinfotech.com/contact",
+      "ogType": "website",
+      "twitterTitle": "Contact Us | Clarity InfoTech",
+      "twitterDescription": "Reach our software squads and visit our offices in India.",
+      "twitterImage": "https://clarityinfotech.com/logo.png",
+      "twitterCardType": "summary_large_image",
+      "imageAlt": "Prince Infocity Kandhanchavadi Office Location Map",
+      "imageTitle": "Map coordinates",
+      "imageCaption": "Visit our headquarters in Chennai.",
+      "schemaType": "Organization",
+      "schemaJson": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"ContactPage\",\n  \"name\": \"Contact Clarity InfoTech\",\n  \"description\": \"Phone number, email address, physical location, and contact form.\"\n}",
+      "sitemapInclude": true,
+      "sitemapPriority": 0.8,
+      "sitemapFrequency": "monthly"
+    },
+    "gallery": {
+      "title": "Gallery | Clarity InfoTech - Media Showcase",
+      "description": "Explore the visual journey of Clarity InfoTech. Photos, event coverage, highlights, and office environment.",
+      "keywords": "clarity infotech gallery, photos, tech workspace, corporate showcase",
+      "canonical": "https://clarityinfotech.com/gallery",
+      "slug": "/gallery",
+      "robotsIndex": "index",
+      "robotsFollow": "follow",
+      "ogTitle": "Gallery | Clarity InfoTech",
+      "ogDescription": "Visual gallery and media showcase of Clarity InfoTech.",
+      "ogImage": "https://clarityinfotech.com/logo.png",
+      "ogUrl": "https://clarityinfotech.com/gallery",
+      "ogType": "website",
+      "twitterTitle": "Gallery | Clarity InfoTech",
+      "twitterDescription": "Visual gallery and media showcase of Clarity InfoTech.",
+      "twitterImage": "https://clarityinfotech.com/logo.png",
+      "twitterCardType": "summary_large_image",
+      "imageAlt": "Clarity InfoTech Photo Gallery",
+      "imageTitle": "Gallery and Media Showcase",
+      "imageCaption": "A visual showcase of our culture and milestones.",
+      "schemaType": "ImageGallery",
+      "schemaJson": "{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"ImageGallery\",\n  \"name\": \"Clarity InfoTech Photo Gallery\",\n  \"description\": \"Photos of projects, events, and highlights from Clarity InfoTech.\"\n}",
+      "sitemapInclude": true,
+      "sitemapPriority": 0.7,
+      "sitemapFrequency": "weekly"
+    },
+    "privacy": {
+      "title": "Privacy Policy | Clarity InfoTech CIT",
+      "description": "Read our corporate Privacy Policy explaining how we secure, process, and safeguard your data.",
+      "keywords": "privacy policy, cookies tracking, security data retention",
+      "canonical": "https://clarityinfotech.com/privacy-policy",
+      "slug": "/privacy-policy",
+      "robotsIndex": "noindex",
+      "robotsFollow": "follow",
+      "schemaJson": "{}",
+      "sitemapInclude": false,
+      "sitemapPriority": 0.3,
+      "sitemapFrequency": "yearly"
+    },
+    "terms": {
+      "title": "Terms and Conditions | Clarity InfoTech CIT",
+      "description": "Read our corporate terms and conditions of usage of our cloud services and custom solutions.",
+      "keywords": "terms and conditions, intellectual property, service SLA",
+      "canonical": "https://clarityinfotech.com/terms-of-service",
+      "slug": "/terms-of-service",
+      "robotsIndex": "noindex",
+      "robotsFollow": "follow",
+      "schemaJson": "{}",
+      "sitemapInclude": false,
+      "sitemapPriority": 0.3,
+      "sitemapFrequency": "yearly"
+    },
+    "refund": {
+      "title": "Refund Policy | Clarity InfoTech",
+      "description": "Read our corporate refund and milestone cancellation policy.",
+      "keywords": "refund scope, milestone cancellation",
+      "canonical": "https://clarityinfotech.com/refund-policy",
+      "slug": "/refund-policy",
+      "robotsIndex": "noindex",
+      "robotsFollow": "follow",
+      "schemaJson": "{}",
+      "sitemapInclude": false,
+      "sitemapPriority": 0.3,
+      "sitemapFrequency": "yearly"
+    }
+  },
+  "clarity_page_gallery": {
+    "heroTitle": "Our Gallery",
+    "heroSubtitle": "A visual showcase of our workspace, team milestones, and event highlights.",
+    "sectionTitle": "Glimpses of Clarity Moments",
+    "sectionSubtitle": "A sneak peek into our events, celebrations, and team experiences."
+  },
+  "clarity_gallery_images": [
+    {
+      "url": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&h=800&q=80",
+      "alt": "Premium Developer Workspace",
+      "title": "Bespoke Workspace Setup"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&h=800&q=80",
+      "alt": "Enterprise Cloud Servers",
+      "title": "Secure Server Infrastructure"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&h=800&q=80",
+      "alt": "System Architecture Mapping",
+      "title": "Solution Engineering Sprint"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&h=800&q=80",
+      "alt": "Agile Development Sprint",
+      "title": "Collaborative Team Work"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&h=800&q=80",
+      "alt": "High-Throughput Codebase",
+      "title": "Clean Production Code"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&h=800&q=80",
+      "alt": "CIT Office Lounge Chennai",
+      "title": "Office Collaboration Lounge"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&h=800&q=80",
+      "alt": "System Design Wireframe",
+      "title": "Bespoke System Architecture"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&h=800&q=80",
+      "alt": "Fiber Networking Infrastructure",
+      "title": "High-Speed Fiber Telemetry"
+    },
+    {
+      "url": "/logos/logo.png",
+      "alt": "New Gallery Image",
+      "title": "Logo"
+    }
+  ],
+  "clarity_gallery_videos": [
+    {
+      "title": "New Video",
+      "url": "https://youtu.be/Urhz5VfgaaA?si=IO7AyfzThsNbyk5B",
+      "thumbnail": "/logos/WhatsApp_Image_2026-07-29_at_4_03_35_PM.jpeg",
+      "isLocal": false
+    }
+  ],
+  "clarity_gallery_videos_v2": [
+    {
+      "title": "Cloud Infrastructure & DevOps Automation",
+      "url": "https://www.youtube.com/embed/M988_fsOSWo",
+      "thumbnail": "https://img.youtube.com/vi/M988_fsOSWo/hqdefault.jpg",
+      "isLocal": false
+    },
+    {
+      "title": "AI & Machine Learning in Modern Enterprises",
+      "url": "https://www.youtube.com/embed/aircAruvnKk",
+      "thumbnail": "https://img.youtube.com/vi/aircAruvnKk/hqdefault.jpg",
+      "isLocal": false
+    },
+    {
+      "title": "Cybersecurity & Secure System Architecture",
+      "url": "https://www.youtube.com/embed/inWWhr5tnEA",
+      "thumbnail": "https://img.youtube.com/vi/inWWhr5tnEA/hqdefault.jpg",
+      "isLocal": false
+    },
+    {
+      "title": "New Video",
+      "url": "https://youtu.be/jSeI6OfifCI?si=npwzI3bO68JGDW-q",
+      "thumbnail": "",
+      "isLocal": false
+    }
+  ]
+}

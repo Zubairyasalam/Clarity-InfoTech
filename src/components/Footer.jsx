@@ -28,6 +28,7 @@ const DEFAULT_FOOTER = {
     { label: "About Us", url: "/about" },
     { label: "Our Projects", url: "/services" },
     { label: "Our Services", url: "/our-services" },
+    { label: "Gallery", url: "/gallery" },
     { label: "Contact", url: "/contact" },
     { label: "Admin Portal", url: "/admin" }
   ]

@@ -100,6 +100,29 @@ const FALLBACK_SEO_DATA = {
       }
     }, null, 2)
   },
+  gallery: {
+    title: "Gallery | Clarity InfoTech - Media Showcase",
+    description: "Explore the visual journey of Clarity InfoTech. Photos, event coverage, highlights, and office environment.",
+    keywords: "clarity infotech gallery, photos, tech workspace, corporate showcase",
+    canonical: "https://clarityinfotech.com/gallery",
+    robotsIndex: "index",
+    robotsFollow: "follow",
+    ogTitle: "Gallery | Clarity InfoTech",
+    ogDescription: "Visual gallery and media showcase of Clarity InfoTech.",
+    ogImage: "https://clarityinfotech.com/logo.png",
+    ogUrl: "https://clarityinfotech.com/gallery",
+    ogType: "website",
+    twitterTitle: "Gallery | Clarity InfoTech",
+    twitterDescription: "Visual gallery and media showcase of Clarity InfoTech.",
+    twitterImage: "https://clarityinfotech.com/logo.png",
+    twitterCardType: "summary_large_image",
+    schemaJson: JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ImageGallery",
+      "name": "Clarity InfoTech Photo Gallery",
+      "description": "Photos of projects, events, and highlights from Clarity InfoTech."
+    }, null, 2)
+  },
   contact: {
     title: "Contact Us | Reach Clarity InfoTech Squad",
     description: "Get in touch with us to discuss your enterprise workloads. Offices in Candidate Prince Infocity, Chennai and Coimbatore, India.",

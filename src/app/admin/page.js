@@ -37,7 +37,9 @@ import {
   Eye,
   EyeOff,
   Lightbulb,
-  LogOut
+  LogOut,
+  Upload,
+  Link as LinkIcon
 } from "lucide-react";
 
 // Pre-populated Inquiry Mock Data
@@ -623,6 +625,90 @@ export default function AdminDashboard() {
   const [pageContactData, setPageContactData] = useState(DEFAULT_PAGE_CONTACT);
   const [pageContactSaveSuccess, setPageContactSaveSuccess] = useState(false);
 
+  // Gallery Page State
+  const DEFAULT_PAGE_GALLERY = {
+    heroTitle: "Our Gallery",
+    heroSubtitle: "A visual showcase of our workspace, team milestones, and event highlights.",
+    sectionTitle: "Glimpses of Clarity Moments",
+    sectionSubtitle: "A sneak peek into our events, celebrations, and team experiences.",
+    bottomCtaTitle: "Want to create memorable moments with us?",
+    bottomCtaSubtitle: "Partner with our software squads or join our growing team of innovators.",
+    bottomCtaButtonText: "Get In Touch",
+    bottomCtaButtonLink: "/contact",
+    stats: [
+      { value: "50+", label: "Events & Sprints" },
+      { value: "100+", label: "Team Celebrations" },
+      { value: "500+", label: "Projects Completed" },
+      { value: "15+", label: "Global Tech Hubs" }
+    ]
+  };
+  const DEFAULT_GALLERY_IMAGES = [
+    {
+      url: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&h=800&q=80",
+      alt: "Premium Developer Workspace",
+      title: "Bespoke Workspace Setup"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&h=800&q=80",
+      alt: "Enterprise Cloud Servers",
+      title: "Secure Server Infrastructure"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&h=800&q=80",
+      alt: "System Architecture Mapping",
+      title: "Solution Engineering Sprint"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&h=800&q=80",
+      alt: "Agile Development Sprint",
+      title: "Collaborative Team Work"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&h=800&q=80",
+      alt: "High-Throughput Codebase",
+      title: "Clean Production Code"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&h=800&q=80",
+      alt: "CIT Office Lounge Chennai",
+      title: "Office Collaboration Lounge"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&h=800&q=80",
+      alt: "System Design Wireframe",
+      title: "Bespoke System Architecture"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&h=800&q=80",
+      alt: "Fiber Networking Infrastructure",
+      title: "High-Speed Fiber Telemetry"
+    }
+  ];
+  const [pageGalleryData, setPageGalleryData] = useState(DEFAULT_PAGE_GALLERY);
+  const [galleryImages, setGalleryImages] = useState(DEFAULT_GALLERY_IMAGES);
+  const [pageGallerySaveSuccess, setPageGallerySaveSuccess] = useState(false);
+  const DEFAULT_GALLERY_VIDEOS = [
+    {
+      title: "Cloud Infrastructure & DevOps Automation",
+      url: "https://www.youtube.com/embed/M988_fsOSWo",
+      thumbnail: "https://img.youtube.com/vi/M988_fsOSWo/hqdefault.jpg",
+      isLocal: false
+    },
+    {
+      title: "AI & Machine Learning in Modern Enterprises",
+      url: "https://www.youtube.com/embed/aircAruvnKk",
+      thumbnail: "https://img.youtube.com/vi/aircAruvnKk/hqdefault.jpg",
+      isLocal: false
+    },
+    {
+      title: "Cybersecurity & Secure System Architecture",
+      url: "https://www.youtube.com/embed/inWWhr5tnEA",
+      thumbnail: "https://img.youtube.com/vi/inWWhr5tnEA/hqdefault.jpg",
+      isLocal: false
+    }
+  ];
+  const [galleryVideos, setGalleryVideos] = useState(DEFAULT_GALLERY_VIDEOS);
+
   // Legal Pages State
   const DEFAULT_LEGAL_PAGES = {
     privacyTitle: "Privacy Policy",
@@ -645,6 +731,7 @@ export default function AdminDashboard() {
       { id: 2, label: "About Us", url: "/about" },
       { id: 3, label: "Our Projects", url: "/services" },
       { id: 4, label: "Our Services", url: "/our-services" },
+      { id: 6, label: "Gallery", url: "/gallery" },
       { id: 5, label: "Contact", url: "/contact" }
     ]
   };
@@ -817,6 +904,37 @@ export default function AdminDashboard() {
       sitemapInclude: true,
       sitemapPriority: 0.8,
       sitemapFrequency: "monthly"
+    },
+    gallery: {
+      title: "Gallery | Clarity InfoTech - Media Showcase",
+      description: "Explore the visual journey of Clarity InfoTech. Photos, event coverage, highlights, and office environment.",
+      keywords: "clarity infotech gallery, photos, tech workspace, corporate showcase",
+      canonical: "https://clarityinfotech.com/gallery",
+      slug: "/gallery",
+      robotsIndex: "index",
+      robotsFollow: "follow",
+      ogTitle: "Gallery | Clarity InfoTech",
+      ogDescription: "Visual gallery and media showcase of Clarity InfoTech.",
+      ogImage: "https://clarityinfotech.com/logo.png",
+      ogUrl: "https://clarityinfotech.com/gallery",
+      ogType: "website",
+      twitterTitle: "Gallery | Clarity InfoTech",
+      twitterDescription: "Visual gallery and media showcase of Clarity InfoTech.",
+      twitterImage: "https://clarityinfotech.com/logo.png",
+      twitterCardType: "summary_large_image",
+      imageAlt: "Clarity InfoTech Photo Gallery",
+      imageTitle: "Gallery and Media Showcase",
+      imageCaption: "A visual showcase of our culture and milestones.",
+      schemaType: "ImageGallery",
+      schemaJson: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ImageGallery",
+        "name": "Clarity InfoTech Photo Gallery",
+        "description": "Photos of projects, events, and highlights from Clarity InfoTech."
+      }, null, 2),
+      sitemapInclude: true,
+      sitemapPriority: 0.7,
+      sitemapFrequency: "weekly"
     },
     privacy: {
       title: "Privacy Policy | Clarity InfoTech CIT",
@@ -1026,7 +1144,21 @@ export default function AdminDashboard() {
       // Load header data
       const storedHeader = localStorage.getItem("clarity_header");
       if (storedHeader) {
-        try { setHeaderData({ ...DEFAULT_HEADER, ...JSON.parse(storedHeader) }); } catch { }
+        try {
+          const parsed = JSON.parse(storedHeader);
+          if (parsed && parsed.links && !parsed.links.some(l => l.url === "/gallery")) {
+            const updatedLinks = [...parsed.links];
+            const contactIdx = updatedLinks.findIndex(l => l.url === "/contact");
+            if (contactIdx !== -1) {
+              updatedLinks.splice(contactIdx, 0, { id: 6, label: "Gallery", url: "/gallery" });
+            } else {
+              updatedLinks.push({ id: 6, label: "Gallery", url: "/gallery" });
+            }
+            parsed.links = updatedLinks;
+            localStorage.setItem("clarity_header", JSON.stringify(parsed));
+          }
+          setHeaderData({ ...DEFAULT_HEADER, ...parsed });
+        } catch { }
       } else {
         localStorage.setItem("clarity_header", JSON.stringify(DEFAULT_HEADER));
       }
@@ -1077,6 +1209,26 @@ export default function AdminDashboard() {
         try { setPageContactData({ ...DEFAULT_PAGE_CONTACT, ...JSON.parse(storedPageContact) }); } catch { }
       } else {
         localStorage.setItem("clarity_page_contact", JSON.stringify(DEFAULT_PAGE_CONTACT));
+      }
+
+      // Load Gallery Page data
+      const storedPageGallery = localStorage.getItem("clarity_page_gallery");
+      if (storedPageGallery) {
+        try { setPageGalleryData({ ...DEFAULT_PAGE_GALLERY, ...JSON.parse(storedPageGallery) }); } catch { }
+      } else {
+        localStorage.setItem("clarity_page_gallery", JSON.stringify(DEFAULT_PAGE_GALLERY));
+      }
+
+      const storedGalleryImages = localStorage.getItem("clarity_gallery_images");
+      if (storedGalleryImages) {
+        try { setGalleryImages(JSON.parse(storedGalleryImages)); } catch { }
+      } else {
+        localStorage.setItem("clarity_gallery_images", JSON.stringify(DEFAULT_GALLERY_IMAGES));
+      }
+
+      const storedGalleryVideos = localStorage.getItem("clarity_gallery_videos_v2");
+      if (storedGalleryVideos) {
+        try { setGalleryVideos(JSON.parse(storedGalleryVideos)); } catch { }
       }
 
       // Load Legal Pages data
@@ -1378,6 +1530,42 @@ export default function AdminDashboard() {
   };
   const resetServices = () => { if (confirm("Reset Services section to defaults?")) { setServicesData(DEFAULT_SERVICES); localStorage.setItem("clarity_services", JSON.stringify(DEFAULT_SERVICES)); } };
 
+  const handleProjectMediaUpload = async (i, e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const res = await fetch("/api/logos", { method: "POST", body: formData });
+      const data = await res.json();
+      if (data.success && data.url) {
+        updateProjectCard(i, "media", data.url);
+        const isVid = file.type.startsWith("video/") || data.url.endsWith(".mp4") || data.url.endsWith(".webm");
+        updateProjectCard(i, "isVideo", isVid);
+      }
+    } catch (err) {
+      console.error("Failed to upload project media:", err);
+    }
+  };
+
+  const handleServiceCardMediaUpload = async (i, e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const res = await fetch("/api/logos", { method: "POST", body: formData });
+      const data = await res.json();
+      if (data.success && data.url) {
+        updateServiceCard(i, "media", data.url);
+        const isVid = file.type.startsWith("video/") || data.url.endsWith(".mp4") || data.url.endsWith(".webm");
+        updateServiceCard(i, "isVideo", isVid);
+      }
+    } catch (err) {
+      console.error("Failed to upload service media:", err);
+    }
+  };
+
   // FAQ CRUD
   const updateFaqField = (key, val) => setFaqData(d => ({ ...d, [key]: val }));
   const updateFaqQuestion = (i, key, val) => setFaqData(d => { const q = [...(d.questions || [])]; q[i] = { ...q[i], [key]: val }; return { ...d, questions: q }; });
@@ -1552,6 +1740,86 @@ export default function AdminDashboard() {
     setTimeout(() => setPageContactSaveSuccess(false), 2500);
   };
   const resetPageContact = () => { if (confirm("Reset Contact Us page to defaults?")) { setPageContactData(DEFAULT_PAGE_CONTACT); localStorage.setItem("clarity_page_contact", JSON.stringify(DEFAULT_PAGE_CONTACT)); } };
+
+  // Gallery Page CRUD
+  const updatePageGalleryField = (key, val) => setPageGalleryData(d => ({ ...d, [key]: val }));
+  const updateGalleryImage = (i, key, val) => setGalleryImages(imgs => { const updated = [...imgs]; updated[i] = { ...updated[i], [key]: val }; return updated; });
+  const addGalleryImage = () => setGalleryImages(imgs => [...imgs, { url: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&h=800&q=80", alt: "New Gallery Image", title: "New Moment Title" }]);
+  const deleteGalleryImage = (i) => setGalleryImages(imgs => imgs.filter((_, idx) => idx !== i));
+  const moveGalleryImage = (i, dir) => setGalleryImages(imgs => {
+    const newIdx = i + dir;
+    if (newIdx < 0 || newIdx >= imgs.length) return imgs;
+    const updated = [...imgs];
+    [updated[i], updated[newIdx]] = [updated[newIdx], updated[i]];
+    return updated;
+  });
+
+  const handleGalleryImageUpload = async (i, e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const res = await fetch("/api/logos", { method: "POST", body: formData });
+      const data = await res.json();
+      if (data.success && data.url) {
+        updateGalleryImage(i, "url", data.url);
+      }
+    } catch (err) {
+      console.error("Failed to upload image:", err);
+    }
+  };
+
+  const savePageGallery = () => {
+    localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
+    localStorage.setItem("clarity_page_gallery", JSON.stringify(pageGalleryData));
+    localStorage.setItem("clarity_gallery_images", JSON.stringify(galleryImages));
+    localStorage.setItem("clarity_gallery_videos_v2", JSON.stringify(galleryVideos));
+    setPageGallerySaveSuccess(true);
+    setTimeout(() => setPageGallerySaveSuccess(false), 2500);
+  };
+  const resetPageGallery = () => {
+    if (confirm("Reset Gallery Page to defaults?")) {
+      setPageGalleryData(DEFAULT_PAGE_GALLERY);
+      setGalleryImages(DEFAULT_GALLERY_IMAGES);
+      setGalleryVideos([]);
+      localStorage.setItem("clarity_page_gallery", JSON.stringify(DEFAULT_PAGE_GALLERY));
+      localStorage.setItem("clarity_gallery_images", JSON.stringify(DEFAULT_GALLERY_IMAGES));
+      localStorage.setItem("clarity_gallery_videos_v2", JSON.stringify([]));
+    }
+  };
+
+  // Gallery Videos CRUD
+  const addGalleryVideo = () => setGalleryVideos(v => [...v, { title: "New Video", url: "", thumbnail: "", isLocal: false }]);
+  const updateGalleryVideo = (i, key, val) => setGalleryVideos(v => { const n = [...v]; n[i] = { ...n[i], [key]: val }; return n; });
+  const deleteGalleryVideo = (i) => setGalleryVideos(v => v.filter((_, idx) => idx !== i));
+  const handleGalleryVideoThumbnailUpload = async (i, e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const res = await fetch("/api/logos", { method: "POST", body: formData });
+      const data = await res.json();
+      if (data.success && data.url) updateGalleryVideo(i, "thumbnail", data.url);
+    } catch (err) { console.error("Failed to upload thumbnail:", err); }
+  };
+  const handleGalleryVideoFileUpload = async (i, e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      const res = await fetch("/api/logos", { method: "POST", body: formData });
+      const data = await res.json();
+      if (data.success && data.url) { updateGalleryVideo(i, "url", data.url); updateGalleryVideo(i, "isLocal", true); }
+    } catch (err) { console.error("Failed to upload video:", err); }
+  };
+  const saveGalleryVideos = () => {
+    localStorage.setItem("clarity_gallery_videos_v2", JSON.stringify(galleryVideos));
+    setPageGallerySaveSuccess(true);
+    setTimeout(() => setPageGallerySaveSuccess(false), 2500);
+  };
 
   // Legal Pages CRUD
   const updateLegalPagesField = (key, val) => setLegalPagesData(d => ({ ...d, [key]: val }));
@@ -2209,6 +2477,11 @@ export default function AdminDashboard() {
       desc = "Get in touch with our elite developers. Speak to our team at Prince Infocity, Chennai and Coimbatore, India.";
       keywords = "hire developers, contact engineering squad, chennai office phone, software consultation";
       slug = "/contact";
+    } else if (seoSelectedPage === "gallery") {
+      title = "Gallery | " + brand + " - Media Showcase";
+      desc = "Explore the visual journey of " + brand + ". Photos, event coverage, highlights, and office environment.";
+      keywords = "clarity infotech gallery, photos, tech workspace, corporate showcase";
+      slug = "/gallery";
     } else {
       title = seoSelectedPage.charAt(0).toUpperCase() + seoSelectedPage.slice(1) + " | " + brand;
       desc = "Read our corporate policy page and milestone agreements for " + brand + ".";
@@ -2414,6 +2687,7 @@ export default function AdminDashboard() {
       "page-about": "About Page",
       "page-projects": "Our Projects",
       "page-service": "Our Service",
+      "page-gallery": "Gallery Page",
       "page-legal": "Legal Pages",
       "system-config": "System Configuration"
     };
@@ -2615,6 +2889,7 @@ export default function AdminDashboard() {
                     { id: "page-about", label: "About Page", icon: FileText },
                     { id: "page-projects", label: "Our Projects", icon: Briefcase },
                     { id: "page-service", label: "Our Service", icon: Layers },
+                    { id: "page-gallery", label: "Gallery Page", icon: Image },
                   ].map((item) => {
                     const Icon = item.icon;
                     const isActive = activeTab === item.id;
@@ -3100,7 +3375,13 @@ export default function AdminDashboard() {
                             </div>
                             <div>
                               <label className="text-xs text-slate-500 font-semibold block mb-1">Media Path (Image or Video)</label>
-                              <input type="text" value={card.media} onChange={e => updateProjectCard(i, "media", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2 outline-none focus:border-[#1E67E2] transition" />
+                              <div className="flex items-center gap-2">
+                                <input type="text" value={card.media} onChange={e => updateProjectCard(i, "media", e.target.value)} placeholder="/service.mp4 or URL" className="flex-1 bg-white border border-slate-200 text-xs font-mono text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" />
+                                <label className="px-2.5 py-2 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-xl text-xs font-bold transition cursor-pointer shrink-0 border border-indigo-200 flex items-center gap-1">
+                                  <Video size={13} /> Upload
+                                  <input type="file" accept="video/*,image/*" onChange={e => handleProjectMediaUpload(i, e)} className="hidden" />
+                                </label>
+                              </div>
                             </div>
                           </div>
 
@@ -3110,6 +3391,40 @@ export default function AdminDashboard() {
                               <span>Is Video File</span>
                             </label>
                           </div>
+
+                          {/* LIVE MEDIA / VIDEO PREVIEW DISPLAY */}
+                          {card.media && (
+                            <div className="flex items-center gap-4 p-3 bg-slate-900 text-white rounded-2xl border border-slate-800 shadow-md">
+                              <div className="w-40 h-24 rounded-xl overflow-hidden bg-black shrink-0 relative border border-slate-700">
+                                {(card.isVideo || (card.media && (card.media.endsWith(".mp4") || card.media.endsWith(".webm")))) ? (
+                                  <video
+                                    src={card.media}
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                    className="w-full h-full object-cover"
+                                    onError={(e) => { e.target.style.display = 'none'; }}
+                                  />
+                                ) : (
+                                  <img
+                                    src={card.media}
+                                    alt={card.title}
+                                    className="w-full h-full object-cover"
+                                    onError={(e) => { e.target.style.display = 'none'; }}
+                                  />
+                                )}
+                                <span className="absolute bottom-1 right-1 bg-black/80 text-white text-[9px] font-bold px-1.5 py-0.5 rounded backdrop-blur-xs flex items-center gap-1">
+                                  {(card.isVideo || (card.media && (card.media.endsWith(".mp4") || card.media.endsWith(".webm")))) ? "🎥 Live Video" : "🖼️ Image"}
+                                </span>
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <span className="text-[10px] font-mono text-sky-400 uppercase font-bold tracking-widest block">Admin Live Video Preview</span>
+                                <h4 className="text-sm font-bold text-white truncate mt-0.5">{card.title}</h4>
+                                <p className="text-xs font-mono text-slate-400 truncate mt-1">{card.media}</p>
+                              </div>
+                            </div>
+                          )}
 
                           {/* Features list for this card */}
                           <div className="bg-white border border-slate-200 rounded-xl p-3.5 space-y-2">
@@ -3444,6 +3759,271 @@ export default function AdminDashboard() {
                   {renderQuickSeoCard("services", "page_service")}
                 </div>
               )}
+
+              {/* GALLERY PAGE EDITOR */}
+              {(activeTab === "gallery" || activeTab === "page-gallery") && (
+                <div className="space-y-6">
+                  {/* Top header card */}
+                  <div className="bg-white rounded-3xl shadow-sm border border-slate-100 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                      <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+                        <Image className="text-[#1E67E2]" size={24} />
+                        Gallery Page Content & Showcase
+                      </h2>
+                      <p className="text-sm text-slate-500 mt-1">
+                        Manage titles, subheadings, and full photo/media items in the infinite marquee gallery showcase.
+                      </p>
+                    </div>
+                    <div className="flex gap-3 shrink-0">
+                      <button onClick={resetPageGallery} className="px-4 py-2 text-xs font-semibold text-slate-500 hover:text-red-500 border border-slate-200 hover:border-red-200 rounded-xl transition cursor-pointer whitespace-nowrap shrink-0">Reset</button>
+                      <button onClick={savePageGallery} className="px-5 py-2 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap shrink-0">
+                        {pageGallerySaveSuccess ? <Check size={16} /> : <Save size={16} />}
+                        {pageGallerySaveSuccess ? "Saved!" : "Save All Changes"}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* HERO SECTION */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Hero Section Header</h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Page Title</label>
+                        <input type="text" value={(pageGalleryData || {}).heroTitle || ""} onChange={e => updatePageGalleryField("heroTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Subtitle</label>
+                        <input type="text" value={(pageGalleryData || {}).heroSubtitle || ""} onChange={e => updatePageGalleryField("heroSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* SECTION TITLE & SUBTITLE */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Showcase Section Header (Glimpses)</h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Gradient Section Heading</label>
+                        <input type="text" value={(pageGalleryData || {}).sectionTitle || ""} onChange={e => updatePageGalleryField("sectionTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Section Subtitle</label>
+                        <input type="text" value={(pageGalleryData || {}).sectionSubtitle || ""} onChange={e => updatePageGalleryField("sectionSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* GALLERY IMAGES MANAGEMENT */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <div className="flex justify-between items-center">
+                      <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Image size={14} /> Gallery Photos & Media Items ({(galleryImages || []).length})</h3>
+                      <button onClick={addGalleryImage} className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#1E67E2] rounded-xl text-xs font-bold transition cursor-pointer">
+                        <Plus size={13} /> Add Gallery Image
+                      </button>
+                    </div>
+
+                    <div className="space-y-4">
+                      {(galleryImages || []).map((img, i) => (
+                        <div key={i} className="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col md:flex-row items-start md:items-center gap-4 relative">
+                          {/* Image Preview */}
+                          <div className="w-24 h-32 rounded-xl overflow-hidden bg-slate-200 border border-slate-300 shrink-0 relative">
+                            <img src={img.url} alt={img.alt} className="w-full h-full object-cover" onError={e => { e.target.style.display = 'none'; }} />
+                            <span className="absolute bottom-1 left-1 text-[10px] font-bold text-white bg-black/60 px-1.5 py-0.5 rounded">#{i + 1}</span>
+                          </div>
+
+                          {/* Inputs */}
+                          <div className="flex-1 grid md:grid-cols-3 gap-3 w-full">
+                            <div className="md:col-span-3">
+                              <label className="text-xs text-slate-500 font-semibold block mb-1">Image URL / Local File Upload</label>
+                              <div className="flex items-center gap-2">
+                                <input type="text" value={img.url} onChange={e => updateGalleryImage(i, "url", e.target.value)} placeholder="https://... or upload image" className="flex-1 bg-white border border-slate-200 text-xs font-mono text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" />
+                                <label className="px-3 py-2 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-xl text-xs font-bold transition cursor-pointer shrink-0 border border-indigo-200 flex items-center gap-1.5">
+                                  <Image size={13} /> Choose File
+                                  <input type="file" accept="image/*" onChange={e => handleGalleryImageUpload(i, e)} className="hidden" />
+                                </label>
+                              </div>
+                            </div>
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold block mb-1">Title / Caption</label>
+                              <input type="text" value={img.title} onChange={e => updateGalleryImage(i, "title", e.target.value)} placeholder="Image Title" className="w-full bg-white border border-slate-200 text-xs font-bold text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" />
+                            </div>
+                            <div className="md:col-span-2">
+                              <label className="text-xs text-slate-500 font-semibold block mb-1">Alt Description</label>
+                              <input type="text" value={img.alt} onChange={e => updateGalleryImage(i, "alt", e.target.value)} placeholder="SEO Alt Text" className="w-full bg-white border border-slate-200 text-xs text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" />
+                            </div>
+                          </div>
+
+                          {/* Action Buttons */}
+                          <div className="flex md:flex-col items-center gap-2 shrink-0 self-end md:self-center">
+                            <button onClick={() => moveGalleryImage(i, -1)} disabled={i === 0} className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-30 transition cursor-pointer" title="Move Up"><ChevronUp size={14} /></button>
+                            <button onClick={() => moveGalleryImage(i, 1)} disabled={i === galleryImages.length - 1} className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-30 transition cursor-pointer" title="Move Down"><ChevronDown size={14} /></button>
+                            <button onClick={() => deleteGalleryImage(i)} className="p-1.5 bg-red-50 text-red-500 hover:bg-red-100 rounded-lg border border-red-100 transition cursor-pointer" title="Delete Image"><Trash2 size={14} /></button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* BOTTOM CTA BANNER */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Bottom Call-to-Action Banner</h3>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">CTA Heading</label>
+                        <input type="text" value={(pageGalleryData || {}).bottomCtaTitle || ""} onChange={e => updatePageGalleryField("bottomCtaTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">CTA Subtitle</label>
+                        <input type="text" value={(pageGalleryData || {}).bottomCtaSubtitle || ""} onChange={e => updatePageGalleryField("bottomCtaSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Button Label</label>
+                        <input type="text" value={(pageGalleryData || {}).bottomCtaButtonText || ""} onChange={e => updatePageGalleryField("bottomCtaButtonText", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Button Link</label>
+                        <input type="text" value={(pageGalleryData || {}).bottomCtaButtonLink || ""} onChange={e => updatePageGalleryField("bottomCtaButtonLink", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* VIDEO POSTS MANAGEMENT */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <div className="flex justify-between items-center">
+                      <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2">
+                        <Video size={14} /> Video Posts Management ({(galleryVideos || []).length})
+                      </h3>
+                      <button onClick={addGalleryVideo} className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#1E67E2] rounded-xl text-xs font-bold transition cursor-pointer">
+                        <Plus size={13} /> Add Video Post
+                      </button>
+                    </div>
+
+                    {(galleryVideos || []).length === 0 && (
+                      <div className="bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-8 text-center">
+                        <Video size={36} className="mx-auto text-slate-300 mb-3" />
+                        <p className="text-sm font-semibold text-slate-500">No video posts yet</p>
+                        <p className="text-xs text-slate-400 mt-1">Click "Add Video Post" to add YouTube, local, or other video links</p>
+                      </div>
+                    )}
+
+                    <div className="space-y-5">
+                      {(galleryVideos || []).map((vid, i) => (
+                        <div key={i} className="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-4">
+                          {/* Header row */}
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Video #{i + 1}</span>
+                            <button onClick={() => deleteGalleryVideo(i)} className="p-1.5 bg-red-50 text-red-500 hover:bg-red-100 rounded-lg border border-red-100 transition cursor-pointer"><Trash2 size={14} /></button>
+                          </div>
+
+                          {/* Title */}
+                          <div>
+                            <label className="text-xs text-slate-500 font-semibold block mb-1">Video Title</label>
+                            <input type="text" value={vid.title} onChange={e => updateGalleryVideo(i, "title", e.target.value)} placeholder="Enter video title..." className="w-full bg-white border border-slate-200 text-sm font-semibold text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                          </div>
+
+                          {/* Section 1: Video URL */}
+                          <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-3">
+                            <p className="text-xs font-bold text-slate-600 flex items-center gap-1.5"><LinkIcon size={12} /> Section 1: Video URL (YouTube, Instagram, Facebook, or Local)</p>
+                            <div className="flex items-center gap-2">
+                              <input
+                                type="text"
+                                value={vid.url}
+                                onChange={e => updateGalleryVideo(i, "url", e.target.value)}
+                                placeholder="e.g. https://www.youtube.com/embed/... or /uploads/video.mp4"
+                                className="flex-1 bg-slate-50 border border-slate-200 text-xs font-mono text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+                              />
+                            </div>
+                          </div>
+
+                          {/* Section 2: Thumbnail Upload */}
+                          <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-3">
+                            <p className="text-xs font-bold text-slate-600 flex items-center gap-1.5"><Image size={12} /> Section 2: Thumbnail Upload</p>
+                            <div className="flex items-center gap-3">
+                              <div className="w-20 h-14 rounded-lg overflow-hidden bg-slate-100 border border-slate-200 shrink-0">
+                                {vid.thumbnail ? (
+                                  <img src={vid.thumbnail} alt="thumb" className="w-full h-full object-cover" onError={e => { e.target.style.display = 'none'; }} />
+                                ) : (
+                                  <div className="w-full h-full flex items-center justify-center"><Image size={20} className="text-slate-300" /></div>
+                                )}
+                              </div>
+                              <div className="flex-1 space-y-2">
+                                <input
+                                  type="text"
+                                  value={vid.thumbnail}
+                                  onChange={e => updateGalleryVideo(i, "thumbnail", e.target.value)}
+                                  placeholder="Or paste image URL instead"
+                                  className="w-full bg-slate-50 border border-slate-200 text-xs font-mono text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+                                />
+                                <label className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-lg text-xs font-bold transition cursor-pointer border border-indigo-200">
+                                  <Upload size={12} /> Upload Thumbnail
+                                  <input type="file" accept="image/*" onChange={e => handleGalleryVideoThumbnailUpload(i, e)} className="hidden" />
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Section 3: Local Video Upload */}
+                          <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-3">
+                            <p className="text-xs font-bold text-slate-600 flex items-center gap-1.5"><Video size={12} /> Section 3: Local Video Upload</p>
+                            <div className="flex items-center gap-3">
+                              <div className="w-20 h-14 rounded-lg overflow-hidden bg-slate-900 border border-slate-700 shrink-0 flex items-center justify-center">
+                                {vid.url && (vid.isLocal || vid.url.endsWith(".mp4") || vid.url.endsWith(".webm")) ? (
+                                  <video src={vid.url} className="w-full h-full object-cover" muted />
+                                ) : (
+                                  <Video size={20} className="text-slate-500" />
+                                )}
+                              </div>
+                              <div className="flex-1 space-y-2">
+                                <p className="text-[11px] text-slate-500">{vid.url && (vid.isLocal || vid.url.endsWith(".mp4")) ? <span className="text-emerald-600 font-bold">✓ Local video uploaded</span> : "No local video selected"}</p>
+                                <p className="text-[10px] text-slate-400">Accepted: MP4, WEBM, MOV • Max 50MB</p>
+                                <label className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 text-white hover:bg-slate-800 rounded-lg text-xs font-bold transition cursor-pointer">
+                                  <Upload size={12} /> Upload Video File
+                                  <input type="file" accept="video/*" onChange={e => handleGalleryVideoFileUpload(i, e)} className="hidden" />
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Live Preview */}
+                          {vid.url && (
+                            <div className="bg-slate-900 rounded-xl p-3 flex items-center gap-3 border border-slate-800">
+                              <div className="w-24 h-16 rounded-lg overflow-hidden bg-black shrink-0 border border-slate-700 relative">
+                                {vid.thumbnail ? (
+                                  <img src={vid.thumbnail} alt="thumb" className="w-full h-full object-cover" />
+                                ) : (vid.url.endsWith(".mp4") || vid.url.endsWith(".webm")) ? (
+                                  <video src={vid.url} muted className="w-full h-full object-cover" />
+                                ) : (
+                                  <div className="w-full h-full bg-slate-800 flex items-center justify-center"><Video size={18} className="text-slate-400" /></div>
+                                )}
+                                <div className="absolute inset-0 flex items-center justify-center bg-black/30"><div className="w-6 h-6 rounded-full bg-white/90 flex items-center justify-center"><span className="text-black text-[10px] font-bold ml-0.5">▶</span></div></div>
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <span className="text-[10px] font-mono text-sky-400 uppercase font-bold tracking-widest block">Live Preview</span>
+                                <p className="text-xs font-bold text-white truncate mt-0.5">{vid.title}</p>
+                                <p className="text-[10px] font-mono text-slate-400 truncate mt-0.5">{vid.url}</p>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+
+                    {galleryVideos.length > 0 && (
+                      <div className="flex justify-end pt-2">
+                        <button onClick={saveGalleryVideos} className="flex items-center gap-2 px-5 py-2.5 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition cursor-pointer">
+                          {pageGallerySaveSuccess ? <Check size={15} /> : <Save size={15} />}
+                          {pageGallerySaveSuccess ? "Saved!" : "Save Video Posts"}
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {renderQuickSeoCard("gallery", "page_gallery")}
+                </div>
+              )}
+
 
               {/* CONTACT US PAGE EDITOR */}
               {(activeTab === "faq" || activeTab === "contact") && (
@@ -4495,16 +5075,22 @@ export default function AdminDashboard() {
                               />
                             </div>
                           </div>
-                          <div className="grid md:grid-cols-3 gap-3 items-center">
+                           <div className="grid md:grid-cols-3 gap-3 items-center">
                             <div className="md:col-span-2">
                               <label className="text-xs text-slate-500 font-semibold mb-1 block">Media URL (Video .mp4 or Image URL)</label>
-                              <input
-                                type="text"
-                                value={card.media}
-                                onChange={e => updateServiceCard(i, "media", e.target.value)}
-                                placeholder="/service.mp4 or https://..."
-                                className="w-full bg-white border border-slate-200 text-xs font-mono text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-indigo-500 transition"
-                              />
+                              <div className="flex items-center gap-2">
+                                <input
+                                  type="text"
+                                  value={card.media}
+                                  onChange={e => updateServiceCard(i, "media", e.target.value)}
+                                  placeholder="/service.mp4 or https://..."
+                                  className="flex-1 bg-white border border-slate-200 text-xs font-mono text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-indigo-500 transition"
+                                />
+                                <label className="px-2.5 py-2 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-lg text-xs font-bold transition cursor-pointer shrink-0 border border-indigo-200 flex items-center gap-1">
+                                  <Video size={13} /> Upload
+                                  <input type="file" accept="video/*,image/*" onChange={e => handleServiceCardMediaUpload(i, e)} className="hidden" />
+                                </label>
+                              </div>
                             </div>
                             <div>
                               <label className="text-xs text-slate-500 font-semibold mb-1 block">Media Type</label>
@@ -4518,6 +5104,40 @@ export default function AdminDashboard() {
                               </select>
                             </div>
                           </div>
+
+                          {/* LIVE MEDIA / VIDEO PREVIEW DISPLAY */}
+                          {card.media && (
+                            <div className="flex items-center gap-4 p-3 bg-slate-900 text-white rounded-xl border border-slate-800 shadow-md">
+                              <div className="w-40 h-24 rounded-lg overflow-hidden bg-black shrink-0 relative border border-slate-700">
+                                {(card.isVideo || (card.media && (card.media.endsWith(".mp4") || card.media.endsWith(".webm")))) ? (
+                                  <video
+                                    src={card.media}
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                    className="w-full h-full object-cover"
+                                    onError={(e) => { e.target.style.display = 'none'; }}
+                                  />
+                                ) : (
+                                  <img
+                                    src={card.media}
+                                    alt={card.title}
+                                    className="w-full h-full object-cover"
+                                    onError={(e) => { e.target.style.display = 'none'; }}
+                                  />
+                                )}
+                                <span className="absolute bottom-1 right-1 bg-black/80 text-white text-[9px] font-bold px-1.5 py-0.5 rounded backdrop-blur-xs flex items-center gap-1">
+                                  {(card.isVideo || (card.media && (card.media.endsWith(".mp4") || card.media.endsWith(".webm")))) ? "🎥 Live Video" : "🖼️ Image"}
+                                </span>
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <span className="text-[10px] font-mono text-sky-400 uppercase font-bold tracking-widest block">Admin Live Video Preview</span>
+                                <h4 className="text-xs font-bold text-white truncate mt-0.5">{card.title}</h4>
+                                <p className="text-[11px] font-mono text-slate-400 truncate mt-1">{card.media}</p>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       ))}
                     </div>
@@ -5200,6 +5820,7 @@ export default function AdminDashboard() {
                               <option value="about">About Us Page (About)</option>
                               <option value="projects">Our Projects Page (Services)</option>
                               <option value="services">Our Services Page (Our-Services)</option>
+                              <option value="gallery">Gallery Page (Gallery)</option>
                               <option value="contact">Contact Page (Contact)</option>
                               <option value="privacy">Privacy Policy</option>
                               <option value="terms">Terms of Service</option>

@@ -158,6 +158,7 @@ export default function ContactPage() {
       { id: 2, label: "About Us", url: "/about" },
       { id: 3, label: "Our Projects", url: "/services" },
       { id: 4, label: "Our Services", url: "/our-services" },
+      { id: 6, label: "Gallery", url: "/gallery" },
       { id: 5, label: "Contact", url: "/contact" }
     ]
   };
@@ -180,7 +181,21 @@ export default function ContactPage() {
   useEffect(() => {
     const storedHeader = localStorage.getItem("clarity_header");
     if (storedHeader) {
-      try { setHeaderData(JSON.parse(storedHeader)); } catch { }
+      try {
+        const parsed = JSON.parse(storedHeader);
+        if (parsed && parsed.links && !parsed.links.some(l => l.url === "/gallery")) {
+          const updatedLinks = [...parsed.links];
+          const contactIdx = updatedLinks.findIndex(l => l.url === "/contact");
+          if (contactIdx !== -1) {
+            updatedLinks.splice(contactIdx, 0, { id: 6, label: "Gallery", url: "/gallery" });
+          } else {
+            updatedLinks.push({ id: 6, label: "Gallery", url: "/gallery" });
+          }
+          parsed.links = updatedLinks;
+          localStorage.setItem("clarity_header", JSON.stringify(parsed));
+        }
+        setHeaderData(parsed);
+      } catch { }
     }
 
     const storedContact = localStorage.getItem("clarity_page_contact");
