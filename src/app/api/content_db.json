@@ -1,6 +1,18 @@
 {
   "clarity_inquiries": [
     {
+      "id": "inq-1785860394648",
+      "name": "zainabee",
+      "email": "zaun@gmail.com",
+      "company": "MRF",
+      "service": "Cloud Services",
+      "message": "hiii",
+      "date": "Aug 4, 2026",
+      "time": "09:49 PM",
+      "status": "unread",
+      "priority": "high"
+    },
+    {
       "id": "inq-1785326138452",
       "name": "Zubairya Salam khan",
       "email": "zubairyasalamkhan213@gmail.com",
@@ -335,8 +347,30 @@
   "clarity_page_gallery": {
     "heroTitle": "Our Gallery",
     "heroSubtitle": "A visual showcase of our workspace, team milestones, and event highlights.",
-    "sectionTitle": "Glimpses of Clarity Moments",
-    "sectionSubtitle": "A sneak peek into our events, celebrations, and team experiences."
+    "sectionTitle": "Glimpses  of  Clarity Moments",
+    "sectionSubtitle": "A sneak peek into our events, celebrations, and team experiences.",
+    "bottomCtaTitle": "Want to create memorable moments with us?",
+    "bottomCtaSubtitle": "Partner with our software squads or join our growing team of innovators.",
+    "bottomCtaButtonText": "Get In Touch",
+    "bottomCtaButtonLink": "/contact",
+    "stats": [
+      {
+        "value": "50+",
+        "label": "Events & Sprints"
+      },
+      {
+        "value": "100+",
+        "label": "Team Celebrations"
+      },
+      {
+        "value": "500+",
+        "label": "Projects Completed"
+      },
+      {
+        "value": "15+",
+        "label": "Global Tech Hubs"
+      }
+    ]
   },
   "clarity_gallery_images": [
     {

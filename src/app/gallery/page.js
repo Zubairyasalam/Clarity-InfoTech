@@ -237,8 +237,8 @@ export default function GalleryPage() {
               alt={seoConfig.imageAlt || "Clarity InfoTech Logo"}
               title={seoConfig.imageTitle || "Clarity InfoTech"}
               className={`w-auto h-8 sm:h-10 md:h-10 lg:h-12 object-contain transition-all duration-300 group-hover:scale-105 filter ${isScrolled
-                  ? "brightness-90 contrast-200 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
-                  : "brightness-150 contrast-125 drop-shadow-[0_4px_12px_rgba(0,0,0,0.7)]"
+                ? "brightness-90 contrast-200 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
+                : "brightness-150 contrast-125 drop-shadow-[0_4px_12px_rgba(0,0,0,0.7)]"
                 }`}
             />
           </a>
@@ -251,12 +251,12 @@ export default function GalleryPage() {
                   key={link.label}
                   href={link.url}
                   className={`px-5 py-2 font-bold text-sm transition-colors duration-200 ${isScrolled
-                      ? isActive
-                        ? "text-indigo-600 font-extrabold"
-                        : "text-slate-900 hover:text-indigo-600"
-                      : isActive
-                        ? "text-sky-400 font-extrabold"
-                        : "text-white/90 hover:text-white"
+                    ? isActive
+                      ? "text-indigo-600 font-extrabold"
+                      : "text-slate-900 hover:text-indigo-600"
+                    : isActive
+                      ? "text-sky-400 font-extrabold"
+                      : "text-white/90 hover:text-white"
                     }`}
                 >
                   {link.label}
@@ -423,7 +423,7 @@ export default function GalleryPage() {
         {/* VIDEO POSTS SECTION */}
         {galleryVideos && galleryVideos.length > 0 && (
           <section className="py-12 bg-[#FAF9F5] relative overflow-hidden">
-            <div className="max-w-6xl mx-auto px-6 relative z-10">
+            <div className="max-w-7xl mx-auto px-6 relative z-10">
               {/* Section Header */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -443,7 +443,7 @@ export default function GalleryPage() {
 
 
               {/* Video Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {galleryVideos.map((vid, i) => (
                   <motion.div
                     key={i}
@@ -454,7 +454,7 @@ export default function GalleryPage() {
                     className="group bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
                   >
                     {/* Media Container */}
-                    <div className="relative w-full aspect-video bg-slate-900 overflow-hidden">
+                    <div className="relative w-full bg-slate-900 overflow-hidden" style={{ aspectRatio: '16/9', minHeight: '280px' }}>
                       {playingVideo === i ? (
                         vid.url && (vid.url.includes("youtube") || vid.url.includes("youtu.be") || vid.url.includes("vimeo")) ? (
                           <iframe
@@ -488,9 +488,9 @@ export default function GalleryPage() {
                           <div className="absolute inset-0 flex items-center justify-center">
                             <button
                               onClick={() => setPlayingVideo(i)}
-                              className="w-12 h-12 rounded-full bg-white/90 group-hover:bg-white text-indigo-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-all duration-300"
+                              className="w-16 h-16 rounded-full bg-white/90 group-hover:bg-white text-indigo-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-all duration-300"
                             >
-                              <Play size={20} className="fill-indigo-600 ml-0.5" />
+                              <Play size={28} className="fill-indigo-600 ml-0.5" />
                             </button>
                           </div>
                         </>
@@ -508,12 +508,12 @@ export default function GalleryPage() {
                     </div>
 
                     {/* Card Content & Action Bar */}
-                    <div className="p-4 bg-white flex flex-col justify-between flex-1 gap-3">
+                    <div className="p-5 bg-white flex flex-col justify-between flex-1 gap-3">
                       <div>
-                        <h4 className="text-sm font-bold text-slate-800 leading-snug line-clamp-2 group-hover:text-indigo-600 transition-colors">
+                        <h4 className="text-base font-bold text-slate-800 leading-snug line-clamp-2 group-hover:text-indigo-600 transition-colors">
                           {vid.title}
                         </h4>
-                        <p className="text-[11px] font-medium text-slate-400 mt-1">Clarity InfoTech Media</p>
+                        <p className="text-xs font-medium text-slate-400 mt-1">Clarity InfoTech Media</p>
                       </div>
 
                       <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
