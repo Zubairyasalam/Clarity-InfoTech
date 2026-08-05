@@ -935,18 +935,16 @@ export default function Home() {
     <div className="relative min-h-screen bg-offwhite text-navy font-sans antialiased selection:bg-primary/20 selection:text-primary">
       <SEOMetadata pageKey="home" />
 
-      {/* 1. NAVBAR - WHITE SMOKY FROSTED GLASS ALWAYS VISIBLE */}
-      <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 flex items-center h-16 md:h-20 ${isScrolled ? "bg-white/95 shadow-lg border-b border-gray-200" : "bg-white/80 backdrop-blur-xl shadow-sm border-b border-white/40"}`}
-        style={!isScrolled ? { background: "linear-gradient(135deg, rgba(255,255,255,0.88) 0%, rgba(245,248,255,0.82) 100%)", backdropFilter: "blur(18px) saturate(180%)", WebkitBackdropFilter: "blur(18px) saturate(180%)" } : {}}
-      >
+      {/* PINNED WHITE NAVBAR */}
+      <header className="sticky top-0 left-0 w-full z-50 bg-white shadow-sm border-b border-gray-200/80 flex items-center h-16 md:h-20">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 w-full flex items-center justify-between h-full overflow-visible">
-          {/* Prominently Enlarged & Ultra-Visible Logo */}
+          {/* Logo */}
           <a href="#" className="flex items-center group h-full overflow-visible relative">
             <img
               src={headerData.logo}
               alt={seoConfig.imageAlt || "Clarity InfoTech Logo"}
               title={seoConfig.imageTitle || "Clarity InfoTech"}
-              className="w-auto h-8 sm:h-10 md:h-10 lg:h-12 object-contain transition-all duration-300 group-hover:scale-105 drop-shadow-[0_2px_8px_rgba(0,0,0,0.15)]"
+              className="w-auto h-8 sm:h-10 md:h-10 lg:h-12 object-contain transition-all duration-300 group-hover:scale-105 filter brightness-90 contrast-200 drop-shadow-sm"
             />
           </a>
 
@@ -958,7 +956,7 @@ export default function Home() {
                 <a
                   key={link.id}
                   href={link.url}
-                  className={`px-5 py-2 font-bold text-sm transition-colors duration-200 ${isActive ? "text-indigo-600 font-extrabold" : "text-slate-800 hover:text-indigo-600"}`}
+                  className={`px-4 py-2 font-bold text-sm transition-colors duration-200 ${isActive ? "text-indigo-600 font-extrabold" : "text-slate-800 hover:text-indigo-600"}`}
                 >{link.label}</a>
               );
             })}
@@ -982,19 +980,19 @@ export default function Home() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="md:hidden border-t border-navy/5 bg-white w-full overflow-hidden"
+              className="md:hidden border-t border-gray-100 bg-white w-full overflow-hidden absolute top-full left-0 shadow-xl"
             >
-              <div className="px-6 py-8 flex flex-col gap-5">
-                {headerData.links.map((link) => {
-                  return (
-                    <a
-                      key={link.id}
-                      href={link.url}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="font-semibold text-lg text-navy/80 hover:text-primary transition-colors duration-150"
-                    >{link.label}</a>
-                  );
-                })}
+              <div className="px-6 py-6 flex flex-col gap-4">
+                {headerData.links.map((link) => (
+                  <a
+                    key={link.id}
+                    href={link.url}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`font-semibold text-base transition-colors ${
+                      link.label === "Home" ? "text-indigo-600 font-bold" : "text-slate-700 hover:text-indigo-600"
+                    }`}
+                  >{link.label}</a>
+                ))}
               </div>
             </motion.div>
           )}

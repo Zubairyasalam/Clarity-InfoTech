@@ -216,20 +216,17 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-[#F4F6FB] text-navy font-sans flex flex-col relative overflow-x-hidden selection:bg-sky-400 selection:text-white">
       <SEOMetadata pageKey="contact" />
-      {/* 1. STICKY NAVBAR - ALWAYS 100% TRANSPARENT WITH DYNAMIC CONTRAST TEXT */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-16 md:h-20 flex items-center ${isScrolled ? "bg-white shadow-md border-b border-gray-100" : "bg-transparent"}`}>
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 w-full flex items-center justify-between h-full overflow-visible">
-          {/* Prominently Enlarged & Ultra-Visible Home Logo */}
-          <a href="/" className="flex items-center group h-full overflow-visible relative">
+      {/* PINNED WHITE NAVBAR */}
+      <header className="sticky top-0 left-0 w-full z-50 bg-white shadow-sm border-b border-gray-200/80 flex items-center h-16 md:h-20">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 w-full flex items-center justify-between h-full">
+
+          {/* Logo */}
+          <a href="/" className="flex items-center group h-full">
             <img
               src={headerData.logo}
               alt={seoConfig.imageAlt || "Clarity InfoTech Logo"}
               title={seoConfig.imageTitle || "Clarity InfoTech"}
-              className={`w-auto h-8 sm:h-10 md:h-10 lg:h-12 object-contain transition-all duration-300 group-hover:scale-105 filter ${
-                isScrolled
-                  ? "brightness-90 contrast-200 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
-                  : "brightness-150 contrast-125 drop-shadow-[0_4px_12px_rgba(0,0,0,0.7)]"
-              }`}
+              className="w-auto h-8 sm:h-10 md:h-10 lg:h-12 object-contain transition-transform duration-300 group-hover:scale-105 filter brightness-90 contrast-200 drop-shadow-sm"
             />
           </a>
 
@@ -241,14 +238,10 @@ export default function ContactPage() {
                 <a
                   key={link.label}
                   href={link.url}
-                  className={`px-5 py-2 font-bold text-sm transition-colors duration-200 ${
-                    isScrolled
-                      ? isActive
-                        ? "text-indigo-600 font-extrabold"
-                        : "text-slate-900 hover:text-indigo-600"
-                      : isActive
-                        ? "text-sky-400 font-extrabold drop-shadow-[0_2px_8px_rgba(56,189,248,0.5)]"
-                        : "text-white/90 hover:text-white"
+                  className={`px-4 py-2 font-bold text-sm transition-colors duration-200 ${
+                    isActive
+                      ? "text-indigo-600 font-extrabold"
+                      : "text-slate-800 hover:text-indigo-600"
                   }`}
                 >
                   {link.label}
@@ -260,9 +253,7 @@ export default function ContactPage() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`md:hidden w-10 h-10 flex items-center justify-center transition-colors duration-150 ${
-              isScrolled ? "text-slate-900" : "text-white"
-            }`}
+            className="md:hidden w-10 h-10 flex items-center justify-center text-slate-900 transition-colors"
             aria-label="Toggle Menu"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -277,34 +268,21 @@ export default function ContactPage() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="md:hidden border-t border-navy/5 bg-[#0A0E39] text-white w-full overflow-hidden"
+              className="md:hidden border-t border-gray-100 bg-white text-slate-900 w-full overflow-hidden absolute top-full left-0 shadow-xl"
             >
-              <div className="px-6 py-8 flex flex-col gap-5">
-                {headerData.links.map((link) => {
-                  const isActive = link.label === "Contact";
-                  return (
+              <div className="px-6 py-6 flex flex-col gap-4">
+                {headerData.links.map((link) => (
                   <a
                     key={link.label}
                     href={link.url}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`font-semibold text-lg transition-colors ${
-                      link.label === "Contact" ? "text-sky-400 font-bold" : "text-white/80 hover:text-white"
+                    className={`font-semibold text-base transition-colors ${
+                      link.label === "Contact" ? "text-indigo-600 font-bold" : "text-slate-700 hover:text-indigo-600"
                     }`}
                   >
                     {link.label}
                   </a>
-                  );
-                })}
-                <button
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    setAuthMode("login");
-                    setAuthModalOpen(true);
-                  }}
-                  className="w-full py-3 rounded-xl bg-indigo-600 text-white font-semibold text-center mt-2 shadow-md"
-                >
-                  Client Console
-                </button>
+                ))}
               </div>
             </motion.div>
           )}
@@ -313,7 +291,7 @@ export default function ContactPage() {
 
       <main className="w-full">
         {/* 2. HERO HEADER SECTION - RICH DEEP NAVY BANNER */}
-        <section className="relative pt-28 md:pt-36 pb-16 md:pb-20 bg-[#0A0E39] text-white overflow-hidden select-none text-center">
+        <section className="relative py-14 sm:py-16 md:py-20 bg-[#0A0E39] text-white overflow-hidden select-none text-center">
           {/* Ambient Glows */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#0A0E39] via-[#0D134D] to-[#0A0E39] opacity-95" />
           <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-indigo-600/20 rounded-full blur-[140px] pointer-events-none" />
