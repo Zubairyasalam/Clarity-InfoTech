@@ -16,9 +16,6 @@ const DEFAULT_FOOTER = {
   subscribeButtonText: "Subscribe",
   copyright: "© 2026 Clarity InfoTech / Rain Corraya. All rights reserved.",
   companyLinks: [
-    { label: "AWS & GCP Partner", url: "/our-services" },
-    { label: "ISO 27001 Security", url: "/about" },
-    { label: "DevOps Association", url: "/our-services" },
     { label: "Privacy Policy", url: "/privacy-policy" },
     { label: "Terms of Service", url: "/terms-of-service" },
     { label: "Refund Policy", url: "/refund-policy" }
@@ -26,11 +23,9 @@ const DEFAULT_FOOTER = {
   navLinks: [
     { label: "Home", url: "/" },
     { label: "About Us", url: "/about" },
-    { label: "Our Projects", url: "/services" },
     { label: "Our Services", url: "/our-services" },
     { label: "Gallery", url: "/gallery" },
-    { label: "Contact", url: "/contact" },
-    { label: "Admin Portal", url: "/admin" }
+    { label: "Contact", url: "/contact" }
   ]
 };
 
@@ -43,6 +38,35 @@ export default function Footer() {
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
+          if (parsed) {
+            if (parsed.navLinks) {
+              parsed.navLinks = parsed.navLinks.filter(l => l.label !== "Our Projects" && l.label !== "Admin Portal");
+              if (!parsed.navLinks.some(l => l.url === "/gallery")) {
+                parsed.navLinks.push({ label: "Gallery", url: "/gallery" });
+              }
+              parsed.navLinks.forEach(l => {
+                const lbl = l.label ? l.label.toLowerCase() : "";
+                if (lbl.includes("home")) l.url = "/";
+                else if (lbl.includes("about")) l.url = "/about";
+                else if (lbl.includes("service")) l.url = "/our-services";
+                else if (lbl.includes("gallery")) l.url = "/gallery";
+                else if (lbl.includes("contact")) l.url = "/contact";
+              });
+              const linkOrder = ["/", "/about", "/our-services", "/gallery", "/contact"];
+              parsed.navLinks.sort((a, b) => {
+                const idxA = linkOrder.indexOf(a.url);
+                const idxB = linkOrder.indexOf(b.url);
+                return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
+              });
+            }
+            if (parsed.companyLinks) {
+              parsed.companyLinks = parsed.companyLinks.filter(l => 
+                !["AWS & GCP Partner", "ISO 27001 Security", "DevOps Association"].includes(l.label)
+              );
+            }
+            localStorage.setItem("clarity_footer", JSON.stringify(parsed));
+            setFooterData(parsed);
+          }
           // Dynamically read social URLs from clarity_system_config if available
           const storedSysConfig = localStorage.getItem("clarity_system_config");
           if (storedSysConfig) {
@@ -450,11 +474,20 @@ export default function Footer() {
             <div className="footer-nav-cols flex gap-16 md:gap-24">
               <div className="footer-col">
                 <div className="footer-col-title">Navigation</div>
-                {(footerData.navLinks || DEFAULT_FOOTER.navLinks).map((item, idx) => (
-                  <a key={idx} href={item.url || "#"} className={item.label === "Admin Portal" ? "text-primary hover:underline font-semibold mt-2 block" : ""}>
-                    {item.label}
-                  </a>
-                ))}
+                {(footerData.navLinks || DEFAULT_FOOTER.navLinks).map((item, idx) => {
+                  let href = item.url || "/";
+                  const lbl = item.label ? item.label.toLowerCase() : "";
+                  if (lbl.includes("home")) href = "/";
+                  else if (lbl.includes("about")) href = "/about";
+                  else if (lbl.includes("service")) href = "/our-services";
+                  else if (lbl.includes("gallery")) href = "/gallery";
+                  else if (lbl.includes("contact")) href = "/contact";
+                  return (
+                    <a key={idx} href={href}>
+                      {item.label}
+                    </a>
+                  );
+                })}
               </div>
 
               <div className="footer-col">

@@ -31,7 +31,8 @@ import {
   Layers,
   Globe,
   Zap,
-  Cpu
+  Cpu,
+  Check
 } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import AuthModal from "@/components/AuthModal";
@@ -350,7 +351,6 @@ export default function Home() {
     links: [
       { id: 1, label: "Home", url: "/" },
       { id: 2, label: "About Us", url: "/about" },
-      { id: 3, label: "Our Projects", url: "/services" },
       { id: 4, label: "Our Services", url: "/our-services" },
       { id: 6, label: "Gallery", url: "/gallery" },
       { id: 5, label: "Contact", url: "/contact" }
@@ -362,18 +362,20 @@ export default function Home() {
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
-        if (parsed && parsed.links && !parsed.links.some(l => l.url === "/gallery")) {
-          const updatedLinks = [...parsed.links];
-          const contactIdx = updatedLinks.findIndex(l => l.url === "/contact");
-          if (contactIdx !== -1) {
-            updatedLinks.splice(contactIdx, 0, { id: 6, label: "Gallery", url: "/gallery" });
-          } else {
-            updatedLinks.push({ id: 6, label: "Gallery", url: "/gallery" });
+        if (parsed && parsed.links) {
+          parsed.links = parsed.links.filter(l => l.label !== "Our Projects");
+          if (!parsed.links.some(l => l.url === "/gallery")) {
+            parsed.links.push({ id: 6, label: "Gallery", url: "/gallery" });
           }
-          parsed.links = updatedLinks;
+          const linkOrder = ["/", "/about", "/our-services", "/gallery", "/contact"];
+          parsed.links.sort((a, b) => {
+            const idxA = linkOrder.indexOf(a.url);
+            const idxB = linkOrder.indexOf(b.url);
+            return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
+          });
           localStorage.setItem("clarity_header", JSON.stringify(parsed));
+          setHeaderData(parsed);
         }
-        setHeaderData(parsed);
       } catch { }
     }
   }, []);
@@ -394,10 +396,10 @@ export default function Home() {
 
   // ── Services Section Data & State ──────────────────────────────────────────
   const DEFAULT_SERVICES = {
-    badge: "Our Projects",
+    badge: "Our Services",
     heading1: "Empowering Technology through",
     heading2: "Our",
-    heading3: "Projects",
+    heading3: "Services",
     description: "Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, cloud-native security, and dedicated IT consulting for modern digital transformations.",
     partnerText: "We partner with ambitious brands that are ready to move beyond fragmented visuals and shallow quick fixes -- turning their identity, website, and messaging into one focused engine for growth.",
     buttonText: "Let's work together",
@@ -933,8 +935,10 @@ export default function Home() {
     <div className="relative min-h-screen bg-offwhite text-navy font-sans antialiased selection:bg-primary/20 selection:text-primary">
       <SEOMetadata pageKey="home" />
 
-      {/* 1. NAVBAR - ALWAYS 100% TRANSPARENT WITH DYNAMIC CONTRAST TEXT */}
-      <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 flex items-center h-16 md:h-20 ${isScrolled ? "bg-white shadow-md border-b border-gray-100" : "bg-transparent"}`}>
+      {/* 1. NAVBAR - WHITE SMOKY FROSTED GLASS ALWAYS VISIBLE */}
+      <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 flex items-center h-16 md:h-20 ${isScrolled ? "bg-white/95 shadow-lg border-b border-gray-200" : "bg-white/80 backdrop-blur-xl shadow-sm border-b border-white/40"}`}
+        style={!isScrolled ? { background: "linear-gradient(135deg, rgba(255,255,255,0.88) 0%, rgba(245,248,255,0.82) 100%)", backdropFilter: "blur(18px) saturate(180%)", WebkitBackdropFilter: "blur(18px) saturate(180%)" } : {}}
+      >
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 w-full flex items-center justify-between h-full overflow-visible">
           {/* Prominently Enlarged & Ultra-Visible Logo */}
           <a href="#" className="flex items-center group h-full overflow-visible relative">
@@ -942,11 +946,7 @@ export default function Home() {
               src={headerData.logo}
               alt={seoConfig.imageAlt || "Clarity InfoTech Logo"}
               title={seoConfig.imageTitle || "Clarity InfoTech"}
-              className={`w-auto h-8 sm:h-10 md:h-10 lg:h-12 object-contain transition-all duration-300 group-hover:scale-105 filter ${
-                isScrolled
-                  ? "brightness-90 contrast-200 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
-                  : "brightness-150 contrast-125 drop-shadow-[0_4px_12px_rgba(0,0,0,0.7)]"
-              }`}
+              className="w-auto h-8 sm:h-10 md:h-10 lg:h-12 object-contain transition-all duration-300 group-hover:scale-105 drop-shadow-[0_2px_8px_rgba(0,0,0,0.15)]"
             />
           </a>
 
@@ -958,15 +958,7 @@ export default function Home() {
                 <a
                   key={link.id}
                   href={link.url}
-                  className={`px-5 py-2 font-bold text-sm transition-colors duration-200 ${
-                    isScrolled
-                      ? isActive
-                        ? "text-indigo-600 font-extrabold"
-                        : "text-slate-900 hover:text-indigo-600"
-                      : isActive
-                        ? "text-sky-400 font-extrabold"
-                        : "text-white/90 hover:text-white"
-                  }`}
+                  className={`px-5 py-2 font-bold text-sm transition-colors duration-200 ${isActive ? "text-indigo-600 font-extrabold" : "text-slate-800 hover:text-indigo-600"}`}
                 >{link.label}</a>
               );
             })}
@@ -975,9 +967,7 @@ export default function Home() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`md:hidden w-10 h-10 flex items-center justify-center transition-colors duration-150 ${
-              isScrolled ? "text-slate-900" : "text-white"
-            }`}
+            className="md:hidden w-10 h-10 flex items-center justify-center transition-colors duration-150 text-slate-800"
             aria-label="Toggle Menu"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -1254,21 +1244,7 @@ export default function Home() {
                 {aboutData.description}
               </motion.p>
 
-              {/* Stats Row */}
-              <motion.div
-                variants={{
-                  hidden: { opacity: 0, y: 25 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } }
-                }}
-                className="grid grid-cols-3 gap-6 pt-6 border-t border-navy/10 w-full max-w-xl"
-              >
-                {aboutData.stats.map((stat, i) => (
-                  <div key={i}>
-                    <span className="font-black text-2.5xl sm:text-3xl text-navy block tracking-tight mb-1 font-sans">{stat.value}</span>
-                    <span className="text-xs sm:text-sm text-navy/60 font-semibold font-sans">{stat.label}</span>
-                  </div>
-                ))}
-              </motion.div>
+
             </motion.div>
 
             {/* Right Column (6 cols): 3 Staggered Cards */}
@@ -1357,27 +1333,36 @@ export default function Home() {
                   />
                 </p>
 
-                {/* Stats Grid */}
+                {/* Curved Box Cards Grid for 5 Sentences */}
                 <motion.div
                   variants={{
                     hidden: { opacity: 0 },
-                    visible: { opacity: 1, transition: { staggerChildren: 0.06, delayChildren: 0.1 } }
+                    visible: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.1 } }
                   }}
-                  className="grid grid-cols-2 sm:grid-cols-3 gap-8 md:gap-x-10 md:gap-y-8"
+                  className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
                 >
                   {(platformsData.stats || []).map((st, idx) => (
                     <motion.div
                       key={idx}
                       variants={{
-                        hidden: { opacity: 0, y: 20 },
-                        visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+                        hidden: { opacity: 0, y: 20, scale: 0.95 },
+                        visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.4, ease: "easeOut" } }
                       }}
-                      className={`flex flex-col ${idx === 4 ? "col-span-2 sm:col-span-1" : ""}`}
+                      whileHover={{ y: -4, scale: 1.02 }}
+                      className={`relative group bg-white/5 hover:bg-white/10 border border-white/15 hover:border-sky-400/60 rounded-2xl p-4 sm:p-5 backdrop-blur-xl shadow-lg hover:shadow-[0_8px_30px_rgba(56,189,248,0.25)] transition-all duration-300 flex items-center gap-3.5 ${
+                        idx === 4 ? "sm:col-span-2 lg:col-span-1" : ""
+                      }`}
                     >
-                      <span className="text-3xl sm:text-4xl lg:text-5xl font-dm-serif tracking-tight mb-2 text-white">
-                        <AnimatedCounter value={Number(st.value) || 0} decimals={st.decimals || 0} suffix={st.suffix || ""} />
-                      </span>
-                      <span className="text-[10px] md:text-xs font-semibold text-white/50 uppercase tracking-wider">
+                      {/* Decorative Ambient Soft Light in Curved Box */}
+                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-sky-500/10 via-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+                      {/* Glowing Icon Container */}
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400/20 to-indigo-600/30 border border-sky-400/40 text-sky-400 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:border-sky-300 transition-all duration-300 shadow-inner">
+                        <Check size={18} strokeWidth={2.5} className="text-sky-300 group-hover:text-white transition-colors" />
+                      </div>
+
+                      {/* Sentence Text inside Curved Box */}
+                      <span className="text-xs sm:text-sm font-semibold text-white/90 group-hover:text-white tracking-wide font-sans leading-snug">
                         {st.label}
                       </span>
                     </motion.div>
@@ -1556,13 +1541,13 @@ export default function Home() {
               className="relative mx-auto max-w-4xl text-center"
             >
               <span className="mb-6 inline-block bg-primary/10 text-primary border border-primary/30 px-6 py-2.5 text-sm sm:text-base font-bold tracking-wide rounded-full shadow-md shadow-primary/10 font-sans">
-                {servicesData.badge === "Our Services" ? "Our Projects" : (servicesData.badge || "Our Projects")}
+                {servicesData.badge || "Our Services"}
               </span>
               <h2 className="text-[clamp(1.8rem,3.2vw,2.8rem)] font-light leading-[1.25] tracking-tight font-sans mb-4">
                 <span className="text-primary font-medium">{servicesData.heading1 || "Empowering Technology through"} </span>
                 <span className="text-black/40">{servicesData.heading2 || "Our"}</span>
                 <br />
-                <span className="text-black/40">{servicesData.heading3 === "Services" ? "Projects" : (servicesData.heading3 || "Projects")}</span>
+                <span className="text-black/40">{servicesData.heading3 || "Services"}</span>
               </h2>
               <p className="max-w-2xl mx-auto text-sm sm:text-base text-black/60 font-normal leading-relaxed font-sans">
                 {servicesData.description || "Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, cloud-native security, and dedicated IT consulting for modern digital transformations."}

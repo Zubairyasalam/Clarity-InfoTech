@@ -74,8 +74,7 @@ We may update this Privacy Policy periodically to reflect changes in our practic
 If you have questions or concerns about this Privacy Policy or our data practices, please contact us:
 
 **Clarity InfoTech**
-* **Chennai Office**: Prince Infocity 1, 8th Floor, 286/1, OMR, Kandhanchavadi, Chennai, Tamil Nadu-600096, India.
-* **Coimbatore Office**: Mikro Grafeio, 1st Floor, 766, 767, Puliakulam Road, Coimbatore, Tamil Nadu-641037, India.`
+* **Headquarters**: PO Box 200388, Doha, Qatar.`
   };
 
   const [legalData, setLegalData] = useState(DEFAULT_LEGAL_PAGES);
@@ -101,7 +100,6 @@ If you have questions or concerns about this Privacy Policy or our data practice
     links: [
       { id: 1, label: "Home", url: "/" },
       { id: 2, label: "About Us", url: "/about" },
-      { id: 3, label: "Our Projects", url: "/services" },
       { id: 4, label: "Our Services", url: "/our-services" },
       { id: 6, label: "Gallery", url: "/gallery" },
       { id: 5, label: "Contact", url: "/contact" }

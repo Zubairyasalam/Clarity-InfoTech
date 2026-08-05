@@ -36,7 +36,7 @@ const DEFAULT_GALLERY_IMAGES = [
   },
   {
     url: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&h=800&q=80",
-    alt: "CIT Office Lounge Chennai",
+    alt: "CIT Office Lounge Doha",
     title: "Office Collaboration Lounge"
   },
   {
@@ -156,7 +156,6 @@ export default function GalleryPage() {
     links: [
       { id: 1, label: "Home", url: "/" },
       { id: 2, label: "About Us", url: "/about" },
-      { id: 3, label: "Our Projects", url: "/services" },
       { id: 4, label: "Our Services", url: "/our-services" },
       { id: 6, label: "Gallery", url: "/gallery" },
       { id: 5, label: "Contact", url: "/contact" }
@@ -168,18 +167,20 @@ export default function GalleryPage() {
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
-        if (parsed && parsed.links && !parsed.links.some(l => l.url === "/gallery")) {
-          const updatedLinks = [...parsed.links];
-          const contactIdx = updatedLinks.findIndex(l => l.url === "/contact");
-          if (contactIdx !== -1) {
-            updatedLinks.splice(contactIdx, 0, { id: 6, label: "Gallery", url: "/gallery" });
-          } else {
-            updatedLinks.push({ id: 6, label: "Gallery", url: "/gallery" });
+        if (parsed && parsed.links) {
+          parsed.links = parsed.links.filter(l => l.label !== "Our Projects");
+          if (!parsed.links.some(l => l.url === "/gallery")) {
+            parsed.links.push({ id: 6, label: "Gallery", url: "/gallery" });
           }
-          parsed.links = updatedLinks;
+          const linkOrder = ["/", "/about", "/our-services", "/gallery", "/contact"];
+          parsed.links.sort((a, b) => {
+            const idxA = linkOrder.indexOf(a.url);
+            const idxB = linkOrder.indexOf(b.url);
+            return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
+          });
           localStorage.setItem("clarity_header", JSON.stringify(parsed));
+          setHeaderData(parsed);
         }
-        setHeaderData(parsed);
       } catch (e) { }
     }
   }, []);
@@ -236,10 +237,11 @@ export default function GalleryPage() {
               src={headerData.logo}
               alt={seoConfig.imageAlt || "Clarity InfoTech Logo"}
               title={seoConfig.imageTitle || "Clarity InfoTech"}
-              className={`w-auto h-8 sm:h-10 md:h-10 lg:h-12 object-contain transition-all duration-300 group-hover:scale-105 filter ${isScrolled
-                ? "brightness-90 contrast-200 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
-                : "brightness-150 contrast-125 drop-shadow-[0_4px_12px_rgba(0,0,0,0.7)]"
-                }`}
+              className={`w-auto h-8 sm:h-10 md:h-10 lg:h-12 object-contain transition-all duration-300 group-hover:scale-105 filter ${
+                isScrolled
+                  ? "brightness-90 contrast-200 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]"
+                  : "brightness-150 contrast-125 drop-shadow-[0_4px_12px_rgba(0,0,0,0.7)]"
+              }`}
             />
           </a>
 
@@ -250,14 +252,15 @@ export default function GalleryPage() {
                 <a
                   key={link.label}
                   href={link.url}
-                  className={`px-5 py-2 font-bold text-sm transition-colors duration-200 ${isScrolled
-                    ? isActive
-                      ? "text-indigo-600 font-extrabold"
-                      : "text-slate-900 hover:text-indigo-600"
-                    : isActive
-                      ? "text-sky-400 font-extrabold"
-                      : "text-white/90 hover:text-white"
-                    }`}
+                  className={`px-5 py-2 font-bold text-sm transition-colors duration-200 ${
+                    isScrolled
+                      ? isActive
+                        ? "text-indigo-600 font-extrabold"
+                        : "text-slate-900 hover:text-indigo-600"
+                      : isActive
+                        ? "text-sky-400 font-extrabold drop-shadow-[0_2px_8px_rgba(56,189,248,0.5)]"
+                        : "text-white/90 hover:text-white"
+                  }`}
                 >
                   {link.label}
                 </a>
@@ -267,8 +270,9 @@ export default function GalleryPage() {
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`md:hidden w-10 h-10 flex items-center justify-center transition-colors duration-150 ${isScrolled ? "text-slate-900" : "text-white"
-              }`}
+            className={`md:hidden w-10 h-10 flex items-center justify-center transition-colors duration-150 ${
+              isScrolled ? "text-slate-900" : "text-white"
+            }`}
             aria-label="Toggle Menu"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -306,9 +310,8 @@ export default function GalleryPage() {
       </header>
 
       <main className="w-full">
-        {/* HERO HEADER SECTION - MATCHING ABOUT US LAYOUT */}
-        <section className="relative pt-20 pb-8 md:pt-24 md:pb-10 bg-[#0A0E39] text-white overflow-hidden select-none text-center">
-
+        {/* HERO HEADER SECTION - RICH DEEP NAVY BANNER */}
+        <section className="relative pt-28 md:pt-36 pb-16 md:pb-20 bg-[#0A0E39] text-white overflow-hidden select-none text-center">
           {/* Ambient Glows */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#0A0E39] via-[#0D134D] to-[#0A0E39] opacity-95" />
           <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-indigo-600/20 rounded-full blur-[140px] pointer-events-none" />
@@ -323,102 +326,25 @@ export default function GalleryPage() {
             }}
           />
 
-
-
           <div className="max-w-4xl mx-auto px-6 md:px-12 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="space-y-3 relative"
+              className="space-y-4 relative"
             >
-              <div className="relative inline-block">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight font-sans relative z-10 leading-[1.15]">
-                  {galleryPageData.heroTitle}
-                </h1>
-              </div>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight font-sans relative z-10 leading-[1.15] mb-4 drop-shadow-md">
+                {galleryPageData.heroTitle}
+              </h1>
 
-              <p className="text-sm sm:text-base md:text-lg text-slate-300 font-light max-w-xl mx-auto leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg text-slate-300 font-light max-w-2xl mx-auto leading-relaxed">
                 {galleryPageData.heroSubtitle}
               </p>
             </motion.div>
           </div>
         </section>
 
-        {/* GRADIENT HEADING SECTION BETWEEN HERO AND CAROUSEL */}
-        <section className="pt-8 pb-2 bg-[#FAF9F5] text-center px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-sans bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-indigo-600 to-indigo-800">
-              {galleryPageData.sectionTitle}
-            </h2>
-            <p className="mt-4 text-slate-500 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
-              {galleryPageData.sectionSubtitle}
-            </p>
-          </motion.div>
-        </section>
 
-        {/* IMAGE CAROUSEL SECTION WITH SOFT LIGHT BACKGROUND */}
-        <section className="pt-8 pb-2 bg-[#FAF9F5] overflow-hidden bg-grid-light relative">
-          <div className="w-full select-none">
-
-
-
-            <div className="animate-marquee flex gap-5 md:gap-6 py-8">
-              {/* Carousel Set 1 */}
-              {galleryImages.map((img, i) => {
-                const isEven = i % 2 === 0;
-                return (
-                  <div
-                    key={`mq-stg1-${i}`}
-                    className={`relative w-56 md:w-64 h-72 md:h-[350px] rounded-[18px] md:rounded-[22px] overflow-hidden flex-shrink-0 shadow-md hover:shadow-2xl transition-all duration-500 ease-out hover:scale-105 hover:z-20 cursor-pointer group ${isEven ? "-translate-y-3 md:-translate-y-4" : "translate-y-3 md:translate-y-4"
-                      }`}
-                  >
-                    <img
-                      src={img.url}
-                      alt={img.alt}
-                      loading="lazy"
-                      className="gallery-img w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                      <span className="text-white font-bold text-sm">
-                        {img.title}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
-
-              {/* Carousel Duplicate Set 2 */}
-              {galleryImages.map((img, i) => {
-                const isEven = i % 2 === 0;
-                return (
-                  <div
-                    key={`mq-stg2-${i}`}
-                    className={`relative w-56 md:w-64 h-72 md:h-[350px] rounded-[18px] md:rounded-[22px] overflow-hidden flex-shrink-0 shadow-md hover:shadow-2xl transition-all duration-500 ease-out hover:scale-105 hover:z-20 cursor-pointer group ${isEven ? "-translate-y-3 md:-translate-y-4" : "translate-y-3 md:translate-y-4"
-                      }`}
-                  >
-                    <img
-                      src={img.url}
-                      alt={img.alt}
-                      loading="lazy"
-                      className="gallery-img w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-                      <span className="text-white font-bold text-sm">
-                        {img.title}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
 
         {/* VIDEO POSTS SECTION */}
         {galleryVideos && galleryVideos.length > 0 && (

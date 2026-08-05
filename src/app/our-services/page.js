@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Footer from "@/components/Footer";
 import SEOMetadata from "@/components/SEOMetadata";
 import DynamicIcon from "@/components/DynamicIcon";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import {
   Menu, X, ArrowUp, Lightbulb, Users2, TrendingUp,
   Globe, Star, Handshake, BookOpen, Heart, Zap, Award,
@@ -12,6 +12,133 @@ import {
   Share2, Link2, AtSign, Rss,
   MapPin, Phone, Mail, ArrowUpCircle
 } from "lucide-react";
+
+// Interactive Case Study Card Component with Pixel Dissolve & Magnetic Squares
+function CaseStudyCardItem({ card, index }) {
+  const cardRef = useRef(null);
+  const [hovered, setHovered] = useState(false);
+
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
+
+  const springConfig = { stiffness: 80, damping: 18, mass: 0.6 };
+  const smoothMouseX = useSpring(mouseX, springConfig);
+  const smoothMouseY = useSpring(mouseY, springConfig);
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  const handleMouseEnter = () => setHovered(true);
+  const handleMouseLeave = () => {
+    setHovered(false);
+    mouseX.set(0.5);
+    mouseY.set(0.5);
+  };
+
+  const rows = 8;
+  const cols = 12;
+
+  return (
+    <motion.div
+      ref={cardRef}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="group relative aspect-[16/10] overflow-hidden bg-black cursor-pointer rounded-xl shadow-lg border border-black/10"
+    >
+      {/* Background Media (Video or Image) */}
+      {card.isVideo ? (
+        <video
+          src={card.media}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+      ) : (
+        <img
+          src={card.media || card.image}
+          alt={card.title}
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+      )}
+
+      {/* Pixel Dissolve Hover Overlay (12 cols x 8 rows) */}
+      <div className="absolute inset-0 pointer-events-none z-10 grid grid-cols-12 grid-rows-8">
+        {Array.from({ length: rows * cols }).map((_, i) => {
+          const r = Math.floor(i / cols);
+          const c = i % cols;
+          const delayIn = (r + c) * 0.018;
+          const delayOut = ((8 - r) + (12 - c)) * 0.012;
+
+          return (
+            <motion.div
+              key={i}
+              initial={{ scale: 0, opacity: 0 }}
+              animate={hovered ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+              transition={{
+                duration: 0.25,
+                delay: hovered ? delayIn : delayOut,
+                ease: [0.22, 1, 0.36, 1]
+              }}
+              className="bg-black/80 w-full h-full"
+            />
+          );
+        })}
+      </div>
+
+      {/* Magnetic Squares Layer */}
+      <div className="absolute inset-0 pointer-events-none z-15">
+        {(card.magneticSquares || []).map((sq, sqIdx) => {
+          const shiftX = useTransform(smoothMouseX, [0, 1], [-20 * (sqIdx + 1), 20 * (sqIdx + 1)]);
+          const shiftY = useTransform(smoothMouseY, [0, 1], [-20 * (sqIdx + 1), 20 * (sqIdx + 1)]);
+
+          return (
+            <motion.div
+              key={sqIdx}
+              style={{
+                left: `${sq.x}%`,
+                top: `${sq.y}%`,
+                width: `${sq.size}px`,
+                height: `${sq.size}px`,
+                x: shiftX,
+                y: shiftY,
+              }}
+              className="absolute bg-black shadow-lg"
+            />
+          );
+        })}
+      </div>
+
+      {/* Plus Button (top right) */}
+      <div className="absolute right-4 top-4 z-20 flex h-7 w-7 items-center justify-center border border-white/30 text-xs text-white font-sans rounded-md bg-black/30 backdrop-blur-sm">
+        +
+      </div>
+
+      {/* Info Plate (bottom left) */}
+      <div className="absolute bottom-0 left-0 z-20 max-w-[55%] sm:max-w-[50%] bg-white px-3 pb-2.5 pt-2 text-left rounded-tr-xl shadow-md border-r border-t border-gray-100">
+        <h3 className="text-[13px] sm:text-[14px] font-bold leading-tight text-black font-sans">
+          {card.title}
+        </h3>
+        <div className="mt-0.5 flex items-center gap-2.5 text-[10px] font-sans">
+          <span className="text-black/60">{card.category}</span>
+          <span className="font-bold text-black">{card.year}</span>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function OurServicesPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -54,14 +181,12 @@ export default function OurServicesPage() {
     links: [
       { id: 1, label: "Home", url: "/" },
       { id: 2, label: "About Us", url: "/about" },
-      { id: 3, label: "Our Projects", url: "/services" },
       { id: 4, label: "Our Services", url: "/our-services" },
       { id: 6, label: "Gallery", url: "/gallery" },
       { id: 5, label: "Contact", url: "/contact" }
     ]
   };
   const [headerData, setHeaderData] = useState(DEFAULT_HEADER);
-
 
   const getIcon = (name) => {
     return (props) => <DynamicIcon name={name} {...props} />;
@@ -116,18 +241,20 @@ export default function OurServicesPage() {
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
-        if (parsed && parsed.links && !parsed.links.some(l => l.url === "/gallery")) {
-          const updatedLinks = [...parsed.links];
-          const contactIdx = updatedLinks.findIndex(l => l.url === "/contact");
-          if (contactIdx !== -1) {
-            updatedLinks.splice(contactIdx, 0, { id: 6, label: "Gallery", url: "/gallery" });
-          } else {
-            updatedLinks.push({ id: 6, label: "Gallery", url: "/gallery" });
+        if (parsed && parsed.links) {
+          parsed.links = parsed.links.filter(l => l.label !== "Our Projects");
+          if (!parsed.links.some(l => l.url === "/gallery")) {
+            parsed.links.push({ id: 6, label: "Gallery", url: "/gallery" });
           }
-          parsed.links = updatedLinks;
+          const linkOrder = ["/", "/about", "/our-services", "/gallery", "/contact"];
+          parsed.links.sort((a, b) => {
+            const idxA = linkOrder.indexOf(a.url);
+            const idxB = linkOrder.indexOf(b.url);
+            return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
+          });
           localStorage.setItem("clarity_header", JSON.stringify(parsed));
+          setHeaderData(parsed);
         }
-        setHeaderData(parsed);
       } catch { }
     }
 
@@ -228,7 +355,7 @@ export default function OurServicesPage() {
                         ? "text-indigo-600 font-extrabold"
                         : "text-slate-900 hover:text-indigo-600"
                       : isActive
-                        ? "text-sky-400 font-extrabold"
+                        ? "text-sky-400 font-extrabold drop-shadow-[0_2px_8px_rgba(56,189,248,0.5)]"
                         : "text-white/90 hover:text-white"
                   }`}
                 >
@@ -244,13 +371,13 @@ export default function OurServicesPage() {
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }}
-              className="md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-100 shadow-xl overflow-hidden">
+              className="md:hidden absolute top-full left-0 right-0 bg-[#0A0E39] border-t border-navy/5 text-white shadow-xl overflow-hidden">
               <div className="px-6 py-6 flex flex-col gap-4">
                 {headerData.links.map((link) => {
                   const isActive = link.label === "Our Services";
                   return (
                   <a key={link.label} href={link.url} onClick={() => setMobileMenuOpen(false)}
-                    className={`font-semibold text-base transition-colors py-1 ${link.label === "Our Services" ? "text-[#1E67E2]" : "text-gray-700 hover:text-[#1E67E2]"}`}>
+                    className={`font-semibold text-base transition-colors py-1 ${link.label === "Our Services" ? "text-sky-400 font-bold" : "text-white/80 hover:text-white"}`}>
                     {link.label}
                   </a>
                   );
@@ -262,20 +389,117 @@ export default function OurServicesPage() {
       </header>
 
       <main>
-        {/* ── HERO ── */}
-        <section className="relative bg-[#0A0E39] text-white text-center pt-16 md:pt-20 pb-2 md:pb-3 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0d1244] to-[#0A0E39] opacity-90" />
-          <div className="absolute inset-0 opacity-5 pointer-events-none"
-            style={{ backgroundImage: "radial-gradient(rgba(255,255,255,0.5) 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
-          <div className="relative z-10 max-w-3xl mx-auto px-6">
+        {/* ── HERO HEADER SECTION - RICH DEEP NAVY BANNER ── */}
+        <section className="relative pt-28 md:pt-36 pb-16 md:pb-20 bg-[#0A0E39] text-white overflow-hidden select-none text-center">
+          {/* Ambient Glows */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0E39] via-[#0D134D] to-[#0A0E39] opacity-95" />
+          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-indigo-600/20 rounded-full blur-[140px] pointer-events-none" />
+          <div className="absolute bottom-0 right-0 w-[450px] h-[450px] bg-sky-500/15 rounded-full blur-[120px] pointer-events-none" />
+          <div className="absolute inset-0 opacity-10 pointer-events-none"
+            style={{ backgroundImage: "radial-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
+          <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-12">
             <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
-              className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-white">
-              {pageServiceData.heroTitle || "Our Service"}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 text-white font-sans drop-shadow-md">
+              {pageServiceData.heroTitle || "Our Services"}
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-white/60 text-base sm:text-lg">
+              className="text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed font-sans">
               {pageServiceData.heroSubtitle || "We believe great products are built by happy, collaborative teams."}
             </motion.p>
+          </div>
+        </section>
+
+        {/* ── SHOWCASE SECTION: Empowering Technology through Our Services ── */}
+        <section className="relative bg-white text-black py-16 md:py-20 border-b border-gray-100 overflow-hidden">
+          <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
+            
+            {/* Header Text matching the given image */}
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="relative mx-auto max-w-4xl text-center mb-12 sm:mb-16"
+            >
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light leading-[1.2] tracking-tight font-sans mb-5">
+                <span className="text-[#1E67E2] font-semibold">Empowering Technology through </span>
+                <span className="text-black/40">Our</span>
+                <br />
+                <span className="text-black/40 font-light">Services</span>
+              </h2>
+              <p className="max-w-2xl mx-auto text-sm sm:text-base text-black/60 font-normal leading-relaxed font-sans">
+                Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, cloud-native security, and dedicated IT consulting for modern digital transformations.
+              </p>
+            </motion.div>
+
+            {/* 2x2 Showcase Cards Grid */}
+            <div className="grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
+              {[
+                {
+                  id: "cloud-devops",
+                  title: "Cloud & DevOps Architecture",
+                  category: "Infrastructure & Security",
+                  year: "2026",
+                  media: "/service.mp4",
+                  isVideo: true,
+                  magneticSquares: [
+                    { x: 10, y: 15, size: 10 },
+                    { x: 25, y: 40, size: 8 },
+                    { x: 75, y: 65, size: 7 },
+                    { x: 85, y: 82, size: 9 },
+                    { x: 78, y: 60, size: 6 }
+                  ]
+                },
+                {
+                  id: "software-engineering",
+                  title: "Custom Software Engineering",
+                  category: "Web & Mobile Platforms",
+                  year: "2026",
+                  media: "/service1.mp4",
+                  isVideo: true,
+                  magneticSquares: [
+                    { x: 10, y: 15, size: 10 },
+                    { x: 25, y: 40, size: 8 },
+                    { x: 75, y: 65, size: 7 },
+                    { x: 85, y: 82, size: 9 },
+                    { x: 78, y: 60, size: 6 }
+                  ]
+                },
+                {
+                  id: "cyber-security",
+                  title: "Cyber Security & Auditing",
+                  category: "Threat Defense & Uptime",
+                  year: "2025",
+                  media: "/service2.mp4",
+                  isVideo: true,
+                  magneticSquares: [
+                    { x: 10, y: 15, size: 10 },
+                    { x: 25, y: 40, size: 8 },
+                    { x: 75, y: 65, size: 7 },
+                    { x: 85, y: 82, size: 9 },
+                    { x: 78, y: 60, size: 6 }
+                  ]
+                },
+                {
+                  id: "ai-consulting",
+                  title: "AI Integration & IT Consulting",
+                  category: "Automation & Strategy",
+                  year: "2025",
+                  media: "/service3.mp4",
+                  isVideo: true,
+                  magneticSquares: [
+                    { x: 10, y: 15, size: 10 },
+                    { x: 25, y: 40, size: 8 },
+                    { x: 75, y: 65, size: 7 },
+                    { x: 85, y: 82, size: 9 },
+                    { x: 78, y: 60, size: 6 }
+                  ]
+                }
+              ].map((card, idx) => (
+                <CaseStudyCardItem key={card.id} card={card} index={idx} />
+              ))}
+            </div>
+
           </div>
         </section>
 

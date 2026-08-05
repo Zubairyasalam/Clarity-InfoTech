@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import {
   motion,
   AnimatePresence
@@ -40,6 +41,11 @@ import DynamicIcon from "@/components/DynamicIcon";
 import * as LucideIcons from "lucide-react";
 
 export default function ServicesPage() {
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/our-services");
+  }, [router]);
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState("login");
@@ -95,7 +101,6 @@ export default function ServicesPage() {
     links: [
       { id: 1, label: "Home", url: "/" },
       { id: 2, label: "About Us", url: "/about" },
-      { id: 3, label: "Our Projects", url: "/services" },
       { id: 4, label: "Our Services", url: "/our-services" },
       { id: 6, label: "Gallery", url: "/gallery" },
       { id: 5, label: "Contact", url: "/contact" }
@@ -322,7 +327,7 @@ export default function ServicesPage() {
           {/* Desktop Nav Links */}
           <nav className="hidden md:flex items-center gap-1">
             {headerData.links.map((link) => {
-              const isActive = link.label === "Our Projects";
+              const isActive = link.label === "Our Services";
               return (
                 <a
                   key={link.label}
@@ -333,7 +338,7 @@ export default function ServicesPage() {
                         ? "text-indigo-600 font-extrabold"
                         : "text-slate-900 hover:text-indigo-600"
                       : isActive
-                        ? "text-sky-400 font-extrabold"
+                        ? "text-sky-400 font-extrabold drop-shadow-[0_2px_8px_rgba(56,189,248,0.5)]"
                         : "text-white/90 hover:text-white"
                   }`}
                 >
@@ -346,7 +351,9 @@ export default function ServicesPage() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden w-10 h-10 flex items-center justify-center text-white transition-colors duration-150"
+            className={`md:hidden w-10 h-10 flex items-center justify-center transition-colors duration-150 ${
+              isScrolled ? "text-slate-900" : "text-white"
+            }`}
             aria-label="Toggle Menu"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -365,13 +372,13 @@ export default function ServicesPage() {
             >
               <div className="px-6 py-8 flex flex-col gap-5">
                 {headerData.links.map((link) => {
-                  const isActive = link.label === "Our Projects";
+                  const isActive = link.label === "Our Services";
                   return (
                   <a
                     key={link.label}
                     href={link.url}
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`font-semibold text-lg transition-colors ${link.label === "Our Projects" ? "text-sky-400 font-bold" : "text-white/80 hover:text-white"
+                    className={`font-semibold text-lg transition-colors ${link.label === "Our Services" ? "text-sky-400 font-bold" : "text-white/80 hover:text-white"
                       }`}
                   >
                     {link.label}
@@ -392,8 +399,8 @@ export default function ServicesPage() {
 
       <main className="w-full">
 
-        {/* 2. HERO HEADER SECTION - CLEAN & ELEGANT MATCHING ABOUT US */}
-        <section className="relative pt-16 md:pt-20 pb-2 md:pb-3 bg-[#0A0E39] text-white overflow-hidden select-none text-center">
+        {/* 2. HERO HEADER SECTION - RICH DEEP NAVY BANNER */}
+        <section className="relative pt-28 md:pt-36 pb-16 md:pb-20 bg-[#0A0E39] text-white overflow-hidden select-none text-center">
           {/* Ambient Glows */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#0A0E39] via-[#0D134D] to-[#0A0E39] opacity-95" />
           <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-indigo-600/20 rounded-full blur-[140px] pointer-events-none" />
@@ -412,16 +419,16 @@ export default function ServicesPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-2 font-sans text-white"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 font-sans text-white drop-shadow-md"
             >
-              {pageProjectsData.heroTitle || "Our Projects"}
+              {pageProjectsData.heroTitle || "Our Services"}
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-sm sm:text-base md:text-lg text-white/80 max-w-2xl mx-auto leading-snug font-light font-sans"
+              className="text-sm sm:text-base md:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed font-light font-sans"
             >
               {pageProjectsData.heroSubtitle || "Exploring cutting-edge software solutions, cloud architecture, and digital transformations."}
             </motion.p>

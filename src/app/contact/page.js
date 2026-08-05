@@ -28,7 +28,7 @@ export default function ContactPage() {
 
   const [seoConfig, setSeoConfig] = useState({
     imageAlt: "Contact Clarity InfoTech",
-    imageTitle: "Clarity InfoTech Chennai Office Location Map"
+    imageTitle: "Clarity InfoTech Doha Office Location Map"
   });
 
   useEffect(() => {
@@ -156,7 +156,6 @@ export default function ContactPage() {
     links: [
       { id: 1, label: "Home", url: "/" },
       { id: 2, label: "About Us", url: "/about" },
-      { id: 3, label: "Our Projects", url: "/services" },
       { id: 4, label: "Our Services", url: "/our-services" },
       { id: 6, label: "Gallery", url: "/gallery" },
       { id: 5, label: "Contact", url: "/contact" }
@@ -171,10 +170,10 @@ export default function ContactPage() {
     formTitlePrefix: "Send Us a",
     formTitleHighlight: "Message",
     officeTitle: "Head Office",
-    officeAddress: "Chennai, Tamil Nadu, India",
-    officePhone: "+91 7373306677",
-    officeEmail: "salamzubi8@gmail.com",
-    mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.886539092!2d80.06892495893262!3d13.047525480749068!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265ea4f7d3361%3A0x6e61a7034b09e6d5!2sChennai%2C%20Tamil%20Nadu%2C%20India!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+    officeAddress: "PO Box 200388, Doha, Qatar",
+    officePhone: "9876543210",
+    officeEmail: "info@clarity-infotech.com",
+    mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115482.38557991349!2d51.44234586524317!3d25.285447333555504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e45c534ffdce87f%3A0x44d9319f78cfd4b1!2sDoha%2C%20Qatar!5e0!3m2!1sen!2sqa!4v1700000000000!5m2!1sen!2sqa"
   };
   const [pageContactData, setPageContactData] = useState(DEFAULT_PAGE_CONTACT);
 
@@ -183,24 +182,34 @@ export default function ContactPage() {
     if (storedHeader) {
       try {
         const parsed = JSON.parse(storedHeader);
-        if (parsed && parsed.links && !parsed.links.some(l => l.url === "/gallery")) {
-          const updatedLinks = [...parsed.links];
-          const contactIdx = updatedLinks.findIndex(l => l.url === "/contact");
-          if (contactIdx !== -1) {
-            updatedLinks.splice(contactIdx, 0, { id: 6, label: "Gallery", url: "/gallery" });
-          } else {
-            updatedLinks.push({ id: 6, label: "Gallery", url: "/gallery" });
+        if (parsed && parsed.links) {
+          parsed.links = parsed.links.filter(l => l.label !== "Our Projects");
+          if (!parsed.links.some(l => l.url === "/gallery")) {
+            parsed.links.push({ id: 6, label: "Gallery", url: "/gallery" });
           }
-          parsed.links = updatedLinks;
+          const linkOrder = ["/", "/about", "/our-services", "/gallery", "/contact"];
+          parsed.links.sort((a, b) => {
+            const idxA = linkOrder.indexOf(a.url);
+            const idxB = linkOrder.indexOf(b.url);
+            return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
+          });
           localStorage.setItem("clarity_header", JSON.stringify(parsed));
+          setHeaderData(parsed);
         }
-        setHeaderData(parsed);
       } catch { }
     }
 
     const storedContact = localStorage.getItem("clarity_page_contact");
     if (storedContact) {
-      try { setPageContactData({ ...DEFAULT_PAGE_CONTACT, ...JSON.parse(storedContact) }); } catch { }
+      try {
+        const parsed = JSON.parse(storedContact);
+        parsed.officeAddress = "PO Box 200388, Doha, Qatar";
+        parsed.officePhone = "9876543210";
+        parsed.officeEmail = "info@clarity-infotech.com";
+        parsed.mapEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115482.38557991349!2d51.44234586524317!3d25.285447333555504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e45c534ffdce87f%3A0x44d9319f78cfd4b1!2sDoha%2C%20Qatar!5e0!3m2!1sen!2sqa!4v1700000000000!5m2!1sen!2sqa";
+        localStorage.setItem("clarity_page_contact", JSON.stringify(parsed));
+        setPageContactData({ ...DEFAULT_PAGE_CONTACT, ...parsed });
+      } catch { }
     }
   }, []);
 
@@ -238,7 +247,7 @@ export default function ContactPage() {
                         ? "text-indigo-600 font-extrabold"
                         : "text-slate-900 hover:text-indigo-600"
                       : isActive
-                        ? "text-sky-400 font-extrabold"
+                        ? "text-sky-400 font-extrabold drop-shadow-[0_2px_8px_rgba(56,189,248,0.5)]"
                         : "text-white/90 hover:text-white"
                   }`}
                 >
@@ -251,7 +260,9 @@ export default function ContactPage() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden w-10 h-10 flex items-center justify-center text-white transition-colors duration-150"
+            className={`md:hidden w-10 h-10 flex items-center justify-center transition-colors duration-150 ${
+              isScrolled ? "text-slate-900" : "text-white"
+            }`}
             aria-label="Toggle Menu"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -301,11 +312,12 @@ export default function ContactPage() {
       </header>
 
       <main className="w-full">
-        {/* 2. HERO HEADER SECTION */}
-        <section className="relative pt-16 md:pt-20 pb-2 md:pb-3 bg-[#0A0E39] text-white overflow-hidden select-none text-center">
+        {/* 2. HERO HEADER SECTION - RICH DEEP NAVY BANNER */}
+        <section className="relative pt-28 md:pt-36 pb-16 md:pb-20 bg-[#0A0E39] text-white overflow-hidden select-none text-center">
           {/* Ambient Glows */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#0A0E39] via-[#0D134D] to-[#0A0E39] opacity-95" />
           <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-indigo-600/20 rounded-full blur-[140px] pointer-events-none" />
+          <div className="absolute bottom-0 right-0 w-[450px] h-[450px] bg-sky-500/15 rounded-full blur-[120px] pointer-events-none" />
 
           {/* Grid pattern */}
           <div
@@ -317,14 +329,14 @@ export default function ContactPage() {
           />
 
           <div className="max-w-4xl mx-auto px-6 md:px-12 relative z-10">
-            <span className="text-sky-400 font-semibold text-xs tracking-wider uppercase block mb-1 font-mono">
+            <span className="text-sky-400 font-semibold text-xs tracking-wider uppercase inline-block mb-3 font-mono bg-sky-400/10 border border-sky-400/25 px-4 py-1.5 rounded-full">
               {pageContactData.heroBadge || "CONTACT US"}
             </span>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-2 font-sans text-white"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 font-sans text-white drop-shadow-md"
             >
               {pageContactData.heroTitle || "Get In Touch"}
             </motion.h1>
@@ -333,7 +345,7 @@ export default function ContactPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-sm sm:text-base md:text-lg text-white/80 max-w-2xl mx-auto leading-snug font-light font-sans"
+              className="text-sm sm:text-base md:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed font-light font-sans"
             >
               {pageContactData.heroSubtitle || "Ready to transform your business with cutting-edge technology? Let's discuss your project and bring your vision to life."}
             </motion.p>
@@ -528,7 +540,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <span className="font-semibold text-slate-900 block mb-0.5">Address</span>
-                    <span>{pageContactData.officeAddress || "Chennai, Tamil Nadu, India"}</span>
+                    <span>{pageContactData.officeAddress || "PO Box 200388, Doha, Qatar"}</span>
                   </div>
                 </div>
 
@@ -539,7 +551,7 @@ export default function ContactPage() {
                   <div>
                     <span className="font-semibold text-slate-900 block mb-0.5">Phone</span>
                     <a href={`tel:${pageContactData.officePhone}`} className="hover:text-blue-600 transition-colors">
-                      {pageContactData.officePhone || "+91 7373306677"}
+                      {pageContactData.officePhone || "9876543210"}
                     </a>
                   </div>
                 </div>
@@ -551,7 +563,7 @@ export default function ContactPage() {
                   <div>
                     <span className="font-semibold text-slate-900 block mb-0.5">Email</span>
                     <a href={`mailto:${pageContactData.officeEmail}`} className="hover:text-blue-600 transition-colors">
-                      {pageContactData.officeEmail || "salamzubi8@gmail.com"}
+                      {pageContactData.officeEmail || "info@clarity-infotech.com"}
                     </a>
                   </div>
                 </div>
@@ -562,7 +574,7 @@ export default function ContactPage() {
             <div className="h-64 md:h-full min-h-[300px] w-full relative bg-slate-100">
               <iframe
                 title="Clarity InfoTech Head Office Map"
-                src={pageContactData.mapEmbedUrl || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.886539092!2d80.06892495893262!3d13.047525480749068!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265ea4f7d3361%3A0x6e61a7034b09e6d5!2sChennai%2C%20Tamil%20Nadu%2C%20India!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"}
+                src={pageContactData.mapEmbedUrl || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115482.38557991349!2d51.44234586524317!3d25.285447333555504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e45c534ffdce87f%3A0x44d9319f78cfd4b1!2sDoha%2C%20Qatar!5e0!3m2!1sen!2sqa!4v1700000000000!5m2!1sen!2sqa"}
                 className="w-full h-full border-0"
                 allowFullScreen=""
                 loading="lazy"

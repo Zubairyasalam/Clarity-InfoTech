@@ -51,11 +51,10 @@ We reserve the right to modify these terms at any time. Changes will be effectiv
 These terms shall be governed by and construed in accordance with the laws of India. Any disputes shall be subject to the exclusive jurisdiction of the courts in Chennai, Tamil Nadu.
 
 ### 10. Contact Information
-For questions about these Terms and Conditions, please contact us at salamzubi8@gmail.com or visit:
+For questions about these Terms and Conditions, please contact us at info@clarity-infotech.com or visit:
 
 **Clarity InfoTech**
-* **Chennai Office**: Prince Infocity 1, 8th Floor, 286/1, OMR, Kandhanchavadi, Chennai, Tamil Nadu-600096, India.
-* **Coimbatore Office**: Mikro Grafeio, 1st Floor, 766, 767, Puliakulam Road, Coimbatore, Tamil Nadu-641037, India.`
+* **Headquarters**: PO Box 200388, Doha, Qatar.`
   };
 
   const [legalData, setLegalData] = useState(DEFAULT_LEGAL_PAGES);
@@ -81,7 +80,6 @@ For questions about these Terms and Conditions, please contact us at salamzubi8@
     links: [
       { id: 1, label: "Home", url: "/" },
       { id: 2, label: "About Us", url: "/about" },
-      { id: 3, label: "Our Projects", url: "/services" },
       { id: 4, label: "Our Services", url: "/our-services" },
       { id: 6, label: "Gallery", url: "/gallery" },
       { id: 5, label: "Contact", url: "/contact" }

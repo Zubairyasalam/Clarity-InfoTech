@@ -617,10 +617,10 @@ export default function AdminDashboard() {
     formTitlePrefix: "Send Us a",
     formTitleHighlight: "Message",
     officeTitle: "Head Office",
-    officeAddress: "Chennai, Tamil Nadu, India",
-    officePhone: "+91 7373306677",
-    officeEmail: "salamzubi8@gmail.com",
-    mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.886539092!2d80.06892495893262!3d13.047525480749068!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265ea4f7d3361%3A0x6e61a7034b09e6d5!2sChennai%2C%20Tamil%20Nadu%2C%20India!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+    officeAddress: "PO Box 200388, Doha, Qatar",
+    officePhone: "9876543210",
+    officeEmail: "info@clarity-infotech.com",
+    mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115482.38557991349!2d51.44234586524317!3d25.285447333555504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e45c534ffdce87f%3A0x44d9319f78cfd4b1!2sDoha%2C%20Qatar!5e0!3m2!1sen!2sqa!4v1700000000000!5m2!1sen!2sqa"
   };
   const [pageContactData, setPageContactData] = useState(DEFAULT_PAGE_CONTACT);
   const [pageContactSaveSuccess, setPageContactSaveSuccess] = useState(false);
@@ -713,10 +713,122 @@ export default function AdminDashboard() {
   const DEFAULT_LEGAL_PAGES = {
     privacyTitle: "Privacy Policy",
     privacySubtitle: "Last updated: July 29, 2026",
-    privacyContent: "### 1. Introduction\nAt Clarity InfoTech (\"CIT\"), we are committed to protecting your privacy and personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.\n\n### 2. Information We Collect\nWe may collect the following types of information:\n\n**Personal Information**\n* Name, email address, and phone number\n* Company name and job title\n* Billing and payment information\n* Project type and request details\n* Communication preferences\n\n**Technical Information**\n* IP address and browser type\n* Device information and operating system\n* Cookies and usage data\n* Pages visited and time spent on our website\n\n### 3. How We Use Your Information\nWe use the collected information for:\n* Providing, maintaining, and improving our services\n* Processing transactions and sending confirmations\n* Communicating with you about projects, telemetry logs, and updates\n* Responding to support requests and inquiries\n* Sending tech insights and updates (with your consent)\n* Analyzing website usage and optimizing user experience\n* Complying with legal obligations\n\n### 4. Information Sharing and Disclosure\nWe do not sell your personal information. We may share your information with:\n* Service providers who assist in our infrastructure operations\n* Payment processors for secure transaction handling\n* Legal authorities when required by law\n* Business partners with your explicit consent\n\n### 5. Cookies and Tracking Technologies\nWe use cookies and similar tracking technologies to enhance your browsing experience, analyze site traffic, and personalize content. You can control cookie settings through your browser preferences. Disabling cookies may limit certain website functionalities.\n\n### 6. Data Security\nWe implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the internet is 100% secure.\n\n### 7. Data Retention\nWe retain your personal information only for as long as necessary to fulfill the purposes outlined in this policy, comply with legal obligations, resolve disputes, and enforce our agreements.\n\n### 8. Your Rights\nYou have the right to:\n* Access and receive a copy of your personal information\n* Correct inaccurate or incomplete information\n* Request deletion of your personal information\n* Object to or restrict certain processing activities\n* Withdraw consent for marketing communications\n\n### 9. Third-Party Links\nOur website may contain links to third-party websites. We are not responsible for the privacy practices or content of these external sites.\n\n### 10. Children's Privacy\nOur services are not directed to individuals under the age of 18. We do not knowingly collect personal information from children.\n\n### 11. Changes to This Privacy Policy\nWe may update this Privacy Policy periodically to reflect changes in our practices or legal requirements. We will notify you of changes by posting the updated policy on our website.\n\n### 12. Contact Us\nIf you have questions or concerns about this Privacy Policy or our data practices, please contact us:\n\n**Clarity InfoTech**\n* **Chennai Office**: Prince Infocity 1, 8th Floor, 286/1, OMR, Kandhanchavadi, Chennai, Tamil Nadu-600096, India.\n* **Coimbatore Office**: Mikro Grafeio, 1st Floor, 766, 767, Puliakulam Road, Coimbatore, Tamil Nadu-641037, India.",
+    privacyContent: `### 1. Introduction
+At Clarity InfoTech ("CIT"), we are committed to protecting your privacy and personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
+
+### 2. Information We Collect
+We may collect the following types of information:
+
+**Personal Information**
+* Name, email address, and phone number
+* Company name and job title
+* Billing and payment information
+* Project type and request details
+* Communication preferences
+
+**Technical Information**
+* IP address and browser type
+* Device information and operating system
+* Cookies and usage data
+* Pages visited and time spent on our website
+
+### 3. How We Use Your Information
+We use the collected information for:
+* Providing, maintaining, and improving our services
+* Processing transactions and sending confirmations
+* Communicating with you about projects, telemetry logs, and updates
+* Responding to support requests and inquiries
+* Sending tech insights and updates (with your consent)
+* Analyzing website usage and optimizing user experience
+* Complying with legal obligations
+
+### 4. Information Sharing and Disclosure
+We do not sell your personal information. We may share your information with:
+* Service providers who assist in our infrastructure operations
+* Payment processors for secure transaction handling
+* Legal authorities when required by law
+* Business partners with your explicit consent
+
+### 5. Cookies and Tracking Technologies
+We use cookies and similar tracking technologies to enhance your browsing experience, analyze site traffic, and personalize content. You can control cookie settings through your browser preferences. Disabling cookies may limit certain website functionalities.
+
+### 6. Data Security
+We implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the internet is 100% secure.
+
+### 7. Data Retention
+We retain your personal information only for as long as necessary to fulfill the purposes outlined in this policy, comply with legal obligations, resolve disputes, and enforce our agreements.
+
+### 8. Your Rights
+You have the right to:
+* Access and receive a copy of your personal information
+* Correct inaccurate or incomplete information
+* Request deletion of your personal information
+* Object to or restrict certain processing activities
+* Withdraw consent for marketing communications
+
+### 9. Third-Party Links
+Our website may contain links to third-party websites. We are not responsible for the privacy practices or content of these external sites.
+
+### 10. Children's Privacy
+Our services are not directed to individuals under the age of 18. We do not knowingly collect personal information from children.
+
+### 11. Changes to This Privacy Policy
+We may update this Privacy Policy periodically to reflect changes in our practices or legal requirements. We will notify you of changes by posting the updated policy on our website.
+
+### 12. Contact Us
+If you have questions or concerns about this Privacy Policy or our data practices, please contact us:
+
+**Clarity InfoTech**
+* **Headquarters**: PO Box 200388, Doha, Qatar.`,
     termsTitle: "Terms and Conditions",
     termsSubtitle: "Last updated: July 29, 2026",
-    termsContent: "### 1. Introduction\nWelcome to Clarity InfoTech (\"CIT\", \"we\", \"our\", or \"us\"). These Terms and Conditions govern your use of our website and services. By accessing or using our services, you agree to be bound by these terms.\n\n### 2. Services\nClarity InfoTech provides enterprise software engineering, DevOps automation, cloud architecture, and security audit systems. Our services include but are not limited to:\n* Custom software design and development\n* Enterprise web and mobile application engineering\n* Cloud infrastructure planning and deployment\n* Automation, DevOps and pipeline auditing\n* Advanced AI solutions and RAG architecture consulting\n* Support and telemetry monitoring systems\n\n### 3. User Obligations\nBy using our services, you agree to:\n* Provide accurate, current, and complete information\n* Maintain the confidentiality of your account credentials\n* Use our services only for lawful, authorized purposes\n* Not infringe on intellectual property or source ownership rights\n* Not transmit malicious code, malware, or harmful content\n\n### 4. Intellectual Property\nAll code, custom designs, architecture models, and project materials created by Clarity InfoTech remain our intellectual property until full payment is received. Upon completion of payment, 100% ownership rights and code source transfer are delivered to the client as per the agreed SLA.\n\n### 5. Payment Terms\nPayment terms are established in individual project proposals or milestone agreements. Generally:\n* Payment schedules are outlined in project proposals\n* Late payments may incur additional transaction charges\n* Work may be suspended for non-payment\n* Refunds are subject to the terms of individual milestone agreements\n\n### 6. Limitation of Liability\nClarity InfoTech shall not be liable for any indirect, incidental, special, or consequential damages arising from the use of our services. Our total liability shall not exceed the amount paid by the client for the specific service in question.\n\n### 7. Termination\nEither party may terminate services with written notice as specified in the project agreement. Upon termination, the client is responsible for payment of all work completed up to the termination date.\n\n### 8. Changes to Terms\nWe reserve the right to modify these terms at any time. Changes will be effective immediately upon posting to our website. Your continued use of our services constitutes acceptance of the updated terms.\n\n### 9. Governing Law\nThese terms shall be governed by and construed in accordance with the laws of India. Any disputes shall be subject to the exclusive jurisdiction of the courts in Chennai, Tamil Nadu.\n\n### 10. Contact Information\nFor questions about these Terms and Conditions, please contact us at salamzubi8@gmail.com or visit:\n\n**Clarity InfoTech**\n* **Chennai Office**: Prince Infocity 1, 8th Floor, 286/1, OMR, Kandhanchavadi, Chennai, Tamil Nadu-600096, India.\n* **Coimbatore Office**: Mikro Grafeio, 1st Floor, 766, 767, Puliakulam Road, Coimbatore, Tamil Nadu-641037, India.",
+    termsContent: `### 1. Introduction
+Welcome to Clarity InfoTech ("CIT", "we", "our", or "us"). These Terms and Conditions govern your use of our website and services. By accessing or using our services, you agree to be bound by these terms.
+
+### 2. Services
+Clarity InfoTech provides enterprise software engineering, DevOps automation, cloud architecture, and security audit systems. Our services include but are not limited to:
+* Custom software design and development
+* Enterprise web and mobile application engineering
+* Cloud infrastructure planning and deployment
+* Automation, DevOps and pipeline auditing
+* Advanced AI solutions and RAG architecture consulting
+* Support and telemetry monitoring systems
+
+### 3. User Obligations
+By using our services, you agree to:
+* Provide accurate, current, and complete information
+* Maintain the confidentiality of your account credentials
+* Use our services only for lawful, authorized purposes
+* Not infringe on intellectual property or source ownership rights
+* Not transmit malicious code, malware, or harmful content
+
+### 4. Intellectual Property
+All code, custom designs, architecture models, and project materials created by Clarity InfoTech remain our intellectual property until full payment is received. Upon completion of payment, 100% ownership rights and code source transfer are delivered to the client as per the agreed SLA.
+
+### 5. Payment Terms
+Payment terms are established in individual project proposals or milestone agreements. Generally:
+* Payment schedules are outlined in project proposals
+* Late payments may incur additional transaction charges
+* Work may be suspended for non-payment
+* Refunds are subject to the terms of individual milestone agreements
+
+### 6. Limitation of Liability
+Clarity InfoTech shall not be liable for any indirect, incidental, special, or consequential damages arising from the use of our services. Our total liability shall not exceed the amount paid by the client for the specific service in question.
+
+### 7. Termination
+Either party may terminate services with written notice as specified in the project agreement. Upon termination, the client is responsible for payment of all work completed up to the termination date.
+
+### 8. Changes to Terms
+We reserve the right to modify these terms at any time. Changes will be effective immediately upon posting to our website. Your continued use of our services constitutes acceptance of the updated terms.
+
+### 9. Governing Law
+These terms shall be governed by and construed in accordance with the laws of Qatar. Any disputes shall be subject to the exclusive jurisdiction of the courts in Doha, Qatar.
+
+### 10. Contact Information
+For questions about these Terms and Conditions, please contact us at info@clarity-infotech.com or visit:
+
+**Clarity InfoTech**
+* **Headquarters**: PO Box 200388, Doha, Qatar.`,
     refundTitle: "Refund Policy",
     refundSubtitle: "Last updated: July 29, 2026",
     refundContent: "### 1. Refund Scope\nWe provide high-quality custom software engineering and cloud consulting. Refunds are processed based on milestone deliverables.\n\n### 2. Milestone Payments\nPayment for successfully completed and accepted milestones is non-refundable.\n\n### 3. Project Cancellation\nIf a project is cancelled by the client during development, we reserve the right to bill for all hours worked up to the cancellation notice date."
@@ -729,7 +841,6 @@ export default function AdminDashboard() {
     links: [
       { id: 1, label: "Home", url: "/" },
       { id: 2, label: "About Us", url: "/about" },
-      { id: 3, label: "Our Projects", url: "/services" },
       { id: 4, label: "Our Services", url: "/our-services" },
       { id: 6, label: "Gallery", url: "/gallery" },
       { id: 5, label: "Contact", url: "/contact" }
@@ -977,7 +1088,7 @@ export default function AdminDashboard() {
     }
   };
   const DEFAULT_SYSTEM_CONFIG = {
-    smtpEmail: "salamzubi8@gmail.com",
+    smtpEmail: "info@clarity-infotech.com",
     smtpPassword: "ypiz ukra cywo loap",
     smtpHost: "smtp.gmail.com",
     smtpPort: "465",
@@ -1146,15 +1257,25 @@ export default function AdminDashboard() {
       if (storedHeader) {
         try {
           const parsed = JSON.parse(storedHeader);
-          if (parsed && parsed.links && !parsed.links.some(l => l.url === "/gallery")) {
-            const updatedLinks = [...parsed.links];
-            const contactIdx = updatedLinks.findIndex(l => l.url === "/contact");
-            if (contactIdx !== -1) {
-              updatedLinks.splice(contactIdx, 0, { id: 6, label: "Gallery", url: "/gallery" });
-            } else {
-              updatedLinks.push({ id: 6, label: "Gallery", url: "/gallery" });
+          if (parsed && parsed.links) {
+            parsed.links = parsed.links.filter(l => l.label !== "Our Projects");
+            if (!parsed.links.some(l => l.url === "/gallery")) {
+              parsed.links.push({ id: 6, label: "Gallery", url: "/gallery" });
             }
-            parsed.links = updatedLinks;
+            parsed.links.forEach(l => {
+              const lbl = l.label ? l.label.toLowerCase() : "";
+              if (lbl.includes("home")) l.url = "/";
+              else if (lbl.includes("about")) l.url = "/about";
+              else if (lbl.includes("service")) l.url = "/our-services";
+              else if (lbl.includes("gallery")) l.url = "/gallery";
+              else if (lbl.includes("contact")) l.url = "/contact";
+            });
+            const linkOrder = ["/", "/about", "/our-services", "/gallery", "/contact"];
+            parsed.links.sort((a, b) => {
+              const idxA = linkOrder.indexOf(a.url);
+              const idxB = linkOrder.indexOf(b.url);
+              return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
+            });
             localStorage.setItem("clarity_header", JSON.stringify(parsed));
           }
           setHeaderData({ ...DEFAULT_HEADER, ...parsed });
@@ -2347,14 +2468,14 @@ export default function AdminDashboard() {
         "@type": "LocalBusiness",
         "name": "Clarity InfoTech Office",
         "image": "https://clarityinfotech.com/logo.png",
-        "telephone": "+91 7373306677",
+        "telephone": "9876543210",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "Prince Infocity 1, 8th Floor, 286/1, OMR, Kandhanchavadi",
-          "addressLocality": "Chennai",
-          "addressRegion": "Tamil Nadu",
-          "postalCode": "600096",
-          "addressCountry": "IN"
+          "streetAddress": "PO Box 200388",
+          "addressLocality": "Doha",
+          "addressRegion": "Doha",
+          "postalCode": "200388",
+          "addressCountry": "QA"
         }
       }, null, 2);
     } else if (schemaTemplateType === "Service") {
@@ -2474,8 +2595,8 @@ export default function AdminDashboard() {
       slug = "/our-services";
     } else if (seoSelectedPage === "contact") {
       title = "Contact Us | Reach the " + brand + " Squad";
-      desc = "Get in touch with our elite developers. Speak to our team at Prince Infocity, Chennai and Coimbatore, India.";
-      keywords = "hire developers, contact engineering squad, chennai office phone, software consultation";
+      desc = "Get in touch with our elite developers. Speak to our team at PO Box 200388, Doha, Qatar.";
+      keywords = "hire developers, contact engineering squad, doha office phone, software consultation";
       slug = "/contact";
     } else if (seoSelectedPage === "gallery") {
       title = "Gallery | " + brand + " - Media Showcase";

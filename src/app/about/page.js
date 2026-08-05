@@ -81,7 +81,6 @@ export default function AboutPage() {
     links: [
       { id: 1, label: "Home", url: "/" },
       { id: 2, label: "About Us", url: "/about" },
-      { id: 3, label: "Our Projects", url: "/services" },
       { id: 4, label: "Our Services", url: "/our-services" },
       { id: 6, label: "Gallery", url: "/gallery" },
       { id: 5, label: "Contact", url: "/contact" }
@@ -93,18 +92,20 @@ export default function AboutPage() {
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
-        if (parsed && parsed.links && !parsed.links.some(l => l.url === "/gallery")) {
-          const updatedLinks = [...parsed.links];
-          const contactIdx = updatedLinks.findIndex(l => l.url === "/contact");
-          if (contactIdx !== -1) {
-            updatedLinks.splice(contactIdx, 0, { id: 6, label: "Gallery", url: "/gallery" });
-          } else {
-            updatedLinks.push({ id: 6, label: "Gallery", url: "/gallery" });
+        if (parsed && parsed.links) {
+          parsed.links = parsed.links.filter(l => l.label !== "Our Projects");
+          if (!parsed.links.some(l => l.url === "/gallery")) {
+            parsed.links.push({ id: 6, label: "Gallery", url: "/gallery" });
           }
-          parsed.links = updatedLinks;
+          const linkOrder = ["/", "/about", "/our-services", "/gallery", "/contact"];
+          parsed.links.sort((a, b) => {
+            const idxA = linkOrder.indexOf(a.url);
+            const idxB = linkOrder.indexOf(b.url);
+            return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
+          });
           localStorage.setItem("clarity_header", JSON.stringify(parsed));
+          setHeaderData(parsed);
         }
-        setHeaderData(parsed);
       } catch { }
     }
   }, []);
@@ -190,7 +191,7 @@ export default function AboutPage() {
                         ? "text-indigo-600 font-extrabold"
                         : "text-slate-900 hover:text-indigo-600"
                       : isActive
-                        ? "text-sky-400 font-extrabold"
+                        ? "text-sky-400 font-extrabold drop-shadow-[0_2px_8px_rgba(56,189,248,0.5)]"
                         : "text-white/90 hover:text-white"
                   }`}
                 >
@@ -251,8 +252,8 @@ export default function AboutPage() {
 
       <main className="w-full">
 
-        {/* 2. HERO HEADER SECTION - ULTRA COMPACT */}
-        <section className="relative pt-16 md:pt-20 pb-2 md:pb-3 bg-[#0A0E39] text-white overflow-hidden select-none text-center">
+        {/* 2. HERO HEADER SECTION - RICH DEEP NAVY BANNER */}
+        <section className="relative pt-28 md:pt-36 pb-16 md:pb-20 bg-[#0A0E39] text-white overflow-hidden select-none text-center">
           {/* Ambient Glows */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#0A0E39] via-[#0D134D] to-[#0A0E39] opacity-95" />
           <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-indigo-600/20 rounded-full blur-[140px] pointer-events-none" />
@@ -271,7 +272,7 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-2 font-sans text-white"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 font-sans text-white drop-shadow-md"
             >
               {pageAboutData.heroTitle}
             </motion.h1>
@@ -280,7 +281,7 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
-              className="text-sm sm:text-base md:text-lg text-slate-300 font-light max-w-2xl mx-auto leading-snug"
+              className="text-sm sm:text-base md:text-lg text-slate-300 font-light max-w-2xl mx-auto leading-relaxed"
             >
               {pageAboutData.heroSubtitle}
             </motion.p>
