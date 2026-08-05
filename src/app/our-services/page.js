@@ -9,7 +9,7 @@ import {
   Menu, X, ArrowUp, Lightbulb, Users2, TrendingUp,
   Globe, Star, Handshake, BookOpen, Heart, Zap, Award,
   Code2, Smartphone, Cloud, Shield, Cpu, BarChart3,
-  Share2, Link2, AtSign, Rss,
+  Share2, Link2, AtSign, Rss, Sparkles,
   MapPin, Phone, Mail, ArrowUpCircle
 } from "lucide-react";
 
@@ -56,23 +56,15 @@ function CaseStudyCardItem({ card, index }) {
       onMouseLeave={handleMouseLeave}
       className="group relative aspect-[16/10] overflow-hidden bg-black cursor-pointer rounded-xl shadow-lg border border-black/10"
     >
-      {/* Background Media (Video or Image) */}
-      {card.isVideo ? (
-        <video
-          src={card.media}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-      ) : (
-        <img
-          src={card.media || card.image}
-          alt={card.title}
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-      )}
+      {/* Background Media (Image with Fallback) */}
+      <img
+        src={card.image || card.poster || (typeof card.media === "string" && !card.media.endsWith(".mp4") ? card.media : "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80")}
+        alt={card.title}
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+        onError={(e) => {
+          e.target.src = "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80";
+        }}
+      />
 
       {/* Pixel Dissolve Hover Overlay (12 cols x 8 rows) */}
       <div className="absolute inset-0 pointer-events-none z-10 grid grid-cols-12 grid-rows-8">
@@ -385,48 +377,36 @@ export default function OurServicesPage() {
 
       <main>
         {/* ── HERO HEADER SECTION - RICH DEEP NAVY BANNER ── */}
-        <section className="relative py-14 sm:py-16 md:py-20 bg-[#0A0E39] text-white overflow-hidden select-none text-center">
+        <section className="relative py-16 sm:py-20 md:py-24 bg-[#0A0E39] text-white overflow-hidden select-none text-center">
           {/* Ambient Glows */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0E39] via-[#0D134D] to-[#0A0E39] opacity-95" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#060926] via-[#0A0E39] to-[#0A0E39] opacity-95" />
           <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-indigo-600/20 rounded-full blur-[140px] pointer-events-none" />
           <div className="absolute bottom-0 right-0 w-[450px] h-[450px] bg-sky-500/15 rounded-full blur-[120px] pointer-events-none" />
           <div className="absolute inset-0 opacity-10 pointer-events-none"
             style={{ backgroundImage: "radial-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
+          
           <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-12">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-sky-400/25 text-sky-300 text-xs font-semibold uppercase tracking-widest shadow-inner mb-4">
+              <Sparkles size={14} className="text-sky-400 animate-pulse" />
+              Bespoke Enterprise Solutions
+            </div>
+            
             <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 text-white font-sans drop-shadow-md">
-              {pageServiceData.heroTitle || "Our Services"}
+              Empowering Technology through Our Services
             </motion.h1>
+            
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
               className="text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed font-sans">
-              {pageServiceData.heroSubtitle || "We believe great products are built by happy, collaborative teams."}
+              Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, cloud-native security, and dedicated IT consulting for modern digital transformations.
             </motion.p>
           </div>
         </section>
 
-        {/* ── SHOWCASE SECTION: Empowering Technology through Our Services ── */}
-        <section className="relative bg-white text-black py-16 md:py-20 border-b border-gray-100 overflow-hidden">
+        {/* ── SHOWCASE SECTION: 2x2 Showcase Cards Grid ── */}
+        <section className="relative bg-[#FAF9F5] py-12 md:py-16 border-b border-gray-100 overflow-hidden">
           <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
             
-            {/* Header Text matching the given image */}
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="relative mx-auto max-w-4xl text-center mb-12 sm:mb-16"
-            >
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light leading-[1.2] tracking-tight font-sans mb-5">
-                <span className="text-[#1E67E2] font-semibold">Empowering Technology through </span>
-                <span className="text-black/40">Our</span>
-                <br />
-                <span className="text-black/40 font-light">Services</span>
-              </h2>
-              <p className="max-w-2xl mx-auto text-sm sm:text-base text-black/60 font-normal leading-relaxed font-sans">
-                Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, cloud-native security, and dedicated IT consulting for modern digital transformations.
-              </p>
-            </motion.div>
-
             {/* 2x2 Showcase Cards Grid */}
             <div className="grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
               {[
@@ -435,8 +415,7 @@ export default function OurServicesPage() {
                   title: "Cloud & DevOps Architecture",
                   category: "Infrastructure & Security",
                   year: "2026",
-                  media: "/service.mp4",
-                  isVideo: true,
+                  image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80",
                   magneticSquares: [
                     { x: 10, y: 15, size: 10 },
                     { x: 25, y: 40, size: 8 },
@@ -450,8 +429,7 @@ export default function OurServicesPage() {
                   title: "Custom Software Engineering",
                   category: "Web & Mobile Platforms",
                   year: "2026",
-                  media: "/service1.mp4",
-                  isVideo: true,
+                  image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
                   magneticSquares: [
                     { x: 10, y: 15, size: 10 },
                     { x: 25, y: 40, size: 8 },
@@ -465,8 +443,7 @@ export default function OurServicesPage() {
                   title: "Cyber Security & Auditing",
                   category: "Threat Defense & Uptime",
                   year: "2025",
-                  media: "/service2.mp4",
-                  isVideo: true,
+                  image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
                   magneticSquares: [
                     { x: 10, y: 15, size: 10 },
                     { x: 25, y: 40, size: 8 },
@@ -480,8 +457,7 @@ export default function OurServicesPage() {
                   title: "AI Integration & IT Consulting",
                   category: "Automation & Strategy",
                   year: "2025",
-                  media: "/service3.mp4",
-                  isVideo: true,
+                  image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80",
                   magneticSquares: [
                     { x: 10, y: 15, size: 10 },
                     { x: 25, y: 40, size: 8 },

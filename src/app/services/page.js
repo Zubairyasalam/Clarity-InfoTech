@@ -457,24 +457,16 @@ export default function ServicesPage() {
                   className="bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-xl shadow-slate-200/40 flex flex-col justify-between group transition-all duration-300"
                 >
                   <div>
-                    {/* Media Header (Video or Image) */}
+                    {/* Media Header (Image with Fallback) */}
                     <div className="relative aspect-[16/9] overflow-hidden bg-slate-900">
-                      {service.isVideo ? (
-                        <video
-                          src={service.media}
-                          autoPlay
-                          loop
-                          muted
-                          playsInline
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
-                        />
-                      ) : (
-                        <img
-                          src={service.media}
-                          alt={service.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
-                        />
-                      )}
+                      <img
+                        src={service.image || service.poster || (typeof service.media === "string" && !service.media.endsWith(".mp4") ? service.media : "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80")}
+                        alt={service.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
+                        onError={(e) => {
+                          e.target.src = "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80";
+                        }}
+                      />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E39]/80 via-transparent to-transparent" />
 
                     </div>
