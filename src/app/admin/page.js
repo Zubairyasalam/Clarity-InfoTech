@@ -5024,14 +5024,14 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                 </div>
               )}
 
-              {/* 6. SERVICES & CARDS EDITOR */}
+              {/* 6. OUR SERVICES & CARDS EDITOR */}
               {activeTab === "services" && (
                 <div className="space-y-6">
 
                   {/* Header */}
                   <div className="flex items-center justify-between">
                     <div>
-                      <h2 className="text-lg font-bold tracking-tight">Projects & Case Studies Editor</h2>
+                      <h2 className="text-lg font-bold tracking-tight">Our Services Section Editor</h2>
                       <p className="text-xs text-slate-500 mt-0.5">Edit badge, headline, description, partner paragraph, and service cards.</p>
                     </div>
                     <div className="flex items-center gap-3">
@@ -5056,10 +5056,10 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                     <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><Edit3 size={12} /> Headings & Badge</h3>
                     <div className="grid md:grid-cols-4 gap-4">
                       {[
-                        { label: "Badge Pill Text", key: "badge", placeholder: "Our Projects" },
+                        { label: "Badge Pill Text", key: "badge", placeholder: "Our Services" },
                         { label: "Heading Line 1 (blue)", key: "heading1", placeholder: "Empowering Technology through" },
                         { label: "Line 2 (gray)", key: "heading2", placeholder: "Our" },
-                        { label: "Line 3 (gray)", key: "heading3", placeholder: "Projects" },
+                        { label: "Line 3 (gray)", key: "heading3", placeholder: "Services" },
                       ].map(f => (
                         <div key={f.key}>
                           <label className="text-xs text-slate-500 font-semibold mb-1.5 block">{f.label}</label>

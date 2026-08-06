@@ -686,6 +686,18 @@ export default function Home() {
         localStorage.setItem("clarity_platforms", JSON.stringify(DEFAULT_PLATFORMS));
       }
 
+      const storedServices = localStorage.getItem("clarity_services");
+      if (storedServices) {
+        try {
+          const parsed = JSON.parse(storedServices);
+          setServicesData(prev => ({ ...prev, ...parsed }));
+        } catch (e) {
+          // fallback silently
+        }
+      } else {
+        localStorage.setItem("clarity_services", JSON.stringify(DEFAULT_SERVICES));
+      }
+
       const storedFaq = localStorage.getItem("clarity_faq");
       if (storedFaq) {
         try {
@@ -1365,11 +1377,11 @@ export default function Home() {
             </motion.div>
           </div>
 
-          {/* Case Study Cards (2x2 grid) */}
+          {/* Service Cards (2x2 grid) */}
           <div className="mx-auto max-w-5xl px-6 pb-14 sm:px-8 lg:px-12">
             <div className="grid gap-4 md:grid-cols-2">
-              {caseStudiesData.map((card, idx) => (
-                <CaseStudyCardItem key={card.id} card={card} index={idx} />
+              {(servicesData.cards || DEFAULT_SERVICES.cards).map((card, idx) => (
+                <CaseStudyCardItem key={card.id || idx} card={card} index={idx} />
               ))}
             </div>
           </div>
