@@ -11,7 +11,7 @@ import {
   Globe, Star, Handshake, BookOpen, Heart, Zap, Award,
   Code2, Smartphone, Cloud, Shield, Cpu, BarChart3,
   Share2, Link2, AtSign, Rss, Sparkles,
-  MapPin, Phone, Mail, ArrowUpCircle
+  MapPin, Phone, Mail, ArrowUpCircle, ArrowRight
 } from "lucide-react";
 
 // Interactive Case Study Card Component with Pixel Dissolve & Magnetic Squares
@@ -179,7 +179,7 @@ export default function OurServicesPage() {
       { label: "Growth", icon: "TrendingUp", desc: "We believe in nurturing talent and providing clear paths for personal and professional advancement through continuous mentorship." }
     ],
     sec3Title: "Connecting Businesses and Innovation Worldwide",
-    sec3Description: "Clarity InfoTech proudly partners with businesses across multiple countries, delivering innovative digital solutions that drive growth and transformation. We write custom software development and enterprise platforms, AI-powered solutions, cloud technologies, and enterprise platforms. We help organisations achieve their goals with scalable, secure, and high-performance products.",
+    sec3Description: "Clarity InfoTech partners with ambitious enterprises globally to engineer high-impact digital solutions. We deliver custom software development, AI-powered automation, cloud technologies, and scalable enterprise platforms—helping organizations achieve their goals with secure, resilient, and high-performance products.",
     stats: [
       { value: "15+", label: "Countries Served", icon: "Globe" },
       { value: "500+", label: "Products & Projects", icon: "Award" },
@@ -718,8 +718,55 @@ export default function OurServicesPage() {
           </div>
         </section>
 
+        {/* ── SECTION 3: Connecting Businesses and Innovation Worldwide ── */}
+        <section className="relative py-10 md:py-12 px-6 bg-gradient-to-b from-white via-[#F8FAFC] to-white border-t border-slate-100 overflow-hidden">
+          {/* Subtle ambient glow background */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-blue-400/10 rounded-full blur-[120px] pointer-events-none" />
 
+          <div className="max-w-5xl mx-auto text-center relative z-10">
+            {/* Gradient Title */}
+            <motion.h2
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight mb-3 bg-clip-text text-transparent bg-gradient-to-r from-[#1E67E2] via-[#0284C7] to-[#0A0E39] font-sans whitespace-normal md:whitespace-nowrap"
+            >
+              {pageServiceData.sec3Title || "Connecting Businesses and Innovation Worldwide"}
+            </motion.h2>
 
+            {/* Polished Copy Description */}
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-slate-600 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed font-normal mb-0 text-center text-balance"
+            >
+              {pageServiceData.sec3Description && !pageServiceData.sec3Description.includes("We write custom software development and enterprise platforms, AI-powered solutions, cloud technologies, and enterprise platforms.")
+                ? pageServiceData.sec3Description
+                : "Clarity InfoTech partners with ambitious enterprises globally to engineer high-impact digital solutions. We deliver custom software development, AI-powered automation, cloud technologies, and scalable enterprise platforms—helping organizations achieve their goals with secure, resilient, and high-performance products."}
+            </motion.p>
+          </div>
+        </section>
+
+        {/* ── CTA BANNER SECTION ── */}
+        <section className="bg-gradient-to-r from-[#1E67E2] via-[#0284C7] to-[#1E67E2] py-14 px-6 text-white text-center shadow-inner">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-3 tracking-tight">
+              Ready to Start Your Journey With Us?
+            </h2>
+            <p className="text-white/90 text-sm sm:text-base max-w-xl mx-auto leading-relaxed font-light mb-6">
+              Let's discuss how we can help your business grow with the right technology and the right team.
+            </p>
+            <a
+              href="/contact"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#1E67E2] font-bold text-sm rounded-full shadow-lg hover:bg-blue-50 transition-all hover:scale-105"
+            >
+              Contact Us <ArrowRight size={16} />
+            </a>
+          </div>
+        </section>
 
       </main>
 

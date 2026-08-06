@@ -536,9 +536,24 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <span className="font-semibold text-slate-900 block mb-0.5">Phone</span>
-                    <a href={`tel:${pageContactData.officePhone}`} className="hover:text-blue-600 transition-colors">
-                      {pageContactData.officePhone || "9876543210"}
-                    </a>
+                    <div className="flex flex-wrap items-center gap-1">
+                      {(pageContactData.officePhone || "+974 5029 8525, +974 5995 5100")
+                        .split(",")
+                        .map((phoneNum, idx, arr) => {
+                          const trimmed = phoneNum.trim();
+                          return (
+                            <span key={idx} className="inline-flex items-center">
+                              <a
+                                href={`tel:${trimmed.replace(/\s+/g, '')}`}
+                                className="hover:text-blue-600 transition-colors cursor-pointer select-text font-medium"
+                              >
+                                {trimmed}
+                              </a>
+                              {idx < arr.length - 1 && <span className="text-slate-400 mr-1.5">,</span>}
+                            </span>
+                          );
+                        })}
+                    </div>
                   </div>
                 </div>
 
