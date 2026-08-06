@@ -2841,7 +2841,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
       "about-us": "About Section",
       "services": "Our Services",
       "platforms": "Work Culture",
-      "faq": "Contact Us Page",
+      "faq": "FAQ & Contact Form",
       "header-links": "Header Logo & Links",
       "footer": "Website Footer",
       "legal-pages": "Legal Pages",
@@ -2990,7 +2990,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                 { id: "about-us", label: "About Section", icon: Shield },
                 { id: "services", label: "Our Services", icon: Layers },
                 { id: "platforms", label: "Work Culture", icon: Layers },
-                { id: "faq", label: "Contact Us Page", icon: MessageSquare },
+                { id: "faq", label: "FAQ & Contact Form", icon: MessageSquare },
               ].map((item) => {
                 const Icon = item.icon;
                 const isActive = activeTab === item.id;
@@ -4085,7 +4085,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
 
 
               {/* CONTACT US PAGE EDITOR */}
-              {(activeTab === "faq" || activeTab === "contact") && (
+              {activeTab === "contact" && (
                 <div className="space-y-6">
                   {/* Top header card */}
                   <div className="bg-white rounded-3xl shadow-sm border border-slate-100 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
