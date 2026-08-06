@@ -177,7 +177,7 @@ function CaseStudyCardItem({ card, index }) {
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="group relative aspect-[16/10] overflow-hidden bg-black cursor-pointer"
+      className="group relative aspect-[16/10] overflow-hidden bg-black cursor-pointer rounded-none border border-slate-200/80 shadow-sm"
     >
       {/* Background Media (Video or Image) */}
       {card.isVideo ? (
@@ -197,66 +197,19 @@ function CaseStudyCardItem({ card, index }) {
         />
       )}
 
-      {/* Pixel Dissolve Hover Overlay (12 cols x 8 rows) */}
-      <div className="absolute inset-0 pointer-events-none z-10 grid grid-cols-12 grid-rows-8">
-        {Array.from({ length: rows * cols }).map((_, i) => {
-          const r = Math.floor(i / cols);
-          const c = i % cols;
-          const delayIn = (r + c) * 0.018;
-          const delayOut = ((8 - r) + (12 - c)) * 0.012;
-
-          return (
-            <motion.div
-              key={i}
-              initial={{ scale: 0, opacity: 0 }}
-              animate={hovered ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
-              transition={{
-                duration: 0.25,
-                delay: hovered ? delayIn : delayOut,
-                ease: [0.22, 1, 0.36, 1]
-              }}
-              className="bg-black/80 w-full h-full"
-            />
-          );
-        })}
-      </div>
-
-      {/* Magnetic Squares Layer */}
-      <div className="absolute inset-0 pointer-events-none z-15">
-        {card.magneticSquares.map((sq, sqIdx) => {
-          const shiftX = useTransform(smoothMouseX, [0, 1], [-20 * (sqIdx + 1), 20 * (sqIdx + 1)]);
-          const shiftY = useTransform(smoothMouseY, [0, 1], [-20 * (sqIdx + 1), 20 * (sqIdx + 1)]);
-
-          return (
-            <motion.div
-              key={sqIdx}
-              style={{
-                left: `${sq.x}%`,
-                top: `${sq.y}%`,
-                width: `${sq.size}px`,
-                height: `${sq.size}px`,
-                x: shiftX,
-                y: shiftY,
-              }}
-              className="absolute bg-black shadow-lg"
-            />
-          );
-        })}
-      </div>
-
       {/* Plus Button (top right) */}
-      <div className="absolute right-4 top-4 z-20 flex h-7 w-7 items-center justify-center border border-white/30 text-xs text-white font-sans">
+      <div className="absolute right-4 top-4 z-20 flex h-7 w-7 items-center justify-center border border-white/40 text-xs text-white font-sans rounded-none bg-black/20 backdrop-blur-sm">
         +
       </div>
 
-      {/* Info Plate (bottom left) */}
-      <div className="absolute bottom-0 left-0 z-20 max-w-[50%] sm:max-w-[45%] bg-white px-2.5 pb-2 pt-1.5 text-left">
-        <h3 className="text-[13px] sm:text-[14px] font-semibold leading-tight text-black font-sans">
+      {/* Info Plate (bottom left - Sharp Edge Box matching Image 2) */}
+      <div className="absolute bottom-0 left-0 z-20 w-[48%] min-w-[210px] max-w-[65%] bg-white px-4 py-3 text-left rounded-none shadow-none font-sans border-r border-t border-slate-100">
+        <h3 className="text-sm sm:text-base font-bold leading-snug text-slate-900 font-sans tracking-tight">
           {card.title}
         </h3>
-        <div className="mt-0.5 flex items-center gap-2.5 text-[10px] font-sans">
-          <span className="text-black/60">{card.category}</span>
-          <span className="font-medium text-black">{card.year}</span>
+        <div className="mt-1 flex items-center gap-3 text-xs font-sans">
+          <span className="text-slate-500 font-medium">{card.category}</span>
+          <span className="font-bold text-slate-900">{card.year}</span>
         </div>
       </div>
     </motion.div>
@@ -593,8 +546,8 @@ export default function Home() {
       id: 1,
       image: "/office-bg.jpg?v=10",
       title: "Clarity Headquarters",
-      subtitle: "Powering Your Technology Like It's",
-      highlight: "Our Own",
+      subtitle: "Powering Your Technology",
+      highlight: "Like It's Our Own",
       description: "Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, and security audit systems. We align our processes with your vision to secure your production environments.",
       buttonText: "Explore IT Solutions",
       buttonLink: "#services",
@@ -605,8 +558,8 @@ export default function Home() {
       id: 2,
       image: "/carousel-1.png?v=10",
       title: "Executive Tech Strategy",
-      subtitle: "Architecting Your Future With",
-      highlight: "Precision",
+      subtitle: "Architecting Your Future",
+      highlight: "With Precision",
       description: "Our senior architects design cloud-native strategies and governance frameworks that scale with your business growth across global markets.",
       buttonText: "View Our Solutions",
       buttonLink: "#solutions",
@@ -617,8 +570,8 @@ export default function Home() {
       id: 3,
       image: "/carousel-2.png?v=10",
       title: "Software Engineering Hub",
-      subtitle: "Building Products That",
-      highlight: "Last Forever",
+      subtitle: "Building Digital Products",
+      highlight: "That Scale & Perform",
       description: "From full-stack web platforms to mobile apps, our agile teams deliver high-quality, maintainable code with rapid deployment cycles and zero downtime.",
       buttonText: "Our Services",
       buttonLink: "#services",
@@ -630,7 +583,7 @@ export default function Home() {
       image: "/carousel-3.png?v=10",
       title: "Modern Tech Workstations",
       subtitle: "Infrastructure Built For",
-      highlight: "Innovation",
+      highlight: "Next-Gen Innovation",
       description: "State-of-the-art workstations and high-performance cloud environments enable our teams to deliver cutting-edge solutions for the most demanding enterprise workloads.",
       buttonText: "Contact Us",
       buttonLink: "#contact",
@@ -648,7 +601,7 @@ export default function Home() {
   // Load hero slides from localStorage on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("clarity_hero_slides");
+      const stored = localStorage.getItem("clarity_hero_slides_v4");
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
@@ -660,7 +613,7 @@ export default function Home() {
         }
       } else {
         // Seed localStorage with defaults
-        localStorage.setItem("clarity_hero_slides", JSON.stringify(DEFAULT_HERO_SLIDES));
+        localStorage.setItem("clarity_hero_slides_v4", JSON.stringify(DEFAULT_HERO_SLIDES));
       }
     }
   }, []);
@@ -1081,26 +1034,20 @@ export default function Home() {
           </button>
 
           {/* Hero Content & Dynamic Slide Badge */}
-          <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 grid md:grid-cols-2 gap-12 items-center w-full relative z-20">
-            {/* Left side space */}
-            <div className="hidden md:block" />
-
-            {/* Right Side Content */}
+          <div className="max-w-4xl mx-auto px-6 md:px-12 flex flex-col items-center text-center w-full relative z-20">
             <motion.div
               variants={staggerContainer}
               initial="hidden"
               animate="visible"
-              className="flex flex-col items-start text-left max-w-xl md:ml-auto"
+              className="flex flex-col items-center text-center max-w-4xl mx-auto"
             >
-
-
               <motion.h1
                 key={`title-${activeSlide}`}
                 variants={fadeUpVariant}
-                className="font-extrabold text-3.5xl sm:text-4.5xl lg:text-5xl leading-[1.12] tracking-tight text-white mb-6 drop-shadow-xl font-sans"
+                className="font-black text-4xl sm:text-5xl lg:text-6xl leading-[1.15] tracking-tight text-white mb-5 drop-shadow-2xl font-sans text-center"
               >
-                {heroSlides[activeSlide]?.subtitle || "Powering Your"} <br />
-                <span className="text-sky-400 font-black">
+                <span>{heroSlides[activeSlide]?.subtitle || "Powering Your"}</span>
+                <span className="text-sky-400 font-black block mt-2 drop-shadow-md">
                   {heroSlides[activeSlide]?.highlight || "Our Own"}
                 </span>
               </motion.h1>
@@ -1108,23 +1055,10 @@ export default function Home() {
               <motion.p
                 key={`desc-${activeSlide}`}
                 variants={fadeUpVariant}
-                className="text-base sm:text-lg text-white/90 mb-8 leading-relaxed font-normal drop-shadow-md max-w-xl font-sans"
+                className="text-base sm:text-lg lg:text-xl text-white/90 leading-relaxed font-normal drop-shadow-lg max-w-2xl mx-auto text-center font-sans"
               >
                 {heroSlides[activeSlide]?.description || "Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, and security audit systems."}
               </motion.p>
-
-              <motion.div
-                variants={fadeUpVariant}
-                whileHover={{ scale: shouldReduceMotion ? 1 : 1.02 }}
-                className="inline-block"
-              >
-                <a href={heroSlides[activeSlide]?.buttonLink || "#services"} className="group btn bg-primary hover:bg-primary-hover text-white font-semibold text-base px-8 py-4 rounded-full shadow-xl shadow-primary/50 flex items-center gap-3 transition-all duration-200 font-sans">
-                  {heroSlides[activeSlide]?.buttonText || "Explore IT Solutions"}
-                  <span className="transition-transform duration-200 group-hover:translate-x-1">
-                    <ArrowRight size={20} />
-                  </span>
-                </a>
-              </motion.div>
             </motion.div>
           </div>
 
@@ -1368,21 +1302,22 @@ export default function Home() {
                 </motion.div>
               </motion.div>
 
-              {/* Right Column: 3-Layer Concentric 'C' Logo Masked Image Carousel + Controls */}
+              {/* Right Column: Clean Multi-Layered Clarity 'C' Emblem (matching Image 2) */}
               <div className="lg:col-span-5 flex flex-col justify-center items-center lg:items-end">
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
+                  whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
                   viewport={{ once: false, margin: "-100px" }}
-                  transition={{ duration: 0.8, delay: 0, ease: "easeOut" }}
-                  className="relative w-full max-w-[340px] sm:max-w-[400px] lg:max-w-[440px] aspect-square origin-center overflow-hidden"
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  whileHover={{ scale: 1.04, rotate: 2 }}
+                  className="relative w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[420px] aspect-square origin-center overflow-hidden transition-transform duration-300"
                   style={{
-                    filter: "drop-shadow(0 0 25px rgba(79, 70, 229, 0.45)) drop-shadow(0 0 12px rgba(56, 189, 248, 0.25))"
+                    filter: "drop-shadow(0 0 35px rgba(56, 189, 248, 0.4)) drop-shadow(0 0 15px rgba(37, 99, 235, 0.3))"
                   }}
                 >
-                  {/* Layer 1: Outer Ring (Opacity: 0.70) */}
+                  {/* Layer 1: Outer Ring (Deep Navy / Dark Blue Gradient) */}
                   <div
-                    className="absolute inset-0 w-full h-full opacity-70"
+                    className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#060D3B] via-[#0D2380] to-[#1A45C8]"
                     style={{
                       WebkitMaskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 81.82 18.18 A 45 45 0 1 0 81.82 81.82 A 6 6 0 0 0 73.33 73.33 A 33 33 0 1 1 73.33 26.67 A 6 6 0 0 0 81.82 18.18 Z'/%3E%3C/svg%3E")`,
                       WebkitMaskSize: 'contain',
@@ -1393,24 +1328,11 @@ export default function Home() {
                       maskRepeat: 'no-repeat',
                       maskPosition: 'center',
                     }}
-                  >
-                    <AnimatePresence mode="wait">
-                      <motion.img
-                        key={activeLogoSlide}
-                        src={logoCarouselImages[activeLogoSlide].src}
-                        alt={logoCarouselImages[activeLogoSlide].label}
-                        initial={{ opacity: 0, scale: 1.05 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.7 }}
-                        className="w-full h-full object-cover object-center"
-                      />
-                    </AnimatePresence>
-                  </div>
+                  />
 
-                  {/* Layer 2: Middle Ring (Opacity: 0.90) */}
+                  {/* Layer 2: Middle Ring (Vibrant Royal Blue Gradient) */}
                   <div
-                    className="absolute inset-0 w-full h-full opacity-90"
+                    className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#0B2BB5] via-[#1E5ED7] to-[#2563EB]"
                     style={{
                       WebkitMaskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 71.92 28.08 A 31 31 0 1 0 71.92 71.92 A 5 5 0 0 0 64.85 64.85 A 21 21 0 1 1 64.85 35.15 A 5 5 0 0 0 71.92 28.08 Z'/%3E%3C/svg%3E")`,
                       WebkitMaskSize: 'contain',
@@ -1421,24 +1343,11 @@ export default function Home() {
                       maskRepeat: 'no-repeat',
                       maskPosition: 'center',
                     }}
-                  >
-                    <AnimatePresence mode="wait">
-                      <motion.img
-                        key={activeLogoSlide}
-                        src={logoCarouselImages[activeLogoSlide].src}
-                        alt={logoCarouselImages[activeLogoSlide].label}
-                        initial={{ opacity: 0, scale: 1.05 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.7 }}
-                        className="w-full h-full object-cover object-center"
-                      />
-                    </AnimatePresence>
-                  </div>
+                  />
 
-                  {/* Layer 3: Inner Ring (Opacity: 1.0 - Brightest core) */}
+                  {/* Layer 3: Inner Core Ring (Bright Cyan / Sky Blue Gradient) */}
                   <div
-                    className="absolute inset-0 w-full h-full opacity-100"
+                    className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#0284C7] via-[#00A3FF] to-[#38BDF8]"
                     style={{
                       WebkitMaskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M 63.44 36.56 A 19 19 0 1 0 63.44 63.44 A 5 5 0 0 0 56.36 56.36 A 9 9 0 1 1 56.36 43.64 A 5 5 0 0 0 63.44 36.56 Z'/%3E%3C/svg%3E")`,
                       WebkitMaskSize: 'contain',
@@ -1449,53 +1358,8 @@ export default function Home() {
                       maskRepeat: 'no-repeat',
                       maskPosition: 'center',
                     }}
-                  >
-                    <AnimatePresence mode="wait">
-                      <motion.img
-                        key={activeLogoSlide}
-                        src={logoCarouselImages[activeLogoSlide].src}
-                        alt={logoCarouselImages[activeLogoSlide].label}
-                        initial={{ opacity: 0, scale: 1.05 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.7 }}
-                        className="w-full h-full object-cover object-center"
-                      />
-                    </AnimatePresence>
-                  </div>
+                  />
                 </motion.div>
-
-                {/* Thumbnails Row matching Image 1 under the Logo */}
-                <div className="mt-6 flex flex-col items-center gap-3.5">
-                  <div className="flex items-center gap-2 sm:gap-2.5 p-2 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 shadow-xl">
-                    {logoCarouselImages.map((img, idx) => (
-                      <button
-                        key={img.id}
-                        onClick={() => setActiveLogoSlide(idx)}
-                        className={`relative w-11 h-11 sm:w-13 sm:h-13 rounded-xl overflow-hidden border-2 transition-all duration-300 ${activeLogoSlide === idx
-                          ? "border-primary scale-110 shadow-lg shadow-primary/50 ring-2 ring-primary/40"
-                          : "border-white/20 opacity-50 hover:opacity-100 hover:border-white/60"
-                          }`}
-                        title={img.label}
-                      >
-                        <img src={img.src} alt={img.label} className="w-full h-full object-cover" />
-                      </button>
-                    ))}
-                  </div>
-
-                  {/* Carousel Indicator Dots / Bars matching Image 1 */}
-                  <div className="flex items-center gap-1.5">
-                    {logoCarouselImages.map((_, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setActiveLogoSlide(idx)}
-                        className={`h-2 rounded-full transition-all duration-300 ${activeLogoSlide === idx ? "w-6 bg-primary shadow-md shadow-primary/50" : "w-2 bg-white/25 hover:bg-white/50"
-                          }`}
-                      />
-                    ))}
-                  </div>
-                </div>
-
               </div>
 
             </div>

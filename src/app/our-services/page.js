@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Footer from "@/components/Footer";
 import SEOMetadata from "@/components/SEOMetadata";
 import DynamicIcon from "@/components/DynamicIcon";
+import HeroBannerSlider from "@/components/HeroBannerSlider";
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import {
   Menu, X, ArrowUp, Lightbulb, Users2, TrendingUp,
@@ -54,78 +55,42 @@ function CaseStudyCardItem({ card, index }) {
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="group relative aspect-[16/10] overflow-hidden bg-black cursor-pointer rounded-xl shadow-lg border border-black/10"
+      className="group relative aspect-[16/10] overflow-hidden bg-black cursor-pointer rounded-none border border-slate-200/80 shadow-sm"
     >
-      {/* Background Media (Image with Fallback) */}
-      <img
-        src={card.image || card.poster || (typeof card.media === "string" && !card.media.endsWith(".mp4") ? card.media : "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80")}
-        alt={card.title}
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-        onError={(e) => {
-          e.target.src = "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80";
-        }}
-      />
-
-      {/* Pixel Dissolve Hover Overlay (12 cols x 8 rows) */}
-      <div className="absolute inset-0 pointer-events-none z-10 grid grid-cols-12 grid-rows-8">
-        {Array.from({ length: rows * cols }).map((_, i) => {
-          const r = Math.floor(i / cols);
-          const c = i % cols;
-          const delayIn = (r + c) * 0.018;
-          const delayOut = ((8 - r) + (12 - c)) * 0.012;
-
-          return (
-            <motion.div
-              key={i}
-              initial={{ scale: 0, opacity: 0 }}
-              animate={hovered ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
-              transition={{
-                duration: 0.25,
-                delay: hovered ? delayIn : delayOut,
-                ease: [0.22, 1, 0.36, 1]
-              }}
-              className="bg-black/80 w-full h-full"
-            />
-          );
-        })}
-      </div>
-
-      {/* Magnetic Squares Layer */}
-      <div className="absolute inset-0 pointer-events-none z-15">
-        {(card.magneticSquares || []).map((sq, sqIdx) => {
-          const shiftX = useTransform(smoothMouseX, [0, 1], [-20 * (sqIdx + 1), 20 * (sqIdx + 1)]);
-          const shiftY = useTransform(smoothMouseY, [0, 1], [-20 * (sqIdx + 1), 20 * (sqIdx + 1)]);
-
-          return (
-            <motion.div
-              key={sqIdx}
-              style={{
-                left: `${sq.x}%`,
-                top: `${sq.y}%`,
-                width: `${sq.size}px`,
-                height: `${sq.size}px`,
-                x: shiftX,
-                y: shiftY,
-              }}
-              className="absolute bg-black shadow-lg"
-            />
-          );
-        })}
-      </div>
+      {/* Background Media (Video or Image) */}
+      {card.isVideo || (typeof card.media === "string" && card.media.endsWith(".mp4")) ? (
+        <video
+          src={card.media || "/service.mp4"}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+      ) : (
+        <img
+          src={card.media || card.image || card.poster || "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80"}
+          alt={card.title}
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          onError={(e) => {
+            e.target.src = "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80";
+          }}
+        />
+      )}
 
       {/* Plus Button (top right) */}
-      <div className="absolute right-4 top-4 z-20 flex h-7 w-7 items-center justify-center border border-white/30 text-xs text-white font-sans rounded-md bg-black/30 backdrop-blur-sm">
+      <div className="absolute right-4 top-4 z-20 flex h-7 w-7 items-center justify-center border border-white/40 text-xs text-white font-sans rounded-none bg-black/20 backdrop-blur-sm">
         +
       </div>
 
-      {/* Info Plate (bottom left) */}
-      <div className="absolute bottom-0 left-0 z-20 max-w-[55%] sm:max-w-[50%] bg-white px-3 pb-2.5 pt-2 text-left rounded-tr-xl shadow-md border-r border-t border-gray-100">
-        <h3 className="text-[13px] sm:text-[14px] font-bold leading-tight text-black font-sans">
+      {/* Info Plate (bottom left - Sharp Edge Box matching Image 2) */}
+      <div className="absolute bottom-0 left-0 z-20 w-[48%] min-w-[210px] max-w-[65%] bg-white px-4 py-3 text-left rounded-none shadow-none font-sans border-r border-t border-slate-100">
+        <h3 className="text-sm sm:text-base font-bold leading-snug text-slate-900 font-sans tracking-tight">
           {card.title}
         </h3>
-        <div className="mt-0.5 flex items-center gap-2.5 text-[10px] font-sans">
-          <span className="text-black/60">{card.category}</span>
-          <span className="font-bold text-black">{card.year}</span>
+        <div className="mt-1 flex items-center gap-3 text-xs font-sans">
+          <span className="text-slate-500 font-medium">{card.category}</span>
+          <span className="font-bold text-slate-900">{card.year}</span>
         </div>
       </div>
     </motion.div>
@@ -376,37 +341,65 @@ export default function OurServicesPage() {
       </header>
 
       <main>
-        {/* ── HERO HEADER SECTION - RICH DEEP NAVY BANNER ── */}
-        <section className="relative py-16 sm:py-20 md:py-24 bg-[#0A0E39] text-white overflow-hidden select-none text-center">
-          {/* Ambient Glows */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#060926] via-[#0A0E39] to-[#0A0E39] opacity-95" />
-          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-indigo-600/20 rounded-full blur-[140px] pointer-events-none" />
-          <div className="absolute bottom-0 right-0 w-[450px] h-[450px] bg-sky-500/15 rounded-full blur-[120px] pointer-events-none" />
-          <div className="absolute inset-0 opacity-10 pointer-events-none"
-            style={{ backgroundImage: "radial-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px)", backgroundSize: "24px 24px" }} />
-          
-          <div className="relative z-10 max-w-4xl mx-auto px-6 md:px-12">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-sky-400/25 text-sky-300 text-xs font-semibold uppercase tracking-widest shadow-inner mb-4">
-              <Sparkles size={14} className="text-sky-400 animate-pulse" />
-              Bespoke Enterprise Solutions
-            </div>
-            
-            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 text-white font-sans drop-shadow-md">
-              Empowering Technology through Our Services
-            </motion.h1>
-            
-            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-slate-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto font-light leading-relaxed font-sans">
-              Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, cloud-native security, and dedicated IT consulting for modern digital transformations.
-            </motion.p>
-          </div>
-        </section>
+        {/* ── HERO SLIDER BANNER SECTION ── */}
+        <HeroBannerSlider
+          slides={[
+            {
+              id: 1,
+              title: "Cloud & DevOps",
+              highlight: "Architecture & Security",
+              description: "Enterprise software engineering, DevOps automation, cloud-native security, and 24/7 uptime infrastructure.",
+              buttonText: "Explore Services",
+              buttonLink: "#services",
+              slideLabel: "Cloud & DevOps",
+              image: "/carousel-1.png"
+            },
+            {
+              id: 2,
+              title: "Custom Software",
+              highlight: "Engineering & Mobile",
+              description: "Tailored web applications and native-feel mobile platforms built for high scalability, performance, and security.",
+              buttonText: "Web & Mobile",
+              buttonLink: "#services",
+              slideLabel: "Software",
+              image: "/carousel-2.png"
+            },
+            {
+              id: 3,
+              title: "Cyber Security &",
+              highlight: "Threat Defense",
+              description: "End-to-end security audits, vulnerability testing, compliance frameworks, and active threat prevention.",
+              buttonText: "Security Audits",
+              buttonLink: "#services",
+              slideLabel: "Security",
+              image: "/carousel-3.png"
+            },
+            {
+              id: 4,
+              title: "Enterprise AI &",
+              highlight: "Data Analytics",
+              description: "Intelligent automation models, RAG pipelines, and BI dashboards that convert raw data into strategic business growth.",
+              buttonText: "AI Solutions",
+              buttonLink: "#services",
+              slideLabel: "AI & Data",
+              image: "/carousel-4.png"
+            }
+          ]}
+          seoConfig={{ imageAlt: "Clarity InfoTech Services", imageTitle: "Clarity InfoTech Services Squad" }}
+          badge="OUR SERVICES"
+        />
 
         {/* ── SHOWCASE SECTION: 2x2 Showcase Cards Grid ── */}
         <section className="relative bg-[#FAF9F5] py-12 md:py-16 border-b border-gray-100 overflow-hidden">
           <div className="mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
             
+            {/* Section Header */}
+            <div className="text-center max-w-2xl mx-auto mb-10">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-sans bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-indigo-600 to-indigo-800">
+                Our Projects
+              </h2>
+            </div>
+
             {/* 2x2 Showcase Cards Grid */}
             <div className="grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
               {[
@@ -415,7 +408,8 @@ export default function OurServicesPage() {
                   title: "Cloud & DevOps Architecture",
                   category: "Infrastructure & Security",
                   year: "2026",
-                  image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80",
+                  media: "/service.mp4",
+                  isVideo: true,
                   magneticSquares: [
                     { x: 10, y: 15, size: 10 },
                     { x: 25, y: 40, size: 8 },
@@ -429,7 +423,8 @@ export default function OurServicesPage() {
                   title: "Custom Software Engineering",
                   category: "Web & Mobile Platforms",
                   year: "2026",
-                  image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
+                  media: "/service1.mp4",
+                  isVideo: true,
                   magneticSquares: [
                     { x: 10, y: 15, size: 10 },
                     { x: 25, y: 40, size: 8 },
@@ -443,7 +438,8 @@ export default function OurServicesPage() {
                   title: "Cyber Security & Auditing",
                   category: "Threat Defense & Uptime",
                   year: "2025",
-                  image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
+                  media: "/service2.mp4",
+                  isVideo: true,
                   magneticSquares: [
                     { x: 10, y: 15, size: 10 },
                     { x: 25, y: 40, size: 8 },
@@ -457,7 +453,8 @@ export default function OurServicesPage() {
                   title: "AI Integration & IT Consulting",
                   category: "Automation & Strategy",
                   year: "2025",
-                  image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80",
+                  media: "/service3.mp4",
+                  isVideo: true,
                   magneticSquares: [
                     { x: 10, y: 15, size: 10 },
                     { x: 25, y: 40, size: 8 },
@@ -547,9 +544,6 @@ export default function OurServicesPage() {
           <div className="max-w-6xl mx-auto relative z-10">
             {/* Section Header */}
             <div className="text-center mb-12">
-              <span className="inline-block text-xs font-bold font-mono tracking-widest uppercase text-sky-400 bg-sky-400/10 border border-sky-400/25 px-4 py-1.5 rounded-full mb-3 shadow-sm">
-                {pageServiceData.sec2Badge || "02 / OUR CULTURE & TEAM IMPACT"}
-              </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-white font-sans">
                 {pageServiceData.sec2Title || "Building Great Teams, Creating Greater Impact!"}
               </h2>
@@ -592,9 +586,6 @@ export default function OurServicesPage() {
                             <h4 className={`font-bold text-base transition-colors ${isActive ? "text-sky-300" : "text-white"}`}>
                               {node.label}
                             </h4>
-                            {isActive && (
-                              <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-sky-400/20 text-sky-300 border border-sky-400/30">Active</span>
-                            )}
                           </div>
                           <p className="text-white/60 text-xs mt-1 leading-relaxed line-clamp-2">
                             {node.desc}
@@ -628,9 +619,6 @@ export default function OurServicesPage() {
                     </div>
                     <span className="text-white font-extrabold text-xs tracking-wide">
                       {activeCircle}
-                    </span>
-                    <span className="text-[10px] text-sky-300 font-mono mt-0.5 opacity-80">
-                      Pillar #{circleNodes.findIndex(n => n.label === activeCircle) + 1}
                     </span>
                   </motion.div>
 
@@ -697,9 +685,6 @@ export default function OurServicesPage() {
                             <h4 className={`font-bold text-base transition-colors ${isActive ? "text-sky-300" : "text-white"}`}>
                               {node.label}
                             </h4>
-                            {isActive && (
-                              <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-sky-400/20 text-sky-300 border border-sky-400/30">Active</span>
-                            )}
                           </div>
                           <p className="text-white/60 text-xs mt-1 leading-relaxed line-clamp-2">
                             {node.desc}
@@ -724,9 +709,6 @@ export default function OurServicesPage() {
                 className="mt-10 max-w-3xl mx-auto text-center bg-white/[0.05] backdrop-blur-xl border border-sky-400/30 p-6 md:p-8 rounded-3xl shadow-2xl relative overflow-hidden"
               >
                 <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-48 h-24 bg-sky-400/20 blur-2xl pointer-events-none" />
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-sky-400/10 border border-sky-400/30 text-sky-300 text-xs font-bold mb-3 font-mono">
-                  <activeNode.icon size={14} /> Spotlight: {activeCircle} Strategy
-                </div>
                 <h3 className="text-xl md:text-2xl font-black text-white mb-2">
                   Empowering Teams Through {activeCircle}
                 </h3>
@@ -739,53 +721,9 @@ export default function OurServicesPage() {
           </div>
         </section>
 
-        {/* ── SECTION 3: Global ── */}
-        <section className="py-8 md:py-10 px-6 bg-white">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-6">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight mb-4 gradient-text">
-                {pageServiceData.sec3Title || "Connecting Businesses and Innovation Worldwide"}
-              </h2>
-              <p className="text-gray-500 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-                {pageServiceData.sec3Description || "Clarity InfoTech proudly partners with businesses across multiple countries, delivering innovative digital solutions that drive growth and transformation. We write custom software development and enterprise platforms, AI-powered solutions, cloud technologies, and enterprise platforms. We help organisations achieve their goals with scalable, secure, and high-performance products."}
-              </p>
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-              {stats.map((stat, idx) => {
-                const Ico = stat.icon;
-                return (
-                  <motion.div key={idx} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }} transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    className="flex items-center gap-3 bg-blue-50 border border-blue-100 rounded-xl px-5 py-4">
-                    <div className="w-8 h-8 rounded-lg bg-white border border-blue-200 flex items-center justify-center flex-shrink-0">
-                      <Ico size={15} className="text-[#1E67E2]" />
-                    </div>
-                    <div>
-                      <div className="text-xl font-extrabold text-[#1E67E2]">{stat.value}</div>
-                      <div className="text-gray-500 text-[11px] font-medium leading-tight">{stat.label}</div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
 
 
-          </div>
-        </section>
 
-        {/* ── CTA STRIP ── */}
-        <section className="py-8 px-6 bg-gradient-to-r from-[#1E67E2] to-[#0ea5e9] text-white text-center">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl sm:text-3xl font-extrabold mb-3">{pageServiceData.ctaTitle || "Ready to Start Your Journey With Us?"}</h2>
-            <p className="text-white/80 text-sm mb-7 max-w-lg mx-auto">{pageServiceData.ctaSubtitle || "Let's discuss how we can help your business grow with the right technology and the right team."}</p>
-            <a href="/contact"
-              className="inline-flex items-center gap-2 bg-white text-[#1E67E2] font-extrabold px-8 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition-all text-sm hover:scale-105">
-              {pageServiceData.ctaButtonText || "Get In Touch"} <ArrowUp size={14} className="rotate-45" />
-            </a>
-          </div>
-        </section>
       </main>
 
       <Footer />

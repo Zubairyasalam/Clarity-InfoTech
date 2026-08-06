@@ -618,7 +618,7 @@ export default function AdminDashboard() {
     formTitleHighlight: "Message",
     officeTitle: "Head Office",
     officeAddress: "PO Box 200388, Doha, Qatar",
-    officePhone: "9876543210",
+    officePhone: "+974 5029 8525, +974 5995 5100",
     officeEmail: "info@clarity-infotech.com",
     mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115482.38557991349!2d51.44234586524317!3d25.285447333555504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e45c534ffdce87f%3A0x44d9319f78cfd4b1!2sDoha%2C%20Qatar!5e0!3m2!1sen!2sqa!4v1700000000000!5m2!1sen!2sqa"
   };
@@ -629,7 +629,7 @@ export default function AdminDashboard() {
   const DEFAULT_PAGE_GALLERY = {
     heroTitle: "Our Gallery",
     heroSubtitle: "A visual showcase of our workspace, team milestones, and event highlights.",
-    sectionTitle: "Glimpses of Clarity Moments",
+    sectionTitle: "Glimpses of Clarity",
     sectionSubtitle: "A sneak peek into our events, celebrations, and team experiences.",
     bottomCtaTitle: "Want to create memorable moments with us?",
     bottomCtaSubtitle: "Partner with our software squads or join our growing team of innovators.",

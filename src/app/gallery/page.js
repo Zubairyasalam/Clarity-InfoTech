@@ -6,6 +6,7 @@ import { Menu, X, Sparkles, Play, Maximize2, Image as ImageIcon } from "lucide-r
 import AuthModal from "@/components/AuthModal";
 import Footer from "@/components/Footer";
 import SEOMetadata from "@/components/SEOMetadata";
+import HeroBannerSlider from "@/components/HeroBannerSlider";
 
 // Curated high-quality professional technology & workspace images from Unsplash
 const DEFAULT_GALLERY_IMAGES = [
@@ -62,27 +63,45 @@ export default function GalleryPage() {
   const [galleryPageData, setGalleryPageData] = useState({
     heroTitle: "Our Gallery",
     heroSubtitle: "A visual showcase of our workspace, team milestones, and event highlights.",
-    sectionTitle: "Glimpses of Clarity Moments",
+    sectionTitle: "Glimpses of Clarity",
     sectionSubtitle: "A sneak peek into our events, celebrations, and team experiences."
   });
 
   const DEFAULT_GALLERY_VIDEOS = [
     {
       title: "Cloud Infrastructure & DevOps Automation",
-      url: "https://www.youtube.com/embed/M988_fsOSWo",
-      thumbnail: "https://img.youtube.com/vi/M988_fsOSWo/hqdefault.jpg",
+      url: "https://www.youtube.com/embed/SQCg_4FjJGo",
+      thumbnail: "https://img.youtube.com/vi/SQCg_4FjJGo/hqdefault.jpg",
       isLocal: false
     },
     {
-      title: "AI & Machine Learning in Modern Enterprises",
+      title: "AI & Machine Learning for Enterprises",
       url: "https://www.youtube.com/embed/aircAruvnKk",
       thumbnail: "https://img.youtube.com/vi/aircAruvnKk/hqdefault.jpg",
       isLocal: false
     },
     {
-      title: "Cybersecurity & Secure System Architecture",
+      title: "Cybersecurity & Network Defense Architecture",
       url: "https://www.youtube.com/embed/inWWhr5tnEA",
       thumbnail: "https://img.youtube.com/vi/inWWhr5tnEA/hqdefault.jpg",
+      isLocal: false
+    },
+    {
+      title: "Full-Stack Software Engineering Masterclass",
+      url: "https://www.youtube.com/embed/nu_pCVPKzTk",
+      thumbnail: "https://img.youtube.com/vi/nu_pCVPKzTk/hqdefault.jpg",
+      isLocal: false
+    },
+    {
+      title: "Computer Science & Systems Architecture",
+      url: "https://www.youtube.com/embed/zOjov-2OZ0E",
+      thumbnail: "https://img.youtube.com/vi/zOjov-2OZ0E/hqdefault.jpg",
+      isLocal: false
+    },
+    {
+      title: "System Design & High-Scalability Engineering",
+      url: "https://www.youtube.com/embed/xpDnVSmNFX0",
+      thumbnail: "https://img.youtube.com/vi/xpDnVSmNFX0/hqdefault.jpg",
       isLocal: false
     }
   ];
@@ -106,15 +125,6 @@ export default function GalleryPage() {
         } catch (e) { }
       }
 
-      // Load gallery images from admin
-      const storedImages = localStorage.getItem("clarity_gallery_images");
-      if (storedImages) {
-        try {
-          const parsed = JSON.parse(storedImages);
-          if (Array.isArray(parsed) && parsed.length > 0) setGalleryImages(parsed);
-        } catch (e) { }
-      }
-
       // Load gallery page content from admin
       const storedPageGallery = localStorage.getItem("clarity_page_gallery");
       if (storedPageGallery) {
@@ -123,8 +133,8 @@ export default function GalleryPage() {
         } catch (e) { }
       }
 
-      // Load gallery videos from admin — v2 key (clears stale entries)
-      const storedVideos = localStorage.getItem("clarity_gallery_videos_v2");
+      // Load gallery videos from admin — edu key
+      const storedVideos = localStorage.getItem("clarity_gallery_videos_edu");
       if (storedVideos) {
         try {
           const parsed = JSON.parse(storedVideos);
@@ -133,9 +143,12 @@ export default function GalleryPage() {
             setGalleryVideos(validVideos);
           } else {
             setGalleryVideos(DEFAULT_GALLERY_VIDEOS);
-            localStorage.setItem("clarity_gallery_videos_v2", JSON.stringify(DEFAULT_GALLERY_VIDEOS));
+            localStorage.setItem("clarity_gallery_videos_edu", JSON.stringify(DEFAULT_GALLERY_VIDEOS));
           }
         } catch (e) { }
+      } else {
+        setGalleryVideos(DEFAULT_GALLERY_VIDEOS);
+        localStorage.setItem("clarity_gallery_videos_edu", JSON.stringify(DEFAULT_GALLERY_VIDEOS));
       }
     }
   }, []);
@@ -258,47 +271,53 @@ export default function GalleryPage() {
       </header>
 
       <main className="w-full">
-        {/* HERO HEADER SECTION - ELEGANT DEEP NAVY BANNER */}
-        <section className="relative py-14 sm:py-16 md:py-20 bg-[#0A0E39] text-white overflow-hidden select-none text-center">
-          {/* Ambient Background Glows */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#060926] via-[#0A0E39] to-[#0A0E39] opacity-95" />
-          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-indigo-600/20 rounded-full blur-[140px] pointer-events-none" />
-          <div className="absolute bottom-0 right-0 w-[450px] h-[450px] bg-sky-500/15 rounded-full blur-[120px] pointer-events-none" />
-
-          {/* Grid pattern overlay */}
-          <div
-            className="absolute inset-0 opacity-10 pointer-events-none"
-            style={{
-              backgroundImage: `radial-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px)`,
-              backgroundSize: '24px 24px'
-            }}
-          />
-
-          <div className="max-w-4xl mx-auto px-6 md:px-12 relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="flex flex-col items-center space-y-4"
-            >
-              {/* Badge Pill */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-sky-400/25 text-sky-300 text-xs font-semibold uppercase tracking-widest shadow-inner mb-1">
-                <Sparkles size={14} className="text-sky-400 animate-pulse" />
-                CIT Media & Highlights
-              </div>
-
-              {/* Main Title */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight font-sans leading-[1.15] drop-shadow-md">
-                {galleryPageData.heroTitle}
-              </h1>
-
-              {/* Subtitle */}
-              <p className="text-base sm:text-lg text-slate-300 font-light max-w-2xl mx-auto leading-relaxed">
-                {galleryPageData.heroSubtitle}
-              </p>
-            </motion.div>
-          </div>
-        </section>
+        {/* HERO SLIDER BANNER SECTION */}
+        <HeroBannerSlider
+          slides={[
+            {
+              id: 1,
+              title: "A Visual Showcase",
+              highlight: "Of Our Moments & Workspace",
+              description: "Explore our vibrant engineering workspace, team hackathons, technology summits, and corporate event highlights.",
+              buttonText: "View Gallery",
+              buttonLink: "#gallery-photos",
+              slideLabel: "Moments",
+              image: "/carousel-1.png"
+            },
+            {
+              id: 2,
+              title: "Inside Our Modern",
+              highlight: "Innovation Hub",
+              description: "A glimpse inside our collaborative workspace where developers, architects, and designers build high-tech platforms.",
+              buttonText: "Workspace Hub",
+              buttonLink: "#gallery-photos",
+              slideLabel: "Workspace",
+              image: "/carousel-2.png"
+            },
+            {
+              id: 3,
+              title: "Tech Milestones &",
+              highlight: "Team Culture",
+              description: "Celebrating team achievements, engineering sprints, continuous learning, and shared project success.",
+              buttonText: "Culture & Sprints",
+              buttonLink: "#gallery-photos",
+              slideLabel: "Culture",
+              image: "/carousel-3.png"
+            },
+            {
+              id: 4,
+              title: "Connecting Tech Teams",
+              highlight: "Worldwide",
+              description: "Building strong client partnerships and enterprise digital products together.",
+              buttonText: "Get In Touch",
+              buttonLink: "/contact",
+              slideLabel: "Global Team",
+              image: "/carousel-4.png"
+            }
+          ]}
+          seoConfig={{ imageAlt: "Clarity InfoTech Gallery", imageTitle: "Clarity InfoTech Moments & Team" }}
+          badge="GALLERY & MOMENTS"
+        />
 
         {/* VIDEO POSTS SECTION */}
         {galleryVideos && galleryVideos.length > 0 && (
@@ -312,13 +331,10 @@ export default function GalleryPage() {
                 transition={{ duration: 0.5 }}
                 className="text-center mb-10"
               >
-                <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-indigo-50 text-indigo-600 border border-indigo-100 inline-block mb-3">
-                  Featured Videos
-                </span>
-                <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-sans text-slate-900">
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight font-sans bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-indigo-600 to-indigo-800 mb-3">
                   Our Videos
                 </h2>
-                <p className="mt-2 text-slate-500 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
+                <p className="mt-2 text-slate-600 text-base sm:text-lg max-w-xl mx-auto leading-relaxed font-normal">
                   Watch our team stories, project highlights, and event recaps
                 </p>
               </motion.div>
@@ -417,72 +433,7 @@ export default function GalleryPage() {
           </section>
         )}
 
-        {/* PHOTO GALLERY SHOWCASE SECTION */}
-        {galleryImages && galleryImages.length > 0 && (
-          <section className="py-12 sm:py-16 bg-white border-t border-slate-100 relative overflow-hidden">
-            <div className="max-w-7xl mx-auto px-6 relative z-10">
-              {/* Section Header */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="text-center mb-10"
-              >
-                <span className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-sky-50 text-sky-600 border border-sky-100 inline-block mb-3">
-                  Photo Showcase
-                </span>
-                <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight font-sans text-slate-900">
-                  {galleryPageData.sectionTitle}
-                </h2>
-                <p className="mt-2 text-slate-500 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
-                  {galleryPageData.sectionSubtitle}
-                </p>
-              </motion.div>
 
-              {/* Photo Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {galleryImages.map((img, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: idx * 0.05 }}
-                    onClick={() => setLightboxImg(img)}
-                    className="group relative bg-slate-100 rounded-2xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300 h-64 border border-slate-200/60"
-                  >
-                    <img
-                      src={img.url}
-                      alt={img.alt || img.title || "Gallery image"}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300 flex flex-col justify-end p-5 text-white" />
-
-                    {/* Image Caption & Zoom Button */}
-                    <div className="absolute inset-0 p-5 flex flex-col justify-between z-10">
-                      <div className="flex justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <span className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white hover:text-slate-900 transition-all">
-                          <Maximize2 size={16} />
-                        </span>
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-white text-base leading-snug drop-shadow">
-                          {img.title || "Clarity Moment"}
-                        </h4>
-                        <p className="text-xs text-sky-200 font-medium mt-0.5 opacity-95">
-                          {img.alt || "Workspace & Event"}
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
 
       </main>
 

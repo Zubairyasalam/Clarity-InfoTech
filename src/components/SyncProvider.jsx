@@ -12,10 +12,11 @@ export default function SyncProvider({ children }) {
     const originalSetItem = localStorage.setItem;
     
     localStorage.setItem = function(key, value) {
+      const currentVal = localStorage.getItem(key);
       originalSetItem.apply(this, arguments);
       
-      // Auto sync all client changes for clarity_* keys to the server
-      if (key && key.startsWith("clarity_")) {
+      // Auto sync all client changes for clarity_* keys to the server if value changed
+      if (key && key.startsWith("clarity_") && currentVal !== value) {
         try {
           fetch("/api/content", {
             method: "POST",
@@ -42,25 +43,21 @@ export default function SyncProvider({ children }) {
         
         if (result.success && result.data) {
           const keys = Object.keys(result.data);
-          let changed = false;
           
           keys.forEach(key => {
             if (!key.startsWith("clarity_")) return;
             
-            const serverVal = JSON.stringify(result.data[key]);
+            const serverData = result.data[key];
+            if (serverData === undefined || serverData === null) return;
+            
+            const serverValStr = typeof serverData === "string" ? serverData : JSON.stringify(serverData);
             const clientVal = localStorage.getItem(key);
             
-            if (clientVal !== serverVal) {
-              // Write directly to local storage to avoid recursion loops
-              originalSetItem.call(localStorage, key, serverVal);
-              changed = true;
+            if (clientVal !== serverValStr) {
+              // Write directly to local storage without triggering recursive sync
+              originalSetItem.call(localStorage, key, serverValStr);
             }
           });
-          
-          if (changed) {
-            // Trigger a single force reload to re-run page mount effects with new settings
-            window.location.reload();
-          }
         }
       } catch (err) {
         console.error("Initial load sync failed:", err);

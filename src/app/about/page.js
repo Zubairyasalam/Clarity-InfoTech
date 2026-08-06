@@ -25,6 +25,7 @@ import AuthModal from "@/components/AuthModal";
 import Footer from "@/components/Footer";
 import SEOMetadata from "@/components/SEOMetadata";
 import DynamicIcon from "@/components/DynamicIcon";
+import HeroBannerSlider from "@/components/HeroBannerSlider";
 
 import * as LucideIcons from "lucide-react";
 
@@ -36,9 +37,52 @@ export default function AboutPage() {
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   const [seoConfig, setSeoConfig] = useState({
-    imageAlt: "About Clarity InfoTech",
-    imageTitle: "Clarity InfoTech Team"
+    imageAlt: "Clarity InfoTech About Us",
+    imageTitle: "About Clarity InfoTech Engineering Squad"
   });
+
+  const aboutSlides = [
+    {
+      id: 1,
+      title: "Empowering Businesses",
+      highlight: "Through Innovation & Tech",
+      description: "Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, cloud architecture, and security audit systems.",
+      buttonText: "Explore Our Story",
+      buttonLink: "#about-story",
+      slideLabel: "Story",
+      image: "/carousel-1.png"
+    },
+    {
+      id: 2,
+      title: "Driven By Excellence &",
+      highlight: "Expert Engineering",
+      description: "Our skilled engineering squad transforms complex business challenges into scalable, high-performance digital platforms.",
+      buttonText: "Our Culture",
+      buttonLink: "#values",
+      slideLabel: "Culture",
+      image: "/carousel-2.png"
+    },
+    {
+      id: 3,
+      title: "Building High-Performance",
+      highlight: "Digital Products",
+      description: "We craft custom web & mobile platforms, AI-driven solutions, and secure cloud microservices with 99.9% uptime SLAs.",
+      buttonText: "Core Values",
+      buttonLink: "#values",
+      slideLabel: "Values",
+      image: "/carousel-3.png"
+    },
+    {
+      id: 4,
+      title: "Your Trusted Technology",
+      highlight: "Partner Worldwide",
+      description: "Delivering 24/7 reliability, SLA guarantees, and enterprise security for ambitious brands around the globe.",
+      buttonText: "Get In Touch",
+      buttonLink: "/contact",
+      slideLabel: "Contact",
+      image: "/carousel-4.png"
+    }
+  ];
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -234,44 +278,11 @@ export default function AboutPage() {
 
       <main className="w-full">
 
-        {/* 2. HERO HEADER SECTION - RICH DEEP NAVY BANNER */}
-        <section className="relative py-14 sm:py-16 md:py-20 bg-[#0A0E39] text-white overflow-hidden select-none text-center">
-          {/* Ambient Glows */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0E39] via-[#0D134D] to-[#0A0E39] opacity-95" />
-          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-indigo-600/20 rounded-full blur-[140px] pointer-events-none" />
-          <div className="absolute bottom-0 right-0 w-[450px] h-[450px] bg-sky-500/15 rounded-full blur-[120px] pointer-events-none" />
-
-          <div
-            className="absolute inset-0 opacity-10 pointer-events-none"
-            style={{
-              backgroundImage: `radial-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px)`,
-              backgroundSize: '24px 24px'
-            }}
-          />
-
-          <div className="max-w-4xl mx-auto px-6 md:px-12 relative z-10">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 font-sans text-white drop-shadow-md"
-            >
-              {pageAboutData.heroTitle}
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.15 }}
-              className="text-sm sm:text-base md:text-lg text-slate-300 font-light max-w-2xl mx-auto leading-relaxed"
-            >
-              {pageAboutData.heroSubtitle}
-            </motion.p>
-          </div>
-        </section>
+        {/* 2. HERO SLIDER BANNER SECTION */}
+        <HeroBannerSlider slides={aboutSlides} seoConfig={seoConfig} badge="ABOUT US" />
 
         {/* 3. ABOUT CLARITY INFOTECH NARRATIVE */}
-        <section className="pt-4 pb-12 md:pb-16 px-6 max-w-4xl mx-auto text-left">
+        <section className="pt-4 pb-4 md:pb-6 px-6 max-w-4xl mx-auto text-left">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -282,11 +293,9 @@ export default function AboutPage() {
               {pageAboutData.aboutTitle}
             </h2>
 
-            <p className="text-slate-700 text-base sm:text-lg leading-relaxed mb-8 font-normal">
+            <p className="text-slate-700 text-base sm:text-lg leading-relaxed mb-6 font-normal">
               {pageAboutData.aboutParagraph1}
             </p>
-
-            <div className="w-full h-[1px] bg-slate-200 my-10" />
 
             <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-normal">
               {pageAboutData.aboutParagraph2}
@@ -295,7 +304,7 @@ export default function AboutPage() {
         </section>
 
         {/* 4. OUR VALUES SECTION - MODERN GLASSMORPHIC CARDS DESIGN */}
-        <section className="py-10 md:py-12 px-6 bg-slate-50/80 border-t border-b border-slate-200/70 relative overflow-hidden text-left">
+        <section className="pt-6 pb-10 md:pt-8 md:pb-12 px-6 bg-slate-50/80 border-t border-b border-slate-200/70 relative overflow-hidden text-left">
           {/* Ambient Background Gradients */}
           <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-sky-400/10 rounded-full blur-[120px] pointer-events-none" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
@@ -304,9 +313,6 @@ export default function AboutPage() {
 
             {/* Header */}
             <div className="text-center max-w-3xl mx-auto mb-8">
-              <span className="inline-block bg-indigo-50 text-indigo-600 border border-indigo-200/80 px-4 py-1.5 rounded-full text-xs font-bold font-mono tracking-wider uppercase mb-4 shadow-sm">
-                {pageAboutData.valuesPill}
-              </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-sans bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-indigo-600 to-indigo-800 mb-4">
                 {pageAboutData.valuesTitle}
               </h2>
@@ -316,7 +322,7 @@ export default function AboutPage() {
             </div>
 
             {/* 4 Cards Grid Layout */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
               {pageAboutData.valuesCards.map((item, idx) => {
                 return (
                   <motion.div
@@ -325,38 +331,43 @@ export default function AboutPage() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    whileHover={{ y: -8, scale: 1.02 }}
-                    className="bg-white rounded-3xl p-7 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col justify-between group transition-all duration-300 relative overflow-hidden"
+                    whileHover={{ y: -8 }}
+                    className="bg-white rounded-3xl p-7 shadow-xl shadow-slate-200/50 border border-slate-200/70 flex flex-col justify-between h-full group transition-all duration-300 relative overflow-hidden hover:shadow-2xl hover:shadow-indigo-500/15 hover:border-indigo-300"
                   >
-                    {/* Corner Accent Pill */}
-                    <div className="flex items-center justify-between mb-8">
-                      <span className="font-mono text-2xl font-black text-slate-300 group-hover:text-indigo-600 transition-colors">
-                        {item.step}
-                      </span>
-                      <span className="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full uppercase tracking-wider font-mono">
-                        {item.tag}
-                      </span>
-                    </div>
+                    {/* Top Gradient Accent Bar */}
+                    <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${item.gradient} opacity-80 group-hover:opacity-100 transition-opacity`} />
 
-                    {/* Icon Container */}
-                    <div className="mb-6">
-                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-tr ${item.gradient} text-white flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:scale-110 transition-transform duration-300`}>
-                        <DynamicIcon name={item.icon} size={28} className="text-white" />
+                    <div className="flex-1 flex flex-col">
+                      {/* Header Step & Tag */}
+                      <div className="flex items-center justify-between mb-6">
+                        <span className="font-mono text-2xl font-black text-slate-300 group-hover:text-indigo-600 transition-colors">
+                          {item.step}
+                        </span>
+                        <span className="text-[10px] font-bold text-indigo-600 bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-full uppercase tracking-wider font-mono">
+                          {item.tag}
+                        </span>
+                      </div>
+
+                      {/* Glowing Icon Container */}
+                      <div className="mb-6">
+                        <div className={`w-14 h-14 rounded-2xl bg-gradient-to-tr ${item.gradient} text-white flex items-center justify-center shadow-lg shadow-indigo-500/25 group-hover:scale-110 transition-transform duration-300`}>
+                          <DynamicIcon name={item.icon} size={28} className="text-white filter drop-shadow" />
+                        </div>
+                      </div>
+
+                      {/* Title & Description */}
+                      <div className="mb-4 flex-1">
+                        <h3 className="font-extrabold text-2xl text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors font-sans tracking-tight">
+                          {item.title}
+                        </h3>
+                        <p className="text-slate-600 text-sm leading-relaxed font-normal">
+                          {item.desc}
+                        </p>
                       </div>
                     </div>
 
-                    {/* Content */}
-                    <div>
-                      <h3 className="font-extrabold text-2xl text-slate-800 mb-3 group-hover:text-indigo-600 transition-colors font-sans">
-                        {item.title}
-                      </h3>
-                      <p className="text-slate-500 text-sm leading-relaxed font-normal">
-                        {item.desc}
-                      </p>
-                    </div>
-
-                    {/* Bottom Hover Bar */}
-                    <div className={`mt-6 h-[3px] w-0 group-hover:w-full bg-gradient-to-r ${item.gradient} rounded-full transition-all duration-500`} />
+                    {/* Bottom Accent Line */}
+                    <div className={`mt-4 h-1 w-full bg-gradient-to-r ${item.gradient} rounded-full opacity-30 group-hover:opacity-100 transition-all duration-300`} />
                   </motion.div>
                 );
               })}
@@ -366,7 +377,7 @@ export default function AboutPage() {
         </section>
 
         {/* 5. 2-COLUMN SECTION: OUR APPROACH & WHY CHOOSE US */}
-        <section className="py-20 md:py-28 px-6 max-w-6xl mx-auto text-left">
+        <section className="pt-12 md:pt-16 pb-4 md:pb-6 px-6 max-w-6xl mx-auto text-left">
           <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-start">
 
             {/* Left Column: Our Approach */}

@@ -18,6 +18,7 @@ import {
 import AuthModal from "@/components/AuthModal";
 import Footer from "@/components/Footer";
 import SEOMetadata from "@/components/SEOMetadata";
+import HeroBannerSlider from "@/components/HeroBannerSlider";
 
 export default function ContactPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -171,7 +172,7 @@ export default function ContactPage() {
     formTitleHighlight: "Message",
     officeTitle: "Head Office",
     officeAddress: "PO Box 200388, Doha, Qatar",
-    officePhone: "9876543210",
+    officePhone: "+974 5029 8525, +974 5995 5100",
     officeEmail: "info@clarity-infotech.com",
     mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115482.38557991349!2d51.44234586524317!3d25.285447333555504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e45c534ffdce87f%3A0x44d9319f78cfd4b1!2sDoha%2C%20Qatar!5e0!3m2!1sen!2sqa!4v1700000000000!5m2!1sen!2sqa"
   };
@@ -183,6 +184,7 @@ export default function ContactPage() {
       try {
         const parsed = JSON.parse(storedHeader);
         if (parsed && parsed.links) {
+          const originalStr = JSON.stringify(parsed);
           parsed.links = parsed.links.filter(l => l.label !== "Our Projects");
           if (!parsed.links.some(l => l.url === "/gallery")) {
             parsed.links.push({ id: 6, label: "Gallery", url: "/gallery" });
@@ -193,7 +195,10 @@ export default function ContactPage() {
             const idxB = linkOrder.indexOf(b.url);
             return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
           });
-          localStorage.setItem("clarity_header", JSON.stringify(parsed));
+          const newStr = JSON.stringify(parsed);
+          if (newStr !== originalStr) {
+            localStorage.setItem("clarity_header", newStr);
+          }
           setHeaderData(parsed);
         }
       } catch { }
@@ -203,11 +208,6 @@ export default function ContactPage() {
     if (storedContact) {
       try {
         const parsed = JSON.parse(storedContact);
-        parsed.officeAddress = "PO Box 200388, Doha, Qatar";
-        parsed.officePhone = "9876543210";
-        parsed.officeEmail = "info@clarity-infotech.com";
-        parsed.mapEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115482.38557991349!2d51.44234586524317!3d25.285447333555504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e45c534ffdce87f%3A0x44d9319f78cfd4b1!2sDoha%2C%20Qatar!5e0!3m2!1sen!2sqa!4v1700000000000!5m2!1sen!2sqa";
-        localStorage.setItem("clarity_page_contact", JSON.stringify(parsed));
         setPageContactData({ ...DEFAULT_PAGE_CONTACT, ...parsed });
       } catch { }
     }
@@ -290,48 +290,56 @@ export default function ContactPage() {
       </header>
 
       <main className="w-full">
-        {/* 2. HERO HEADER SECTION - RICH DEEP NAVY BANNER */}
-        <section className="relative py-14 sm:py-16 md:py-20 bg-[#0A0E39] text-white overflow-hidden select-none text-center">
-          {/* Ambient Glows */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0E39] via-[#0D134D] to-[#0A0E39] opacity-95" />
-          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-indigo-600/20 rounded-full blur-[140px] pointer-events-none" />
-          <div className="absolute bottom-0 right-0 w-[450px] h-[450px] bg-sky-500/15 rounded-full blur-[120px] pointer-events-none" />
-
-          {/* Grid pattern */}
-          <div
-            className="absolute inset-0 opacity-10 pointer-events-none"
-            style={{
-              backgroundImage: `radial-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px)`,
-              backgroundSize: "24px 24px",
-            }}
-          />
-
-          <div className="max-w-4xl mx-auto px-6 md:px-12 relative z-10">
-            <span className="text-sky-400 font-semibold text-xs tracking-wider uppercase inline-block mb-3 font-mono bg-sky-400/10 border border-sky-400/25 px-4 py-1.5 rounded-full">
-              {pageContactData.heroBadge || "CONTACT US"}
-            </span>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 font-sans text-white drop-shadow-md"
-            >
-              {pageContactData.heroTitle || "Get In Touch"}
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-sm sm:text-base md:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed font-light font-sans"
-            >
-              {pageContactData.heroSubtitle || "Ready to transform your business with cutting-edge technology? Let's discuss your project and bring your vision to life."}
-            </motion.p>
-          </div>
-        </section>
+        {/* 2. HERO SLIDER BANNER SECTION */}
+        <HeroBannerSlider
+          slides={[
+            {
+              id: 1,
+              title: "Ready to Transform",
+              highlight: "Your Business?",
+              description: "Ready to transform your business with cutting-edge technology? Let's discuss your project and bring your vision to life.",
+              buttonText: "Send Us a Message",
+              buttonLink: "#recaptcha",
+              slideLabel: "Get In Touch",
+              image: "/carousel-1.png"
+            },
+            {
+              id: 2,
+              title: "Get In Touch With",
+              highlight: "Our Engineering Squad",
+              description: "Our software engineering team will review your message and get back to you within 24 hours.",
+              buttonText: "Fill Contact Form",
+              buttonLink: "#recaptcha",
+              slideLabel: "Squad Support",
+              image: "/carousel-2.png"
+            },
+            {
+              id: 3,
+              title: "Head Office & Global",
+              highlight: "Client Support",
+              description: "PO Box 200388, Doha, Qatar | Direct phone and email support for enterprise clients worldwide.",
+              buttonText: "Head Office Info",
+              buttonLink: "#office-info",
+              slideLabel: "Doha HQ",
+              image: "/carousel-3.png"
+            },
+            {
+              id: 4,
+              title: "Start Your Project",
+              highlight: "With Clarity InfoTech",
+              description: "Reach out today to discuss custom software development, cloud migration, AI models, or security audits.",
+              buttonText: "Contact Us Now",
+              buttonLink: "#recaptcha",
+              slideLabel: "Start Project",
+              image: "/carousel-4.png"
+            }
+          ]}
+          seoConfig={seoConfig}
+          badge="CONTACT US"
+        />
 
         {/* 3. CONTACT FORM CARD SECTION */}
-        <section className="px-4 sm:px-6 max-w-4xl mx-auto relative z-20 -mt-12 md:-mt-14 mb-12">
+        <section className="px-4 sm:px-6 max-w-4xl mx-auto relative z-20 py-10 sm:py-16 mb-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -362,7 +370,7 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Name */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-2 font-sans">
+                    <label className="block text-xs font-bold text-slate-800 mb-2 font-sans">
                       Name <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -371,13 +379,13 @@ export default function ContactPage() {
                       placeholder="Your Full Name"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-sans"
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-slate-900 placeholder:text-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-sans shadow-xs"
                     />
                   </div>
 
                   {/* Email */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-2 font-sans">
+                    <label className="block text-xs font-bold text-slate-800 mb-2 font-sans">
                       Email <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -386,13 +394,13 @@ export default function ContactPage() {
                       placeholder="yourname@domain.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-sans"
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-slate-900 placeholder:text-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-sans shadow-xs"
                     />
                   </div>
 
                   {/* Company Name */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-2 font-sans">
+                    <label className="block text-xs font-bold text-slate-800 mb-2 font-sans">
                       Company Name
                     </label>
                     <input
@@ -400,29 +408,29 @@ export default function ContactPage() {
                       placeholder="Your Company Name"
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-sans"
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-slate-900 placeholder:text-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-sans shadow-xs"
                     />
                   </div>
 
                   {/* Project Type / Service */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-700 mb-2 font-sans">
+                    <label className="block text-xs font-bold text-slate-800 mb-2 font-sans">
                       Project Type / Service <span className="text-red-500">*</span>
                     </label>
                     <select
                       required
                       value={formData.service}
                       onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-sans appearance-none cursor-pointer"
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-sans appearance-none cursor-pointer shadow-xs"
                     >
-                      <option value="">Select a service</option>
-                      <option value="Web Development">Web Development</option>
-                      <option value="Mobile Apps">Mobile Apps</option>
-                      <option value="Cloud Services">Cloud & DevOps Services</option>
-                      <option value="AI Solutions">Enterprise AI & RAG</option>
-                      <option value="Cybersecurity">Cybersecurity Audit</option>
-                      <option value="Data Analytics">Data Analytics</option>
-                      <option value="Other">Other</option>
+                      <option value="" className="bg-white text-slate-900">Select a service</option>
+                      <option value="Web Development" className="bg-white text-slate-900">Web Development</option>
+                      <option value="Mobile Apps" className="bg-white text-slate-900">Mobile Apps</option>
+                      <option value="Cloud Services" className="bg-white text-slate-900">Cloud & DevOps Services</option>
+                      <option value="AI Solutions" className="bg-white text-slate-900">Enterprise AI & RAG</option>
+                      <option value="Cybersecurity" className="bg-white text-slate-900">Cybersecurity Audit</option>
+                      <option value="Data Analytics" className="bg-white text-slate-900">Data Analytics</option>
+                      <option value="Other" className="bg-white text-slate-900">Other</option>
                     </select>
                     {formData.service === "Other" && (
                       <div className="mt-3">
@@ -432,7 +440,7 @@ export default function ContactPage() {
                           placeholder="Please specify"
                           value={formData.otherService}
                           onChange={(e) => setFormData({ ...formData, otherService: e.target.value })}
-                          className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-sans"
+                          className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-slate-900 placeholder:text-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-sans shadow-xs"
                         />
                       </div>
                     )}
@@ -441,7 +449,7 @@ export default function ContactPage() {
 
                 {/* Project Details / Message */}
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-2 font-sans">
+                  <label className="block text-xs font-bold text-slate-800 mb-2 font-sans">
                     Project Details / Message <span className="text-red-500">*</span>
                   </label>
                   <textarea
@@ -450,14 +458,14 @@ export default function ContactPage() {
                     placeholder="Tell us what you'd like to discuss..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-sans resize-none"
+                    className="w-full px-4 py-3 rounded-xl bg-white border border-slate-300 text-slate-900 placeholder:text-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all font-sans resize-none shadow-xs"
                   />
                 </div>
 
                 {/* Bottom Row: reCAPTCHA & Submit */}
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-2">
                   {/* reCAPTCHA Widget Box */}
-                  <div className="flex items-center gap-3 p-3.5 bg-slate-50 border border-slate-200 rounded-xl w-full sm:w-auto">
+                  <div className="flex items-center gap-3 p-3.5 bg-slate-50 border border-slate-300 rounded-xl w-full sm:w-auto">
                     <input
                       type="checkbox"
                       id="recaptcha"
@@ -465,10 +473,10 @@ export default function ContactPage() {
                       onChange={(e) => setFormData({ ...formData, recaptcha: e.target.checked })}
                       className="w-5 h-5 rounded text-blue-600 focus:ring-blue-500 border-slate-300 cursor-pointer"
                     />
-                    <label htmlFor="recaptcha" className="text-xs font-medium text-slate-700 cursor-pointer select-none">
+                    <label htmlFor="recaptcha" className="text-xs font-bold text-slate-800 cursor-pointer select-none">
                       I'm not a robot
                     </label>
-                    <div className="ml-4 flex flex-col items-center justify-center text-[9px] text-slate-400 leading-tight">
+                    <div className="ml-4 flex flex-col items-center justify-center text-[9px] text-slate-500 leading-tight">
                       <svg className="w-5 h-5 text-blue-500 mb-0.5" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z" />
                       </svg>

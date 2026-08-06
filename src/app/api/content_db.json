@@ -1,6 +1,18 @@
 {
   "clarity_inquiries": [
     {
+      "id": "inq-1786002008595",
+      "name": "Zubairya Salam khan",
+      "email": "zubairyasalamkhan213@gmail.com",
+      "company": "N/A",
+      "service": "Cloud Services",
+      "message": "hii",
+      "date": "Aug 6, 2026",
+      "time": "01:10 PM",
+      "status": "unread",
+      "priority": "high"
+    },
+    {
       "id": "inq-1785860394648",
       "name": "zainabee",
       "email": "zaun@gmail.com",
@@ -452,5 +464,54 @@
       "thumbnail": "",
       "isLocal": false
     }
-  ]
+  ],
+  "clarity_page_contact": {
+    "heroBadge": "CONTACT US",
+    "heroTitle": "Get In Touch",
+    "heroSubtitle": "Ready to transform your business with cutting-edge technology? Let's discuss your project and bring your vision to life.",
+    "formTitlePrefix": "Send Us a",
+    "formTitleHighlight": "Message",
+    "officeTitle": "Head Office",
+    "officeAddress": "PO Box 200388, Doha, Qatar",
+    "officePhone": "+974 5029 8525,+974 5995 5100",
+    "officeEmail": "info@clarity-infotech.com",
+    "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115482.38557991349!2d51.44234586524317!3d25.285447333555504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e45c534ffdce87f%3A0x44d9319f78cfd4b1!2sDoha%2C%20Qatar!5e0!3m2!1sen!2sqa!4v1700000000000!5m2!1sen!2sqa"
+  },
+  "clarity_faq": {
+    "heading1": "You Have Questions",
+    "heading2": "We Have Answers",
+    "subtitle": "Discover clear answers to common enterprise software, cloud infrastructure, and security availability questions.",
+    "formTitle": "Tell Us What You Need",
+    "formSubtitle": "Our team is ready to assist you with every detail, big or small.",
+    "formFirstName": "First Name",
+    "formLastName": "Last Name",
+    "formCountry": "Country",
+    "formPhone": "Phone Number",
+    "formEmail": "Email Address",
+    "formInquiryLabel": "Type of Inquiry",
+    "formMessage": "Message",
+    "formCheckboxText": "I'd like to receive exclusive tech updates and insights",
+    "formSubmitText": "Submit",
+    "inquiryTypes": [
+      "Cloud & DevOps",
+      "Software Dev",
+      "Cyber Security",
+      "AI Consulting",
+      "Others"
+    ],
+    "questions": [
+      {
+        "q": "What is covered under standard system SLAs?",
+        "a": "Standard SLA protection typically covers microservices downtime, server infrastructure reliability, security patch releases, and routine platform maintenance."
+      },
+      {
+        "q": "Who maintains ownership of the custom codebase?",
+        "a": "You retain 100% intellectual property ownership of the codebase upon final project delivery. All source codes are transferred to your enterprise repository."
+      },
+      {
+        "q": "How does Clarity InfoTech handle scalability audits?",
+        "a": "Our cloud teams conduct monthly infrastructure usage reviews to identify bottlenecks and configure auto-scaling thresholds, ensuring optimal cost-to-performance efficiency."
+      }
+    ]
+  }
 }
