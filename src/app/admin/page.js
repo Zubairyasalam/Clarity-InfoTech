@@ -2839,7 +2839,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
       "inquiries": "Inquiries Inbox",
       "hero-slides": "Hero Section",
       "about-us": "About Section",
-      "services": "Projects",
+      "services": "Our Services",
       "platforms": "Work Culture",
       "faq": "Contact Us Page",
       "header-links": "Header Logo & Links",
@@ -2988,7 +2988,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
               {[
                 { id: "hero-slides", label: "Hero Section", icon: Image },
                 { id: "about-us", label: "About Section", icon: Shield },
-                { id: "services", label: "Projects", icon: Briefcase },
+                { id: "services", label: "Our Services", icon: Layers },
                 { id: "platforms", label: "Work Culture", icon: Layers },
                 { id: "faq", label: "Contact Us Page", icon: MessageSquare },
               ].map((item) => {
