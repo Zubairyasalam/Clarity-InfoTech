@@ -62,16 +62,14 @@ export default function GalleryPage() {
 
   const [galleryPageData, setGalleryPageData] = useState({
     heroTitle: "Our Gallery",
-    heroSubtitle: "A visual showcase of our workspace, team milestones, and event highlights.",
-    sectionTitle: "Glimpses of Clarity",
-    sectionSubtitle: "A sneak peek into our events, celebrations, and team experiences."
+    heroSubtitle: "A visual showcase of our workspace, team milestones, and event highlights."
   });
 
   const DEFAULT_GALLERY_VIDEOS = [
     {
-      title: "Cloud Infrastructure & DevOps Automation",
-      url: "https://www.youtube.com/embed/SQCg_4FjJGo",
-      thumbnail: "https://img.youtube.com/vi/SQCg_4FjJGo/hqdefault.jpg",
+      title: "The Secrets of Learning a New Language",
+      url: "https://www.youtube.com/embed/NiTsduRreug",
+      thumbnail: "https://img.youtube.com/vi/NiTsduRreug/hqdefault.jpg",
       isLocal: false
     },
     {
@@ -129,7 +127,17 @@ export default function GalleryPage() {
       const storedPageGallery = localStorage.getItem("clarity_page_gallery");
       if (storedPageGallery) {
         try {
-          setGalleryPageData(prev => ({ ...prev, ...JSON.parse(storedPageGallery) }));
+          const parsed = JSON.parse(storedPageGallery);
+          if (parsed.videos && parsed.videos.length > 0 && parsed.videos[0].title === "Cloud Infrastructure & DevOps Automation") {
+            parsed.videos[0] = {
+              title: "The Secrets of Learning a New Language",
+              url: "https://www.youtube.com/embed/NiTsduRreug",
+              thumbnail: "https://img.youtube.com/vi/NiTsduRreug/hqdefault.jpg",
+              isLocal: false
+            };
+            localStorage.setItem("clarity_page_gallery", JSON.stringify(parsed));
+          }
+          setGalleryPageData(prev => ({ ...prev, ...parsed }));
         } catch (e) { }
       }
 
@@ -316,7 +324,7 @@ export default function GalleryPage() {
             }
           ]}
           seoConfig={{ imageAlt: "Clarity InfoTech Gallery", imageTitle: "Clarity InfoTech Moments & Team" }}
-          badge="GALLERY & MOMENTS"
+          badge={galleryPageData.heroBadge || "GALLERY"}
         />
 
         {/* VIDEO POSTS SECTION */}

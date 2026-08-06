@@ -185,10 +185,7 @@ export default function OurServicesPage() {
       { value: "500+", label: "Products & Projects", icon: "Award" },
       { value: "50+", label: "Global Partners", icon: "Handshake" },
       { value: "100%", label: "Client Satisfaction", icon: "Star" }
-    ],
-    ctaTitle: "Ready to Start Your Journey With Us?",
-    ctaSubtitle: "Let's discuss how we can help your business grow with the right technology and the right team.",
-    ctaButtonText: "Get In Touch"
+    ]
   };
 
   const [pageServiceData, setPageServiceData] = useState(DEFAULT_PAGE_SERVICE);
@@ -386,7 +383,7 @@ export default function OurServicesPage() {
             }
           ]}
           seoConfig={{ imageAlt: "Clarity InfoTech Services", imageTitle: "Clarity InfoTech Services Squad" }}
-          badge="OUR SERVICES"
+          badge={pageServiceData.heroBadge || "OUR SERVICES"}
         />
 
         {/* ── SHOWCASE SECTION: 2x2 Showcase Cards Grid ── */}

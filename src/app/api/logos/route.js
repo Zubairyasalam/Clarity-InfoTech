@@ -69,3 +69,30 @@ export async function POST(request) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+
+export async function DELETE(request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const filename = searchParams.get('file');
+    
+    if (!filename) {
+      return NextResponse.json({ error: 'No filename provided' }, { status: 400 });
+    }
+    
+    // Prevent directory traversal attacks
+    if (filename.includes('..') || filename.includes('/')) {
+      return NextResponse.json({ error: 'Invalid filename' }, { status: 400 });
+    }
+    
+    const filePath = path.join(process.cwd(), 'public', 'logos', filename);
+    
+    if (fs.existsSync(filePath)) {
+      await fs.promises.unlink(filePath);
+      return NextResponse.json({ success: true, message: 'File deleted successfully' });
+    } else {
+      return NextResponse.json({ error: 'File not found' }, { status: 404 });
+    }
+  } catch (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}

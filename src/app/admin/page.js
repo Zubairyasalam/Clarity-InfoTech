@@ -246,11 +246,6 @@ export default function AdminDashboard() {
     heading1: "We are the best",
     heading2: "in IT & Software Solutions",
     description: "Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, cloud architecture, and security audit systems. We align our processes with your vision to secure your production environments with 24/7 reliability.",
-    stats: [
-      { value: "3485+", label: "Projects Done" },
-      { value: "426+", label: "Clients" },
-      { value: "281+", label: "Running Projects" }
-    ],
     features: [
       { title: "Security", icon: "Shield", description: "To us protection is not just important, it's a necessity. Guarantee your infrastructure's uptime." },
       { title: "Confidence", icon: "ThumbsUp", description: "We provide SLA guarantees and dedicated support so you can rest easy, knowing your environments are safe." },
@@ -267,18 +262,11 @@ export default function AdminDashboard() {
     heading3Italic: "Scale Your Business",
     description: "For over a decade, the region's most demanding corporate enterprises have relied on our custom cloud infrastructures and skilled engineering squads to deploy code efficiently and reduce system downtime.",
     stats: [
-      { value: 500, suffix: "K+", label: "Deployments Automated Daily" },
-      { value: 99.9, decimals: 1, suffix: "%", label: "Production Uptime Maintained" },
-      { value: 50, suffix: "+", label: "Cloud Clusters Configured" },
-      { value: 15, suffix: "+", label: "DevOps Frameworks Supported" },
-      { value: 24, suffix: "/7", label: "System Support & Monitoring" }
-    ],
-    gallery: [
-      { id: 1, src: "/carousel-1.png?v=2", label: "Executive Suite" },
-      { id: 2, src: "/carousel-2.png?v=2", label: "Tech Team" },
-      { id: 3, src: "/carousel-3.png?v=2", label: "Modern Workstation" },
-      { id: 4, src: "/carousel-4.png?v=2", label: "Executive Boardroom" },
-      { id: 5, src: "/office-bg.jpg?v=4", label: "Office HQ" }
+      { label: "Deployments Automated Daily" },
+      { label: "Production Uptime Maintained" },
+      { label: "Cloud Clusters Configured" },
+      { label: "DevOps Frameworks Supported" },
+      { label: "System Support & Monitoring" }
     ]
   };
   const [platformsData, setPlatformsData] = useState(DEFAULT_PLATFORMS);
@@ -410,6 +398,7 @@ export default function AdminDashboard() {
 
   // About Page State
   const DEFAULT_PAGE_ABOUT = {
+    heroBadge: "ABOUT US",
     heroTitle: "About Us",
     heroSubtitle: "Pioneering technology solutions and empowering digital growth since 2016.",
     aboutTitle: "About Clarity InfoTech",
@@ -418,11 +407,12 @@ export default function AdminDashboard() {
     valuesPill: "03 / CORE PRINCIPLES",
     valuesTitle: "Our Values",
     valuesSubtitle: "The principles that guide everything we build and deliver.",
+    valuesBgImage: "",
     valuesCards: [
-      { step: "01", title: "Innovation", icon: "Lightbulb", gradient: "from-sky-400 to-indigo-600", tag: "Future Tech", desc: "We explore new ideas, tools, and cutting-edge frameworks to build future-ready, intelligent digital solutions." },
-      { step: "02", title: "Excellence", icon: "Star", gradient: "from-indigo-500 to-purple-600", tag: "Craftsmanship", desc: "We aim for zero-compromise precision in every project, with extreme attention to detail, performance, and UI usability." },
-      { step: "03", title: "Collaboration", icon: "Users", gradient: "from-blue-500 to-sky-400", tag: "Shared Vision", desc: "We partner closely with clients and cross-functional squads, believing transparent communication creates the best results." },
-      { step: "04", title: "Results", icon: "Target", gradient: "from-purple-500 to-indigo-600", tag: "Measurable Impact", desc: "We focus on building software products that create real, quantifiable business value and empower digital growth." }
+      { step: "01", title: "Innovation", icon: "Lightbulb", image: "", gradient: "from-sky-400 to-indigo-600", tag: "Future Tech", desc: "We explore new ideas, tools, and cutting-edge frameworks to build future-ready, intelligent digital solutions." },
+      { step: "02", title: "Excellence", icon: "Star", image: "", gradient: "from-indigo-500 to-purple-600", tag: "Craftsmanship", desc: "We aim for zero-compromise precision in every project, with extreme attention to detail, performance, and UI usability." },
+      { step: "03", title: "Collaboration", icon: "Users", image: "", gradient: "from-blue-500 to-sky-400", tag: "Shared Vision", desc: "We partner closely with clients and cross-functional squads, believing transparent communication creates the best results." },
+      { step: "04", title: "Results", icon: "Target", image: "", gradient: "from-purple-500 to-indigo-600", tag: "Measurable Impact", desc: "We focus on building software products that create real, quantifiable business value and empower digital growth." }
     ],
     approachTitle: "Our Approach",
     approachParagraph1: "At Clarity InfoTech, every project begins with understanding the client’s vision, goals, and challenges. We follow a practical and collaborative approach where planning, design, development, testing, and deployment are all handled with attention to quality and performance.",
@@ -566,6 +556,7 @@ export default function AdminDashboard() {
 
   // Our Service Page State
   const DEFAULT_PAGE_SERVICE = {
+    heroBadge: "OUR SERVICES",
     heroTitle: "Our Service",
     heroSubtitle: "We believe great products are built by happy, collaborative teams.",
     sec1Title: "Building Future-Ready Teams Through Innovation",
@@ -601,10 +592,7 @@ export default function AdminDashboard() {
       { value: "500+", label: "Products & Projects", icon: "Award" },
       { value: "50+", label: "Global Partners", icon: "Handshake" },
       { value: "100%", label: "Client Satisfaction", icon: "Star" }
-    ],
-    ctaTitle: "Ready to Start Your Journey With Us?",
-    ctaSubtitle: "Let's discuss how we can help your business grow with the right technology and the right team.",
-    ctaButtonText: "Get In Touch"
+    ]
   };
   const [pageServiceData, setPageServiceData] = useState(DEFAULT_PAGE_SERVICE);
   const [pageServiceSaveSuccess, setPageServiceSaveSuccess] = useState(false);
@@ -627,10 +615,9 @@ export default function AdminDashboard() {
 
   // Gallery Page State
   const DEFAULT_PAGE_GALLERY = {
+    heroBadge: "GALLERY",
     heroTitle: "Our Gallery",
     heroSubtitle: "A visual showcase of our workspace, team milestones, and event highlights.",
-    sectionTitle: "Glimpses of Clarity",
-    sectionSubtitle: "A sneak peek into our events, celebrations, and team experiences.",
     bottomCtaTitle: "Want to create memorable moments with us?",
     bottomCtaSubtitle: "Partner with our software squads or join our growing team of innovators.",
     bottomCtaButtonText: "Get In Touch",
@@ -689,9 +676,9 @@ export default function AdminDashboard() {
   const [pageGallerySaveSuccess, setPageGallerySaveSuccess] = useState(false);
   const DEFAULT_GALLERY_VIDEOS = [
     {
-      title: "Cloud Infrastructure & DevOps Automation",
-      url: "https://www.youtube.com/embed/SQCg_4FjJGo",
-      thumbnail: "https://img.youtube.com/vi/SQCg_4FjJGo/hqdefault.jpg",
+      title: "The Secrets of Learning a New Language",
+      url: "https://www.youtube.com/embed/NiTsduRreug",
+      thumbnail: "https://img.youtube.com/vi/NiTsduRreug/hqdefault.jpg",
       isLocal: false
     },
     {
@@ -1188,6 +1175,28 @@ For questions about these Terms and Conditions, please contact us at info@clarit
     }
   };
 
+  const deleteLogo = async (filename, e) => {
+    e.stopPropagation();
+    if (!confirm(`Are you sure you want to delete ${filename}?`)) return;
+    try {
+      const res = await fetch(`/api/logos?file=${encodeURIComponent(filename)}`, {
+        method: "DELETE"
+      });
+      const data = await res.json();
+      if (data.success) {
+        if (headerData.logo === `/logos/${filename}`) {
+          updateHeaderLogo("");
+        }
+        fetchLogos();
+      } else {
+        alert(data.error || "Failed to delete logo");
+      }
+    } catch (err) {
+      alert("Failed to delete logo");
+      console.error(err);
+    }
+  };
+
   // Initialize data from localStorage or fallback
   useEffect(() => {
     const verifySession = async () => {
@@ -1353,7 +1362,19 @@ For questions about these Terms and Conditions, please contact us at info@clarit
       // Load Gallery Page data
       const storedPageGallery = localStorage.getItem("clarity_page_gallery");
       if (storedPageGallery) {
-        try { setPageGalleryData({ ...DEFAULT_PAGE_GALLERY, ...JSON.parse(storedPageGallery) }); } catch { }
+        try { 
+          let parsed = JSON.parse(storedPageGallery);
+          if (parsed.videos && parsed.videos.length > 0 && parsed.videos[0].title === "Cloud Infrastructure & DevOps Automation") {
+            parsed.videos[0] = {
+              title: "The Secrets of Learning a New Language",
+              url: "https://www.youtube.com/embed/NiTsduRreug",
+              thumbnail: "https://img.youtube.com/vi/NiTsduRreug/hqdefault.jpg",
+              isLocal: false
+            };
+            localStorage.setItem("clarity_page_gallery", JSON.stringify(parsed));
+          }
+          setPageGalleryData({ ...DEFAULT_PAGE_GALLERY, ...parsed }); 
+        } catch { }
       } else {
         localStorage.setItem("clarity_page_gallery", JSON.stringify(DEFAULT_PAGE_GALLERY));
       }
@@ -1583,7 +1604,6 @@ For questions about these Terms and Conditions, please contact us at info@clarit
 
   // About Us CRUD — always-editable, save on button click
   const updateAboutField = (key, val) => setAboutData(d => ({ ...d, [key]: val }));
-  const updateStat = (i, key, val) => setAboutData(d => { const s = [...(d.stats || [])]; s[i] = { ...s[i], [key]: val }; return { ...d, stats: s }; });
   const updateFeature = (i, key, val) => setAboutData(d => { const f = [...(d.features || [])]; f[i] = { ...f[i], [key]: val }; return { ...d, features: f }; });
   const saveAbout = () => {
     localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
@@ -1596,9 +1616,8 @@ For questions about these Terms and Conditions, please contact us at info@clarit
   // Platforms CRUD
   const updatePlatformField = (key, val) => setPlatformsData(d => ({ ...d, [key]: val }));
   const updatePlatformStat = (i, key, val) => setPlatformsData(d => { const s = [...(d.stats || [])]; s[i] = { ...s[i], [key]: val }; return { ...d, stats: s }; });
-  const updateGalleryItem = (i, key, val) => setPlatformsData(d => { const g = [...(d.gallery || [])]; g[i] = { ...g[i], [key]: val }; return { ...d, gallery: g }; });
-  const addGalleryItem = () => setPlatformsData(d => ({ ...d, gallery: [...(d.gallery || []), { id: Date.now(), src: "/office-bg.jpg", label: "New Slide" }] }));
-  const deleteGalleryItem = (i) => setPlatformsData(d => ({ ...d, gallery: (d.gallery || []).filter((_, idx) => idx !== i) }));
+  const addPlatformStat = () => setPlatformsData(d => ({ ...d, stats: [...(d.stats || []), { label: "New Feature" }] }));
+  const deletePlatformStat = (i) => setPlatformsData(d => ({ ...d, stats: (d.stats || []).filter((_, idx) => idx !== i) }));
   const savePlatforms = () => {
     localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_platforms", JSON.stringify(platformsData));
@@ -1759,7 +1778,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
   // About Page CRUD
   const updatePageAboutField = (key, val) => setPageAboutData(d => ({ ...d, [key]: val }));
   const updatePageAboutCard = (i, key, val) => setPageAboutData(d => { const c = [...(d.valuesCards || [])]; c[i] = { ...c[i], [key]: val }; return { ...d, valuesCards: c }; });
-  const addPageAboutCard = () => setPageAboutData(d => ({ ...d, valuesCards: [...(d.valuesCards || []), { step: "0X", title: "New Value", icon: "Star", gradient: "from-sky-400 to-indigo-600", tag: "Tag", desc: "Description" }] }));
+  const addPageAboutCard = () => setPageAboutData(d => ({ ...d, valuesCards: [...(d.valuesCards || []), { step: "0X", title: "New Value", icon: "Star", image: "", gradient: "from-sky-400 to-indigo-600", tag: "Tag", desc: "Description" }] }));
   const deletePageAboutCard = (i) => setPageAboutData(d => ({ ...d, valuesCards: (d.valuesCards || []).filter((_, idx) => idx !== i) }));
   const updatePageAboutWhyList = (i, val) => setPageAboutData(d => { const l = [...(d.whyChooseList || [])]; l[i] = val; return { ...d, whyChooseList: l }; });
   const addPageAboutWhyList = () => setPageAboutData(d => ({ ...d, whyChooseList: [...(d.whyChooseList || []), "New Reason"] }));
@@ -3312,7 +3331,11 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                   {/* HERO SECTION */}
                   <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
                     <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Hero Section</h3>
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-3 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Small Badge</label>
+                        <input type="text" value={pageAboutData.heroBadge || ""} onChange={e => updatePageAboutField("heroBadge", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
                       <div>
                         <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Title</label>
                         <input type="text" value={pageAboutData.heroTitle || ""} onChange={e => updatePageAboutField("heroTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
@@ -3349,7 +3372,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                         <Plus size={13} /> Add Value Card
                       </button>
                     </div>
-                    <div className="grid md:grid-cols-3 gap-4">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
                       <div>
                         <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Pill Text</label>
                         <input type="text" value={pageAboutData.valuesPill || ""} onChange={e => updatePageAboutField("valuesPill", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
@@ -3362,13 +3385,17 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                         <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Values Subtitle</label>
                         <input type="text" value={pageAboutData.valuesSubtitle || ""} onChange={e => updatePageAboutField("valuesSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
                       </div>
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Background Image URL</label>
+                        <input type="text" value={pageAboutData.valuesBgImage || ""} onChange={e => updatePageAboutField("valuesBgImage", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" placeholder="/office-bg.jpg" />
+                      </div>
                     </div>
                     
                     <div className="space-y-4 mt-4">
                       {(pageAboutData.valuesCards || []).map((card, i) => (
                         <div key={i} className="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col gap-3 relative">
                           <button onClick={() => deletePageAboutCard(i)} className="absolute top-3 right-3 p-1.5 bg-white text-red-400 hover:text-red-500 rounded-lg border border-slate-200 shadow-sm transition cursor-pointer"><Trash2 size={14} /></button>
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pr-8">
+                          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 pr-8">
                             <div><label className="text-xs text-slate-500 font-semibold block mb-1">Step (e.g. 01)</label><input type="text" value={card.step} onChange={e => updatePageAboutCard(i, "step", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" /></div>
                             <div><label className="text-xs text-slate-500 font-semibold block mb-1">Title</label><input type="text" value={card.title} onChange={e => updatePageAboutCard(i, "title", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" /></div>
                             <div><label className="text-xs text-slate-500 font-semibold block mb-1">Tag</label><input type="text" value={card.tag} onChange={e => updatePageAboutCard(i, "tag", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" /></div>
@@ -3378,12 +3405,24 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                                 type="text"
                                 value={card.icon}
                                 onChange={e => updatePageAboutCard(i, "icon", e.target.value)}
-                                placeholder="Lucide icon name (e.g. Lightbulb, Star, Target)"
+                                className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+                              />
+                            </div>
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold block mb-1">Image URL (Optional)</label>
+                              <input
+                                type="text"
+                                value={card.image || ""}
+                                placeholder="/card-image.jpg"
+                                onChange={e => updatePageAboutCard(i, "image", e.target.value)}
                                 className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition"
                               />
                             </div>
                           </div>
-                          <div><label className="text-xs text-slate-500 font-semibold block mb-1">Description</label><input type="text" value={card.desc} onChange={e => updatePageAboutCard(i, "desc", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" /></div>
+                          <div>
+                            <label className="text-xs text-slate-500 font-semibold block mb-1">Description</label>
+                            <input type="text" value={card.desc} onChange={e => updatePageAboutCard(i, "desc", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-600 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" />
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -3681,7 +3720,11 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                   {/* HERO HEADER SECTION */}
                   <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
                     <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Hero Header Section</h3>
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-3 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Small Badge</label>
+                        <input type="text" value={pageServiceData.heroBadge || ""} onChange={e => updatePageServiceField("heroBadge", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
                       <div>
                         <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Title</label>
                         <input type="text" value={pageServiceData.heroTitle || ""} onChange={e => updatePageServiceField("heroTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
@@ -3830,25 +3873,6 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                   </div>
 
                   {/* SECTION 3: GLOBAL IMPACT & STATS was removed from frontend UI */}
-                  {/* SECTION 4: CALL TO ACTION BANNER */}
-                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
-                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Section 4: Call-to-Action Banner</h3>
-                    <div className="grid md:grid-cols-3 gap-4">
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Banner Title</label>
-                        <input type="text" value={pageServiceData.ctaTitle || ""} onChange={e => updatePageServiceField("ctaTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
-                      </div>
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Banner Subtitle</label>
-                        <input type="text" value={pageServiceData.ctaSubtitle || ""} onChange={e => updatePageServiceField("ctaSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
-                      </div>
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Button Label</label>
-                        <input type="text" value={pageServiceData.ctaButtonText || ""} onChange={e => updatePageServiceField("ctaButtonText", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
-                      </div>
-                    </div>
-                  
-                  </div>
                   {renderQuickSeoCard("services", "page_service")}
                 </div>
               )}
@@ -3879,7 +3903,11 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                   {/* HERO SECTION */}
                   <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
                     <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Hero Section Header</h3>
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-3 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Small Badge</label>
+                        <input type="text" value={(pageGalleryData || {}).heroBadge || ""} onChange={e => updatePageGalleryField("heroBadge", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
                       <div>
                         <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Page Title</label>
                         <input type="text" value={(pageGalleryData || {}).heroTitle || ""} onChange={e => updatePageGalleryField("heroTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
@@ -3887,21 +3915,6 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                       <div>
                         <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Subtitle</label>
                         <input type="text" value={(pageGalleryData || {}).heroSubtitle || ""} onChange={e => updatePageGalleryField("heroSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* SECTION TITLE & SUBTITLE */}
-                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
-                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Showcase Section Header (Glimpses)</h3>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Gradient Section Heading</label>
-                        <input type="text" value={(pageGalleryData || {}).sectionTitle || ""} onChange={e => updatePageGalleryField("sectionTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
-                      </div>
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Section Subtitle</label>
-                        <input type="text" value={(pageGalleryData || {}).sectionSubtitle || ""} onChange={e => updatePageGalleryField("sectionSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
                       </div>
                     </div>
                   </div>
@@ -4680,32 +4693,6 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                     />
                   </div>
 
-                  {/* STATS */}
-                  <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4">
-                    <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><Edit3 size={12} /> Statistics</h3>
-                    <div className="grid grid-cols-3 gap-4">
-                      {(aboutData.stats || []).map((stat, i) => (
-                        <div key={i} className="bg-white border border-slate-200 rounded-xl p-4 space-y-2">
-                          <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Stat {i + 1}</div>
-                          <input
-                            type="text"
-                            value={stat.value}
-                            onChange={e => updateStat(i, "value", e.target.value)}
-                            placeholder="e.g. 3485+"
-                            className="w-full bg-white border border-slate-200 text-lg font-black text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-indigo-500 transition"
-                          />
-                          <input
-                            type="text"
-                            value={stat.label}
-                            onChange={e => updateStat(i, "label", e.target.value)}
-                            placeholder="e.g. Projects Done"
-                            className="w-full bg-white border border-slate-200 text-xs text-slate-500 rounded-lg px-3 py-2 outline-none focus:border-indigo-500 transition"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
                   {/* FEATURE CARDS */}
                   <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4">
                     <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><Edit3 size={12} /> Feature Cards</h3>
@@ -4783,7 +4770,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                   <div className="flex items-center justify-between">
                     <div>
                       <h2 className="text-lg font-bold tracking-tight">Platforms & Stats Editor</h2>
-                      <p className="text-xs text-slate-500 mt-0.5">Edit headline, description, 5 metric counters, and masked gallery images.</p>
+                      <p className="text-xs text-slate-500 mt-0.5">Edit headline, description, and features list.</p>
                     </div>
                     <div className="flex items-center gap-3">
                       {platformsSaveSuccess && (
@@ -4837,34 +4824,28 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                     />
                   </div>
 
-                  {/* 5 METRICS */}
+                  {/* FEATURES LIST */}
                   <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4">
-                    <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><Edit3 size={12} /> 5 Metric Counters</h3>
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><Edit3 size={12} /> Features</h3>
+                      <button onClick={addPlatformStat} className="text-xs font-bold text-[#1E67E2] hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5">
+                        <Plus size={14} /> Add Feature
+                      </button>
+                    </div>
                     <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
                       {(platformsData.stats || []).map((stat, i) => (
-                        <div key={i} className="bg-white border border-slate-200 rounded-xl p-4 space-y-2">
-                          <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Metric {i + 1}</div>
-                          <div className="flex gap-2">
-                            <input
-                              type="text"
-                              value={stat.value}
-                              onChange={e => updatePlatformStat(i, "value", e.target.value)}
-                              placeholder="Value"
-                              className="w-1/2 bg-white border border-slate-200 text-base font-black text-slate-800 rounded-lg px-2.5 py-1.5 outline-none focus:border-indigo-500 transition"
-                            />
-                            <input
-                              type="text"
-                              value={stat.suffix || ""}
-                              onChange={e => updatePlatformStat(i, "suffix", e.target.value)}
-                              placeholder="Suffix (e.g. K+)"
-                              className="w-1/2 bg-white border border-slate-200 text-xs font-mono text-indigo-600 rounded-lg px-2.5 py-1.5 outline-none focus:border-indigo-500 transition"
-                            />
+                        <div key={i} className="bg-white border border-slate-200 rounded-xl p-4 space-y-2 relative group">
+                          <div className="flex items-center justify-between">
+                            <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Feature {i + 1}</div>
+                            <button onClick={() => deletePlatformStat(i)} className="text-slate-300 hover:text-red-500 transition-colors" title="Delete feature">
+                              <Trash2 size={14} />
+                            </button>
                           </div>
                           <input
                             type="text"
                             value={stat.label}
                             onChange={e => updatePlatformStat(i, "label", e.target.value)}
-                            placeholder="Label"
+                            placeholder="Feature Text"
                             className="w-full bg-white border border-slate-200 text-xs text-slate-500 rounded-lg px-2.5 py-1.5 outline-none focus:border-indigo-500 transition"
                           />
                         </div>
@@ -4872,43 +4853,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                     </div>
                   </div>
 
-                  {/* MASKED LOGO GALLERY */}
-                  <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4">
-                    <div className="flex justify-between items-center">
-                      <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><Image size={14} /> Masked 'C' Logo Carousel Images</h3>
-                      <button onClick={addGalleryItem} className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-600 rounded-lg text-xs font-semibold transition cursor-pointer">
-                        <Plus size={13} /> Add Image
-                      </button>
-                    </div>
-                    <div className="space-y-3">
-                      {(platformsData.gallery || []).map((imgItem, i) => (
-                        <div key={i} className="flex items-center gap-4 bg-white border border-slate-200 rounded-xl p-3">
-                          <div className="w-16 h-10 rounded-lg overflow-hidden bg-white/5 border border-slate-200 flex-shrink-0">
-                            <img src={imgItem.src} alt={imgItem.label} className="w-full h-full object-cover" onError={e => { e.target.style.display = 'none'; }} />
-                          </div>
-                          <div className="flex-1 grid md:grid-cols-2 gap-3">
-                            <input
-                              type="text"
-                              value={imgItem.src}
-                              onChange={e => updateGalleryItem(i, "src", e.target.value)}
-                              placeholder="Image URL"
-                              className="bg-white border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-1.5 outline-none focus:border-indigo-500 transition"
-                            />
-                            <input
-                              type="text"
-                              value={imgItem.label}
-                              onChange={e => updateGalleryItem(i, "label", e.target.value)}
-                              placeholder="Label (e.g. Executive Suite)"
-                              className="bg-white border border-slate-200 text-xs text-slate-600 rounded-lg px-3 py-1.5 outline-none focus:border-indigo-500 transition"
-                            />
-                          </div>
-                          <button onClick={() => deleteGalleryItem(i)} className="p-1.5 bg-red-500/10 text-red-400 hover:bg-red-500/20 rounded border border-red-500/20 transition cursor-pointer" title="Delete Image">
-                            <Trash2 size={13} />
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+
 
                   {/* Save footer */}
                   <div className="flex justify-end pt-2">
@@ -5553,6 +5498,13 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                                     <span className="text-[10px] text-slate-500 truncate w-full text-center mt-2 font-mono">
                                       {logo.name}
                                     </span>
+                                    <button 
+                                      onClick={(e) => deleteLogo(logo.name, e)} 
+                                      className="absolute top-1.5 left-1.5 bg-white/80 hover:bg-red-50 text-slate-400 hover:text-red-500 rounded p-1 opacity-0 group-hover:opacity-100 transition-opacity" 
+                                      title="Delete Logo"
+                                    >
+                                      <Trash2 size={12} />
+                                    </button>
                                     {isSelected && (
                                       <span className="absolute top-1.5 right-1.5 bg-[#1E67E2] text-white rounded-full p-0.5 shadow-sm">
                                         <Check size={8} strokeWidth={3} />

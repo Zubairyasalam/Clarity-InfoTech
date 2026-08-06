@@ -513,5 +513,43 @@
         "a": "Our cloud teams conduct monthly infrastructure usage reviews to identify bottlenecks and configure auto-scaling thresholds, ensuring optimal cost-to-performance efficiency."
       }
     ]
-  }
+  },
+  "clarity_gallery_videos_edu": [
+    {
+      "title": "Cloud Infrastructure & DevOps Automation",
+      "url": "https://youtu.be/jSeI6OfifCI?si=zCSKutp-MgsxvEDW",
+      "thumbnail": "",
+      "isLocal": false
+    },
+    {
+      "title": "AI & Machine Learning for Enterprises",
+      "url": "https://www.youtube.com/embed/aircAruvnKk",
+      "thumbnail": "https://img.youtube.com/vi/aircAruvnKk/hqdefault.jpg",
+      "isLocal": false
+    },
+    {
+      "title": "Cybersecurity & Network Defense Architecture",
+      "url": "https://www.youtube.com/embed/inWWhr5tnEA",
+      "thumbnail": "https://img.youtube.com/vi/inWWhr5tnEA/hqdefault.jpg",
+      "isLocal": false
+    },
+    {
+      "title": "Full-Stack Software Engineering Masterclass",
+      "url": "https://www.youtube.com/embed/nu_pCVPKzTk",
+      "thumbnail": "https://img.youtube.com/vi/nu_pCVPKzTk/hqdefault.jpg",
+      "isLocal": false
+    },
+    {
+      "title": "Computer Science & Systems Architecture",
+      "url": "https://www.youtube.com/embed/zOjov-2OZ0E",
+      "thumbnail": "https://img.youtube.com/vi/zOjov-2OZ0E/hqdefault.jpg",
+      "isLocal": false
+    },
+    {
+      "title": "System Design & High-Scalability Engineering",
+      "url": "https://www.youtube.com/embed/xpDnVSmNFX0",
+      "thumbnail": "https://img.youtube.com/vi/xpDnVSmNFX0/hqdefault.jpg",
+      "isLocal": false
+    }
+  ]
 }

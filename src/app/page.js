@@ -601,7 +601,7 @@ export default function Home() {
   // Load hero slides from localStorage on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("clarity_hero_slides_v4");
+      const stored = localStorage.getItem("clarity_hero_slides");
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
@@ -613,7 +613,7 @@ export default function Home() {
         }
       } else {
         // Seed localStorage with defaults
-        localStorage.setItem("clarity_hero_slides_v4", JSON.stringify(DEFAULT_HERO_SLIDES));
+        localStorage.setItem("clarity_hero_slides", JSON.stringify(DEFAULT_HERO_SLIDES));
       }
     }
   }, []);
@@ -1150,7 +1150,7 @@ export default function Home() {
                 className="flex items-center gap-3 text-primary font-extrabold text-sm sm:text-base uppercase tracking-widest mb-4 font-sans"
               >
                 <span className="w-8 h-[2.5px] bg-primary inline-block rounded-full" />
-                ABOUT US
+                {aboutData.badge || "ABOUT US"}
               </motion.div>
 
               {/* Main Headline */}
@@ -1281,9 +1281,7 @@ export default function Home() {
                         visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.4, ease: "easeOut" } }
                       }}
                       whileHover={{ y: -4, scale: 1.02 }}
-                      className={`relative group bg-white/5 hover:bg-white/10 border border-white/15 hover:border-sky-400/60 rounded-2xl p-4 sm:p-5 backdrop-blur-xl shadow-lg hover:shadow-[0_8px_30px_rgba(56,189,248,0.25)] transition-all duration-300 flex items-center gap-3.5 ${
-                        idx === 4 ? "sm:col-span-2 lg:col-span-1" : ""
-                      }`}
+                      className={`relative group bg-white/5 hover:bg-white/10 border border-white/15 hover:border-sky-400/60 rounded-2xl p-4 sm:p-5 backdrop-blur-xl shadow-lg hover:shadow-[0_8px_30px_rgba(56,189,248,0.25)] transition-all duration-300 flex items-center gap-3.5`}
                     >
                       {/* Decorative Ambient Soft Light in Curved Box */}
                       <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-sky-500/10 via-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />

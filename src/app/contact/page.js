@@ -335,7 +335,7 @@ export default function ContactPage() {
             }
           ]}
           seoConfig={seoConfig}
-          badge="CONTACT US"
+          badge={pageContactData.heroBadge || "CONTACT US"}
         />
 
         {/* 3. CONTACT FORM CARD SECTION */}

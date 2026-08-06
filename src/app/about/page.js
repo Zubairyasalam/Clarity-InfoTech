@@ -279,7 +279,7 @@ export default function AboutPage() {
       <main className="w-full">
 
         {/* 2. HERO SLIDER BANNER SECTION */}
-        <HeroBannerSlider slides={aboutSlides} seoConfig={seoConfig} badge="ABOUT US" />
+        <HeroBannerSlider slides={aboutSlides} seoConfig={seoConfig} badge={pageAboutData.heroBadge || "ABOUT US"} />
 
         {/* 3. ABOUT CLARITY INFOTECH NARRATIVE */}
         <section className="pt-4 pb-4 md:pb-6 px-6 max-w-4xl mx-auto text-left">
@@ -304,7 +304,13 @@ export default function AboutPage() {
         </section>
 
         {/* 4. OUR VALUES SECTION - MODERN GLASSMORPHIC CARDS DESIGN */}
-        <section className="pt-6 pb-10 md:pt-8 md:pb-12 px-6 bg-slate-50/80 border-t border-b border-slate-200/70 relative overflow-hidden text-left">
+        <section className={`pt-6 pb-10 md:pt-8 md:pb-12 px-6 border-t border-b ${pageAboutData.valuesBgImage ? "border-black/50" : "bg-slate-50/80 border-slate-200/70"} relative overflow-hidden text-left`}>
+          {pageAboutData.valuesBgImage && (
+            <div className="absolute inset-0 z-0">
+              <img src={pageAboutData.valuesBgImage} alt="Values Background" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-[#060D3B]/90 backdrop-blur-[2px]" />
+            </div>
+          )}
           {/* Ambient Background Gradients */}
           <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-sky-400/10 rounded-full blur-[120px] pointer-events-none" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
@@ -312,11 +318,11 @@ export default function AboutPage() {
           <div className="max-w-6xl mx-auto relative z-10">
 
             {/* Header */}
-            <div className="text-center max-w-3xl mx-auto mb-8">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-sans bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-indigo-600 to-indigo-800 mb-4">
+            <div className="text-center max-w-3xl mx-auto mb-8 relative z-10">
+              <h2 className={`text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-sans bg-clip-text text-transparent mb-4 ${pageAboutData.valuesBgImage ? "bg-gradient-to-r from-white via-sky-100 to-sky-300" : "bg-gradient-to-r from-sky-400 via-indigo-600 to-indigo-800"}`}>
                 {pageAboutData.valuesTitle}
               </h2>
-              <p className="text-slate-600 text-base sm:text-lg font-light max-w-xl mx-auto">
+              <p className={`text-base sm:text-lg font-light max-w-xl mx-auto ${pageAboutData.valuesBgImage ? "text-sky-100/80" : "text-slate-600"}`}>
                 {pageAboutData.valuesSubtitle}
               </p>
             </div>
@@ -332,7 +338,7 @@ export default function AboutPage() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
                     whileHover={{ y: -8 }}
-                    className="bg-white rounded-3xl p-7 shadow-xl shadow-slate-200/50 border border-slate-200/70 flex flex-col justify-between h-full group transition-all duration-300 relative overflow-hidden hover:shadow-2xl hover:shadow-indigo-500/15 hover:border-indigo-300"
+                    className={`${pageAboutData.valuesBgImage ? "bg-white/5 border-white/10 shadow-black/50 hover:shadow-sky-500/20 backdrop-blur-lg hover:border-sky-400/50" : "bg-white border-slate-200/70 shadow-slate-200/50 hover:shadow-indigo-500/15 hover:border-indigo-300"} rounded-3xl p-7 shadow-xl border flex flex-col justify-between h-full group transition-all duration-300 relative overflow-hidden`}
                   >
                     {/* Top Gradient Accent Bar */}
                     <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${item.gradient} opacity-80 group-hover:opacity-100 transition-opacity`} />
@@ -340,27 +346,33 @@ export default function AboutPage() {
                     <div className="flex-1 flex flex-col">
                       {/* Header Step & Tag */}
                       <div className="flex items-center justify-between mb-6">
-                        <span className="font-mono text-2xl font-black text-slate-300 group-hover:text-indigo-600 transition-colors">
+                        <span className={`font-mono text-2xl font-black transition-colors ${pageAboutData.valuesBgImage ? "text-white/20 group-hover:text-white" : "text-slate-300 group-hover:text-indigo-600"}`}>
                           {item.step}
                         </span>
-                        <span className="text-[10px] font-bold text-indigo-600 bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-full uppercase tracking-wider font-mono">
+                        <span className={`text-[10px] font-bold border px-3 py-1 rounded-full uppercase tracking-wider font-mono ${pageAboutData.valuesBgImage ? "text-sky-300 bg-sky-500/10 border-sky-400/20" : "text-indigo-600 bg-indigo-50 border-indigo-100"}`}>
                           {item.tag}
                         </span>
                       </div>
 
-                      {/* Glowing Icon Container */}
-                      <div className="mb-6">
-                        <div className={`w-14 h-14 rounded-2xl bg-gradient-to-tr ${item.gradient} text-white flex items-center justify-center shadow-lg shadow-indigo-500/25 group-hover:scale-110 transition-transform duration-300`}>
-                          <DynamicIcon name={item.icon} size={28} className="text-white filter drop-shadow" />
+                      {/* Image or Glowing Icon */}
+                      {item.image ? (
+                        <div className="mb-6 w-full h-32 rounded-2xl overflow-hidden relative group-hover:scale-105 transition-transform duration-500 shadow-md">
+                          <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                         </div>
-                      </div>
+                      ) : (
+                        <div className="mb-6">
+                          <div className={`w-14 h-14 rounded-2xl bg-gradient-to-tr ${item.gradient} text-white flex items-center justify-center shadow-lg shadow-indigo-500/25 group-hover:scale-110 transition-transform duration-300`}>
+                            <DynamicIcon name={item.icon} size={28} className="text-white filter drop-shadow" />
+                          </div>
+                        </div>
+                      )}
 
                       {/* Title & Description */}
                       <div className="mb-4 flex-1">
-                        <h3 className="font-extrabold text-2xl text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors font-sans tracking-tight">
+                        <h3 className={`font-extrabold text-2xl mb-3 font-sans tracking-tight transition-colors ${pageAboutData.valuesBgImage ? "text-white group-hover:text-sky-300" : "text-slate-900 group-hover:text-indigo-600"}`}>
                           {item.title}
                         </h3>
-                        <p className="text-slate-600 text-sm leading-relaxed font-normal">
+                        <p className={`text-sm leading-relaxed font-medium ${pageAboutData.valuesBgImage ? "text-white/70" : "text-slate-600"}`}>
                           {item.desc}
                         </p>
                       </div>
