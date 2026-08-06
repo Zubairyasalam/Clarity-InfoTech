@@ -359,10 +359,8 @@ export default function AdminDashboard() {
     xUrl: "#",
     linkedinUrl: "#",
     githubUrl: "#",
-    subscribeHeader: "Enterprise tech moves fast.",
-    subscribeSubheader: "Stay ahead with Clarity.",
-    subscribePlaceholder: "Enter email address",
-    subscribeButtonText: "Subscribe",
+    instagramUrl: "#",
+    whatsappUrl: "#",
     copyright: "© 2026 Clarity InfoTech / Rain Corraya. All rights reserved.",
     companyLinks: [
       { label: "AWS & GCP Partner", url: "#services" },
@@ -5762,12 +5760,14 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                   {/* SOCIAL LINKS */}
                   <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4">
                     <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><Link size={12} /> Social Media Link URLs</h3>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {[
                         { label: "Discord URL", key: "discordUrl", placeholder: "https://discord.gg/..." },
                         { label: "X (Twitter) URL", key: "xUrl", placeholder: "https://x.com/..." },
                         { label: "LinkedIn URL", key: "linkedinUrl", placeholder: "https://linkedin.com/..." },
                         { label: "GitHub URL", key: "githubUrl", placeholder: "https://github.com/..." },
+                        { label: "Instagram URL", key: "instagramUrl", placeholder: "https://instagram.com/..." },
+                        { label: "WhatsApp URL", key: "whatsappUrl", placeholder: "https://wa.me/..." },
                       ].map(f => (
                         <div key={f.key}>
                           <label className="text-xs text-slate-500 font-semibold mb-1.5 block">{f.label}</label>
@@ -5853,28 +5853,18 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                     </div>
                   </div>
 
-                  {/* NEWSLETTER & COPYRIGHT */}
+                  {/* COPYRIGHT TEXT */}
                   <div className="bg-white border border-slate-200 rounded-2xl p-5 space-y-4">
-                    <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><Edit3 size={12} /> Newsletter & Copyright</h3>
-                    <div className="grid md:grid-cols-3 gap-4">
-                      {[
-                        { label: "Newsletter Header", key: "subscribeHeader", placeholder: "Enterprise tech moves fast." },
-                        { label: "Newsletter Subheader (bold)", key: "subscribeSubheader", placeholder: "Stay ahead with Clarity." },
-                        { label: "Email Placeholder", key: "subscribePlaceholder", placeholder: "Enter email address" },
-                        { label: "Button Text", key: "subscribeButtonText", placeholder: "Subscribe" },
-                        { label: "Copyright Text", key: "copyright", placeholder: "© 2026 Clarity InfoTech..." },
-                      ].map(f => (
-                        <div key={f.key}>
-                          <label className="text-xs text-slate-500 font-semibold mb-1.5 block">{f.label}</label>
-                          <input
-                            type="text"
-                            value={footerData[f.key] || ""}
-                            onChange={e => updateFooterField(f.key, e.target.value)}
-                            placeholder={f.placeholder}
-                            className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2.5 outline-none focus:border-indigo-500 transition"
-                          />
-                        </div>
-                      ))}
+                    <h3 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><Edit3 size={12} /> Copyright Text</h3>
+                    <div>
+                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Copyright Line</label>
+                      <input
+                        type="text"
+                        value={footerData.copyright || ""}
+                        onChange={e => updateFooterField("copyright", e.target.value)}
+                        placeholder="© 2026 Clarity InfoTech / Rain Corraya. All rights reserved."
+                        className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2.5 outline-none focus:border-indigo-500 transition"
+                      />
                     </div>
                   </div>
 
