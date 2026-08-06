@@ -12,11 +12,10 @@ export default function SyncProvider({ children }) {
     const originalSetItem = localStorage.setItem;
     
     localStorage.setItem = function(key, value) {
-      const currentVal = localStorage.getItem(key);
       originalSetItem.apply(this, arguments);
       
-      // Auto sync all client changes for clarity_* keys to the server if value changed
-      if (key && key.startsWith("clarity_") && currentVal !== value) {
+      // Auto sync all client changes for clarity_* keys to the server
+      if (key && key.startsWith("clarity_")) {
         try {
           fetch("/api/content", {
             method: "POST",
@@ -53,8 +52,17 @@ export default function SyncProvider({ children }) {
             const serverValStr = typeof serverData === "string" ? serverData : JSON.stringify(serverData);
             const clientVal = localStorage.getItem(key);
             
-            if (clientVal !== serverValStr) {
-              // Write directly to local storage without triggering recursive sync
+            if (clientVal) {
+              // If client has custom data in localStorage, sync client data to server!
+              try {
+                fetch("/api/content", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ key, data: JSON.parse(clientVal) })
+                }).catch(() => {});
+              } catch { }
+            } else {
+              // If client has no local storage value yet, populate from server
               originalSetItem.call(localStorage, key, serverValStr);
             }
           });

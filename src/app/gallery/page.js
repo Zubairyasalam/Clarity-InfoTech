@@ -111,54 +111,119 @@ export default function GalleryPage() {
     imageTitle: "Gallery and Media Showcase"
   });
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("clarity_seo_data");
-      if (stored) {
-        try {
-          const config = JSON.parse(stored);
-          if (config.gallery) {
-            setSeoConfig(config.gallery);
-          }
-        } catch (e) { }
-      }
-
-      // Load gallery page content from admin
-      const storedPageGallery = localStorage.getItem("clarity_page_gallery");
-      if (storedPageGallery) {
-        try {
-          const parsed = JSON.parse(storedPageGallery);
-          if (parsed.videos && parsed.videos.length > 0 && parsed.videos[0].title === "Cloud Infrastructure & DevOps Automation") {
-            parsed.videos[0] = {
-              title: "The Secrets of Learning a New Language",
-              url: "https://www.youtube.com/embed/NiTsduRreug",
-              thumbnail: "https://img.youtube.com/vi/NiTsduRreug/hqdefault.jpg",
-              isLocal: false
-            };
-            localStorage.setItem("clarity_page_gallery", JSON.stringify(parsed));
-          }
-          setGalleryPageData(prev => ({ ...prev, ...parsed }));
-        } catch (e) { }
-      }
-
-      // Load gallery videos from admin — edu key
-      const storedVideos = localStorage.getItem("clarity_gallery_videos_edu");
-      if (storedVideos) {
-        try {
-          const parsed = JSON.parse(storedVideos);
-          const validVideos = Array.isArray(parsed) ? parsed.filter(v => v.url && v.url.trim() !== "") : [];
-          if (validVideos.length > 0) {
-            setGalleryVideos(validVideos);
-          } else {
-            setGalleryVideos(DEFAULT_GALLERY_VIDEOS);
-            localStorage.setItem("clarity_gallery_videos_edu", JSON.stringify(DEFAULT_GALLERY_VIDEOS));
-          }
-        } catch (e) { }
-      } else {
-        setGalleryVideos(DEFAULT_GALLERY_VIDEOS);
-        localStorage.setItem("clarity_gallery_videos_edu", JSON.stringify(DEFAULT_GALLERY_VIDEOS));
-      }
+  const DEFAULT_GALLERY_SLIDES = [
+    {
+      id: 1,
+      title: "A Visual Showcase",
+      highlight: "Of Our Moments & Workspace",
+      description: "Explore our vibrant engineering workspace, team hackathons, technology summits, and corporate event highlights.",
+      buttonText: "View Gallery",
+      buttonLink: "#gallery-photos",
+      slideLabel: "Moments",
+      image: "/carousel-1.png"
+    },
+    {
+      id: 2,
+      title: "Inside Our Modern",
+      highlight: "Innovation Hub",
+      description: "A glimpse inside our collaborative workspace where developers, architects, and designers build high-tech platforms.",
+      buttonText: "Workspace Hub",
+      buttonLink: "#gallery-photos",
+      slideLabel: "Workspace",
+      image: "/carousel-2.png"
+    },
+    {
+      id: 3,
+      title: "Tech Milestones &",
+      highlight: "Team Culture",
+      description: "Celebrating team achievements, engineering sprints, continuous learning, and shared project success.",
+      buttonText: "Culture & Sprints",
+      buttonLink: "#gallery-photos",
+      slideLabel: "Culture",
+      image: "/carousel-3.png"
+    },
+    {
+      id: 4,
+      title: "Connecting Tech Teams",
+      highlight: "Worldwide",
+      description: "Building strong client partnerships and enterprise digital products together.",
+      buttonText: "Get In Touch",
+      buttonLink: "/contact",
+      slideLabel: "Global Team",
+      image: "/carousel-4.png"
     }
+  ];
+
+  const [gallerySlides, setGallerySlides] = useState(DEFAULT_GALLERY_SLIDES);
+
+  useEffect(() => {
+    const loadGalleryData = () => {
+      if (typeof window !== "undefined") {
+        const stored = localStorage.getItem("clarity_seo_data");
+        if (stored) {
+          try {
+            const config = JSON.parse(stored);
+            if (config.gallery) {
+              setSeoConfig(config.gallery);
+            }
+          } catch (e) { }
+        }
+
+        // Load gallery page content from admin
+        const storedPageGallery = localStorage.getItem("clarity_page_gallery");
+        if (storedPageGallery) {
+          try {
+            const parsed = JSON.parse(storedPageGallery);
+            if (parsed.videos && parsed.videos.length > 0 && parsed.videos[0].title === "Cloud Infrastructure & DevOps Automation") {
+              parsed.videos[0] = {
+                title: "The Secrets of Learning a New Language",
+                url: "https://www.youtube.com/embed/NiTsduRreug",
+                thumbnail: "https://img.youtube.com/vi/NiTsduRreug/hqdefault.jpg",
+                isLocal: false
+              };
+              localStorage.setItem("clarity_page_gallery", JSON.stringify(parsed));
+            }
+            setGalleryPageData(prev => ({ ...prev, ...parsed }));
+          } catch (e) { }
+        }
+
+        // Load gallery slides from admin
+        const storedGallerySlides = localStorage.getItem("clarity_gallery_slides");
+        if (storedGallerySlides) {
+          try {
+            const parsed = JSON.parse(storedGallerySlides);
+            if (Array.isArray(parsed) && parsed.length > 0) setGallerySlides(parsed);
+          } catch (e) { }
+        }
+
+        // Load gallery videos from admin — edu key
+        const storedVideos = localStorage.getItem("clarity_gallery_videos_edu");
+        if (storedVideos) {
+          try {
+            const parsed = JSON.parse(storedVideos);
+            const validVideos = Array.isArray(parsed) ? parsed.filter(v => v.url && v.url.trim() !== "") : [];
+            if (validVideos.length > 0) {
+              setGalleryVideos(validVideos);
+            } else {
+              setGalleryVideos(DEFAULT_GALLERY_VIDEOS);
+              localStorage.setItem("clarity_gallery_videos_edu", JSON.stringify(DEFAULT_GALLERY_VIDEOS));
+            }
+          } catch (e) { }
+        } else {
+          setGalleryVideos(DEFAULT_GALLERY_VIDEOS);
+          localStorage.setItem("clarity_gallery_videos_edu", JSON.stringify(DEFAULT_GALLERY_VIDEOS));
+        }
+      }
+    };
+
+    loadGalleryData();
+
+    window.addEventListener("storage", loadGalleryData);
+    window.addEventListener("focus", loadGalleryData);
+    return () => {
+      window.removeEventListener("storage", loadGalleryData);
+      window.removeEventListener("focus", loadGalleryData);
+    };
   }, []);
 
   useEffect(() => {
@@ -281,48 +346,7 @@ export default function GalleryPage() {
       <main className="w-full">
         {/* HERO SLIDER BANNER SECTION */}
         <HeroBannerSlider
-          slides={[
-            {
-              id: 1,
-              title: "A Visual Showcase",
-              highlight: "Of Our Moments & Workspace",
-              description: "Explore our vibrant engineering workspace, team hackathons, technology summits, and corporate event highlights.",
-              buttonText: "View Gallery",
-              buttonLink: "#gallery-photos",
-              slideLabel: "Moments",
-              image: "/carousel-1.png"
-            },
-            {
-              id: 2,
-              title: "Inside Our Modern",
-              highlight: "Innovation Hub",
-              description: "A glimpse inside our collaborative workspace where developers, architects, and designers build high-tech platforms.",
-              buttonText: "Workspace Hub",
-              buttonLink: "#gallery-photos",
-              slideLabel: "Workspace",
-              image: "/carousel-2.png"
-            },
-            {
-              id: 3,
-              title: "Tech Milestones &",
-              highlight: "Team Culture",
-              description: "Celebrating team achievements, engineering sprints, continuous learning, and shared project success.",
-              buttonText: "Culture & Sprints",
-              buttonLink: "#gallery-photos",
-              slideLabel: "Culture",
-              image: "/carousel-3.png"
-            },
-            {
-              id: 4,
-              title: "Connecting Tech Teams",
-              highlight: "Worldwide",
-              description: "Building strong client partnerships and enterprise digital products together.",
-              buttonText: "Get In Touch",
-              buttonLink: "/contact",
-              slideLabel: "Global Team",
-              image: "/carousel-4.png"
-            }
-          ]}
+          slides={gallerySlides}
           seoConfig={{ imageAlt: "Clarity InfoTech Gallery", imageTitle: "Clarity InfoTech Moments & Team" }}
           badge={galleryPageData.heroBadge || "GALLERY"}
         />

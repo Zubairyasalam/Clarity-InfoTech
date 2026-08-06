@@ -384,21 +384,17 @@ export default function AdminDashboard() {
 
   // About Page State
   const DEFAULT_PAGE_ABOUT = {
-    heroBadge: "ABOUT US",
     heroTitle: "About Us",
     heroSubtitle: "Pioneering technology solutions and empowering digital growth since 2016.",
     aboutTitle: "About Clarity InfoTech",
     aboutParagraph1: "Clarity InfoTech is a technology-driven company focused on building innovative digital solutions that help businesses grow, streamline operations, and stay ahead in a fast-changing digital world. We specialize in transforming ideas into practical, scalable, and user-friendly software products that solve real business challenges.",
     aboutParagraph2: "Founded with a vision to combine technology, creativity, and business strategy, Clarity InfoTech works with startups, enterprises, and organizations to deliver high-quality web applications, mobile apps, business platforms, and custom digital solutions. Our team is passionate about creating products that are not only visually modern but also technically strong, reliable, and performance-focused.",
-    valuesPill: "03 / CORE PRINCIPLES",
     valuesTitle: "Our Values",
     valuesSubtitle: "The principles that guide everything we build and deliver.",
-    valuesBgImage: "",
     valuesCards: [
-      { step: "01", title: "Innovation", icon: "Lightbulb", image: "", gradient: "from-sky-400 to-indigo-600", tag: "Future Tech", desc: "We explore new ideas, tools, and cutting-edge frameworks to build future-ready, intelligent digital solutions." },
-      { step: "02", title: "Excellence", icon: "Star", image: "", gradient: "from-indigo-500 to-purple-600", tag: "Craftsmanship", desc: "We aim for zero-compromise precision in every project, with extreme attention to detail, performance, and UI usability." },
-      { step: "03", title: "Collaboration", icon: "Users", image: "", gradient: "from-blue-500 to-sky-400", tag: "Shared Vision", desc: "We partner closely with clients and cross-functional squads, believing transparent communication creates the best results." },
-      { step: "04", title: "Results", icon: "Target", image: "", gradient: "from-purple-500 to-indigo-600", tag: "Measurable Impact", desc: "We focus on building software products that create real, quantifiable business value and empower digital growth." }
+      { step: "01", title: "Innovation", icon: "Lightbulb", gradient: "from-sky-400 to-indigo-600", tag: "FUTURE-READY", desc: "We explore new ideas, tools, and cutting-edge frameworks to build future-ready, intelligent digital solutions." },
+      { step: "02", title: "Excellence", icon: "Star", gradient: "from-indigo-500 to-purple-600", tag: "CRAFTSMANSHIP", desc: "We aim for zero-compromise precision in every project, with extreme attention to detail, performance, and UI usability." },
+      { step: "03", title: "Collaboration", icon: "Users", gradient: "from-blue-500 to-sky-400", tag: "SHARED VISION", desc: "We partner closely with clients and cross-functional squads, believing transparent communication creates the best results." }
     ],
     approachTitle: "Our Approach",
     approachParagraph1: "At Clarity InfoTech, every project begins with understanding the client’s vision, goals, and challenges. We follow a practical and collaborative approach where planning, design, development, testing, and deployment are all handled with attention to quality and performance.",
@@ -408,11 +404,53 @@ export default function AdminDashboard() {
       "Strong focus on quality, performance, and usability",
       "Expertise in modern web and software technologies",
       "Business-oriented solutions tailored to real-world needs",
-      "Clean and responsive UI with scalable architecture",
-      "Dedicated team support from idea to deployment",
       "Commitment to innovation, reliability, and client satisfaction"
     ]
   };
+  const DEFAULT_ABOUT_SLIDES = [
+    {
+      id: 1,
+      title: "Empowering Businesses",
+      highlight: "Through Innovation & Tech",
+      description: "Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, cloud architecture, and security audit systems.",
+      buttonText: "Explore Our Story",
+      buttonLink: "#about-story",
+      slideLabel: "Story",
+      image: "/carousel-1.png"
+    },
+    {
+      id: 2,
+      title: "Driven By Excellence &",
+      highlight: "Expert Engineering",
+      description: "Our skilled engineering squad transforms complex business challenges into scalable, high-performance digital platforms.",
+      buttonText: "Our Culture",
+      buttonLink: "#values",
+      slideLabel: "Culture",
+      image: "/carousel-2.png"
+    },
+    {
+      id: 3,
+      title: "Building High-Performance",
+      highlight: "Digital Products",
+      description: "We craft custom web & mobile platforms, AI-driven solutions, and secure cloud microservices with 99.9% uptime SLAs.",
+      buttonText: "Core Values",
+      buttonLink: "#values",
+      slideLabel: "Values",
+      image: "/carousel-3.png"
+    },
+    {
+      id: 4,
+      title: "Your Trusted Technology",
+      highlight: "Partner Worldwide",
+      description: "Delivering 24/7 reliability, SLA guarantees, and enterprise security for ambitious brands around the globe.",
+      buttonText: "Get In Touch",
+      buttonLink: "/contact",
+      slideLabel: "Contact",
+      image: "/carousel-4.png"
+    }
+  ];
+
+  const [aboutSlides, setAboutSlides] = useState(DEFAULT_ABOUT_SLIDES);
   const [pageAboutData, setPageAboutData] = useState(DEFAULT_PAGE_ABOUT);
   const [pageAboutSaveSuccess, setPageAboutSaveSuccess] = useState(false);
 
@@ -578,8 +616,87 @@ export default function AdminDashboard() {
       { value: "500+", label: "Products & Projects", icon: "Award" },
       { value: "50+", label: "Global Partners", icon: "Handshake" },
       { value: "100%", label: "Client Satisfaction", icon: "Star" }
+    ],
+    projectsTitle: "Our Projects",
+    projectsCards: [
+      {
+        id: "cloud-devops",
+        title: "Cloud & DevOps Architecture",
+        category: "Infrastructure & Security",
+        year: "2026",
+        media: "/service.mp4",
+        isVideo: true
+      },
+      {
+        id: "software-engineering",
+        title: "Custom Software Engineering",
+        category: "Web & Mobile Platforms",
+        year: "2026",
+        media: "/service1.mp4",
+        isVideo: true
+      },
+      {
+        id: "cyber-security",
+        title: "Cyber Security & Auditing",
+        category: "Threat Defense & Uptime",
+        year: "2025",
+        media: "/service2.mp4",
+        isVideo: true
+      },
+      {
+        id: "ai-consulting",
+        title: "AI Integration & IT Consulting",
+        category: "Automation & Strategy",
+        year: "2025",
+        media: "/service3.mp4",
+        isVideo: true
+      }
     ]
   };
+  const DEFAULT_SERVICE_SLIDES = [
+    {
+      id: 1,
+      title: "Cloud & DevOps",
+      highlight: "Architecture & Security",
+      description: "Enterprise software engineering, DevOps automation, cloud-native security, and 24/7 uptime infrastructure.",
+      buttonText: "Explore Services",
+      buttonLink: "#services",
+      slideLabel: "Cloud & DevOps",
+      image: "/carousel-1.png"
+    },
+    {
+      id: 2,
+      title: "Custom Software",
+      highlight: "Engineering & Mobile",
+      description: "Tailored web applications and native-feel mobile platforms built for high scalability, performance, and security.",
+      buttonText: "Web & Mobile",
+      buttonLink: "#services",
+      slideLabel: "Software",
+      image: "/carousel-2.png"
+    },
+    {
+      id: 3,
+      title: "Cyber Security &",
+      highlight: "Threat Defense",
+      description: "End-to-end security audits, vulnerability testing, compliance frameworks, and active threat prevention.",
+      buttonText: "Security Audits",
+      buttonLink: "#services",
+      slideLabel: "Security",
+      image: "/carousel-3.png"
+    },
+    {
+      id: 4,
+      title: "Enterprise AI &",
+      highlight: "Data Analytics",
+      description: "Intelligent automation models, RAG pipelines, and BI dashboards that convert raw data into strategic business growth.",
+      buttonText: "AI Solutions",
+      buttonLink: "#services",
+      slideLabel: "AI & Data",
+      image: "/carousel-4.png"
+    }
+  ];
+
+  const [serviceSlides, setServiceSlides] = useState(DEFAULT_SERVICE_SLIDES);
   const [pageServiceData, setPageServiceData] = useState(DEFAULT_PAGE_SERVICE);
   const [pageServiceSaveSuccess, setPageServiceSaveSuccess] = useState(false);
 
@@ -596,8 +713,97 @@ export default function AdminDashboard() {
     officeEmail: "info@clarity-infotech.com",
     mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115482.38557991349!2d51.44234586524317!3d25.285447333555504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e45c534ffdce87f%3A0x44d9319f78cfd4b1!2sDoha%2C%20Qatar!5e0!3m2!1sen!2sqa!4v1700000000000!5m2!1sen!2sqa"
   };
+  const DEFAULT_CONTACT_SLIDES = [
+    {
+      id: 1,
+      title: "Ready to Transform",
+      highlight: "Your Business?",
+      description: "Ready to transform your business with cutting-edge technology? Let's discuss your project and bring your vision to life.",
+      buttonText: "Send Us a Message",
+      buttonLink: "#recaptcha",
+      slideLabel: "Get In Touch",
+      image: "/carousel-1.png"
+    },
+    {
+      id: 2,
+      title: "Get In Touch With",
+      highlight: "Our Engineering Squad",
+      description: "Our software engineering team will review your message and get back to you within 24 hours.",
+      buttonText: "Fill Contact Form",
+      buttonLink: "#recaptcha",
+      slideLabel: "Squad Support",
+      image: "/carousel-2.png"
+    },
+    {
+      id: 3,
+      title: "Head Office & Global",
+      highlight: "Client Support",
+      description: "PO Box 200388, Doha, Qatar | Direct phone and email support for enterprise clients worldwide.",
+      buttonText: "Head Office Info",
+      buttonLink: "#office-info",
+      slideLabel: "Doha HQ",
+      image: "/carousel-3.png"
+    },
+    {
+      id: 4,
+      title: "Start Your Project",
+      highlight: "With Clarity InfoTech",
+      description: "Reach out today to discuss custom software development, cloud migration, AI models, or security audits.",
+      buttonText: "Contact Us Now",
+      buttonLink: "#recaptcha",
+      slideLabel: "Start Project",
+      image: "/carousel-4.png"
+    }
+  ];
+
+  const [contactSlides, setContactSlides] = useState(DEFAULT_CONTACT_SLIDES);
   const [pageContactData, setPageContactData] = useState(DEFAULT_PAGE_CONTACT);
   const [pageContactSaveSuccess, setPageContactSaveSuccess] = useState(false);
+
+  const DEFAULT_GALLERY_SLIDES = [
+    {
+      id: 1,
+      title: "A Visual Showcase",
+      highlight: "Of Our Moments & Workspace",
+      description: "Explore our vibrant engineering workspace, team hackathons, technology summits, and corporate event highlights.",
+      buttonText: "View Gallery",
+      buttonLink: "#gallery-photos",
+      slideLabel: "Moments",
+      image: "/carousel-1.png"
+    },
+    {
+      id: 2,
+      title: "Inside Our Modern",
+      highlight: "Innovation Hub",
+      description: "A glimpse inside our collaborative workspace where developers, architects, and designers build high-tech platforms.",
+      buttonText: "Workspace Hub",
+      buttonLink: "#gallery-photos",
+      slideLabel: "Workspace",
+      image: "/carousel-2.png"
+    },
+    {
+      id: 3,
+      title: "Tech Milestones &",
+      highlight: "Team Culture",
+      description: "Celebrating team achievements, engineering sprints, continuous learning, and shared project success.",
+      buttonText: "Culture & Sprints",
+      buttonLink: "#gallery-photos",
+      slideLabel: "Culture",
+      image: "/carousel-3.png"
+    },
+    {
+      id: 4,
+      title: "Connecting Tech Teams",
+      highlight: "Worldwide",
+      description: "Building strong client partnerships and enterprise digital products together.",
+      buttonText: "Get In Touch",
+      buttonLink: "/contact",
+      slideLabel: "Global Team",
+      image: "/carousel-4.png"
+    }
+  ];
+
+  const [gallerySlides, setGallerySlides] = useState(DEFAULT_GALLERY_SLIDES);
 
   // Gallery Page State
   const DEFAULT_PAGE_GALLERY = {
@@ -1320,6 +1526,15 @@ For questions about these Terms and Conditions, please contact us at info@clarit
       } else {
         localStorage.setItem("clarity_page_about", JSON.stringify(DEFAULT_PAGE_ABOUT));
       }
+      const storedAboutSlides = localStorage.getItem("clarity_about_slides");
+      if (storedAboutSlides) {
+        try {
+          const parsed = JSON.parse(storedAboutSlides);
+          if (Array.isArray(parsed) && parsed.length > 0) setAboutSlides(parsed);
+        } catch { }
+      } else {
+        localStorage.setItem("clarity_about_slides", JSON.stringify(DEFAULT_ABOUT_SLIDES));
+      }
 
       // Load Our Projects Page data
       const storedPageProjects = localStorage.getItem("clarity_page_projects");
@@ -1336,6 +1551,15 @@ For questions about these Terms and Conditions, please contact us at info@clarit
       } else {
         localStorage.setItem("clarity_page_service", JSON.stringify(DEFAULT_PAGE_SERVICE));
       }
+      const storedServiceSlides = localStorage.getItem("clarity_service_slides");
+      if (storedServiceSlides) {
+        try {
+          const parsed = JSON.parse(storedServiceSlides);
+          if (Array.isArray(parsed) && parsed.length > 0) setServiceSlides(parsed);
+        } catch { }
+      } else {
+        localStorage.setItem("clarity_service_slides", JSON.stringify(DEFAULT_SERVICE_SLIDES));
+      }
 
       // Load Contact Us Page data
       const storedPageContact = localStorage.getItem("clarity_page_contact");
@@ -1343,6 +1567,15 @@ For questions about these Terms and Conditions, please contact us at info@clarit
         try { setPageContactData({ ...DEFAULT_PAGE_CONTACT, ...JSON.parse(storedPageContact) }); } catch { }
       } else {
         localStorage.setItem("clarity_page_contact", JSON.stringify(DEFAULT_PAGE_CONTACT));
+      }
+      const storedContactSlides = localStorage.getItem("clarity_contact_slides");
+      if (storedContactSlides) {
+        try {
+          const parsed = JSON.parse(storedContactSlides);
+          if (Array.isArray(parsed) && parsed.length > 0) setContactSlides(parsed);
+        } catch { }
+      } else {
+        localStorage.setItem("clarity_contact_slides", JSON.stringify(DEFAULT_CONTACT_SLIDES));
       }
 
       // Load Gallery Page data
@@ -1363,6 +1596,16 @@ For questions about these Terms and Conditions, please contact us at info@clarit
         } catch { }
       } else {
         localStorage.setItem("clarity_page_gallery", JSON.stringify(DEFAULT_PAGE_GALLERY));
+      }
+
+      const storedGallerySlides = localStorage.getItem("clarity_gallery_slides");
+      if (storedGallerySlides) {
+        try {
+          const parsed = JSON.parse(storedGallerySlides);
+          if (Array.isArray(parsed) && parsed.length > 0) setGallerySlides(parsed);
+        } catch { }
+      } else {
+        localStorage.setItem("clarity_gallery_slides", JSON.stringify(DEFAULT_GALLERY_SLIDES));
       }
 
       const storedGalleryImages = localStorage.getItem("clarity_gallery_images");
@@ -1785,13 +2028,29 @@ For questions about these Terms and Conditions, please contact us at info@clarit
   const addPageAboutWhyList = () => setPageAboutData(d => ({ ...d, whyChooseList: [...(d.whyChooseList || []), "New Reason"] }));
   const deletePageAboutWhyList = (i) => setPageAboutData(d => ({ ...d, whyChooseList: (d.whyChooseList || []).filter((_, idx) => idx !== i) }));
   
+  const updateAboutSlide = (i, key, val) => setAboutSlides(prev => { const copy = [...prev]; copy[i] = { ...copy[i], [key]: val }; return copy; });
+  const addAboutSlide = () => setAboutSlides(prev => [...prev, { id: Date.now(), title: "New Slide Title", highlight: "New Highlight", description: "Slide description text...", buttonText: "Learn More", buttonLink: "/contact", slideLabel: "New Slide", image: "/carousel-1.png" }]);
+  const deleteAboutSlide = (i) => setAboutSlides(prev => prev.filter((_, idx) => idx !== i));
+  const handleAboutSlideFileUpload = (e, index) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      if (evt.target?.result) {
+        updateAboutSlide(index, "image", evt.target.result);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+  
   const savePageAbout = () => {
     localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_page_about", JSON.stringify(pageAboutData));
+    localStorage.setItem("clarity_about_slides", JSON.stringify(aboutSlides));
     setPageAboutSaveSuccess(true);
     setTimeout(() => setPageAboutSaveSuccess(false), 2500);
   };
-  const resetPageAbout = () => { if (confirm("Reset About Page to defaults?")) { setPageAboutData(DEFAULT_PAGE_ABOUT); localStorage.setItem("clarity_page_about", JSON.stringify(DEFAULT_PAGE_ABOUT)); } };
+  const resetPageAbout = () => { if (confirm("Reset About Page to defaults?")) { setPageAboutData(DEFAULT_PAGE_ABOUT); setAboutSlides(DEFAULT_ABOUT_SLIDES); localStorage.setItem("clarity_page_about", JSON.stringify(DEFAULT_PAGE_ABOUT)); localStorage.setItem("clarity_about_slides", JSON.stringify(DEFAULT_ABOUT_SLIDES)); } };
 
   // Our Projects Page CRUD
   const updatePageProjectsField = (key, val) => setPageProjectsData(d => ({ ...d, [key]: val }));
@@ -1879,26 +2138,83 @@ For questions about these Terms and Conditions, please contact us at info@clarit
 
   const updateCircleNodeItem = (i, key, val) => setPageServiceData(d => { const n = [...(d.circleNodes || [])]; n[i] = { ...n[i], [key]: val }; return { ...d, circleNodes: n }; });
   
+  const updateProjectCardItem = (i, key, val) => setPageServiceData(d => { const c = [...(d.projectsCards || [])]; c[i] = { ...c[i], [key]: val }; return { ...d, projectsCards: c }; });
+  const addProjectCardItem = () => setPageServiceData(d => ({ ...d, projectsCards: [...(d.projectsCards || []), { id: "proj-" + Date.now(), title: "New Showcase Project", category: "Category & Subtitle", year: "2026", media: "/service.mp4", isVideo: true }] }));
+  const deleteProjectCardItem = (i) => setPageServiceData(d => ({ ...d, projectsCards: (d.projectsCards || []).filter((_, idx) => idx !== i) }));
+  const handleProjectCardMediaUpload = (e, index) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      if (evt.target?.result) {
+        const result = evt.target.result;
+        setPageServiceData(d => {
+          const c = [...(d.projectsCards || [])];
+          c[index] = {
+            ...c[index],
+            media: result,
+            isVideo: file.type.startsWith("video/")
+          };
+          return { ...d, projectsCards: c };
+        });
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+  
   const updateStatItem = (i, key, val) => setPageServiceData(d => { const s = [...(d.stats || [])]; s[i] = { ...s[i], [key]: val }; return { ...d, stats: s }; });
   const addStatItem = () => setPageServiceData(d => ({ ...d, stats: [...(d.stats || []), { value: "100+", label: "New Metric", icon: "Globe" }] }));
   const deleteStatItem = (i) => setPageServiceData(d => ({ ...d, stats: (d.stats || []).filter((_, idx) => idx !== i) }));
 
+  const updateServiceSlide = (i, key, val) => setServiceSlides(prev => { const copy = [...prev]; copy[i] = { ...copy[i], [key]: val }; return copy; });
+  const addServiceSlide = () => setServiceSlides(prev => [...prev, { id: Date.now(), title: "New Service Title", highlight: "New Highlight", description: "Service description text...", buttonText: "Learn More", buttonLink: "#services", slideLabel: "New Service", image: "/carousel-1.png" }]);
+  const deleteServiceSlide = (i) => setServiceSlides(prev => prev.filter((_, idx) => idx !== i));
+  const handleServiceSlideFileUpload = (e, index) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      if (evt.target?.result) {
+        updateServiceSlide(index, "image", evt.target.result);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
   const savePageService = () => {
     localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_page_service", JSON.stringify(pageServiceData));
+    localStorage.setItem("clarity_service_slides", JSON.stringify(serviceSlides));
     setPageServiceSaveSuccess(true);
     setTimeout(() => setPageServiceSaveSuccess(false), 2500);
   };
-  const resetPageService = () => { if (confirm("Reset Our Service page to defaults?")) { setPageServiceData(DEFAULT_PAGE_SERVICE); localStorage.setItem("clarity_page_service", JSON.stringify(DEFAULT_PAGE_SERVICE)); } };
+  const resetPageService = () => { if (confirm("Reset Our Services page to defaults?")) { setPageServiceData(DEFAULT_PAGE_SERVICE); setServiceSlides(DEFAULT_SERVICE_SLIDES); localStorage.setItem("clarity_page_service", JSON.stringify(DEFAULT_PAGE_SERVICE)); localStorage.setItem("clarity_service_slides", JSON.stringify(DEFAULT_SERVICE_SLIDES)); } };
 
   // Contact Us Page CRUD
   const updatePageContactField = (key, val) => setPageContactData(d => ({ ...d, [key]: val }));
+  const updateContactSlide = (i, key, val) => setContactSlides(prev => { const copy = [...prev]; copy[i] = { ...copy[i], [key]: val }; return copy; });
+  const addContactSlide = () => setContactSlides(prev => [...prev, { id: Date.now(), title: "New Slide Title", highlight: "New Highlight", description: "Slide description text...", buttonText: "Contact Us", buttonLink: "#recaptcha", slideLabel: "Contact", image: "/carousel-1.png" }]);
+  const deleteContactSlide = (i) => setContactSlides(prev => prev.filter((_, idx) => idx !== i));
+  const handleContactSlideFileUpload = (e, index) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      if (evt.target?.result) {
+        updateContactSlide(index, "image", evt.target.result);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
   const savePageContact = () => {
     localStorage.setItem("clarity_page_contact", JSON.stringify(pageContactData));
+    localStorage.setItem("clarity_contact_slides", JSON.stringify(contactSlides));
+    window.dispatchEvent(new Event("storage"));
     setPageContactSaveSuccess(true);
     setTimeout(() => setPageContactSaveSuccess(false), 2500);
   };
-  const resetPageContact = () => { if (confirm("Reset Contact Us page to defaults?")) { setPageContactData(DEFAULT_PAGE_CONTACT); localStorage.setItem("clarity_page_contact", JSON.stringify(DEFAULT_PAGE_CONTACT)); } };
+  const resetPageContact = () => { if (confirm("Reset Contact Us page to defaults?")) { setPageContactData(DEFAULT_PAGE_CONTACT); setContactSlides(DEFAULT_CONTACT_SLIDES); localStorage.setItem("clarity_page_contact", JSON.stringify(DEFAULT_PAGE_CONTACT)); localStorage.setItem("clarity_contact_slides", JSON.stringify(DEFAULT_CONTACT_SLIDES)); window.dispatchEvent(new Event("storage")); } };
 
   // Gallery Page CRUD
   const updatePageGalleryField = (key, val) => setPageGalleryData(d => ({ ...d, [key]: val }));
@@ -1929,11 +2245,28 @@ For questions about these Terms and Conditions, please contact us at info@clarit
     }
   };
 
+  const updateGallerySlide = (i, key, val) => setGallerySlides(prev => { const copy = [...prev]; copy[i] = { ...copy[i], [key]: val }; return copy; });
+  const addGallerySlide = () => setGallerySlides(prev => [...prev, { id: Date.now(), title: "New Slide Title", highlight: "New Highlight", description: "Slide description text...", buttonText: "Explore Gallery", buttonLink: "#gallery-photos", slideLabel: "Moments", image: "/carousel-1.png" }]);
+  const deleteGallerySlide = (i) => setGallerySlides(prev => prev.filter((_, idx) => idx !== i));
+  const handleGallerySlideFileUpload = (e, index) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      if (evt.target?.result) {
+        updateGallerySlide(index, "image", evt.target.result);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
   const savePageGallery = () => {
     localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_page_gallery", JSON.stringify(pageGalleryData));
     localStorage.setItem("clarity_gallery_images", JSON.stringify(galleryImages));
     localStorage.setItem("clarity_gallery_videos_edu", JSON.stringify(galleryVideos));
+    localStorage.setItem("clarity_gallery_slides", JSON.stringify(gallerySlides));
+    window.dispatchEvent(new Event("storage"));
     setPageGallerySaveSuccess(true);
     setTimeout(() => setPageGallerySaveSuccess(false), 2500);
   };
@@ -1941,10 +2274,10 @@ For questions about these Terms and Conditions, please contact us at info@clarit
     if (confirm("Reset Gallery Page to defaults?")) {
       setPageGalleryData(DEFAULT_PAGE_GALLERY);
       setGalleryImages(DEFAULT_GALLERY_IMAGES);
-      setGalleryVideos([]);
+      setGallerySlides(DEFAULT_GALLERY_SLIDES);
       localStorage.setItem("clarity_page_gallery", JSON.stringify(DEFAULT_PAGE_GALLERY));
       localStorage.setItem("clarity_gallery_images", JSON.stringify(DEFAULT_GALLERY_IMAGES));
-      localStorage.setItem("clarity_gallery_videos_edu", JSON.stringify([]));
+      localStorage.setItem("clarity_gallery_slides", JSON.stringify(DEFAULT_GALLERY_SLIDES));
     }
   };
 
@@ -2844,9 +3177,9 @@ For questions about these Terms and Conditions, please contact us at info@clarit
       "footer": "Website Footer",
       "legal-pages": "Legal Pages",
       "page-about": "About Page",
-      "page-projects": "Our Projects",
-      "page-service": "Our Service",
+      "page-service": "Our Services Page",
       "page-gallery": "Gallery Page",
+      "contact": "Contact Page",
       "page-legal": "Legal Pages",
       "system-config": "System Configuration"
     };
@@ -3046,9 +3379,9 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                 <div className="pl-9 pr-3 py-1 space-y-1">
                   {[
                     { id: "page-about", label: "About Page", icon: FileText },
-                    { id: "page-projects", label: "Our Projects", icon: Briefcase },
-                    { id: "page-service", label: "Our Service", icon: Layers },
+                    { id: "page-service", label: "Our Services Page", icon: Layers },
                     { id: "page-gallery", label: "Gallery Page", icon: Image },
+                    { id: "contact", label: "Contact Page", icon: Mail },
                   ].map((item) => {
                     const Icon = item.icon;
                     const isActive = activeTab === item.id;
@@ -3329,22 +3662,74 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                     </div>
                   </div>
 
-                  {/* HERO SECTION */}
+                  {/* HERO BANNER SLIDES EDITOR */}
                   <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
-                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Hero Section</h3>
-                    <div className="grid md:grid-cols-3 gap-4">
+                    <div className="flex justify-between items-center">
                       <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Small Badge</label>
-                        <input type="text" value={pageAboutData.heroBadge || ""} onChange={e => updatePageAboutField("heroBadge", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                        <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Image size={14} /> Hero Carousel Banner Slides (4 Slides)</h3>
+                        <p className="text-xs text-slate-500 mt-1">Manage title, highlight phrase, description text, and background images for top About page slider.</p>
                       </div>
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Title</label>
-                        <input type="text" value={pageAboutData.heroTitle || ""} onChange={e => updatePageAboutField("heroTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
-                      </div>
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Subtitle</label>
-                        <input type="text" value={pageAboutData.heroSubtitle || ""} onChange={e => updatePageAboutField("heroSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
-                      </div>
+                      <button onClick={addAboutSlide} className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#1E67E2] rounded-xl text-xs font-bold transition cursor-pointer">
+                        <Plus size={13} /> Add Slide
+                      </button>
+                    </div>
+
+                    <div className="space-y-4 mt-4">
+                      {(aboutSlides || []).map((slide, i) => (
+                        <div key={slide.id || i} className="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-4 relative">
+                          <div className="flex items-center justify-between border-b border-slate-200/80 pb-3">
+                            <span className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+                              <span className="w-6 h-6 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-[11px]">#{i + 1}</span>
+                              Slide Label: {slide.slideLabel || `Slide ${i + 1}`}
+                            </span>
+                            <button onClick={() => deleteAboutSlide(i)} className="p-1.5 bg-white text-red-500 hover:bg-red-50 rounded-lg border border-slate-200 shadow-xs transition cursor-pointer">
+                              <Trash2 size={14} />
+                            </button>
+                          </div>
+
+                          <div className="grid md:grid-cols-3 gap-4">
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold mb-1 block">Slide Nav Label</label>
+                              <input type="text" value={slide.slideLabel || ""} onChange={e => updateAboutSlide(i, "slideLabel", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" placeholder="Story / Culture / Values / Contact" />
+                            </div>
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold mb-1 block">Title Line 1</label>
+                              <input type="text" value={slide.title || ""} onChange={e => updateAboutSlide(i, "title", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" placeholder="e.g. Your Trusted Technology" />
+                            </div>
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold mb-1 block">Highlight Line 2 (Cyan)</label>
+                              <input type="text" value={slide.highlight || ""} onChange={e => updateAboutSlide(i, "highlight", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" placeholder="e.g. Partner Worldwide" />
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="text-xs text-slate-500 font-semibold mb-1 block">Description Subtitle</label>
+                            <textarea rows={2} value={slide.description || ""} onChange={e => updateAboutSlide(i, "description", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition resize-none" placeholder="Delivering 24/7 reliability, SLA guarantees..." />
+                          </div>
+
+                          <div>
+                            <div className="flex items-center justify-between mb-2">
+                              <label className="text-xs text-slate-500 font-semibold block">Background Image</label>
+                              <label className="flex items-center gap-1.5 px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-semibold transition cursor-pointer active:scale-95">
+                                <Upload size={12} />
+                                <span>Choose Image File from Computer</span>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  className="hidden"
+                                  onChange={(e) => handleAboutSlideFileUpload(e, i)}
+                                />
+                              </label>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <input type="text" value={slide.image || ""} onChange={e => updateAboutSlide(i, "image", e.target.value)} className="flex-1 bg-white border border-slate-200 text-xs font-mono text-slate-700 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" placeholder="/carousel-4.png" />
+                              {slide.image && (
+                                <img src={slide.image} alt="Preview" className="w-16 h-10 object-cover rounded-lg border border-slate-200 shrink-0" />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
 
@@ -3373,11 +3758,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                         <Plus size={13} /> Add Value Card
                       </button>
                     </div>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Pill Text</label>
-                        <input type="text" value={pageAboutData.valuesPill || ""} onChange={e => updatePageAboutField("valuesPill", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
-                      </div>
+                    <div className="grid md:grid-cols-2 gap-4">
                       <div>
                         <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Values Title</label>
                         <input type="text" value={pageAboutData.valuesTitle || ""} onChange={e => updatePageAboutField("valuesTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
@@ -3386,17 +3767,13 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                         <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Values Subtitle</label>
                         <input type="text" value={pageAboutData.valuesSubtitle || ""} onChange={e => updatePageAboutField("valuesSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
                       </div>
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Background Image URL</label>
-                        <input type="text" value={pageAboutData.valuesBgImage || ""} onChange={e => updatePageAboutField("valuesBgImage", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" placeholder="/office-bg.jpg" />
-                      </div>
                     </div>
                     
                     <div className="space-y-4 mt-4">
                       {(pageAboutData.valuesCards || []).map((card, i) => (
                         <div key={i} className="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col gap-3 relative">
                           <button onClick={() => deletePageAboutCard(i)} className="absolute top-3 right-3 p-1.5 bg-white text-red-400 hover:text-red-500 rounded-lg border border-slate-200 shadow-sm transition cursor-pointer"><Trash2 size={14} /></button>
-                          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 pr-8">
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pr-8">
                             <div><label className="text-xs text-slate-500 font-semibold block mb-1">Step (e.g. 01)</label><input type="text" value={card.step} onChange={e => updatePageAboutCard(i, "step", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" /></div>
                             <div><label className="text-xs text-slate-500 font-semibold block mb-1">Title</label><input type="text" value={card.title} onChange={e => updatePageAboutCard(i, "title", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" /></div>
                             <div><label className="text-xs text-slate-500 font-semibold block mb-1">Tag</label><input type="text" value={card.tag} onChange={e => updatePageAboutCard(i, "tag", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" /></div>
@@ -3406,16 +3783,6 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                                 type="text"
                                 value={card.icon}
                                 onChange={e => updatePageAboutCard(i, "icon", e.target.value)}
-                                className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition"
-                              />
-                            </div>
-                            <div>
-                              <label className="text-xs text-slate-500 font-semibold block mb-1">Image URL (Optional)</label>
-                              <input
-                                type="text"
-                                value={card.image || ""}
-                                placeholder="/card-image.jpg"
-                                onChange={e => updatePageAboutCard(i, "image", e.target.value)}
                                 className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition"
                               />
                             </div>
@@ -3695,7 +4062,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                 </div>
               )}
 
-              {/* OUR SERVICE PAGE EDITOR */}
+              {/* OUR SERVICES PAGE EDITOR */}
               {activeTab === "page-service" && (
                 <div className="space-y-6">
                   {/* Top header card */}
@@ -3703,10 +4070,10 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                     <div>
                       <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
                         <Layers className="text-[#1E67E2]" size={24} />
-                        Our Service Page Content
+                        Our Services Page Content
                       </h2>
                       <p className="text-sm text-slate-500 mt-1">
-                        Manage all hero titles, core values, service cards, culture pillars, global stats, and CTA banner for Our Service page.
+                        Manage hero titles, projects cards, core values, service capability cards, and culture pillars for Our Services page.
                       </p>
                     </div>
                     <div className="flex gap-3 shrink-0">
@@ -3718,22 +4085,152 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                     </div>
                   </div>
 
-                  {/* HERO HEADER SECTION */}
+                  {/* HERO BANNER SLIDES EDITOR */}
                   <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
-                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Hero Header Section</h3>
-                    <div className="grid md:grid-cols-3 gap-4">
+                    <div className="flex justify-between items-center">
                       <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Small Badge</label>
-                        <input type="text" value={pageServiceData.heroBadge || ""} onChange={e => updatePageServiceField("heroBadge", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                        <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Image size={14} /> Hero Carousel Banner Slides (4 Slides)</h3>
+                        <p className="text-xs text-slate-500 mt-1">Manage titles, highlight phrases, descriptions, and background images for top Our Services page slider.</p>
                       </div>
+                      <button onClick={addServiceSlide} className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#1E67E2] rounded-xl text-xs font-bold transition cursor-pointer">
+                        <Plus size={13} /> Add Slide
+                      </button>
+                    </div>
+
+                    <div className="space-y-4 mt-4">
+                      {(serviceSlides || []).map((slide, i) => (
+                        <div key={slide.id || i} className="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-4 relative">
+                          <div className="flex items-center justify-between border-b border-slate-200/80 pb-3">
+                            <span className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+                              <span className="w-6 h-6 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-[11px]">#{i + 1}</span>
+                              Slide Label: {slide.slideLabel || `Slide ${i + 1}`}
+                            </span>
+                            <button onClick={() => deleteServiceSlide(i)} className="p-1.5 bg-white text-red-500 hover:bg-red-50 rounded-lg border border-slate-200 shadow-xs transition cursor-pointer">
+                              <Trash2 size={14} />
+                            </button>
+                          </div>
+
+                          <div className="grid md:grid-cols-3 gap-4">
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold mb-1 block">Slide Nav Label</label>
+                              <input type="text" value={slide.slideLabel || ""} onChange={e => updateServiceSlide(i, "slideLabel", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" placeholder="Cloud & DevOps / Software / Security / AI & Data" />
+                            </div>
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold mb-1 block">Title Line 1</label>
+                              <input type="text" value={slide.title || ""} onChange={e => updateServiceSlide(i, "title", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" placeholder="e.g. Enterprise AI &" />
+                            </div>
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold mb-1 block">Highlight Line 2 (Cyan)</label>
+                              <input type="text" value={slide.highlight || ""} onChange={e => updateServiceSlide(i, "highlight", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" placeholder="e.g. Data Analytics" />
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="text-xs text-slate-500 font-semibold mb-1 block">Description Subtitle</label>
+                            <textarea rows={2} value={slide.description || ""} onChange={e => updateServiceSlide(i, "description", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition resize-none" placeholder="Intelligent automation models, RAG pipelines..." />
+                          </div>
+
+                          <div>
+                            <div className="flex items-center justify-between mb-2">
+                              <label className="text-xs text-slate-500 font-semibold block">Background Image</label>
+                              <label className="flex items-center gap-1.5 px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-semibold transition cursor-pointer active:scale-95">
+                                <Upload size={12} />
+                                <span>Choose Image File from Computer</span>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  className="hidden"
+                                  onChange={(e) => handleServiceSlideFileUpload(e, i)}
+                                />
+                              </label>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <input type="text" value={slide.image || ""} onChange={e => updateServiceSlide(i, "image", e.target.value)} className="flex-1 bg-white border border-slate-200 text-xs font-mono text-slate-700 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" placeholder="/carousel-4.png" />
+                              {slide.image && (
+                                <img src={slide.image} alt="Preview" className="w-16 h-10 object-cover rounded-lg border border-slate-200 shrink-0" />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* OUR PROJECTS SHOWCASE CARDS SECTION */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <div className="flex justify-between items-center">
                       <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Title</label>
-                        <input type="text" value={pageServiceData.heroTitle || ""} onChange={e => updatePageServiceField("heroTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                        <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Briefcase size={14} /> Our Projects 2x2 Showcase Cards Grid</h3>
+                        <p className="text-xs text-slate-500 mt-1">Manage project title and card grid shown under Hero slider on Our Services page.</p>
                       </div>
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Subtitle</label>
-                        <input type="text" value={pageServiceData.heroSubtitle || ""} onChange={e => updatePageServiceField("heroSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
-                      </div>
+                      <button onClick={addProjectCardItem} className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#1E67E2] rounded-xl text-xs font-bold transition cursor-pointer">
+                        <Plus size={13} /> Add Project Card
+                      </button>
+                    </div>
+
+                    <div>
+                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Section Title</label>
+                      <input type="text" value={pageServiceData.projectsTitle || "Our Projects"} onChange={e => updatePageServiceField("projectsTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-4 mt-2">
+                      {(pageServiceData.projectsCards || DEFAULT_PAGE_SERVICE.projectsCards || []).map((card, i) => (
+                        <div key={i} className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3 relative">
+                          <button onClick={() => deleteProjectCardItem(i)} className="absolute top-3 right-3 p-1.5 bg-white text-red-500 hover:bg-red-50 rounded-lg border border-slate-200 shadow-xs transition cursor-pointer">
+                            <Trash2 size={14} />
+                          </button>
+                          
+                          <div className="pr-8">
+                            <label className="text-xs text-slate-500 font-semibold block mb-1">Card Title</label>
+                            <input type="text" value={card.title || ""} onChange={e => updateProjectCardItem(i, "title", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 font-bold rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" placeholder="e.g. Cloud & DevOps Architecture" />
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-3">
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold block mb-1">Subcategory Label</label>
+                              <input type="text" value={card.category || ""} onChange={e => updateProjectCardItem(i, "category", e.target.value)} className="w-full bg-white border border-slate-200 text-xs text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" placeholder="Infrastructure & Security" />
+                            </div>
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold block mb-1">Year Tag</label>
+                              <input type="text" value={card.year || ""} onChange={e => updateProjectCardItem(i, "year", e.target.value)} className="w-full bg-white border border-slate-200 text-xs text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" placeholder="2026" />
+                            </div>
+                          </div>
+
+                          <div>
+                            <div className="flex items-center justify-between mb-1.5">
+                              <label className="text-xs text-slate-500 font-semibold block">Media / Video File</label>
+                              <label className="flex items-center gap-1.5 px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-semibold transition cursor-pointer active:scale-95">
+                                <Upload size={12} />
+                                <span>Choose Video/Image File from Computer</span>
+                                <input
+                                  type="file"
+                                  accept="video/*,image/*"
+                                  className="hidden"
+                                  onChange={(e) => handleProjectCardMediaUpload(e, i)}
+                                />
+                              </label>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <input
+                                type="text"
+                                value={card.media || ""}
+                                onChange={e => updateProjectCardItem(i, "media", e.target.value)}
+                                className="flex-1 bg-white border border-slate-200 text-xs font-mono text-slate-700 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+                                placeholder="/service.mp4"
+                              />
+                              {card.media && (
+                                <div className="w-16 h-10 rounded-lg border border-slate-200 overflow-hidden shrink-0 bg-black flex items-center justify-center">
+                                  {(typeof card.media === "string" && card.media.endsWith(".mp4")) || (typeof card.media === "string" && card.media.startsWith("data:video")) || card.isVideo ? (
+                                    <video src={card.media} muted autoPlay loop className="w-full h-full object-cover" />
+                                  ) : (
+                                    <img src={card.media} alt="Preview" className="w-full h-full object-cover" />
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
 
@@ -3889,7 +4386,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                         Gallery Page Content & Showcase
                       </h2>
                       <p className="text-sm text-slate-500 mt-1">
-                        Manage titles, subheadings, and full photo/media items in the infinite marquee gallery showcase.
+                        Manage top hero slider slides and Our Videos section for Gallery page.
                       </p>
                     </div>
                     <div className="flex gap-3 shrink-0">
@@ -3901,155 +4398,180 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                     </div>
                   </div>
 
-                  {/* HERO SECTION */}
-                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
-                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Hero Section Header</h3>
-                    <div className="grid md:grid-cols-3 gap-4">
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Small Badge</label>
-                        <input type="text" value={(pageGalleryData || {}).heroBadge || ""} onChange={e => updatePageGalleryField("heroBadge", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
-                      </div>
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Page Title</label>
-                        <input type="text" value={(pageGalleryData || {}).heroTitle || ""} onChange={e => updatePageGalleryField("heroTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
-                      </div>
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Subtitle</label>
-                        <input type="text" value={(pageGalleryData || {}).heroSubtitle || ""} onChange={e => updatePageGalleryField("heroSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* GALLERY IMAGES MANAGEMENT was removed from frontend UI */}
-                  {/* BOTTOM CTA BANNER */}
-                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
-                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Bottom Call-to-Action Banner</h3>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">CTA Heading</label>
-                        <input type="text" value={(pageGalleryData || {}).bottomCtaTitle || ""} onChange={e => updatePageGalleryField("bottomCtaTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
-                      </div>
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">CTA Subtitle</label>
-                        <input type="text" value={(pageGalleryData || {}).bottomCtaSubtitle || ""} onChange={e => updatePageGalleryField("bottomCtaSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
-                      </div>
-                    </div>
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Button Label</label>
-                        <input type="text" value={(pageGalleryData || {}).bottomCtaButtonText || ""} onChange={e => updatePageGalleryField("bottomCtaButtonText", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
-                      </div>
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Button Link</label>
-                        <input type="text" value={(pageGalleryData || {}).bottomCtaButtonLink || ""} onChange={e => updatePageGalleryField("bottomCtaButtonLink", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* VIDEO POSTS MANAGEMENT */}
+                  {/* HERO BANNER SLIDES EDITOR */}
                   <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
                     <div className="flex justify-between items-center">
-                      <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2">
-                        <Video size={14} /> Video Posts Management ({(galleryVideos || []).length})
-                      </h3>
+                      <div>
+                        <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Image size={14} /> Top Hero Carousel Banner Slides (4 Slides)</h3>
+                        <p className="text-xs text-slate-500 mt-1">Manage titles, cyan highlight phrases, descriptions, and background images for top Gallery slider.</p>
+                      </div>
+                      <button onClick={addGallerySlide} className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#1E67E2] rounded-xl text-xs font-bold transition cursor-pointer">
+                        <Plus size={13} /> Add Slide
+                      </button>
+                    </div>
+
+                    <div className="space-y-4 mt-4">
+                      {(gallerySlides || []).map((slide, i) => (
+                        <div key={slide.id || i} className="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-4 relative">
+                          <div className="flex items-center justify-between border-b border-slate-200/80 pb-3">
+                            <span className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+                              <span className="w-6 h-6 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-[11px]">#{i + 1}</span>
+                              Slide Label: {slide.slideLabel || `Slide ${i + 1}`}
+                            </span>
+                            <button onClick={() => deleteGallerySlide(i)} className="p-1.5 bg-white text-red-500 hover:bg-red-50 rounded-lg border border-slate-200 shadow-xs transition cursor-pointer">
+                              <Trash2 size={14} />
+                            </button>
+                          </div>
+
+                          <div className="grid md:grid-cols-3 gap-4">
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold mb-1 block">Slide Nav Label</label>
+                              <input type="text" value={slide.slideLabel || ""} onChange={e => updateGallerySlide(i, "slideLabel", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" placeholder="Moments / Workspace / Culture" />
+                            </div>
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold mb-1 block">Title Line 1</label>
+                              <input type="text" value={slide.title || ""} onChange={e => updateGallerySlide(i, "title", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" placeholder="e.g. Inside Our Modern" />
+                            </div>
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold mb-1 block">Highlight Line 2 (Cyan)</label>
+                              <input type="text" value={slide.highlight || ""} onChange={e => updateGallerySlide(i, "highlight", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" placeholder="e.g. Innovation Hub" />
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="text-xs text-slate-500 font-semibold mb-1 block">Description Subtitle</label>
+                            <textarea rows={2} value={slide.description || ""} onChange={e => updateGallerySlide(i, "description", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition resize-none" placeholder="A glimpse inside our collaborative workspace..." />
+                          </div>
+
+                          <div>
+                            <div className="flex items-center justify-between mb-2">
+                              <label className="text-xs text-slate-500 font-semibold block">Background Image</label>
+                              <label className="flex items-center gap-1.5 px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-semibold transition cursor-pointer active:scale-95">
+                                <Upload size={12} />
+                                <span>Choose Image File from Computer</span>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  className="hidden"
+                                  onChange={(e) => handleGallerySlideFileUpload(e, i)}
+                                />
+                              </label>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <input type="text" value={slide.image || ""} onChange={e => updateGallerySlide(i, "image", e.target.value)} className="flex-1 bg-white border border-slate-200 text-xs font-mono text-slate-700 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" placeholder="/carousel-2.png" />
+                              {slide.image && (
+                                <img src={slide.image} alt="Preview" className="w-16 h-10 object-cover rounded-lg border border-slate-200 shrink-0" />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* OUR VIDEOS SECTION EDITOR */}
+                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2">
+                          <Video size={14} /> Our Videos Showcase Section ({(galleryVideos || []).length} Videos)
+                        </h3>
+                        <p className="text-xs text-slate-500 mt-1">Manage video posts displayed under Hero slider on Gallery page.</p>
+                      </div>
                       <button onClick={addGalleryVideo} className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#1E67E2] rounded-xl text-xs font-bold transition cursor-pointer">
                         <Plus size={13} /> Add Video Post
                       </button>
                     </div>
 
-                    {(galleryVideos || []).length === 0 && (
-                      <div className="bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-8 text-center">
-                        <Video size={36} className="mx-auto text-slate-300 mb-3" />
-                        <p className="text-sm font-semibold text-slate-500">No video posts yet</p>
-                        <p className="text-xs text-slate-400 mt-1">Click "Add Video Post" to add YouTube, local, or other video links</p>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Section Title</label>
+                        <input type="text" value={(pageGalleryData || {}).videosTitle || "Our Videos"} onChange={e => updatePageGalleryField("videosTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
                       </div>
-                    )}
+                      <div>
+                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Section Subtitle</label>
+                        <input type="text" value={(pageGalleryData || {}).videosSubtitle || "Watch our team stories, project highlights, and event recaps"} onChange={e => updatePageGalleryField("videosSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                      </div>
+                    </div>
 
-                    <div className="space-y-5">
+                    <div className="space-y-4 mt-4">
                       {(galleryVideos || []).map((vid, i) => (
-                        <div key={i} className="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-4">
-                          {/* Header row */}
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Video #{i + 1}</span>
-                            <button onClick={() => deleteGalleryVideo(i)} className="p-1.5 bg-red-50 text-red-500 hover:bg-red-100 rounded-lg border border-red-100 transition cursor-pointer"><Trash2 size={14} /></button>
+                        <div key={i} className="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-4 relative">
+                          <div className="flex items-center justify-between border-b border-slate-200/80 pb-3">
+                            <span className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-2">
+                              <span className="w-6 h-6 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-[11px]">#{i + 1}</span>
+                              Video Title: {vid.title || `Video ${i + 1}`}
+                            </span>
+                            <button onClick={() => deleteGalleryVideo(i)} className="p-1.5 bg-white text-red-500 hover:bg-red-50 rounded-lg border border-slate-200 shadow-xs transition cursor-pointer">
+                              <Trash2 size={14} />
+                            </button>
                           </div>
 
-                          {/* Title */}
                           <div>
-                            <label className="text-xs text-slate-500 font-semibold block mb-1">Video Title</label>
-                            <input type="text" value={vid.title} onChange={e => updateGalleryVideo(i, "title", e.target.value)} placeholder="Enter video title..." className="w-full bg-white border border-slate-200 text-sm font-semibold text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                            <label className="text-xs text-slate-500 font-semibold mb-1 block">Video Title</label>
+                            <input type="text" value={vid.title || ""} onChange={e => updateGalleryVideo(i, "title", e.target.value)} placeholder="e.g. Cloud Infrastructure & DevOps Automation" className="w-full bg-white border border-slate-200 text-sm font-semibold text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
                           </div>
 
-                          {/* Section 1: Video URL */}
-                          <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-3">
-                            <p className="text-xs font-bold text-slate-600 flex items-center gap-1.5"><LinkIcon size={12} /> Section 1: Video URL (YouTube, Instagram, Facebook, or Local)</p>
-                            <div className="flex items-center gap-2">
+                          {/* Video Media File */}
+                          <div>
+                            <div className="flex items-center justify-between mb-1.5">
+                              <label className="text-xs text-slate-500 font-semibold block">Video File / URL</label>
+                              <label className="flex items-center gap-1.5 px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-semibold transition cursor-pointer active:scale-95">
+                                <Upload size={12} />
+                                <span>Choose Video File from Computer</span>
+                                <input
+                                  type="file"
+                                  accept="video/*"
+                                  className="hidden"
+                                  onChange={e => handleGalleryVideoFileUpload(i, e)}
+                                />
+                              </label>
+                            </div>
+                            <input
+                              type="text"
+                              value={vid.url || ""}
+                              onChange={e => updateGalleryVideo(i, "url", e.target.value)}
+                              placeholder="e.g. https://www.youtube.com/embed/... or video file URL"
+                              className="w-full bg-white border border-slate-200 text-xs font-mono text-slate-700 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+                            />
+                          </div>
+
+                          {/* Thumbnail Upload */}
+                          <div>
+                            <div className="flex items-center justify-between mb-1.5">
+                              <label className="text-xs text-slate-500 font-semibold block">Thumbnail Image</label>
+                              <label className="flex items-center gap-1.5 px-3 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold transition cursor-pointer active:scale-95">
+                                <Upload size={12} />
+                                <span>Choose Thumbnail Image from Computer</span>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  className="hidden"
+                                  onChange={e => handleGalleryVideoThumbnailUpload(i, e)}
+                                />
+                              </label>
+                            </div>
+                            <div className="flex items-center gap-3">
                               <input
                                 type="text"
-                                value={vid.url}
-                                onChange={e => updateGalleryVideo(i, "url", e.target.value)}
-                                placeholder="e.g. https://www.youtube.com/embed/... or /uploads/video.mp4"
-                                className="flex-1 bg-slate-50 border border-slate-200 text-xs font-mono text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition"
+                                value={vid.thumbnail || ""}
+                                onChange={e => updateGalleryVideo(i, "thumbnail", e.target.value)}
+                                placeholder="Thumbnail image URL"
+                                className="flex-1 bg-white border border-slate-200 text-xs font-mono text-slate-700 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition"
                               />
+                              {vid.thumbnail && (
+                                <img src={vid.thumbnail} alt="thumb" className="w-16 h-10 object-cover rounded-lg border border-slate-200 shrink-0" />
+                              )}
                             </div>
                           </div>
 
-                          {/* Section 2: Thumbnail Upload */}
-                          <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-3">
-                            <p className="text-xs font-bold text-slate-600 flex items-center gap-1.5"><Image size={12} /> Section 2: Thumbnail Upload</p>
-                            <div className="flex items-center gap-3">
-                              <div className="w-20 h-14 rounded-lg overflow-hidden bg-slate-100 border border-slate-200 shrink-0">
-                                {vid.thumbnail ? (
-                                  <img src={vid.thumbnail} alt="thumb" className="w-full h-full object-cover" onError={e => { e.target.style.display = 'none'; }} />
-                                ) : (
-                                  <div className="w-full h-full flex items-center justify-center"><Image size={20} className="text-slate-300" /></div>
-                                )}
-                              </div>
-                              <div className="flex-1 space-y-2">
-                                <input
-                                  type="text"
-                                  value={vid.thumbnail}
-                                  onChange={e => updateGalleryVideo(i, "thumbnail", e.target.value)}
-                                  placeholder="Or paste image URL instead"
-                                  className="w-full bg-slate-50 border border-slate-200 text-xs font-mono text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition"
-                                />
-                                <label className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-lg text-xs font-bold transition cursor-pointer border border-indigo-200">
-                                  <Upload size={12} /> Upload Thumbnail
-                                  <input type="file" accept="image/*" onChange={e => handleGalleryVideoThumbnailUpload(i, e)} className="hidden" />
-                                </label>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Section 3: Local Video Upload */}
-                          <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-3">
-                            <p className="text-xs font-bold text-slate-600 flex items-center gap-1.5"><Video size={12} /> Section 3: Local Video Upload</p>
-                            <div className="flex items-center gap-3">
-                              <div className="w-20 h-14 rounded-lg overflow-hidden bg-slate-900 border border-slate-700 shrink-0 flex items-center justify-center">
-                                {vid.url && (vid.isLocal || vid.url.endsWith(".mp4") || vid.url.endsWith(".webm")) ? (
-                                  <video src={vid.url} className="w-full h-full object-cover" muted />
-                                ) : (
-                                  <Video size={20} className="text-slate-500" />
-                                )}
-                              </div>
-                              <div className="flex-1 space-y-2">
-                                <p className="text-[11px] text-slate-500">{vid.url && (vid.isLocal || vid.url.endsWith(".mp4")) ? <span className="text-emerald-600 font-bold">✓ Local video uploaded</span> : "No local video selected"}</p>
-                                <p className="text-[10px] text-slate-400">Accepted: MP4, WEBM, MOV • Max 50MB</p>
-                                <label className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 text-white hover:bg-slate-800 rounded-lg text-xs font-bold transition cursor-pointer">
-                                  <Upload size={12} /> Upload Video File
-                                  <input type="file" accept="video/*" onChange={e => handleGalleryVideoFileUpload(i, e)} className="hidden" />
-                                </label>
-                              </div>
-                            </div>
-                          </div>
-
-                          {/* Live Preview */}
+                          {/* Live Video Preview Box */}
                           {vid.url && (
                             <div className="bg-slate-900 rounded-xl p-3 flex items-center gap-3 border border-slate-800">
-                              <div className="w-24 h-16 rounded-lg overflow-hidden bg-black shrink-0 border border-slate-700 relative">
+                              <div className="w-24 h-14 rounded-lg overflow-hidden bg-black shrink-0 border border-slate-700 relative">
                                 {vid.thumbnail ? (
                                   <img src={vid.thumbnail} alt="thumb" className="w-full h-full object-cover" />
-                                ) : (vid.url.endsWith(".mp4") || vid.url.endsWith(".webm")) ? (
+                                ) : (vid.url.endsWith(".mp4") || vid.url.endsWith(".webm") || vid.isLocal) ? (
                                   <video src={vid.url} muted className="w-full h-full object-cover" />
                                 ) : (
                                   <div className="w-full h-full bg-slate-800 flex items-center justify-center"><Video size={18} className="text-slate-400" /></div>
@@ -4057,7 +4579,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                                 <div className="absolute inset-0 flex items-center justify-center bg-black/30"><div className="w-6 h-6 rounded-full bg-white/90 flex items-center justify-center"><span className="text-black text-[10px] font-bold ml-0.5">▶</span></div></div>
                               </div>
                               <div className="flex-1 min-w-0">
-                                <span className="text-[10px] font-mono text-sky-400 uppercase font-bold tracking-widest block">Live Preview</span>
+                                <span className="text-[10px] font-mono text-sky-400 uppercase font-bold tracking-widest block">Live Video Preview</span>
                                 <p className="text-xs font-bold text-white truncate mt-0.5">{vid.title}</p>
                                 <p className="text-[10px] font-mono text-slate-400 truncate mt-0.5">{vid.url}</p>
                               </div>
@@ -4066,15 +4588,6 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                         </div>
                       ))}
                     </div>
-
-                    {galleryVideos.length > 0 && (
-                      <div className="flex justify-end pt-2">
-                        <button onClick={saveGalleryVideos} className="flex items-center gap-2 px-5 py-2.5 bg-[#1E67E2] hover:bg-blue-700 text-white text-xs font-bold rounded-xl shadow-md shadow-blue-500/10 transition cursor-pointer">
-                          {pageGallerySaveSuccess ? <Check size={15} /> : <Save size={15} />}
-                          {pageGallerySaveSuccess ? "Saved!" : "Save Video Posts"}
-                        </button>
-                      </div>
-                    )}
                   </div>
 
                   {renderQuickSeoCard("gallery", "page_gallery")}
@@ -4105,22 +4618,74 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                     </div>
                   </div>
 
-                  {/* HERO HEADER SECTION */}
+                  {/* HERO BANNER SLIDES EDITOR */}
                   <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
-                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Hero Header Section</h3>
-                    <div className="grid md:grid-cols-3 gap-4">
+                    <div className="flex justify-between items-center">
                       <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Small Badge</label>
-                        <input type="text" value={pageContactData.heroBadge || ""} onChange={e => updatePageContactField("heroBadge", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
+                        <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Image size={14} /> Top Hero Carousel Banner Slides (4 Slides)</h3>
+                        <p className="text-xs text-slate-500 mt-1">Manage titles, cyan highlight phrases, descriptions, and background images for top Contact slider.</p>
                       </div>
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Title</label>
-                        <input type="text" value={pageContactData.heroTitle || ""} onChange={e => updatePageContactField("heroTitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
-                      </div>
-                      <div>
-                        <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Hero Subtitle</label>
-                        <input type="text" value={pageContactData.heroSubtitle || ""} onChange={e => updatePageContactField("heroSubtitle", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
-                      </div>
+                      <button onClick={addContactSlide} className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#1E67E2] rounded-xl text-xs font-bold transition cursor-pointer">
+                        <Plus size={13} /> Add Slide
+                      </button>
+                    </div>
+
+                    <div className="space-y-4 mt-4">
+                      {(contactSlides || []).map((slide, i) => (
+                        <div key={slide.id || i} className="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-4 relative">
+                          <div className="flex items-center justify-between border-b border-slate-200/80 pb-3">
+                            <span className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+                              <span className="w-6 h-6 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-[11px]">#{i + 1}</span>
+                              Slide Label: {slide.slideLabel || `Slide ${i + 1}`}
+                            </span>
+                            <button onClick={() => deleteContactSlide(i)} className="p-1.5 bg-white text-red-500 hover:bg-red-50 rounded-lg border border-slate-200 shadow-xs transition cursor-pointer">
+                              <Trash2 size={14} />
+                            </button>
+                          </div>
+
+                          <div className="grid md:grid-cols-3 gap-4">
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold mb-1 block">Slide Nav Label</label>
+                              <input type="text" value={slide.slideLabel || ""} onChange={e => updateContactSlide(i, "slideLabel", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" placeholder="Get In Touch / Doha HQ" />
+                            </div>
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold mb-1 block">Title Line 1</label>
+                              <input type="text" value={slide.title || ""} onChange={e => updateContactSlide(i, "title", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" placeholder="e.g. Head Office & Global" />
+                            </div>
+                            <div>
+                              <label className="text-xs text-slate-500 font-semibold mb-1 block">Highlight Line 2 (Cyan)</label>
+                              <input type="text" value={slide.highlight || ""} onChange={e => updateContactSlide(i, "highlight", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" placeholder="e.g. Client Support" />
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="text-xs text-slate-500 font-semibold mb-1 block">Description Subtitle</label>
+                            <textarea rows={2} value={slide.description || ""} onChange={e => updateContactSlide(i, "description", e.target.value)} className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition resize-none" placeholder="PO Box 200388, Doha, Qatar..." />
+                          </div>
+
+                          <div>
+                            <div className="flex items-center justify-between mb-2">
+                              <label className="text-xs text-slate-500 font-semibold block">Background Image</label>
+                              <label className="flex items-center gap-1.5 px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-semibold transition cursor-pointer active:scale-95">
+                                <Upload size={12} />
+                                <span>Choose Image File from Computer</span>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  className="hidden"
+                                  onChange={(e) => handleContactSlideFileUpload(e, i)}
+                                />
+                              </label>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <input type="text" value={slide.image || ""} onChange={e => updateContactSlide(i, "image", e.target.value)} className="flex-1 bg-white border border-slate-200 text-xs font-mono text-slate-700 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" placeholder="/carousel-3.png" />
+                              {slide.image && (
+                                <img src={slide.image} alt="Preview" className="w-16 h-10 object-cover rounded-lg border border-slate-200 shrink-0" />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
 

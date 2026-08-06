@@ -41,7 +41,7 @@ export default function AboutPage() {
     imageTitle: "About Clarity InfoTech Engineering Squad"
   });
 
-  const aboutSlides = [
+  const DEFAULT_ABOUT_SLIDES = [
     {
       id: 1,
       title: "Empowering Businesses",
@@ -84,8 +84,19 @@ export default function AboutPage() {
     }
   ];
 
+  const [aboutSlides, setAboutSlides] = useState(DEFAULT_ABOUT_SLIDES);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
+      const storedSlides = localStorage.getItem("clarity_about_slides");
+      if (storedSlides) {
+        try {
+          const parsed = JSON.parse(storedSlides);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setAboutSlides(parsed);
+          }
+        } catch (e) {}
+      }
       const stored = localStorage.getItem("clarity_seo_data");
       if (stored) {
         try {

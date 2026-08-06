@@ -185,10 +185,89 @@ export default function OurServicesPage() {
       { value: "500+", label: "Products & Projects", icon: "Award" },
       { value: "50+", label: "Global Partners", icon: "Handshake" },
       { value: "100%", label: "Client Satisfaction", icon: "Star" }
+    ],
+    projectsCards: [
+      {
+        id: "cloud-devops",
+        title: "Cloud & DevOps Architecture",
+        category: "Infrastructure & Security",
+        year: "2026",
+        media: "/service.mp4",
+        isVideo: true
+      },
+      {
+        id: "software-engineering",
+        title: "Custom Software Engineering",
+        category: "Web & Mobile Platforms",
+        year: "2026",
+        media: "/service1.mp4",
+        isVideo: true
+      },
+      {
+        id: "cyber-security",
+        title: "Cyber Security & Auditing",
+        category: "Threat Defense & Uptime",
+        year: "2025",
+        media: "/service2.mp4",
+        isVideo: true
+      },
+      {
+        id: "ai-consulting",
+        title: "AI Integration & IT Consulting",
+        category: "Automation & Strategy",
+        year: "2025",
+        media: "/service3.mp4",
+        isVideo: true
+      }
     ]
   };
 
   const [pageServiceData, setPageServiceData] = useState(DEFAULT_PAGE_SERVICE);
+
+  const DEFAULT_SERVICE_SLIDES = [
+    {
+      id: 1,
+      title: "Cloud & DevOps",
+      highlight: "Architecture & Security",
+      description: "Enterprise software engineering, DevOps automation, cloud-native security, and 24/7 uptime infrastructure.",
+      buttonText: "Explore Services",
+      buttonLink: "#services",
+      slideLabel: "Cloud & DevOps",
+      image: "/carousel-1.png"
+    },
+    {
+      id: 2,
+      title: "Custom Software",
+      highlight: "Engineering & Mobile",
+      description: "Tailored web applications and native-feel mobile platforms built for high scalability, performance, and security.",
+      buttonText: "Web & Mobile",
+      buttonLink: "#services",
+      slideLabel: "Software",
+      image: "/carousel-2.png"
+    },
+    {
+      id: 3,
+      title: "Cyber Security &",
+      highlight: "Threat Defense",
+      description: "End-to-end security audits, vulnerability testing, compliance frameworks, and active threat prevention.",
+      buttonText: "Security Audits",
+      buttonLink: "#services",
+      slideLabel: "Security",
+      image: "/carousel-3.png"
+    },
+    {
+      id: 4,
+      title: "Enterprise AI &",
+      highlight: "Data Analytics",
+      description: "Intelligent automation models, RAG pipelines, and BI dashboards that convert raw data into strategic business growth.",
+      buttonText: "AI Solutions",
+      buttonLink: "#services",
+      slideLabel: "AI & Data",
+      image: "/carousel-4.png"
+    }
+  ];
+
+  const [serviceSlides, setServiceSlides] = useState(DEFAULT_SERVICE_SLIDES);
 
   useEffect(() => {
     const stored = localStorage.getItem("clarity_header");
@@ -215,6 +294,14 @@ export default function OurServicesPage() {
     const storedService = localStorage.getItem("clarity_page_service");
     if (storedService) {
       try { setPageServiceData({ ...DEFAULT_PAGE_SERVICE, ...JSON.parse(storedService) }); } catch { }
+    }
+
+    const storedSlides = localStorage.getItem("clarity_service_slides");
+    if (storedSlides) {
+      try {
+        const parsed = JSON.parse(storedSlides);
+        if (Array.isArray(parsed) && parsed.length > 0) setServiceSlides(parsed);
+      } catch { }
     }
   }, []);
 
@@ -340,48 +427,7 @@ export default function OurServicesPage() {
       <main>
         {/* ── HERO SLIDER BANNER SECTION ── */}
         <HeroBannerSlider
-          slides={[
-            {
-              id: 1,
-              title: "Cloud & DevOps",
-              highlight: "Architecture & Security",
-              description: "Enterprise software engineering, DevOps automation, cloud-native security, and 24/7 uptime infrastructure.",
-              buttonText: "Explore Services",
-              buttonLink: "#services",
-              slideLabel: "Cloud & DevOps",
-              image: "/carousel-1.png"
-            },
-            {
-              id: 2,
-              title: "Custom Software",
-              highlight: "Engineering & Mobile",
-              description: "Tailored web applications and native-feel mobile platforms built for high scalability, performance, and security.",
-              buttonText: "Web & Mobile",
-              buttonLink: "#services",
-              slideLabel: "Software",
-              image: "/carousel-2.png"
-            },
-            {
-              id: 3,
-              title: "Cyber Security &",
-              highlight: "Threat Defense",
-              description: "End-to-end security audits, vulnerability testing, compliance frameworks, and active threat prevention.",
-              buttonText: "Security Audits",
-              buttonLink: "#services",
-              slideLabel: "Security",
-              image: "/carousel-3.png"
-            },
-            {
-              id: 4,
-              title: "Enterprise AI &",
-              highlight: "Data Analytics",
-              description: "Intelligent automation models, RAG pipelines, and BI dashboards that convert raw data into strategic business growth.",
-              buttonText: "AI Solutions",
-              buttonLink: "#services",
-              slideLabel: "AI & Data",
-              image: "/carousel-4.png"
-            }
-          ]}
+          slides={serviceSlides}
           seoConfig={{ imageAlt: "Clarity InfoTech Services", imageTitle: "Clarity InfoTech Services Squad" }}
           badge={pageServiceData.heroBadge || "OUR SERVICES"}
         />
@@ -393,75 +439,14 @@ export default function OurServicesPage() {
             {/* Section Header */}
             <div className="text-center max-w-2xl mx-auto mb-10">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-sans bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-indigo-600 to-indigo-800">
-                Our Projects
+                {pageServiceData.projectsTitle || "Our Projects"}
               </h2>
             </div>
 
             {/* 2x2 Showcase Cards Grid */}
             <div className="grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
-              {[
-                {
-                  id: "cloud-devops",
-                  title: "Cloud & DevOps Architecture",
-                  category: "Infrastructure & Security",
-                  year: "2026",
-                  media: "/service.mp4",
-                  isVideo: true,
-                  magneticSquares: [
-                    { x: 10, y: 15, size: 10 },
-                    { x: 25, y: 40, size: 8 },
-                    { x: 75, y: 65, size: 7 },
-                    { x: 85, y: 82, size: 9 },
-                    { x: 78, y: 60, size: 6 }
-                  ]
-                },
-                {
-                  id: "software-engineering",
-                  title: "Custom Software Engineering",
-                  category: "Web & Mobile Platforms",
-                  year: "2026",
-                  media: "/service1.mp4",
-                  isVideo: true,
-                  magneticSquares: [
-                    { x: 10, y: 15, size: 10 },
-                    { x: 25, y: 40, size: 8 },
-                    { x: 75, y: 65, size: 7 },
-                    { x: 85, y: 82, size: 9 },
-                    { x: 78, y: 60, size: 6 }
-                  ]
-                },
-                {
-                  id: "cyber-security",
-                  title: "Cyber Security & Auditing",
-                  category: "Threat Defense & Uptime",
-                  year: "2025",
-                  media: "/service2.mp4",
-                  isVideo: true,
-                  magneticSquares: [
-                    { x: 10, y: 15, size: 10 },
-                    { x: 25, y: 40, size: 8 },
-                    { x: 75, y: 65, size: 7 },
-                    { x: 85, y: 82, size: 9 },
-                    { x: 78, y: 60, size: 6 }
-                  ]
-                },
-                {
-                  id: "ai-consulting",
-                  title: "AI Integration & IT Consulting",
-                  category: "Automation & Strategy",
-                  year: "2025",
-                  media: "/service3.mp4",
-                  isVideo: true,
-                  magneticSquares: [
-                    { x: 10, y: 15, size: 10 },
-                    { x: 25, y: 40, size: 8 },
-                    { x: 75, y: 65, size: 7 },
-                    { x: 85, y: 82, size: 9 },
-                    { x: 78, y: 60, size: 6 }
-                  ]
-                }
-              ].map((card, idx) => (
-                <CaseStudyCardItem key={card.id} card={card} index={idx} />
+              {(pageServiceData.projectsCards || DEFAULT_PAGE_SERVICE.projectsCards).map((card, idx) => (
+                <CaseStudyCardItem key={card.id || idx} card={card} index={idx} />
               ))}
             </div>
 

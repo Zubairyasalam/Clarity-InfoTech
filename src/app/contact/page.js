@@ -178,39 +178,103 @@ export default function ContactPage() {
   };
   const [pageContactData, setPageContactData] = useState(DEFAULT_PAGE_CONTACT);
 
-  useEffect(() => {
-    const storedHeader = localStorage.getItem("clarity_header");
-    if (storedHeader) {
-      try {
-        const parsed = JSON.parse(storedHeader);
-        if (parsed && parsed.links) {
-          const originalStr = JSON.stringify(parsed);
-          parsed.links = parsed.links.filter(l => l.label !== "Our Projects");
-          if (!parsed.links.some(l => l.url === "/gallery")) {
-            parsed.links.push({ id: 6, label: "Gallery", url: "/gallery" });
-          }
-          const linkOrder = ["/", "/about", "/our-services", "/gallery", "/contact"];
-          parsed.links.sort((a, b) => {
-            const idxA = linkOrder.indexOf(a.url);
-            const idxB = linkOrder.indexOf(b.url);
-            return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
-          });
-          const newStr = JSON.stringify(parsed);
-          if (newStr !== originalStr) {
-            localStorage.setItem("clarity_header", newStr);
-          }
-          setHeaderData(parsed);
-        }
-      } catch { }
+  const DEFAULT_CONTACT_SLIDES = [
+    {
+      id: 1,
+      title: "Ready to Transform",
+      highlight: "Your Business?",
+      description: "Ready to transform your business with cutting-edge technology? Let's discuss your project and bring your vision to life.",
+      buttonText: "Send Us a Message",
+      buttonLink: "#recaptcha",
+      slideLabel: "Get In Touch",
+      image: "/carousel-1.png"
+    },
+    {
+      id: 2,
+      title: "Get In Touch With",
+      highlight: "Our Engineering Squad",
+      description: "Our software engineering team will review your message and get back to you within 24 hours.",
+      buttonText: "Fill Contact Form",
+      buttonLink: "#recaptcha",
+      slideLabel: "Squad Support",
+      image: "/carousel-2.png"
+    },
+    {
+      id: 3,
+      title: "Head Office & Global",
+      highlight: "Client Support",
+      description: "PO Box 200388, Doha, Qatar | Direct phone and email support for enterprise clients worldwide.",
+      buttonText: "Head Office Info",
+      buttonLink: "#office-info",
+      slideLabel: "Doha HQ",
+      image: "/carousel-3.png"
+    },
+    {
+      id: 4,
+      title: "Start Your Project",
+      highlight: "With Clarity InfoTech",
+      description: "Reach out today to discuss custom software development, cloud migration, AI models, or security audits.",
+      buttonText: "Contact Us",
+      buttonLink: "#recaptcha",
+      slideLabel: "New Project",
+      image: "/carousel-4.png"
     }
+  ];
 
-    const storedContact = localStorage.getItem("clarity_page_contact");
-    if (storedContact) {
-      try {
-        const parsed = JSON.parse(storedContact);
-        setPageContactData({ ...DEFAULT_PAGE_CONTACT, ...parsed });
-      } catch { }
-    }
+  const [contactSlides, setContactSlides] = useState(DEFAULT_CONTACT_SLIDES);
+
+  useEffect(() => {
+    const loadContactData = () => {
+      const storedHeader = localStorage.getItem("clarity_header");
+      if (storedHeader) {
+        try {
+          const parsed = JSON.parse(storedHeader);
+          if (parsed && parsed.links) {
+            const originalStr = JSON.stringify(parsed);
+            parsed.links = parsed.links.filter(l => l.label !== "Our Projects");
+            if (!parsed.links.some(l => l.url === "/gallery")) {
+              parsed.links.push({ id: 6, label: "Gallery", url: "/gallery" });
+            }
+            const linkOrder = ["/", "/about", "/our-services", "/gallery", "/contact"];
+            parsed.links.sort((a, b) => {
+              const idxA = linkOrder.indexOf(a.url);
+              const idxB = linkOrder.indexOf(b.url);
+              return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99);
+            });
+            const newStr = JSON.stringify(parsed);
+            if (newStr !== originalStr) {
+              localStorage.setItem("clarity_header", newStr);
+            }
+            setHeaderData(parsed);
+          }
+        } catch { }
+      }
+
+      const storedContact = localStorage.getItem("clarity_page_contact");
+      if (storedContact) {
+        try {
+          const parsed = JSON.parse(storedContact);
+          setPageContactData({ ...DEFAULT_PAGE_CONTACT, ...parsed });
+        } catch { }
+      }
+
+      const storedContactSlides = localStorage.getItem("clarity_contact_slides");
+      if (storedContactSlides) {
+        try {
+          const parsed = JSON.parse(storedContactSlides);
+          if (Array.isArray(parsed) && parsed.length > 0) setContactSlides(parsed);
+        } catch { }
+      }
+    };
+
+    loadContactData();
+
+    window.addEventListener("storage", loadContactData);
+    window.addEventListener("focus", loadContactData);
+    return () => {
+      window.removeEventListener("storage", loadContactData);
+      window.removeEventListener("focus", loadContactData);
+    };
   }, []);
 
   return (
@@ -292,48 +356,7 @@ export default function ContactPage() {
       <main className="w-full">
         {/* 2. HERO SLIDER BANNER SECTION */}
         <HeroBannerSlider
-          slides={[
-            {
-              id: 1,
-              title: "Ready to Transform",
-              highlight: "Your Business?",
-              description: "Ready to transform your business with cutting-edge technology? Let's discuss your project and bring your vision to life.",
-              buttonText: "Send Us a Message",
-              buttonLink: "#recaptcha",
-              slideLabel: "Get In Touch",
-              image: "/carousel-1.png"
-            },
-            {
-              id: 2,
-              title: "Get In Touch With",
-              highlight: "Our Engineering Squad",
-              description: "Our software engineering team will review your message and get back to you within 24 hours.",
-              buttonText: "Fill Contact Form",
-              buttonLink: "#recaptcha",
-              slideLabel: "Squad Support",
-              image: "/carousel-2.png"
-            },
-            {
-              id: 3,
-              title: "Head Office & Global",
-              highlight: "Client Support",
-              description: "PO Box 200388, Doha, Qatar | Direct phone and email support for enterprise clients worldwide.",
-              buttonText: "Head Office Info",
-              buttonLink: "#office-info",
-              slideLabel: "Doha HQ",
-              image: "/carousel-3.png"
-            },
-            {
-              id: 4,
-              title: "Start Your Project",
-              highlight: "With Clarity InfoTech",
-              description: "Reach out today to discuss custom software development, cloud migration, AI models, or security audits.",
-              buttonText: "Contact Us Now",
-              buttonLink: "#recaptcha",
-              slideLabel: "Start Project",
-              image: "/carousel-4.png"
-            }
-          ]}
+          slides={contactSlides}
           seoConfig={seoConfig}
           badge={pageContactData.heroBadge || "CONTACT US"}
         />
@@ -536,20 +559,22 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <span className="font-semibold text-slate-900 block mb-0.5">Phone</span>
-                    <div className="flex flex-wrap items-center gap-1">
+                    <div className="flex flex-wrap items-center gap-2">
                       {(pageContactData.officePhone || "+974 5029 8525, +974 5995 5100")
                         .split(",")
                         .map((phoneNum, idx, arr) => {
                           const trimmed = phoneNum.trim();
                           return (
-                            <span key={idx} className="inline-flex items-center">
+                            <span key={idx} className="inline-flex items-center gap-2">
                               <a
                                 href={`tel:${trimmed.replace(/\s+/g, '')}`}
                                 className="hover:text-blue-600 transition-colors cursor-pointer select-text font-medium"
                               >
                                 {trimmed}
                               </a>
-                              {idx < arr.length - 1 && <span className="text-slate-400 mr-1.5">,</span>}
+                              {idx < arr.length - 1 && (
+                                <span className="text-slate-400 font-medium select-none">,</span>
+                              )}
                             </span>
                           );
                         })}
