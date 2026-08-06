@@ -182,45 +182,33 @@ export default function AdminDashboard() {
       id: 1,
       image: "/office-bg.jpg?v=10",
       title: "Clarity Headquarters",
-      subtitle: "Powering Your Technology Like It's",
-      highlight: "Our Own",
-      description: "Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, and security audit systems. We align our processes with your vision to secure your production environments.",
-      buttonText: "Explore IT Solutions",
-      buttonLink: "#services",
-      badge: "01 / 04 • ENTERPRISE HQ"
+      subtitle: "Powering Your Technology",
+      highlight: "Like It's Our Own",
+      description: "Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, and security audit systems. We align our processes with your vision to secure your production environments."
     },
     {
       id: 2,
       image: "/carousel-1.png?v=10",
       title: "Executive Tech Strategy",
-      subtitle: "Architecting Your Future With",
-      highlight: "Precision",
-      description: "Our senior architects design cloud-native strategies and governance frameworks that scale with your business growth across global markets.",
-      buttonText: "View Our Solutions",
-      buttonLink: "#solutions",
-      badge: "02 / 04 • STRATEGY & GOVERNANCE"
+      subtitle: "Architecting Your Future",
+      highlight: "With Precision",
+      description: "Our senior architects design cloud-native strategies and governance frameworks that scale with your business growth across global markets."
     },
     {
       id: 3,
       image: "/carousel-2.png?v=10",
       title: "Software Engineering Hub",
-      subtitle: "Building Products That",
-      highlight: "Last Forever",
-      description: "From full-stack web platforms to mobile apps, our agile teams deliver high-quality, maintainable code with rapid deployment cycles and zero downtime.",
-      buttonText: "Our Services",
-      buttonLink: "#services",
-      badge: "03 / 04 • AGILE DEVELOPMENT"
+      subtitle: "Building Digital Products",
+      highlight: "That Scale & Perform",
+      description: "From full-stack web platforms to mobile apps, our agile teams deliver high-quality, maintainable code with rapid deployment cycles and zero downtime."
     },
     {
       id: 4,
       image: "/carousel-3.png?v=10",
       title: "Modern Tech Workstations",
       subtitle: "Infrastructure Built For",
-      highlight: "Innovation",
-      description: "State-of-the-art workstations and high-performance cloud environments enable our teams to deliver cutting-edge solutions for the most demanding enterprise workloads.",
-      buttonText: "Contact Us",
-      buttonLink: "#contact",
-      badge: "04 / 04 • WORKSPACE & INNOVATION"
+      highlight: "Next-Gen Innovation",
+      description: "State-of-the-art workstations and high-performance cloud environments enable our teams to deliver cutting-edge solutions for the most demanding enterprise workloads."
     }
   ];
 
@@ -4452,13 +4440,10 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                           <h3 className="text-sm font-bold text-indigo-600 flex items-center gap-2"><Plus size={14} /> New Slide</h3>
                           <div className="grid md:grid-cols-2 gap-4">
                             {[
-                              { label: "Slide Title (Bottom Nav Label)", key: "title", placeholder: "e.g. Clarity Headquarters" },
-                              { label: "Badge Text", key: "badge", placeholder: "e.g. 05 / 05 • ENTERPRISE HQ" },
-                              { label: "Subtitle (top line)", key: "subtitle", placeholder: "e.g. Powering Your Technology" },
-                              { label: "Highlight Word (sky-blue)", key: "highlight", placeholder: "e.g. Our Own" },
-                              { label: "Button Text", key: "buttonText", placeholder: "Explore IT Solutions" },
-                              { label: "Button Link", key: "buttonLink", placeholder: "#services" },
-                              { label: "Background Image URL", key: "image", placeholder: "/office-bg.jpg" },
+                              { label: "Slide Name", key: "title", placeholder: "e.g. Clarity Headquarters" },
+                              { label: "Subtitle (Top Line)", key: "subtitle", placeholder: "e.g. Powering Your Technology" },
+                              { label: "Highlight Phrase (Cyan Blue)", key: "highlight", placeholder: "e.g. Like It's Our Own" },
+                              { label: "Background Image URL", key: "image", placeholder: "/office-bg.jpg?v=10" },
                             ].map(f => (
                               <div key={f.key}>
                                 <label className="text-xs text-white/50 font-semibold mb-1 block">{f.label}</label>
@@ -4520,8 +4505,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                           {/* Info */}
                           <div className="flex-1 min-w-0">
                             <div className="font-semibold text-slate-800 text-sm truncate">{slide.title}</div>
-                            <div className="text-xs text-sky-600 truncate">{slide.subtitle} <span className="text-slate-400">→</span> {slide.highlight}</div>
-                            <div className="text-xs text-slate-500 truncate mt-0.5">{slide.badge}</div>
+                            <div className="text-xs text-slate-600 truncate">{slide.subtitle} <span className="text-sky-500 font-bold">{slide.highlight}</span></div>
                           </div>
 
                           {/* Actions */}
@@ -4566,12 +4550,9 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                                 <h4 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><Edit3 size={12} /> Editing: {slide.title}</h4>
                                 <div className="grid md:grid-cols-2 gap-4">
                                   {[
-                                    { label: "Slide Title (Nav Label)", key: "title" },
-                                    { label: "Badge Text", key: "badge" },
+                                    { label: "Slide Name", key: "title" },
                                     { label: "Subtitle (Top Line)", key: "subtitle" },
-                                    { label: "Highlight Word (sky-blue)", key: "highlight" },
-                                    { label: "Button Text", key: "buttonText" },
-                                    { label: "Button Link", key: "buttonLink" },
+                                    { label: "Highlight Phrase (Cyan Blue)", key: "highlight" },
                                     { label: "Background Image URL", key: "image" },
                                   ].map(f => (
                                     <div key={f.key}>
@@ -4596,11 +4577,9 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                                 </div>
                                 {/* Live Preview Strip */}
                                 <div className="rounded-xl bg-gradient-to-r from-[#0A0E39]/90 to-[#1a1f5e]/60 border border-slate-200 p-4">
-                                  <div className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mb-2">Preview</div>
-                                  <div className="text-xs text-sky-300 font-mono mb-1">{editForm.badge}</div>
+                                  <div className="text-[10px] text-slate-400 uppercase font-bold tracking-widest mb-2">Live Preview</div>
                                   <div className="text-sm font-bold text-white">{editForm.subtitle} <span className="text-sky-400">{editForm.highlight}</span></div>
                                   <div className="text-xs text-slate-300 mt-1 line-clamp-2">{editForm.description}</div>
-                                  <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 rounded-full text-xs font-semibold text-white">{editForm.buttonText} →</div>
                                 </div>
                                 <div className="flex gap-3 justify-end">
                                   <button onClick={cancelEditSlide} className="px-4 py-2 text-sm text-slate-500 hover:text-slate-800 transition cursor-pointer">Cancel</button>
