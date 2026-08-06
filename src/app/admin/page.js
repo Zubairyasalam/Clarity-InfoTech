@@ -690,20 +690,38 @@ export default function AdminDashboard() {
   const DEFAULT_GALLERY_VIDEOS = [
     {
       title: "Cloud Infrastructure & DevOps Automation",
-      url: "https://www.youtube.com/embed/M988_fsOSWo",
-      thumbnail: "https://img.youtube.com/vi/M988_fsOSWo/hqdefault.jpg",
+      url: "https://www.youtube.com/embed/SQCg_4FjJGo",
+      thumbnail: "https://img.youtube.com/vi/SQCg_4FjJGo/hqdefault.jpg",
       isLocal: false
     },
     {
-      title: "AI & Machine Learning in Modern Enterprises",
+      title: "AI & Machine Learning for Enterprises",
       url: "https://www.youtube.com/embed/aircAruvnKk",
       thumbnail: "https://img.youtube.com/vi/aircAruvnKk/hqdefault.jpg",
       isLocal: false
     },
     {
-      title: "Cybersecurity & Secure System Architecture",
+      title: "Cybersecurity & Network Defense Architecture",
       url: "https://www.youtube.com/embed/inWWhr5tnEA",
       thumbnail: "https://img.youtube.com/vi/inWWhr5tnEA/hqdefault.jpg",
+      isLocal: false
+    },
+    {
+      title: "Full-Stack Software Engineering Masterclass",
+      url: "https://www.youtube.com/embed/nu_pCVPKzTk",
+      thumbnail: "https://img.youtube.com/vi/nu_pCVPKzTk/hqdefault.jpg",
+      isLocal: false
+    },
+    {
+      title: "Computer Science & Systems Architecture",
+      url: "https://www.youtube.com/embed/zOjov-2OZ0E",
+      thumbnail: "https://img.youtube.com/vi/zOjov-2OZ0E/hqdefault.jpg",
+      isLocal: false
+    },
+    {
+      title: "System Design & High-Scalability Engineering",
+      url: "https://www.youtube.com/embed/xpDnVSmNFX0",
+      thumbnail: "https://img.youtube.com/vi/xpDnVSmNFX0/hqdefault.jpg",
       isLocal: false
     }
   ];
@@ -1347,7 +1365,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
         localStorage.setItem("clarity_gallery_images", JSON.stringify(DEFAULT_GALLERY_IMAGES));
       }
 
-      const storedGalleryVideos = localStorage.getItem("clarity_gallery_videos_v2");
+      const storedGalleryVideos = localStorage.getItem("clarity_gallery_videos_edu");
       if (storedGalleryVideos) {
         try { setGalleryVideos(JSON.parse(storedGalleryVideos)); } catch { }
       }
@@ -1895,7 +1913,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
     localStorage.setItem("clarity_seo_data", JSON.stringify(seoData));
     localStorage.setItem("clarity_page_gallery", JSON.stringify(pageGalleryData));
     localStorage.setItem("clarity_gallery_images", JSON.stringify(galleryImages));
-    localStorage.setItem("clarity_gallery_videos_v2", JSON.stringify(galleryVideos));
+    localStorage.setItem("clarity_gallery_videos_edu", JSON.stringify(galleryVideos));
     setPageGallerySaveSuccess(true);
     setTimeout(() => setPageGallerySaveSuccess(false), 2500);
   };
@@ -1906,7 +1924,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
       setGalleryVideos([]);
       localStorage.setItem("clarity_page_gallery", JSON.stringify(DEFAULT_PAGE_GALLERY));
       localStorage.setItem("clarity_gallery_images", JSON.stringify(DEFAULT_GALLERY_IMAGES));
-      localStorage.setItem("clarity_gallery_videos_v2", JSON.stringify([]));
+      localStorage.setItem("clarity_gallery_videos_edu", JSON.stringify([]));
     }
   };
 
@@ -1937,7 +1955,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
     } catch (err) { console.error("Failed to upload video:", err); }
   };
   const saveGalleryVideos = () => {
-    localStorage.setItem("clarity_gallery_videos_v2", JSON.stringify(galleryVideos));
+    localStorage.setItem("clarity_gallery_videos_edu", JSON.stringify(galleryVideos));
     setPageGallerySaveSuccess(true);
     setTimeout(() => setPageGallerySaveSuccess(false), 2500);
   };
@@ -3811,53 +3829,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                     </div>
                   </div>
 
-                  {/* SECTION 3: GLOBAL IMPACT & STATS */}
-                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
-                    <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Section 3: Global Impact & Stats</h3>
-                    <div>
-                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Section Title</label>
-                      <input type="text" value={pageServiceData.sec3Title || ""} onChange={e => updatePageServiceField("sec3Title", e.target.value)} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl px-3.5 py-2.5 outline-none focus:border-[#1E67E2] transition" />
-                    </div>
-                    <div>
-                      <label className="text-xs text-slate-500 font-semibold mb-1.5 block">Section Description</label>
-                      <textarea value={pageServiceData.sec3Description || ""} onChange={e => updatePageServiceField("sec3Description", e.target.value)} rows={3} className="w-full bg-slate-50 border border-slate-200 text-sm text-slate-800 rounded-xl p-3.5 outline-none focus:border-[#1E67E2] transition resize-none"></textarea>
-                    </div>
-
-                    {/* Stats counters */}
-                    <div className="space-y-3 pt-2">
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs font-bold text-slate-700">Global Stats Counters</span>
-                        <button onClick={addStatItem} className="text-xs font-bold text-[#1E67E2] hover:underline flex items-center gap-1 cursor-pointer"><Plus size={12} /> Add Metric</button>
-                      </div>
-                      <div className="grid md:grid-cols-4 gap-3">
-                        {(pageServiceData.stats || []).map((stat, i) => (
-                          <div key={i} className="bg-slate-50 border border-slate-200 rounded-2xl p-3.5 space-y-2 relative">
-                            <button onClick={() => deleteStatItem(i)} className="absolute top-2.5 right-2.5 p-1 text-red-400 hover:text-red-500 rounded transition cursor-pointer"><Trash2 size={13} /></button>
-                            <div className="pr-6 space-y-2">
-                              <div>
-                                <label className="text-[11px] text-slate-500 font-semibold block mb-0.5">Value (e.g. 15+)</label>
-                                <input type="text" value={stat.value} onChange={e => updateStatItem(i, "value", e.target.value)} className="w-full bg-white border border-slate-200 text-xs text-slate-800 font-extrabold rounded-lg px-2 py-1 outline-none focus:border-[#1E67E2] transition" />
-                              </div>
-                              <div>
-                                <label className="text-[11px] text-slate-500 font-semibold block mb-0.5">Label</label>
-                                <input type="text" value={stat.label} onChange={e => updateStatItem(i, "label", e.target.value)} className="w-full bg-white border border-slate-200 text-xs text-slate-800 rounded-lg px-2 py-1 outline-none focus:border-[#1E67E2] transition" />
-                              </div>
-                              <div>
-                                <label className="text-[11px] text-slate-500 font-semibold block mb-0.5">Icon</label>
-                                <select value={stat.icon} onChange={e => updateStatItem(i, "icon", e.target.value)} className="w-full bg-white border border-slate-200 text-xs text-slate-800 rounded-lg px-2 py-1 outline-none focus:border-[#1E67E2] transition">
-                                  <option value="Globe">Globe</option>
-                                  <option value="Award">Award</option>
-                                  <option value="Handshake">Handshake</option>
-                                  <option value="Star">Star</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
+                  {/* SECTION 3: GLOBAL IMPACT & STATS was removed from frontend UI */}
                   {/* SECTION 4: CALL TO ACTION BANNER */}
                   <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
                     <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Section 4: Call-to-Action Banner</h3>
@@ -3934,57 +3906,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                     </div>
                   </div>
 
-                  {/* GALLERY IMAGES MANAGEMENT */}
-                  <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
-                    <div className="flex justify-between items-center">
-                      <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Image size={14} /> Gallery Photos & Media Items ({(galleryImages || []).length})</h3>
-                      <button onClick={addGalleryImage} className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-[#1E67E2] rounded-xl text-xs font-bold transition cursor-pointer">
-                        <Plus size={13} /> Add Gallery Image
-                      </button>
-                    </div>
-
-                    <div className="space-y-4">
-                      {(galleryImages || []).map((img, i) => (
-                        <div key={i} className="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col md:flex-row items-start md:items-center gap-4 relative">
-                          {/* Image Preview */}
-                          <div className="w-24 h-32 rounded-xl overflow-hidden bg-slate-200 border border-slate-300 shrink-0 relative">
-                            <img src={img.url} alt={img.alt} className="w-full h-full object-cover" onError={e => { e.target.style.display = 'none'; }} />
-                            <span className="absolute bottom-1 left-1 text-[10px] font-bold text-white bg-black/60 px-1.5 py-0.5 rounded">#{i + 1}</span>
-                          </div>
-
-                          {/* Inputs */}
-                          <div className="flex-1 grid md:grid-cols-3 gap-3 w-full">
-                            <div className="md:col-span-3">
-                              <label className="text-xs text-slate-500 font-semibold block mb-1">Image URL / Local File Upload</label>
-                              <div className="flex items-center gap-2">
-                                <input type="text" value={img.url} onChange={e => updateGalleryImage(i, "url", e.target.value)} placeholder="https://... or upload image" className="flex-1 bg-white border border-slate-200 text-xs font-mono text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" />
-                                <label className="px-3 py-2 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 rounded-xl text-xs font-bold transition cursor-pointer shrink-0 border border-indigo-200 flex items-center gap-1.5">
-                                  <Image size={13} /> Choose File
-                                  <input type="file" accept="image/*" onChange={e => handleGalleryImageUpload(i, e)} className="hidden" />
-                                </label>
-                              </div>
-                            </div>
-                            <div>
-                              <label className="text-xs text-slate-500 font-semibold block mb-1">Title / Caption</label>
-                              <input type="text" value={img.title} onChange={e => updateGalleryImage(i, "title", e.target.value)} placeholder="Image Title" className="w-full bg-white border border-slate-200 text-xs font-bold text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" />
-                            </div>
-                            <div className="md:col-span-2">
-                              <label className="text-xs text-slate-500 font-semibold block mb-1">Alt Description</label>
-                              <input type="text" value={img.alt} onChange={e => updateGalleryImage(i, "alt", e.target.value)} placeholder="SEO Alt Text" className="w-full bg-white border border-slate-200 text-xs text-slate-800 rounded-xl px-3 py-2 outline-none focus:border-[#1E67E2] transition" />
-                            </div>
-                          </div>
-
-                          {/* Action Buttons */}
-                          <div className="flex md:flex-col items-center gap-2 shrink-0 self-end md:self-center">
-                            <button onClick={() => moveGalleryImage(i, -1)} disabled={i === 0} className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-30 transition cursor-pointer" title="Move Up"><ChevronUp size={14} /></button>
-                            <button onClick={() => moveGalleryImage(i, 1)} disabled={i === galleryImages.length - 1} className="p-1.5 rounded-lg bg-white border border-slate-200 text-slate-600 hover:bg-slate-100 disabled:opacity-30 transition cursor-pointer" title="Move Down"><ChevronDown size={14} /></button>
-                            <button onClick={() => deleteGalleryImage(i)} className="p-1.5 bg-red-50 text-red-500 hover:bg-red-100 rounded-lg border border-red-100 transition cursor-pointer" title="Delete Image"><Trash2 size={14} /></button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
+                  {/* GALLERY IMAGES MANAGEMENT was removed from frontend UI */}
                   {/* BOTTOM CTA BANNER */}
                   <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm space-y-4">
                     <h3 className="text-xs font-bold text-[#1E67E2] uppercase tracking-wider flex items-center gap-2"><Edit3 size={14} /> Bottom Call-to-Action Banner</h3>
