@@ -1516,6 +1516,21 @@ For questions about these Terms and Conditions, please contact us at info@clarit
   };
 
   // Hero Slides CRUD
+  const handleHeroImageFileUpload = (e, isEdit = false) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const dataUrl = event.target.result;
+      if (isEdit) {
+        setEditForm(prev => ({ ...prev, image: dataUrl }));
+      } else {
+        setNewSlide(prev => ({ ...prev, image: dataUrl }));
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
   const saveHeroSlides = (updated) => {
     setHeroSlides(updated);
     localStorage.setItem("clarity_hero_slides", JSON.stringify(updated));
@@ -4477,7 +4492,20 @@ For questions about these Terms and Conditions, please contact us at info@clarit
 
                             {/* Image Picker */}
                             <div>
-                              <label className="text-xs text-white/70 font-semibold mb-2 block">Choose Background Image (Click to Select)</label>
+                              <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                <label className="text-xs text-white/70 font-semibold block">Select Background Image</label>
+                                <label className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold shadow-xs transition cursor-pointer active:scale-95">
+                                  <Upload size={13} />
+                                  <span>Choose File from Computer</span>
+                                  <input
+                                    type="file"
+                                    accept="image/*"
+                                    className="hidden"
+                                    onChange={(e) => handleHeroImageFileUpload(e, false)}
+                                  />
+                                </label>
+                              </div>
+
                               <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-2">
                                 {[
                                   { url: "/office-bg.jpg?v=10", name: "1. HQ Reception" },
@@ -4644,7 +4672,20 @@ For questions about these Terms and Conditions, please contact us at info@clarit
 
                                 {/* Visual Image Picker */}
                                 <div>
-                                  <label className="text-xs text-slate-500 font-semibold mb-2 block">Choose Background Image (Click thumbnail to select)</label>
+                                  <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                    <label className="text-xs text-slate-500 font-semibold block">Select Background Image</label>
+                                    <label className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold shadow-xs transition cursor-pointer active:scale-95">
+                                      <Upload size={13} />
+                                      <span>Choose File from Computer</span>
+                                      <input
+                                        type="file"
+                                        accept="image/*"
+                                        className="hidden"
+                                        onChange={(e) => handleHeroImageFileUpload(e, true)}
+                                      />
+                                    </label>
+                                  </div>
+
                                   <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-2">
                                     {[
                                       { url: "/office-bg.jpg?v=10", name: "1. HQ Reception" },
