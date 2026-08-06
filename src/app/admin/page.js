@@ -4438,38 +4438,102 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                       >
                         <form onSubmit={handleAddSlide} className="bg-indigo-950/50 border border-indigo-500/30 rounded-2xl p-6 space-y-4">
                           <h3 className="text-sm font-bold text-indigo-600 flex items-center gap-2"><Plus size={14} /> New Slide</h3>
-                          <div className="grid md:grid-cols-2 gap-4">
-                            {[
-                              { label: "Slide Name", key: "title", placeholder: "e.g. Clarity Headquarters" },
-                              { label: "Subtitle (Top Line)", key: "subtitle", placeholder: "e.g. Powering Your Technology" },
-                              { label: "Highlight Phrase (Cyan Blue)", key: "highlight", placeholder: "e.g. Like It's Our Own" },
-                              { label: "Background Image URL", key: "image", placeholder: "/office-bg.jpg?v=10" },
-                            ].map(f => (
-                              <div key={f.key}>
-                                <label className="text-xs text-white/50 font-semibold mb-1 block">{f.label}</label>
+                          <div className="space-y-4">
+                            <div className="grid md:grid-cols-3 gap-4">
+                              <div>
+                                <label className="text-xs text-white/70 font-semibold mb-1 block">Slide Name</label>
                                 <input
                                   type="text"
-                                  required={["title", "subtitle", "highlight"].includes(f.key)}
-                                  placeholder={f.placeholder}
-                                  value={newSlide[f.key] || ""}
-                                  onChange={e => setNewSlide(prev => ({ ...prev, [f.key]: e.target.value }))}
+                                  required
+                                  placeholder="e.g. Clarity Headquarters"
+                                  value={newSlide.title || ""}
+                                  onChange={e => setNewSlide(prev => ({ ...prev, title: e.target.value }))}
                                   className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-indigo-500 transition"
                                 />
                               </div>
-                            ))}
+                              <div>
+                                <label className="text-xs text-white/70 font-semibold mb-1 block">Subtitle (Top Line)</label>
+                                <input
+                                  type="text"
+                                  required
+                                  placeholder="e.g. Powering Your Technology"
+                                  value={newSlide.subtitle || ""}
+                                  onChange={e => setNewSlide(prev => ({ ...prev, subtitle: e.target.value }))}
+                                  className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-indigo-500 transition"
+                                />
+                              </div>
+                              <div>
+                                <label className="text-xs text-white/70 font-semibold mb-1 block">Highlight Phrase (Cyan Blue)</label>
+                                <input
+                                  type="text"
+                                  required
+                                  placeholder="e.g. Like It's Our Own"
+                                  value={newSlide.highlight || ""}
+                                  onChange={e => setNewSlide(prev => ({ ...prev, highlight: e.target.value }))}
+                                  className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-indigo-500 transition"
+                                />
+                              </div>
+                            </div>
+
+                            {/* Image Picker */}
+                            <div>
+                              <label className="text-xs text-white/70 font-semibold mb-2 block">Choose Background Image (Click to Select)</label>
+                              <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-2">
+                                {[
+                                  { url: "/office-bg.jpg?v=10", name: "1. HQ Reception" },
+                                  { url: "/carousel-1.png?v=10", name: "2. Exec Strategy" },
+                                  { url: "/carousel-2.png?v=10", name: "3. Software Hub" },
+                                  { url: "/carousel-3.png?v=10", name: "4. Workstations" },
+                                  { url: "/carousel-4.png?v=10", name: "5. Corporate Suite" },
+                                  { url: "/hero-flowers.png", name: "6. Floral Lounge" }
+                                ].map((imgItem, i) => {
+                                  const isSelected = (newSlide.image || "").startsWith(imgItem.url.split("?")[0]);
+                                  return (
+                                    <button
+                                      key={i}
+                                      type="button"
+                                      onClick={() => setNewSlide(prev => ({ ...prev, image: imgItem.url }))}
+                                      className={`relative rounded-xl overflow-hidden border-2 h-16 group transition cursor-pointer ${
+                                        isSelected ? "border-blue-500 ring-2 ring-blue-500/40 scale-105" : "border-slate-300/40 hover:border-blue-400"
+                                      }`}
+                                      title={imgItem.name}
+                                    >
+                                      <img src={imgItem.url} alt={imgItem.name} className="w-full h-full object-cover" />
+                                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition" />
+                                      {isSelected && (
+                                        <div className="absolute inset-0 bg-blue-600/40 flex items-center justify-center">
+                                          <CheckCircle size={16} className="text-white drop-shadow-md" />
+                                        </div>
+                                      )}
+                                      <span className="absolute bottom-0.5 inset-x-0 text-[8px] font-bold text-white text-center truncate px-0.5 bg-black/60 backdrop-blur-xs">
+                                        {imgItem.name}
+                                      </span>
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                              <input
+                                type="text"
+                                placeholder="Or enter custom image URL (e.g. /office-bg.jpg?v=10)"
+                                value={newSlide.image || ""}
+                                onChange={e => setNewSlide(prev => ({ ...prev, image: e.target.value }))}
+                                className="w-full bg-white border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-1.5 outline-none focus:border-indigo-500 transition"
+                              />
+                            </div>
+
+                            <div>
+                              <label className="text-xs text-white/70 font-semibold mb-1 block">Description</label>
+                              <textarea
+                                required
+                                rows={2}
+                                placeholder="Slide body text shown on the homepage..."
+                                value={newSlide.description}
+                                onChange={e => setNewSlide(prev => ({ ...prev, description: e.target.value }))}
+                                className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-indigo-500 transition resize-none"
+                              />
+                            </div>
                           </div>
-                          <div>
-                            <label className="text-xs text-white/50 font-semibold mb-1 block">Description</label>
-                            <textarea
-                              required
-                              rows={3}
-                              placeholder="Slide body text shown on the homepage..."
-                              value={newSlide.description}
-                              onChange={e => setNewSlide(prev => ({ ...prev, description: e.target.value }))}
-                              className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-indigo-500 transition resize-none"
-                            />
-                          </div>
-                          <div className="flex gap-3 justify-end">
+                          <div className="flex gap-3 justify-end pt-2">
                             <button type="button" onClick={() => setNewSlideOpen(false)} className="px-4 py-2 text-sm text-slate-500 hover:text-white transition cursor-pointer">Cancel</button>
                             <button type="submit" className="flex items-center gap-2 px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold rounded-lg transition cursor-pointer">
                               <Save size={14} /> Save Slide
@@ -4499,7 +4563,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                               onError={e => { e.target.style.display = 'none'; }}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                            <span className="absolute bottom-1 left-1 text-[9px] font-mono text-slate-600 font-bold">{idx + 1}</span>
+                            <span className="absolute bottom-1 left-1 text-[9px] font-mono text-white font-bold bg-black/50 px-1 rounded">{idx + 1}</span>
                           </div>
 
                           {/* Info */}
@@ -4548,28 +4612,86 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                             >
                               <div className="border-t border-slate-100 p-5 space-y-4 bg-slate-50/50">
                                 <h4 className="text-xs font-bold text-indigo-600 uppercase tracking-wider flex items-center gap-2"><Edit3 size={12} /> Editing: {slide.title}</h4>
-                                <div className="grid md:grid-cols-2 gap-4">
-                                  {[
-                                    { label: "Slide Name", key: "title" },
-                                    { label: "Subtitle (Top Line)", key: "subtitle" },
-                                    { label: "Highlight Phrase (Cyan Blue)", key: "highlight" },
-                                    { label: "Background Image URL", key: "image" },
-                                  ].map(f => (
-                                    <div key={f.key}>
-                                      <label className="text-xs text-slate-500 font-semibold mb-1 block">{f.label}</label>
-                                      <input
-                                        type="text"
-                                        value={editForm[f.key] || ""}
-                                        onChange={e => setEditForm(prev => ({ ...prev, [f.key]: e.target.value }))}
-                                        className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-indigo-500 transition"
-                                      />
-                                    </div>
-                                  ))}
+                                <div className="grid md:grid-cols-3 gap-4">
+                                  <div>
+                                    <label className="text-xs text-slate-500 font-semibold mb-1 block">Slide Name</label>
+                                    <input
+                                      type="text"
+                                      value={editForm.title || ""}
+                                      onChange={e => setEditForm(prev => ({ ...prev, title: e.target.value }))}
+                                      className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-indigo-500 transition"
+                                    />
+                                  </div>
+                                  <div>
+                                    <label className="text-xs text-slate-500 font-semibold mb-1 block">Subtitle (Top Line)</label>
+                                    <input
+                                      type="text"
+                                      value={editForm.subtitle || ""}
+                                      onChange={e => setEditForm(prev => ({ ...prev, subtitle: e.target.value }))}
+                                      className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-indigo-500 transition"
+                                    />
+                                  </div>
+                                  <div>
+                                    <label className="text-xs text-slate-500 font-semibold mb-1 block">Highlight Phrase (Cyan Blue)</label>
+                                    <input
+                                      type="text"
+                                      value={editForm.highlight || ""}
+                                      onChange={e => setEditForm(prev => ({ ...prev, highlight: e.target.value }))}
+                                      className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-indigo-500 transition"
+                                    />
+                                  </div>
                                 </div>
+
+                                {/* Visual Image Picker */}
+                                <div>
+                                  <label className="text-xs text-slate-500 font-semibold mb-2 block">Choose Background Image (Click thumbnail to select)</label>
+                                  <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 mb-2">
+                                    {[
+                                      { url: "/office-bg.jpg?v=10", name: "1. HQ Reception" },
+                                      { url: "/carousel-1.png?v=10", name: "2. Exec Strategy" },
+                                      { url: "/carousel-2.png?v=10", name: "3. Software Hub" },
+                                      { url: "/carousel-3.png?v=10", name: "4. Workstations" },
+                                      { url: "/carousel-4.png?v=10", name: "5. Corporate Suite" },
+                                      { url: "/hero-flowers.png", name: "6. Floral Lounge" }
+                                    ].map((imgItem, i) => {
+                                      const isSelected = (editForm.image || "").startsWith(imgItem.url.split("?")[0]);
+                                      return (
+                                        <button
+                                          key={i}
+                                          type="button"
+                                          onClick={() => setEditForm(prev => ({ ...prev, image: imgItem.url }))}
+                                          className={`relative rounded-xl overflow-hidden border-2 h-16 group transition cursor-pointer ${
+                                            isSelected ? "border-blue-600 ring-2 ring-blue-500/30 scale-105" : "border-slate-200 hover:border-blue-400"
+                                          }`}
+                                          title={imgItem.name}
+                                        >
+                                          <img src={imgItem.url} alt={imgItem.name} className="w-full h-full object-cover" />
+                                          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition" />
+                                          {isSelected && (
+                                            <div className="absolute inset-0 bg-blue-600/30 flex items-center justify-center">
+                                              <CheckCircle size={16} className="text-white drop-shadow-md" />
+                                            </div>
+                                          )}
+                                          <span className="absolute bottom-0.5 inset-x-0 text-[8px] font-bold text-white text-center truncate px-0.5 bg-black/60 backdrop-blur-xs">
+                                            {imgItem.name}
+                                          </span>
+                                        </button>
+                                      );
+                                    })}
+                                  </div>
+                                  <input
+                                    type="text"
+                                    placeholder="Or enter custom image URL..."
+                                    value={editForm.image || ""}
+                                    onChange={e => setEditForm(prev => ({ ...prev, image: e.target.value }))}
+                                    className="w-full bg-white border border-slate-200 text-xs text-slate-800 rounded-lg px-3 py-1.5 outline-none focus:border-indigo-500 transition"
+                                  />
+                                </div>
+
                                 <div>
                                   <label className="text-xs text-slate-500 font-semibold mb-1 block">Description</label>
                                   <textarea
-                                    rows={3}
+                                    rows={2}
                                     value={editForm.description || ""}
                                     onChange={e => setEditForm(prev => ({ ...prev, description: e.target.value }))}
                                     className="w-full bg-white border border-slate-200 text-sm text-slate-800 rounded-lg px-3 py-2 outline-none focus:border-indigo-500 transition resize-none"
