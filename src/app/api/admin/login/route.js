@@ -1,24 +1,15 @@
 import { NextResponse } from 'next/server';
 import crypto from 'crypto';
-import fs from 'fs';
-import path from 'path';
+import { query, initializeDatabase } from '@/lib/db';
 
 const SECRET_KEY = process.env.ADMIN_JWT_SECRET || 'clarity-default-secret-key-12345!';
-const configFilePath = path.join(process.cwd(), 'src/app/api/admin/auth_settings.json');
 
-function getAuthSettings() {
-  try {
-    if (fs.existsSync(configFilePath)) {
-      const fileData = fs.readFileSync(configFilePath, 'utf8');
-      return JSON.parse(fileData);
-    }
-  } catch (err) {
-    console.error('Failed to read auth settings file:', err);
+let initialized = false;
+async function ensureDb() {
+  if (!initialized) {
+    await initializeDatabase();
+    initialized = true;
   }
-  return {
-    username: process.env.ADMIN_USERNAME || 'admin',
-    password: process.env.ADMIN_PASSWORD || 'clarityadmin123'
-  };
 }
 
 export function getSessionToken(username) {
@@ -30,11 +21,13 @@ export function getSessionToken(username) {
 
 export async function POST(request) {
   try {
+    await ensureDb();
     const { username, password } = await request.json();
     
-    const settings = getAuthSettings();
-    const expectedUsername = settings.username;
-    const expectedPassword = settings.password;
+    const rows = await query('SELECT `username`, `password` FROM auth_settings LIMIT 1');
+    
+    const expectedUsername = rows.length > 0 ? rows[0].username : (process.env.ADMIN_USERNAME || 'admin');
+    const expectedPassword = rows.length > 0 ? rows[0].password : (process.env.ADMIN_PASSWORD || 'clarityadmin123');
     
     if (username === expectedUsername && password === expectedPassword) {
       const token = getSessionToken(username);
@@ -56,3 +49,4 @@ export async function POST(request) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
 }
+
