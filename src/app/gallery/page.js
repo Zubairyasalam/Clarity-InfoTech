@@ -364,10 +364,10 @@ export default function GalleryPage() {
                 className="text-center mb-10"
               >
                 <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight font-sans bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-indigo-600 to-indigo-800 mb-3">
-                  Our Videos
+                  {galleryPageData.videosTitle || "Our Videos"}
                 </h2>
                 <p className="mt-2 text-slate-600 text-base sm:text-lg max-w-xl mx-auto leading-relaxed font-normal">
-                  Watch our team stories, project highlights, and event recaps
+                  {galleryPageData.videosSubtitle || "Watch our team stories, project highlights, and event recaps"}
                 </p>
               </motion.div>
 
