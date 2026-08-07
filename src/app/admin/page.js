@@ -6188,7 +6188,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                               {availableLogos.map((logo) => {
                                 const isSelected = headerData.logo === logo.url;
                                 return (
-                                  <button
+                                  <div
                                     key={logo.name}
                                     onClick={() => updateHeaderLogo(logo.url)}
                                     className={`relative flex flex-col items-center justify-between p-3 bg-white rounded-xl border transition-all cursor-pointer h-28 group overflow-hidden ${
@@ -6215,7 +6215,7 @@ For questions about these Terms and Conditions, please contact us at info@clarit
                                         <Check size={8} strokeWidth={3} />
                                       </span>
                                     )}
-                                  </button>
+                                  </div>
                                 );
                               })}
                             </div>

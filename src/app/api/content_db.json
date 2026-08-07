@@ -113,8 +113,8 @@
     {
       "id": 1,
       "image": "/office-bg.jpg?v=10",
-      "title": "Clarity Headquarters ",
-      "subtitle": "Powering Your Technology Like It's",
+      "title": "Clarity Headquarters  ",
+      "subtitle": "Powering Your Technology Like It's ",
       "highlight": "Our Own",
       "description": "Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, and security audit systems. We align our processes with your vision to secure your production environments.",
       "buttonText": "Explore IT Solutions",
@@ -357,10 +357,9 @@
     }
   },
   "clarity_page_gallery": {
+    "heroBadge": "GALLERY",
     "heroTitle": "Our Gallery",
     "heroSubtitle": "A visual showcase of our workspace, team milestones, and event highlights.",
-    "sectionTitle": "Glimpses  of  Clarity Moments",
-    "sectionSubtitle": "A sneak peek into our events, celebrations, and team experiences.",
     "bottomCtaTitle": "Want to create memorable moments with us?",
     "bottomCtaSubtitle": "Partner with our software squads or join our growing team of innovators.",
     "bottomCtaButtonText": "Get In Touch",
@@ -382,7 +381,10 @@
         "value": "15+",
         "label": "Global Tech Hubs"
       }
-    ]
+    ],
+    "sectionTitle": "Glimpses  of  Clarity Moments",
+    "sectionSubtitle": "A sneak peek into our events, celebrations, and team experiences.",
+    "videosSubtitle": "Watch our team stories, project highlights, and event recaps222"
   },
   "clarity_gallery_images": [
     {
@@ -473,7 +475,7 @@
     "formTitleHighlight": "Message",
     "officeTitle": "Head Office",
     "officeAddress": "PO Box 200388, Doha, Qatar",
-    "officePhone": "+974 5029 8525, +974 5995 5100",
+    "officePhone": "+974 5029 8525    , +974 5995 5100",
     "officeEmail": "info@clarity-infotech.com",
     "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115482.38557991349!2d51.44234586524317!3d25.285447333555504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e45c534ffdce87f%3A0x44d9319f78cfd4b1!2sDoha%2C%20Qatar!5e0!3m2!1sen!2sqa!4v1700000000000!5m2!1sen!2sqa"
   },
@@ -489,7 +491,7 @@
     "formPhone": "Phone Number",
     "formEmail": "Email Address",
     "formInquiryLabel": "Type of Inquiry",
-    "formMessage": "Message",
+    "formMessage": "Message11",
     "formCheckboxText": "I'd like to receive exclusive tech updates and insights",
     "formSubmitText": "Submit",
     "inquiryTypes": [
@@ -546,7 +548,7 @@
       "isLocal": false
     },
     {
-      "title": "System Design & High-Scalability Engineering",
+      "title": "System Design & High-Scalability Engineering22",
       "url": "https://www.youtube.com/embed/xpDnVSmNFX0",
       "thumbnail": "https://img.youtube.com/vi/xpDnVSmNFX0/hqdefault.jpg",
       "isLocal": false
@@ -633,6 +635,651 @@
       "buttonText": "Contact Us Now",
       "buttonLink": "#recaptcha",
       "slideLabel": "Start Project",
+      "image": "/carousel-4.png"
+    }
+  ],
+  "clarity_about": {
+    "badge": "ABOUT US",
+    "heading1": "We are the best",
+    "heading2": "in IT & Software Solutions",
+    "description": "Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, cloud architecture, and security audit systems. We align our processes with your vision to secure your production environments with 24/7 reliability.",
+    "features": [
+      {
+        "title": "Security",
+        "icon": "Shield",
+        "description": "To us protection is not just important, it's a necessity. Guarantee your infrastructure's uptime."
+      },
+      {
+        "title": "Confidence",
+        "icon": "ThumbsUp",
+        "description": "We provide SLA guarantees and dedicated support so you can rest easy, knowing your environments are safe."
+      },
+      {
+        "title": "Innovation",
+        "icon": "Activity",
+        "description": "We utilize cutting-edge AI integrations and cloud-native microservices to drive engineering metrics."
+      }
+    ],
+    "stats": [
+      {
+        "value": "3485+",
+        "label": "Projects Done"
+      },
+      {
+        "value": "426+",
+        "label": "Clients"
+      },
+      {
+        "value": "281+",
+        "label": "Running Projects"
+      }
+    ]
+  },
+  "clarity_platforms": {
+    "heading1": "Powering Platforms",
+    "heading2": "that ",
+    "heading3Italic": "Scale Your Business",
+    "description": "For over a decade, the region's most demanding corporate enterprises have relied on our custom cloud infrastructures and skilled engineering squads to deploy code efficiently and reduce system downtime. ",
+    "stats": [
+      {
+        "value": 500,
+        "suffix": "K+",
+        "label": "Deployments Automated Daily"
+      },
+      {
+        "value": 99.9,
+        "decimals": 1,
+        "suffix": "%",
+        "label": "Production Uptime Maintained"
+      },
+      {
+        "value": 50,
+        "suffix": "+",
+        "label": "Cloud Clusters Configured"
+      },
+      {
+        "value": 15,
+        "suffix": "+",
+        "label": "DevOps Frameworks Supported"
+      },
+      {
+        "value": 24,
+        "suffix": "/7",
+        "label": "System Support & Monitoring"
+      }
+    ],
+    "gallery": [
+      {
+        "id": 1,
+        "src": "/carousel-1.png?v=2",
+        "label": "Executive Suite"
+      },
+      {
+        "id": 2,
+        "src": "/carousel-2.png?v=2",
+        "label": "Tech Team"
+      },
+      {
+        "id": 3,
+        "src": "/carousel-3.png?v=2",
+        "label": "Modern Workstation"
+      },
+      {
+        "id": 4,
+        "src": "/carousel-4.png?v=2",
+        "label": "Executive Boardroom"
+      },
+      {
+        "id": 5,
+        "src": "/office-bg.jpg?v=4",
+        "label": "Office HQ"
+      }
+    ]
+  },
+  "clarity_services": {
+    "badge": "Our Services",
+    "heading1": "Empowering Technology through",
+    "heading2": "Our",
+    "heading3": "Services",
+    "description": "Clarity InfoTech delivers enterprise-grade software engineering, DevOps automation, cloud-native security, and dedicated IT consulting for modern digital transformations.",
+    "partnerText": "We partner with ambitious brands that are ready to move beyond fragmented visuals and shallow quick fixes -- turning their identity, website, and messaging into one focused engine for growth.",
+    "buttonText": "Let's work together",
+    "marqueeLogos": [
+      {
+        "name": "Codecraft_",
+        "icon": "Code2"
+      },
+      {
+        "name": "ennLabs",
+        "icon": "Layers"
+      },
+      {
+        "name": "GlobalBank",
+        "icon": "Globe"
+      },
+      {
+        "name": "45 Degrees°",
+        "icon": "Zap"
+      },
+      {
+        "name": "AlphaWave",
+        "icon": "Activity"
+      },
+      {
+        "name": "Biosynthesis",
+        "icon": "Cpu"
+      }
+    ],
+    "cards": [
+      {
+        "id": "cloud-devops",
+        "title": "Cloud & DevOps Architecture",
+        "category": "Infrastructure & Security",
+        "year": "2026",
+        "media": "/service.mp4",
+        "isVideo": true,
+        "description": "Enterprise software development and system integration.",
+        "icon": "Code2",
+        "gradient": "from-indigo-500 to-purple-600",
+        "features": [
+          "High performance architecture",
+          "Zero downtime scaling"
+        ]
+      },
+      {
+        "id": "software-engineering",
+        "title": "Custom Software Engineering",
+        "category": "Web & Mobile Platforms",
+        "year": "2026",
+        "media": "/service1.mp4",
+        "isVideo": true,
+        "description": "Enterprise software development and system integration.",
+        "icon": "Code2",
+        "gradient": "from-indigo-500 to-purple-600",
+        "features": [
+          "High performance architecture",
+          "Zero downtime scaling"
+        ]
+      },
+      {
+        "id": "cyber-security",
+        "title": "Cyber Security & Auditing",
+        "category": "Threat Defense & Uptime",
+        "year": "2026",
+        "media": "/service2.mp4",
+        "isVideo": true,
+        "description": "Enterprise software development and system integration.",
+        "icon": "Code2",
+        "gradient": "from-indigo-500 to-purple-600",
+        "features": [
+          "High performance architecture",
+          "Zero downtime scaling"
+        ]
+      },
+      {
+        "id": "ai-consulting",
+        "title": "AI Integration & IT Consulting",
+        "category": "Automation & Strategy",
+        "year": "2026",
+        "media": "/service3.mp4",
+        "isVideo": true,
+        "description": "Enterprise software development and system integration.",
+        "icon": "Code2",
+        "gradient": "from-indigo-500 to-purple-600",
+        "features": [
+          "High performance architecture",
+          "Zero downtime scaling"
+        ]
+      }
+    ]
+  },
+  "clarity_page_projects": {
+    "heroTitle": "Our Projects",
+    "heroSubtitle": "Exploring cutting-edge software solutions, cloud architecture, and digital transformations.",
+    "projectsList": [
+      {
+        "id": "cloud-devops",
+        "category": "cloud",
+        "title": "Cloud & DevOps Architecture",
+        "badge": "Infrastructure & Security",
+        "description": "Enterprise software development and system integration.",
+        "icon": "Code2",
+        "gradient": "from-indigo-500 to-purple-600",
+        "media": "/service.mp4",
+        "isVideo": true,
+        "features": [
+          "High performance architecture",
+          "Zero downtime scaling"
+        ]
+      },
+      {
+        "id": "software-engineering",
+        "category": "development",
+        "title": "Custom Software Engineering",
+        "badge": "Web & Mobile Platforms",
+        "description": "Enterprise software development and system integration.",
+        "icon": "Code2",
+        "gradient": "from-indigo-500 to-purple-600",
+        "media": "/service1.mp4",
+        "isVideo": true,
+        "features": [
+          "High performance architecture",
+          "Zero downtime scaling"
+        ]
+      },
+      {
+        "id": "cyber-security",
+        "category": "development",
+        "title": "Cyber Security & Auditing",
+        "badge": "Threat Defense & Uptime",
+        "description": "Enterprise software development and system integration.",
+        "icon": "Code2",
+        "gradient": "from-indigo-500 to-purple-600",
+        "media": "/service2.mp4",
+        "isVideo": true,
+        "features": [
+          "High performance architecture",
+          "Zero downtime scaling"
+        ]
+      },
+      {
+        "id": "ai-consulting",
+        "category": "development",
+        "title": "AI Integration & IT Consulting",
+        "badge": "Automation & Strategy",
+        "description": "Enterprise software development and system integration.",
+        "icon": "Code2",
+        "gradient": "from-indigo-500 to-purple-600",
+        "media": "/service3.mp4",
+        "isVideo": true,
+        "features": [
+          "High performance architecture",
+          "Zero downtime scaling"
+        ]
+      }
+    ],
+    "workflowBadge": "AGILE WORKFLOW",
+    "workflowTitle": "How We Deliver Value",
+    "workflowSubtitle": "A transparent, high-velocity engineering workflow designed for rapid enterprise execution.",
+    "workflowSteps": [
+      {
+        "step": "01",
+        "title": "Discovery & Architecture Audit",
+        "desc": "We evaluate your system architecture, codebase, and infrastructure goals to draft a zero-friction engineering roadmap."
+      },
+      {
+        "step": "02",
+        "title": "Dedicated Squad Allocation",
+        "desc": "We assemble a specialized team of senior developers, cloud engineers, and security leads dedicated to your sprint goals."
+      },
+      {
+        "step": "03",
+        "title": "CI/CD & DevSecOps Deployment",
+        "desc": "Automated pipelines, unit testing, and containerized deployments ensure code is pushed safely and continuously to production."
+      },
+      {
+        "step": "04",
+        "title": "SLA Monitoring & Optimization",
+        "desc": "Post-launch 24/7 telemetry monitoring, infrastructure scaling, and performance optimizations keep your applications highly available."
+      }
+    ],
+    "ctaTitle": "Need a Custom Enterprise Solution?",
+    "ctaSubtitle": "Talk to our senior architects to get a tailored engineering proposal, timeline estimate, and SLA scope.",
+    "ctaButtonText": "Schedule Technical Consultation"
+  },
+  "clarity_footer": {
+    "tagline1": "Smarter IT solutions,",
+    "tagline2": "powered by enterprise AI.",
+    "socialLabel": "Stay in touch!",
+    "discordUrl": "#",
+    "xUrl": "#",
+    "linkedinUrl": "#",
+    "githubUrl": "#",
+    "instagramUrl": "#",
+    "whatsappUrl": "#",
+    "copyright": "© 2026 Clarity InfoTech / Rain Corraya. All rights reserved.",
+    "companyLinks": [
+      {
+        "label": "Privacy Policy",
+        "url": "/privacy-policy"
+      },
+      {
+        "label": "Terms of Service",
+        "url": "/terms-of-service"
+      },
+      {
+        "label": "Refund Policy",
+        "url": "/refund-policy"
+      }
+    ],
+    "navLinks": [
+      {
+        "label": "Home",
+        "url": "/"
+      },
+      {
+        "label": "About Us",
+        "url": "/about"
+      },
+      {
+        "label": "Our Services",
+        "url": "/our-services"
+      },
+      {
+        "label": "Gallery",
+        "url": "/gallery"
+      },
+      {
+        "label": "Contact",
+        "url": "/contact"
+      }
+    ],
+    "subscribeHeader": "Enterprise tech moves fast.",
+    "subscribeSubheader": "Stay ahead with Clarity.",
+    "subscribePlaceholder": "Enter email address",
+    "subscribeButtonText": "Subscribe"
+  },
+  "clarity_legal_pages": {
+    "privacyTitle": "Privacy Policy",
+    "privacySubtitle": "Last updated: July 29, 2026",
+    "privacyContent": "### 1. Introduction\nAt Clarity InfoTech (\"CIT\"), we are committed to protecting your privacy and personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.\n\n### 2. Information We Collect\nWe may collect the following types of information:\n\n**Personal Information**\n* Name, email address, and phone number\n* Company name and job title\n* Billing and payment information\n* Project type and request details\n* Communication preferences\n\n**Technical Information**\n* IP address and browser type\n* Device information and operating system\n* Cookies and usage data\n* Pages visited and time spent on our website\n\n### 3. How We Use Your Information\nWe use the collected information for:\n* Providing, maintaining, and improving our services\n* Processing transactions and sending confirmations\n* Communicating with you about projects, telemetry logs, and updates\n* Responding to support requests and inquiries\n* Sending tech insights and updates (with your consent)\n* Analyzing website usage and optimizing user experience\n* Complying with legal obligations\n\n### 4. Information Sharing and Disclosure\nWe do not sell your personal information. We may share your information with:\n* Service providers who assist in our infrastructure operations\n* Payment processors for secure transaction handling\n* Legal authorities when required by law\n* Business partners with your explicit consent\n\n### 5. Cookies and Tracking Technologies\nWe use cookies and similar tracking technologies to enhance your browsing experience, analyze site traffic, and personalize content. You can control cookie settings through your browser preferences. Disabling cookies may limit certain website functionalities.\n\n### 6. Data Security\nWe implement appropriate technical and organizational measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the internet is 100% secure.\n\n### 7. Data Retention\nWe retain your personal information only for as long as necessary to fulfill the purposes outlined in this policy, comply with legal obligations, resolve disputes, and enforce our agreements.\n\n### 8. Your Rights\nYou have the right to:\n* Access and receive a copy of your personal information\n* Correct inaccurate or incomplete information\n* Request deletion of your personal information\n* Object to or restrict certain processing activities\n* Withdraw consent for marketing communications\n\n### 9. Third-Party Links\nOur website may contain links to third-party websites. We are not responsible for the privacy practices or content of these external sites.\n\n### 10. Children's Privacy\nOur services are not directed to individuals under the age of 18. We do not knowingly collect personal information from children.\n\n### 11. Changes to This Privacy Policy\nWe may update this Privacy Policy periodically to reflect changes in our practices or legal requirements. We will notify you of changes by posting the updated policy on our website.\n\n### 12. Contact Us\nIf you have questions or concerns about this Privacy Policy or our data practices, please contact us:\n\n**Clarity InfoTech**\n* **Chennai Office**: Prince Infocity 1, 8th Floor, 286/1, OMR, Kandhanchavadi, Chennai, Tamil Nadu-600096, India.\n* **Coimbatore Office**: Mikro Grafeio, 1st Floor, 766, 767, Puliakulam Road, Coimbatore, Tamil Nadu-641037, India.",
+    "termsTitle": "Terms and Conditions",
+    "termsSubtitle": "Last updated: July 29, 2026",
+    "termsContent": "### 1. Introduction\nWelcome to Clarity InfoTech (\"CIT\", \"we\", \"our\", or \"us\"). These Terms and Conditions govern your use of our website and services. By accessing or using our services, you agree to be bound by these terms.\n\n### 2. Services\nClarity InfoTech provides enterprise software engineering, DevOps automation, cloud architecture, and security audit systems. Our services include but are not limited to:\n* Custom software design and development\n* Enterprise web and mobile application engineering\n* Cloud infrastructure planning and deployment\n* Automation, DevOps and pipeline auditing\n* Advanced AI solutions and RAG architecture consulting\n* Support and telemetry monitoring systems\n\n### 3. User Obligations\nBy using our services, you agree to:\n* Provide accurate, current, and complete information\n* Maintain the confidentiality of your account credentials\n* Use our services only for lawful, authorized purposes\n* Not infringe on intellectual property or source ownership rights\n* Not transmit malicious code, malware, or harmful content\n\n### 4. Intellectual Property\nAll code, custom designs, architecture models, and project materials created by Clarity InfoTech remain our intellectual property until full payment is received. Upon completion of payment, 100% ownership rights and code source transfer are delivered to the client as per the agreed SLA.\n\n### 5. Payment Terms\nPayment terms are established in individual project proposals or milestone agreements. Generally:\n* Payment schedules are outlined in project proposals\n* Late payments may incur additional transaction charges\n* Work may be suspended for non-payment\n* Refunds are subject to the terms of individual milestone agreements\n\n### 6. Limitation of Liability\nClarity InfoTech shall not be liable for any indirect, incidental, special, or consequential damages arising from the use of our services. Our total liability shall not exceed the amount paid by the client for the specific service in question.\n\n### 7. Termination\nEither party may terminate services with written notice as specified in the project agreement. Upon termination, the client is responsible for payment of all work completed up to the termination date.\n\n### 8. Changes to Terms\nWe reserve the right to modify these terms at any time. Changes will be effective immediately upon posting to our website. Your continued use of our services constitutes acceptance of the updated terms.\n\n### 9. Governing Law\nThese terms shall be governed by and construed in accordance with the laws of India. Any disputes shall be subject to the exclusive jurisdiction of the courts in Chennai, Tamil Nadu.\n\n### 10. Contact Information\nFor questions about these Terms and Conditions, please contact us at salamzubi8@gmail.com or visit:\n\n**Clarity InfoTech**\n* **Chennai Office**: Prince Infocity 1, 8th Floor, 286/1, OMR, Kandhanchavadi, Chennai, Tamil Nadu-600096, India.\n* **Coimbatore Office**: Mikro Grafeio, 1st Floor, 766, 767, Puliakulam Road, Coimbatore, Tamil Nadu-641037, India.",
+    "refundTitle": "Refund Policy",
+    "refundSubtitle": "Last updated: July 29, 2026",
+    "refundContent": "### 1. Refund Scope\nWe provide high-quality custom software engineering and cloud consulting. Refunds are processed based on milestone deliverables.\n\n### 2. Milestone Payments\nPayment for successfully completed and accepted milestones is non-refundable.\n\n### 3. Project Cancellation\nIf a project is cancelled by the client during development, we reserve the right to bill for all hours worked up to the cancellation notice date."
+  },
+  "clarity_page_about": {
+    "heroTitle": "About Us",
+    "heroSubtitle": "Pioneering technology solutions and empowering digital growth since 2016.",
+    "aboutTitle": "About Clarity InfoTech",
+    "aboutParagraph1": "Clarity InfoTech is a technology-driven company focused on building innovative digital solutions that help businesses grow, streamline operations, and stay ahead in a fast-changing digital world. We specialize in transforming ideas into practical, scalable, and user-friendly software products that solve real business challenges.",
+    "aboutParagraph2": "Founded with a vision to combine technology, creativity, and business strategy, Clarity InfoTech works with startups, enterprises, and organizations to deliver high-quality web applications, mobile apps, business platforms, and custom digital solutions. Our team is passionate about creating products that are not only visually modern but also technically strong, reliable, and performance-focused.",
+    "valuesTitle": "Our Values",
+    "valuesSubtitle": "The principles that guide everything we build and deliver.",
+    "valuesCards": [
+      {
+        "step": "01",
+        "title": "Innovation",
+        "icon": "Lightbulb",
+        "gradient": "from-sky-400 to-indigo-600",
+        "tag": "Future Tech",
+        "desc": "We explore new ideas, tools, and cutting-edge frameworks to build future-ready, intelligent digital solutions.11"
+      },
+      {
+        "step": "02",
+        "title": "Excellence",
+        "icon": "Star",
+        "gradient": "from-indigo-500 to-purple-600",
+        "tag": "Craftsmanship",
+        "desc": "We aim for zero-compromise precision in every project, with extreme attention to detail, performance, and UI usability.11"
+      },
+      {
+        "step": "03",
+        "title": "Collaboration",
+        "icon": "Users",
+        "gradient": "from-blue-500 to-sky-400",
+        "tag": "Shared Vision",
+        "desc": "We partner closely with clients and cross-functional squads, believing transparent communication creates the best results.11"
+      },
+      {
+        "step": "04",
+        "title": "Results",
+        "icon": "Target",
+        "gradient": "from-purple-500 to-indigo-600",
+        "tag": "Measurable Impact",
+        "desc": "We focus on building software products that create real, quantifiable business value and empower digital growth."
+      }
+    ],
+    "approachTitle": "Our Approach",
+    "approachParagraph1": "At Clarity InfoTech, every project begins with understanding the client’s vision, goals, and challenges. We follow a practical and collaborative approach where planning, design, development, testing, and deployment are all handled with attention to quality and performance.",
+    "approachParagraph2": "We don’t just develop software — we build digital experiences that support long-term business success. Our team works closely with clients to ensure transparency, adaptability, and timely delivery throughout the project lifecycle.",
+    "whyChooseTitle": "Why Choose Clarity InfoTech",
+    "whyChooseList": [
+      "Strong focus on quality, performance, and usability",
+      "Expertise in modern web and software technologies",
+      "Business-oriented solutions tailored to real-world needs",
+      "Clean and responsive UI with scalable architecture",
+      "Dedicated team support from idea to deployment",
+      "Commitment to innovation, reliability, and client satisfaction"
+    ],
+    "valuesPill": "03 / CORE PRINCIPLES"
+  },
+  "clarity_page_service": {
+    "heroBadge": "OUR SERVICES",
+    "heroTitle": "Our Service",
+    "heroSubtitle": "We believe great products are built by happy, collaborative teams.",
+    "sec1Title": "Building Future-Ready Teams Through Innovation",
+    "sec1Description": "At Clarity InfoTech, we foster an environment where creativity, learning, and team coordination are valued. We support every team member in reaching their potential, encouraging open collaboration, and building high-performance digital products together.",
+    "coreValues": [
+      {
+        "title": "Innovation First",
+        "icon": "Lightbulb",
+        "desc": "We encourage creativity, experimentation, and continuous learning."
+      },
+      {
+        "title": "Collaborative Environment",
+        "icon": "Users",
+        "desc": "Every project is built through teamwork, communication, and shared success."
+      },
+      {
+        "title": "Growth & Learning",
+        "icon": "TrendingUp",
+        "desc": "Employees receive mentorship, training, and opportunities to grow."
+      }
+    ],
+    "serviceCards": [
+      {
+        "title": "Web Development",
+        "icon": "Code",
+        "desc": "Modern, responsive web apps tailored to your brand and business goals."
+      },
+      {
+        "title": "Mobile Apps",
+        "icon": "Smartphone",
+        "desc": "Native-feel iOS & Android apps built for performance and scale."
+      },
+      {
+        "title": "Cloud Services",
+        "icon": "Cloud",
+        "desc": "Reliable, scalable cloud infrastructure with 99.9% uptime SLAs."
+      },
+      {
+        "title": "AI Solutions",
+        "icon": "Cpu",
+        "desc": "Intelligent automation and ML models to supercharge your operations."
+      },
+      {
+        "title": "Cybersecurity",
+        "icon": "Shield",
+        "desc": "End-to-end security audits, VAPT, and compliance frameworks."
+      },
+      {
+        "title": "Data Analytics",
+        "icon": "BarChart3",
+        "desc": "Real-time dashboards and BI that turn data into decisions."
+      }
+    ],
+    "sec2Badge": "02 / OUR CULTURE & TEAM IMPACT",
+    "sec2Title": "Building Great Teams, Creating Greater Impact!",
+    "sec2Subtitle": "At Clarity InfoTech, we foster a culture of innovation, collaboration, and continuous learning where every individual grows and makes a real-world difference.",
+    "circleNodes": [
+      {
+        "label": "Innovation",
+        "icon": "Zap",
+        "desc": "Cutting-edge technology solutions that push boundaries."
+      },
+      {
+        "label": "Excellence",
+        "icon": "Star",
+        "desc": "Delivering nothing short of the highest quality in every project."
+      },
+      {
+        "label": "Wellness",
+        "icon": "Heart",
+        "desc": "We care deeply about the wellbeing of our team and clients."
+      },
+      {
+        "label": "Learning",
+        "icon": "BookOpen",
+        "desc": "Continuous upskilling keeps our team at the forefront."
+      },
+      {
+        "label": "Collaboration",
+        "icon": "Handshake",
+        "desc": "Open communication and shared ownership drive our results."
+      },
+      {
+        "label": "Growth",
+        "icon": "TrendingUp",
+        "desc": "We believe in nurturing talent and providing clear paths for personal and professional advancement through continuous mentorship."
+      }
+    ],
+    "sec3Title": "Connecting Businesses and Innovation Worldwide",
+    "sec3Description": "Clarity InfoTech proudly partners with businesses across multiple countries, delivering innovative digital solutions that drive growth and transformation. We write custom software development and enterprise platforms, AI-powered solutions, cloud technologies, and enterprise platforms. We help organisations achieve their goals with scalable, secure, and high-performance products.",
+    "stats": [
+      {
+        "value": "15+",
+        "label": "Countries Served",
+        "icon": "Globe"
+      },
+      {
+        "value": "500+",
+        "label": "Products & Projects",
+        "icon": "Award"
+      },
+      {
+        "value": "50+",
+        "label": "Global Partners",
+        "icon": "Handshake"
+      },
+      {
+        "value": "100%",
+        "label": "Client Satisfaction",
+        "icon": "Star"
+      }
+    ],
+    "projectsTitle": "Our Projects",
+    "projectsCards": [
+      {
+        "id": "cloud-devops",
+        "title": "Cloud & DevOps Architecture",
+        "category": "Infrastructure & Security",
+        "year": "2026",
+        "media": "/service.mp4",
+        "isVideo": true
+      },
+      {
+        "id": "software-engineering",
+        "title": "Custom Software Engineering",
+        "category": "Web & Mobile Platforms",
+        "year": "2026",
+        "media": "/service1.mp4",
+        "isVideo": true
+      },
+      {
+        "id": "cyber-security",
+        "title": "Cyber Security & Auditing",
+        "category": "Threat Defense & Uptime",
+        "year": "2025",
+        "media": "/service2.mp4",
+        "isVideo": true
+      },
+      {
+        "id": "ai-consulting",
+        "title": "AI Integration & IT Consulting",
+        "category": "Automation & Strategy",
+        "year": "2025",
+        "media": "/service3.mp4",
+        "isVideo": true
+      }
+    ],
+    "ctaTitle": "Ready to Start Your Journey With Us?",
+    "ctaSubtitle": "Let's discuss how we can help your business grow with the right technology and the right team.",
+    "ctaButtonText": "Get In Touch"
+  },
+  "clarity_service_slides": [
+    {
+      "id": 1,
+      "title": "Cloud & DevOps",
+      "highlight": "Architecture & Security",
+      "description": "Enterprise software engineering, DevOps automation, cloud-native security, and 24/7 uptime infrastructure.",
+      "buttonText": "Explore Services",
+      "buttonLink": "#services",
+      "slideLabel": "Cloud & DevOps",
+      "image": "/carousel-1.png"
+    },
+    {
+      "id": 2,
+      "title": "Custom Software",
+      "highlight": "Engineering & Mobile",
+      "description": "Tailored web applications and native-feel mobile platforms built for high scalability, performance, and security.",
+      "buttonText": "Web & Mobile",
+      "buttonLink": "#services",
+      "slideLabel": "Software",
+      "image": "/carousel-2.png"
+    },
+    {
+      "id": 3,
+      "title": "Cyber Security &",
+      "highlight": "Threat Defense",
+      "description": "End-to-end security audits, vulnerability testing, compliance frameworks, and active threat prevention.",
+      "buttonText": "Security Audits",
+      "buttonLink": "#services",
+      "slideLabel": "Security",
+      "image": "/carousel-3.png"
+    },
+    {
+      "id": 4,
+      "title": "Enterprise AI &",
+      "highlight": "Data Analytics",
+      "description": "Intelligent automation models, RAG pipelines, and BI dashboards that convert raw data into strategic business growth.",
+      "buttonText": "AI Solutions",
+      "buttonLink": "#services",
+      "slideLabel": "AI & Data",
+      "image": "/carousel-4.png"
+    }
+  ],
+  "clarity_gallery_slides": [
+    {
+      "id": 1,
+      "title": "A Visual Showcase",
+      "highlight": "Of Our Moments & Workspace",
+      "description": "Explore our vibrant engineering workspace, team hackathons, technology summits, and corporate event highlights.22",
+      "buttonText": "View Gallery",
+      "buttonLink": "#gallery-photos",
+      "slideLabel": "Moments",
+      "image": "/carousel-1.png"
+    },
+    {
+      "id": 2,
+      "title": "Inside Our Modern",
+      "highlight": "Innovation Hub",
+      "description": "A glimpse inside our collaborative workspace where developers, architects, and designers build high-tech platforms.22",
+      "buttonText": "Workspace Hub",
+      "buttonLink": "#gallery-photos",
+      "slideLabel": "Workspace",
+      "image": "/carousel-2.png"
+    },
+    {
+      "id": 3,
+      "title": "Tech Milestones &",
+      "highlight": "Team Culture",
+      "description": "Celebrating team achievements, engineering sprints, continuous learning, and shared project success.22",
+      "buttonText": "Culture & Sprints",
+      "buttonLink": "#gallery-photos",
+      "slideLabel": "Culture",
+      "image": "/carousel-3.png"
+    },
+    {
+      "id": 4,
+      "title": "Connecting Tech Teams",
+      "highlight": "Worldwide",
+      "description": "Building strong client partnerships and enterprise digital products together.22",
+      "buttonText": "Get In Touch",
+      "buttonLink": "/contact",
+      "slideLabel": "Global Team",
       "image": "/carousel-4.png"
     }
   ]
