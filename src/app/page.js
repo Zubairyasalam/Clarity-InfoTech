@@ -722,7 +722,7 @@ export default function Home() {
     if (isAutoPlayPaused) return;
     const interval = setInterval(() => {
       paginate(1);
-    }, 1200);
+    }, 2500);
     return () => clearInterval(interval);
   }, [isAutoPlayPaused, activeSlide]);
 
@@ -1057,6 +1057,22 @@ export default function Home() {
               </motion.p>
             </motion.div>
           </div>
+
+          {/* Navigation Arrows */}
+          <button
+            onClick={() => paginate(-1)}
+            className="absolute left-4 md:left-8 z-30 p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white/70 hover:text-white transition-all backdrop-blur-sm group cursor-pointer"
+            aria-label="Previous Slide"
+          >
+            <ChevronLeft className="w-6 h-6 md:w-8 md:h-8 group-hover:-translate-x-0.5 transition-transform" />
+          </button>
+          <button
+            onClick={() => paginate(1)}
+            className="absolute right-4 md:right-8 z-30 p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white/70 hover:text-white transition-all backdrop-blur-sm group cursor-pointer"
+            aria-label="Next Slide"
+          >
+            <ChevronRight className="w-6 h-6 md:w-8 md:h-8 group-hover:translate-x-0.5 transition-transform" />
+          </button>
         </section>
 
         {/* 2. ABOUT US SECTION (Shifted Up with Larger Typography & Animations) */}

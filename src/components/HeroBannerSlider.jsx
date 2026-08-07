@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const swipeConfidenceThreshold = 10000;
 const swipePower = (offset, velocity) => Math.abs(offset) * velocity;
@@ -25,7 +26,7 @@ export default function HeroBannerSlider({ slides, seoConfig = {}, badge = "" })
     if (isAutoPlayPaused || !slides || slides.length === 0) return;
     const timer = setInterval(() => {
       paginate(1);
-    }, 1200);
+    }, 2500);
     return () => clearInterval(timer);
   }, [activeSlide, isAutoPlayPaused, slides]);
 
@@ -115,6 +116,22 @@ export default function HeroBannerSlider({ slides, seoConfig = {}, badge = "" })
           {currentSlide.description}
         </p>
       </div>
+
+      {/* Navigation Arrows */}
+      <button
+        onClick={() => paginate(-1)}
+        className="absolute left-4 md:left-8 z-30 p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white/70 hover:text-white transition-all backdrop-blur-sm group cursor-pointer"
+        aria-label="Previous Slide"
+      >
+        <ChevronLeft className="w-6 h-6 md:w-8 md:h-8 group-hover:-translate-x-0.5 transition-transform" />
+      </button>
+      <button
+        onClick={() => paginate(1)}
+        className="absolute right-4 md:right-8 z-30 p-2 md:p-3 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white/70 hover:text-white transition-all backdrop-blur-sm group cursor-pointer"
+        aria-label="Next Slide"
+      >
+        <ChevronRight className="w-6 h-6 md:w-8 md:h-8 group-hover:translate-x-0.5 transition-transform" />
+      </button>
     </section>
   );
 }
